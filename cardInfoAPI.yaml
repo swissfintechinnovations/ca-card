@@ -1,10 +1,9 @@
-openapi: "3.0.2"
+openapi: "3.0.3"
 info:
   version: "0.45"
   title: Common Card Info API (Public)
   description:
-    This specification defines a common card API for payment cards used in Switzerland. The API is supposed to be used to manage payment cards (read information, do actions) and concerns FI, Issuer and TPP.
-    This specification uses schema definitions from the Common Data Model v1.2.2.
+    This specification defines a common card info API for payment cards used in Switzerland. The API is supposed to be used to retrieve payment card infos (read only).
   termsOfService: 'Tbd'
   contact:
     email: info@common-api.ch
@@ -138,61 +137,6 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-    put:
-      summary: Update card information
-      description: Update specific existsing card including all related information
-      tags:
-        - Cards
-      parameters:
-        - name: cardId
-          in: path
-          description: Uuid v4 of a specific existing card
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      requestBody:
-        description: Card information to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/card'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
 
   /card-accounts:
     get:
@@ -278,62 +222,6 @@ paths:
                 properties:
                   cardAccount:
                     $ref: '#/components/schemas/cardAccount'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-    put:
-      summary: Update card account information
-      description: Update specific existsing card account including all related information
-      tags:
-        - Card Accounts
-      parameters:
-        - name: cardAccountId
-          in: path
-          description: Uuid v4 of a specific existing card account
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      requestBody:
-        description: Card account information to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/cardAccount'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
           headers:
             X-Correlation-ID:
               schema:
@@ -772,61 +660,6 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-    put:
-      summary: Update cardholder information
-      description: Update specific existsing cardholder including all related information
-      tags:
-        - cardholders
-      parameters:
-        - name: cardholderId
-          in: path
-          description: Uuid v4 of a specific existing cardholder
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      requestBody:
-        description: cardholder information to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/cardholder'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
 
   /card-contracts:
     get:
@@ -927,61 +760,6 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-    put:
-      summary: Update card contract information
-      description: Update specific existsing card contract including all related information
-      tags:
-        - Card Contracts
-      parameters:
-        - name: cardContractId
-          in: path
-          description: Uuid v4 of a specific existing card contract
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      requestBody:
-        description: Card information to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/cardContract'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
   
   /card-consents/apis:
     get:
@@ -1084,51 +862,6 @@ paths:
           $ref: '#/components/responses/standard501'
         '503':
           $ref: '#/components/responses/standard503'
-    post:
-      summary: Create a new card consent
-      description: Create a new card consent.
-      tags:
-        - Card Consents
-      requestBody:
-        description: Card consent details
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/cardConsent'
-      parameters:
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '201':
-          description: created
-          headers:
-            location:
-              schema:
-                type: string
-                format: uri
-                description: In the location header of the response you will find the URI of the newly created resource. With a GET call to this address you can retrieve a representation of the new product.
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
 
   /card-consents/{cardConsentId}:
     get:
@@ -1158,111 +891,6 @@ paths:
                 properties:
                   cardConsent:
                     $ref: '#/components/schemas/cardConsent'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-    put:
-      summary: Update card consent 
-      description: Update specific existing card consent including all related information
-      tags:
-        - Card Consents
-      parameters:
-        - name: cardConsentId
-          in: path
-          description: Uuid v4 of a specific existing card consent
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      requestBody:
-        description: Card consent to be updated
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/cardConsent'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-    delete:
-      summary: Delete a specific card consent
-      description: Delete a specific card consent
-      tags:
-        - Card Consents
-      parameters:
-        - name: cardConsentId
-          in: path
-          description: Uuid v4 of a specific existing card consent
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
           headers:
             X-Correlation-ID:
               schema:
