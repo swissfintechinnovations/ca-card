@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  version: "0.45"
+  version: "0.5"
   title: Common Card Info API (Public)
   description:
     This specification defines a common card info API for payment cards used in Switzerland. The API is supposed to be used to retrieve payment card infos (read only).
@@ -15,37 +15,41 @@ servers:
 externalDocs:
   description: Find out more about SFTI API specifications
   url: 'https://www.common-api.ch'
-tags:
-  - name: Cards
-    description: Operations related with managing cards
-  - name: Card Accounts
-    description: Operations related with managing card accounts
-  - name: Card Account Statements
-    description: Operations related with retrieving card account statements
-  - name: Card Transactions
-    description: Operations related with retrieving card transactions
-  - name: Cardholders
-    description: Operations related with managing cardholders
-  - name: Card Contracts
-    description: Operations related with managing card contracts
-  - name: Card Consents
-    description: Operations related with managing card consents
 security:
   - ApiKeyAuth: []
   - OAuth2:
       - read
       - write
+
+tags:
+  - name: cards
+    description: Operations related with managing cards
+  - name: card-accounts
+    description: Operations related with managing card accounts
+  - name: statements
+    description: Operations related with retrieving card account statements
+  - name: transactions
+    description: Operations related with retrieving card transactions
+  - name: person
+    description: Operations related with managing cardholders
+  - name: card-contract
+    description: Operations related with managing card contracts
+  - name: card-accountbundle
+    description: --
+  - name: card-consents
+    description: '[not used] Operations related with managing card consents'
+
 paths:
   /cards:
     get:
       tags:
-        - Cards
-      description: List of cards for the authenticated context including all related information, optional filtered by cardholderId / cardContractId / cardAccountId, sorted by cardId.
+        - cards
+      description: List of cards for the authenticated context including all related information, optional filtered by personId / cardContractId / cardAccountId, sorted by cardId.
       summary: Return the list of all cards for the authenticated context (filtered and sorted)
       parameters:
-        - $ref: '#/components/parameters/cardholderId'
-        - $ref: '#/components/parameters/cardContractId'
+        - $ref: '#/components/parameters/transactionId'
         - $ref: '#/components/parameters/cardAccountId'
+        - $ref: '#/components/parameters/personId'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -87,65 +91,18 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /cards/{cardId}:
-    get:
-      tags:
-        - Cards
-      description: A specific existing card including all related information.
-      summary: Return a specific existing card
-      parameters:
-        - name: cardId
-          in: path
-          description: Uuid v4 of a specific existing card
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  card:
-                    $ref: '#/components/schemas/card'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-
   /card-accounts:
     get:
       tags:
-        - Card Accounts
+        - card-accounts
       description: List of card accounts for the authenticated context including all related information, filtered by query, sorted by cardAccountId.
       summary: Return the list of all card accounts for the authenticated context (filtered and sorted)
       parameters:
-        - $ref: '#/components/parameters/cardholderId'
+        - $ref: '#/components/parameters/transactionId'
+        - $ref: '#/components/parameters/cardId'
+        - $ref: '#/components/parameters/statementId'
+        - $ref: '#/components/parameters/personId'
+        - $ref: '#/components/parameters/card-accountbundleId'
         - $ref: '#/components/parameters/cardContractId'
         - in: query
           name: IBAN
@@ -194,70 +151,14 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-accounts/{cardAccountId}:
+  /card-accounts/statements:
     get:
       tags:
-        - Card Accounts
-      description: A specific existing card account including all related information.
-      summary: Return a specific existing card account
-      parameters:
-        - name: cardAccountId
-          in: path
-          description: Uuid v4 of a specific existing card account
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card account details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardAccount:
-                    $ref: '#/components/schemas/cardAccount'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-accounts/{cardAccountId}/statements:
-    get:
-      tags:
-        - Card Account Statements
+        - statements
       description: List of card account statements for the authenticated context including all related information, filtered by query, sorted by cardAccountStatementId.
       summary: Return the list of all card account statements for the authenticated context (filtered and sorted)
       parameters:
-        - name: cardAccountId
-          in: path
-          description: Uuid v4 of a specific existing card account
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            $ref: '#/components/schemas/entityId'
+        - $ref: '#/components/parameters/cardAccountId'
         - in: query
           name: fromDate
           description: Date from which statement entries should be retrieved
@@ -311,84 +212,15 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-accounts/{cardAccountId}/statements/{cardAccountStatementId}:
+  /card-transactions:
     get:
       tags:
-        - Card Account Statements
-      description: A specific existing card account statement including all related information including a pdf.
-      summary: Return a specific existing card account statement
-      parameters:
-        - name: cardAccountId
-          in: path
-          description: Uuid v4 of a specific existing card account
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - name: cardAccountStatementId
-          in: path
-          description: Uuid v4 of a specific existing card account statement
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card account details with all related information including a pdf in base64 encoding.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardAccountStatement:
-                    $ref: '#/components/schemas/cardAccountStatement'
-                  documentPdf:          # <-- pdf embedded into JSON
-                    type: string
-                    format: byte
-                    description: Base64-encoded contents of the PDF
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-contracts/{cardContractId}/transactions:
-    get:
-      tags:
-        - Card Transactions
+        - transactions
       description: List of card transactions for the authenticated context including all related information, filtered by query, sorted by cardTransactionId.
       summary: Return the list of all card transactions for the authenticated context (filtered and sorted)
       parameters:
-        - name: cardContractId
-          in: path
-          description: Uuid v4 of a specific existing card contract
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
         - $ref: '#/components/parameters/cardId'
+        - $ref: '#/components/parameters/cardAccountId'
         - in: query
           name: inclName
           description: Only retrieve transactions that include this text in as a merchant name
@@ -463,72 +295,16 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-contracts/{cardContractId}/transactions/{cardTransactionId}:
+  /person:
     get:
       tags:
-        - Card Transactions
-      description: A specific existing card transaction including all related information.
-      summary: Return a specific existing card transaction
-      parameters:
-        - name: cardContractId
-          in: path
-          description: Uuid v4 of a specific existing card contract
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - name: cardTransactionId
-          in: path
-          description: Uuid v4 of a specific existing card transaction
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card account details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardTransaction:
-                    $ref: '#/components/schemas/cardTransaction'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /cardholders:
-    get:
-      tags:
-        - Cardholders
-      description: List of cardholders for the authenticated context including all related information, filtered by query which also allows searching, sorted by cardholderId.
+        - person
+      description: List of cardholders for the authenticated context including all related information, filtered by query which also allows searching, sorted by personId.
       summary: Return the list of all cardholders for the authenticated context (filtered and sorted)
       parameters:
-        - $ref: '#/components/parameters/cardholderId'
+        - $ref: '#/components/parameters/cardId'
+        - $ref: '#/components/parameters/cardAccountId'
+        - $ref: '#/components/parameters/cardContractId'
         - in: query
           name: personSurName
           description: First name of the customer.
@@ -576,7 +352,7 @@ paths:
         - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Paginated list of all cardholder with all related information sorted by cardholderId
+          description: Paginated list of all cardholder with all related information sorted by personId
           content:
             application/json:
               schema:
@@ -610,65 +386,16 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /cardholders/{cardholderId}:
+  /card-contract:
     get:
       tags:
-        - Cardholders
-      description: A specific existing cardholder including all related information.
-      summary: Return a specific existing cardholder
-      parameters:
-        - name: cardholderId
-          in: path
-          description: Uuid v4 of a specific existing cardholder
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: cardholder details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardholder:
-                    $ref: '#/components/schemas/cardholder'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-
-  /card-contracts:
-    get:
-      tags:
-        - Card Contracts
+        - card-contract
       description: List of cards contracts for the authenticated context including all related information, filtered by query, sorted by cardContractId.
       summary: Return the list of all card contracts for the authenticated context (filtered and sorted)
       parameters:
-        - $ref: '#/components/parameters/cardholderId'
+        - $ref: '#/components/parameters/personId'
+        - $ref: '#/components/parameters/cardAccountId'
+        - $ref: '#/components/parameters/card-accountbundleId'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -710,64 +437,16 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-contracts/{cardContractId}:
+  /card-accountbundle:
     get:
       tags:
-        - Card Contracts
-      description: A specific existing card contract all related information.
-      summary: Return a specific existing card contract
+        - card-accountbundle
+      description: --
+      summary: --
       parameters:
-        - name: cardContractId
-          in: path
-          description: Uuid v4 of a specific existing card contract
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card contract details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardContract:
-                    $ref: '#/components/schemas/cardContract'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  
-  /card-consents/apis:
-    get:
-      tags:
-        - Card Consents API
-      description: Retrieve list of enabled APIs for an API Consumer.
-      summary: Return the list of enabled APIs for an API Consumer.
-      parameters:
+        - $ref: '#/components/parameters/cardAccountId'
+        - $ref: '#/components/parameters/card-accountbundleId'
+        - $ref: '#/components/parameters/cardContractId'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -775,122 +454,18 @@ paths:
         - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Paginated list of all card consent apis the API consumer has access
+          description: --
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  cardApiList:
+                  cardContractList:
                     type: array
                     items:
-                      $ref: '#/components/schemas/cardApi'
+                      $ref: '#/components/schemas/cardContract'
                   _links:
                     $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-  
-  /card-consents:
-    get:
-      tags:
-        - Card Consents
-      description: List of card consents for the authenticated context including all related information, filtered by query, sorted by cardConsentId.
-      summary: Return the list of all card consents for the authenticated context (filtered and sorted)
-      parameters:
-        - in: query
-          name: exemplary-query
-          schema:
-            type: boolean
-          example: true
-          description: Whether yes or no. More query parameters to add.
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Paginated list of all card consents with all related information sorted by cardConsentId
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardConsentList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardConsent'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-consents/{cardConsentId}:
-    get:
-      tags:
-        - Card Consents
-      description: A specific existing card consent including all related information.
-      summary: Return a specific existing card consent
-      parameters:
-        - name: cardConsentId
-          in: path
-          description: Uuid v4 of a specific existing card consent
-          required: true
-          example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-          schema:
-            type: string
-            format: uuid
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Card consent details with all related information.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardConsent:
-                    $ref: '#/components/schemas/cardConsent'
           headers:
             X-Correlation-ID:
               schema:
@@ -1059,7 +634,7 @@ components:
       properties:
         cardId:
           $ref: '#/components/schemas/entityId'
-        cardholderId:
+        personId:
           $ref: '#/components/schemas/entityId'
         contractId:
           $ref: '#/components/schemas/entityId'      
@@ -1071,14 +646,19 @@ components:
           $ref: '#/components/schemas/entityIdName'       
         cardDetail:
           type: object
+          required:
+            - cardNumberCustomer
           properties:
             cardNumber:
               type: string
               example: 4566549683425654
               maxLength: 19
               description: Card number
-            flexReferenceCardId:
-              $ref: '#/components/schemas/entityId'
+            cardNumberCustomer:
+              type: string
+              example: 4566549683425654
+              maxLength: 50
+              description: Card number
             initialCreationDate:
               $ref: '#/components/schemas/date'
             expiryDate:
@@ -1087,10 +667,12 @@ components:
               description: Card expiry date in the format MM/YY
             embossingLine1:
               type: string
+              maxLength: 30
               example: FRANZ MUSTERMANN
               description: Embossing Line 1 contains the cardholder name as visible on the card plastic
             embossingLine2:
               type: string
+              maxLength: 30
               example: VISECA CARD SERVICES
               description: Embossing Line 2 may contain a cardholder-specified or product-specific value, as visible on the card plastic
             purgedDate:
@@ -1104,6 +686,8 @@ components:
               enum:
               - mastercard
               - visa
+              - amex
+              - dinersclub
               - other
             productId:
               type: string
@@ -1128,10 +712,6 @@ components:
               maxLength: 50
               example: World Mastercard Gold CHF
               description: Commercial name of the card product as defined by the bank
-            plasticType:
-              type: string
-              example: "10"
-              description: Identifier of the plastic type. This number is required to uniquely identify a card product variant.
             cardImage:
               type: string
               example: "https://bank.ch/images/cardImage.png"
@@ -1287,7 +867,7 @@ components:
           - atm
         transactionType:
           $ref: '#/components/schemas/cardTransactionType'
-        cardholderId:
+        personId:
           $ref: '#/components/schemas/entityId'
         cardholderName:
           type: object
@@ -1407,9 +987,9 @@ components:
       description: Cardholder information .
       type: object
       required:
-        - cardholderId
+        - personId
       properties:
-        cardholderId:
+        personId:
           $ref: '#/components/schemas/entityId'
         contractId:
           $ref: '#/components/schemas/entityId'        
@@ -1514,7 +1094,7 @@ components:
           type: array
           items: 
             $ref: '#/components/schemas/cardAccount'        
-        cardholderId:
+        personId:
           $ref: '#/components/schemas/entityId'        
         contractType:
           $ref: '#/components/schemas/contractType'        
@@ -1895,13 +1475,6 @@ components:
 
   # ---- Global Common Header Parameters ----
   parameters:
-    cardConsentId:
-      in: header
-      name: cardConsentId
-      description: Identifier for a consent that must have been given to allow data access.
-      required: true
-      schema:
-        type: string
     clientid_in_header:
       in: header
       name: X-CorAPI-Client-ID
@@ -1909,6 +1482,7 @@ components:
         type: string
       description: 'ID of the client forwarded to the provider. (SCOPE: FI)'
       required: true
+    
     correlation_in_header:
       in: header
       name: X-Correlation-ID
@@ -1916,6 +1490,7 @@ components:
         type: string
       description: Unique ID (defined by the caller) which will be reflected back in the response.
       required: true
+    
     agent_in_header:
       in: header
       name: User-Agent
@@ -1923,6 +1498,7 @@ components:
         type: string
       description: Name and version of the of the Client software
       required: true
+    
     offset:
       name: offset
       in: query
@@ -1933,6 +1509,15 @@ components:
         format: int32
         example: 25
         minimum: 0
+    
+    cardConsentId:
+      in: header
+      name: cardConsentId
+      description: Identifier for a consent that must have been given to allow data access.
+      required: true
+      schema:
+        type: string
+    
     cardId:
       name: cardId
       in: query
@@ -1942,15 +1527,17 @@ components:
         format: uuid
         example: 7306fd9b-9df5-4f68-9d03-2c3674f48086
       description: Card ID
-    cardholderId:
-      name: cardholderId
+    
+    personId:
+      name: personId
       in: query
       required: false
       schema:
         type: string
         format: uuid
         example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
-      description: Cardholder ID
+      description: Person ID
+    
     cardAccountId:
       name: cardAccountId
       in: query
@@ -1960,6 +1547,34 @@ components:
       schema:
         type: string
         format: uuid
+
+    card-accountbundleId:
+      name: card-accountbundleId
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
+
+    transactionId:
+      name: transactionId
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
+
+    statementId:
+      name: statementId
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
+    
     cardContractId:
       name: cardContractId
       in: query
@@ -1969,6 +1584,7 @@ components:
       schema:
         type: string
         format: uuid
+    
     limit:
       name: limit
       in: query
