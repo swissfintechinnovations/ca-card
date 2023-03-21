@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  version: "0.5"
+  version: "0.45"
   title: Common Card Info API (Public)
   description:
     This specification defines a common card info API for payment cards used in Switzerland. The API is supposed to be used to retrieve payment card infos (read only).
@@ -31,7 +31,7 @@ tags:
   - name: transactions
     description: Operations related with retrieving card transactions
   - name: person
-    description: Operations related with managing cardholders
+    description: Operations related with managing persons
   - name: card-contract
     description: Operations related with managing card contracts
   - name: card-accountbundle
@@ -299,8 +299,8 @@ paths:
     get:
       tags:
         - person
-      description: List of cardholders for the authenticated context including all related information, filtered by query which also allows searching, sorted by personId.
-      summary: Return the list of all cardholders for the authenticated context (filtered and sorted)
+      description: List of persons for the authenticated context including all related information, filtered by query which also allows searching, sorted by personId.
+      summary: Return the list of all persons for the authenticated context (filtered and sorted)
       parameters:
         - $ref: '#/components/parameters/cardId'
         - $ref: '#/components/parameters/cardAccountId'
@@ -325,7 +325,7 @@ paths:
             $ref: '#/components/schemas/entityName'
         - in: query
           name: birthDate
-          description: Date of birth of the cardholder.
+          description: Date of birth of the person.
           required: false
           schema:
             $ref: '#/components/schemas/date'
@@ -352,16 +352,16 @@ paths:
         - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Paginated list of all cardholder with all related information sorted by personId
+          description: Paginated list of all person with all related information sorted by personId
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  cardholderList:
+                  personList:
                     type: array
                     items:
-                      $ref: '#/components/schemas/cardholder'
+                      $ref: '#/components/schemas/person'
                   _links:
                     $ref: '#/components/schemas/linksPagination'
           headers:
@@ -460,10 +460,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  cardContractList:
+                  cardAccountbundleList:
                     type: array
                     items:
-                      $ref: '#/components/schemas/cardContract'
+                      $ref: '#/components/schemas/cardAccountbundle'
                   _links:
                     $ref: '#/components/schemas/linksPagination'
           headers:
@@ -669,12 +669,12 @@ components:
               type: string
               maxLength: 30
               example: FRANZ MUSTERMANN
-              description: Embossing Line 1 contains the cardholder name as visible on the card plastic
+              description: Embossing Line 1 contains the person name as visible on the card plastic
             embossingLine2:
               type: string
               maxLength: 30
               example: VISECA CARD SERVICES
-              description: Embossing Line 2 may contain a cardholder-specified or product-specific value, as visible on the card plastic
+              description: Embossing Line 2 may contain a person-specified or product-specific value, as visible on the card plastic
             purgedDate:
               $ref: '#/components/schemas/date'
             currency:
@@ -869,9 +869,9 @@ components:
           $ref: '#/components/schemas/cardTransactionType'
         personId:
           $ref: '#/components/schemas/entityId'
-        cardholderName:
+        personName:
           type: object
-          description: Name of the cardholder
+          description: Name of the person
           properties:
             company:
               $ref: '#/components/schemas/entityName'
@@ -948,7 +948,7 @@ components:
         cardDataInputCapability:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardholderAuthenticationCapability:
+        personAuthenticationCapability:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
         cardCaptureCapability:
@@ -957,7 +957,7 @@ components:
         operatingEnvironment:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardholderPresent:
+        personPresent:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
         cardPresent:
@@ -966,10 +966,10 @@ components:
         cardDataInputMode:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardholderAuthenticationMethod:
+        personAuthenticationMethod:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardholderAuthenticationEntity:
+        personAuthenticationEntity:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
         cardDataOutputCapability:
@@ -982,9 +982,9 @@ components:
           type: string
           description: Please_Add_Description_and_Example_and_Regex-MaxLength
 
-    # ---- Cardholder ----
-    cardholder:
-      description: Cardholder information .
+    # ---- Person ----
+    person:
+      description: Person information .
       type: object
       required:
         - personId
@@ -993,13 +993,13 @@ components:
           $ref: '#/components/schemas/entityId'
         contractId:
           $ref: '#/components/schemas/entityId'        
-        cardholderType:
+        personType:
           $ref: '#/components/schemas/contractType'
-        isMainCardholder:
+        isMainPerson:
           type: boolean
-          description: Flag to identify if the cardholder is a main cardholder
+          description: Flag to identify if the person is a main person
           example: true
-        cardholderStatistics:
+        personStatistics:
           type: object
           properties:
             total_accounts:
@@ -1017,11 +1017,11 @@ components:
             totalActiveCards:
               type: integer
               description: Total number of active cards of a private customer or a company
-        cardholderDetail:
+        personDetail:
           type: object
           properties:
             salutation:
-              $ref: '#/components/schemas/cardholderSalutation'
+              $ref: '#/components/schemas/personSalutation'
             company:
               $ref: '#/components/schemas/entityName'
             name:
@@ -1059,12 +1059,12 @@ components:
               description: Flag to see if the customer give his/her permission to marketing advertisement
             phoneNumber:
               type: array
-              description: Phone numbers of the cardholder
+              description: Phone numbers of the person
               items:
                 $ref: '#/components/schemas/personPhoneNumber'
             email:
               type: array
-              description: Email addresses of the cardholder
+              description: Email addresses of the person
               items:
                 $ref: '#/components/schemas/personEmail'
     # ---------
@@ -1108,6 +1108,19 @@ components:
           $ref: '#/components/schemas/genericStatus'        
     # ---------
 
+    # TODO: define object
+    cardAccountbundle:
+      description: Card Accountbundle Information.
+      type: object
+      required:
+        - cardAccountbundleId
+      properties:
+        cardAccountbundleId:
+          type: string
+          format: uuid
+          description: UUID v4 of the card accountbundle
+          example: 576f8de3-6b30-4882-a7af-da2132a456cf
+
     # ---- Card API Model ----
     contractType:
       description: Type of a contract
@@ -1149,8 +1162,8 @@ components:
       - female
       - other
       example: female
-      description: Gender of the cardholder.
-    cardholderSalutation:             
+      description: Gender of the person.
+    personSalutation:             
       type: string
       enum:
       - none
@@ -1163,7 +1176,7 @@ components:
       - female_nobility
       - neutral
       example: mrs
-      description: Salutation for the cardholder.
+      description: Salutation for the person.
     language:    
       type: string
       example: fr
@@ -1245,7 +1258,7 @@ components:
     paymentType:
       type: string
       example: lsv
-      description: Identifier of the payment method selected by the cardholder to settle the account. 
+      description: Identifier of the payment method selected by the person to settle the account. 
       enum:
       - lsv
       - debit_direct
@@ -1255,7 +1268,7 @@ components:
     paymentOption:
       type: string
       example: full
-      description: Identifier of the payment plan selected by the cardholder to pay for a bill. 
+      description: Identifier of the payment plan selected by the person to pay for a bill. 
       enum:
       - full
       - instalment
@@ -1294,7 +1307,7 @@ components:
           - unknown
           - active
           - blocked
-          - suspended_by_cardholder
+          - suspended_by_person
           - suspended_by_bank
           - suspended_by_issuer
           description: Status type
