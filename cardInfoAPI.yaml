@@ -1,6 +1,6 @@
 openapi: "3.0.3"
 info:
-  version: "0.51"
+  version: "0.6"
   title: Common Card Info API (Public)
   description:
     This specification defines a common card info API for payment cards used in Switzerland. The API is supposed to be used to retrieve payment card infos (read only).
@@ -30,11 +30,11 @@ tags:
     description: Operations related with retrieving card account statements
   - name: transactions
     description: Operations related with retrieving card transactions
-  - name: person
+  - name: persons
     description: Operations related with managing persons
-  - name: card-contract
+  - name: card-contracts
     description: Operations related with managing card contracts
-  - name: card-accountbundle
+  - name: card-accountbundles
     description: --
   - name: card-consents
     description: '[not used] Operations related with managing card consents'
@@ -67,6 +67,124 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/card'
+                  _links:
+                    $ref: '#/components/schemas/linksPagination'
+          headers:
+            X-Correlation-ID:
+              schema:
+                type: string
+              description: Reflects the ID (set by the caller) from the request.
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+
+  /cards/card-tokens:
+    get:
+      tags: 
+        - card-tokens
+      description: Card token (Child card) derived from parent card
+      summary: TODO
+      parameters:
+        - $ref: '#/components/parameters/cardTokenId'
+        - name: deviceName
+          in: query
+          description: Name of device, where token is used
+          required: false
+          example: apple
+          schema:
+            type: string
+            enum:
+              - apple
+              - samsung
+              - other
+        - name: cardLink
+          in: query
+          description: TODO
+          required: true
+          example: TODO
+          schema:
+            type: string
+        - name: dpan
+          in: query
+          description: TODO
+          required: true
+          example: TODO
+          schema:
+            type: string
+            format: uuid
+        - name: statusGeneric
+          in: query
+          description: TODO
+          required: false
+          example: TODO
+          schema:
+            type: string
+        - name: walletTypeName
+          in: query
+          description: Issuer of token card
+          required: false
+          example: TODO
+          schema:
+            type: string
+            enum:
+              - mastercard
+              - visa
+              - amex
+              - dinersclub
+              - apple pay
+              - google pay
+              - other
+        - name: provisionDate
+          in: query
+          description: TODO
+          required: false
+          example: TODO
+          schema:
+            type: string
+            format: Date
+        - name: expireDate
+          in: query
+          description: TODO
+          required: false
+          example: TODO
+          schema:
+            type: string
+            format: Date
+        - name: schemeTokenId
+          in: query
+          description: TODO
+          required: false
+          example: TODO
+          schema:
+            type: string
+            enum:
+              - TODO
+        - $ref: '#/components/schemas/cardTransaction'
+      responses:
+        '200':
+          description: Paginated list of all token cards with all related information sorted by cardTokenId
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardList:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/cardToken'
                   _links:
                     $ref: '#/components/schemas/linksPagination'
           headers:
@@ -295,10 +413,10 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /person:
+  /persons:
     get:
       tags:
-        - person
+        - persons
       description: List of persons for the authenticated context including all related information, filtered by query which also allows searching, sorted by personId.
       summary: Return the list of all persons for the authenticated context (filtered and sorted)
       parameters:
@@ -386,10 +504,10 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-contract:
+  /card-contracts:
     get:
       tags:
-        - card-contract
+        - card-contracts
       description: List of cards contracts for the authenticated context including all related information, filtered by query, sorted by cardContractId.
       summary: Return the list of all card contracts for the authenticated context (filtered and sorted)
       parameters:
@@ -437,10 +555,10 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /card-accountbundle:
+  /card-accountbundles:
     get:
       tags:
-        - card-accountbundle
+        - card-accountbundles
       description: --
       summary: --
       parameters:
@@ -637,13 +755,13 @@ components:
         personId:
           $ref: '#/components/schemas/entityId'
         contractId:
-          $ref: '#/components/schemas/entityId'      
+          $ref: '#/components/schemas/entityId'
         cardAccountId:
-          $ref: '#/components/schemas/entityId'     
+          $ref: '#/components/schemas/entityId'
         issuingPartnerId:
-          $ref: '#/components/schemas/entityIdName'        
+          $ref: '#/components/schemas/entityIdName'
         issuerId:
-          $ref: '#/components/schemas/entityIdName'       
+          $ref: '#/components/schemas/entityIdName'
         cardDetail:
           type: object
           required:
@@ -743,6 +861,19 @@ components:
               $ref: '#/components/schemas/genericStatus'  
     # ---------
 
+    # TODO: define object with properties
+    cardToken:
+      description: Card Account Token Information.
+      type: object
+      required:
+        - cardTokenId
+      properties:
+        cardTokenId:
+          type: string
+          format: uuid
+          description: UUID v4 of the card accountbundle
+          example: 576f8de3-6b30-4882-a7af-da2132a456cf
+
     # ---- Card Account Statement ----
     cardAccountStatement:
       description: xy
@@ -751,22 +882,23 @@ components:
         - cardAccountStatementId
       properties:
         cardAccountStatementId:
-            $ref: '#/components/schemas/entityId'          
+            $ref: '#/components/schemas/entityId'
         cardAccountId:
-            $ref: '#/components/schemas/entityId'          
+            $ref: '#/components/schemas/entityId'
         statementCreationDate:
-            $ref: '#/components/schemas/date'          
+            $ref: '#/components/schemas/date'
         statementAmount:
-            $ref: '#/components/schemas/paymentCurrencyAmount'          
+            $ref: '#/components/schemas/paymentCurrencyAmount'
         paymentDueDate:
-            $ref: '#/components/schemas/date'          
+            $ref: '#/components/schemas/date'
         statementMinimalDueAmount:
-            $ref: '#/components/schemas/paymentCurrencyAmount'          
+            $ref: '#/components/schemas/paymentCurrencyAmount'
         paymentType:
-            $ref: '#/components/schemas/paymentType'          
+            $ref: '#/components/schemas/paymentType'
         paymentOption:
-            $ref: '#/components/schemas/paymentOption'          
+            $ref: '#/components/schemas/paymentOption'
     # ---------
+    
     # ---- Card Transaction ----
     cardTransaction:
       description: Transaction object adapted for card use
@@ -906,8 +1038,8 @@ components:
           type: string
           example: "121"
           description: The Action Code provides information about the why a transaction was approved or declined
-
     # ---------
+
     # ---- Card Transaction Fee ----
     cardTransactionFee:
       description: Individual fee objects that are associated with the transaction
@@ -922,6 +1054,7 @@ components:
         currency:
           $ref: '#/components/schemas/currency'
     # ---------
+
     # ---- Card Transaction Type ----
     cardTransactionType:
       type: object
@@ -1068,6 +1201,7 @@ components:
               items:
                 $ref: '#/components/schemas/personEmail'
     # ---------
+
     # ---- Card Contract ----
     cardContract:
       description: Card Contract Information .
@@ -1108,7 +1242,7 @@ components:
           $ref: '#/components/schemas/genericStatus'        
     # ---------
 
-    # TODO: define object
+    # TODO: define object with properties
     cardAccountbundle:
       description: Card Accountbundle Information.
       type: object
@@ -1534,17 +1668,27 @@ components:
     cardId:
       name: cardId
       in: query
-      required: false
+      required: true
       schema:
         type: string
         format: uuid
         example: 7306fd9b-9df5-4f68-9d03-2c3674f48086
       description: Card ID
+
+    cardTokenId:
+      name: cardTokenId
+      in: query
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 7306fd9b-9df5-4f68-9d03-2c3674f48086
+      description: Card Token ID
     
     personId:
       name: personId
       in: query
-      required: false
+      required: true
       schema:
         type: string
         format: uuid
@@ -1555,7 +1699,7 @@ components:
       name: cardAccountId
       in: query
       description: Uuid v4 of a specific existing card account
-      required: false
+      required: true
       example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
       schema:
         type: string
@@ -1564,7 +1708,7 @@ components:
     card-accountbundleId:
       name: card-accountbundleId
       in: query
-      required: false
+      required: true
       schema:
         type: string
         format: uuid
@@ -1573,7 +1717,7 @@ components:
     transactionId:
       name: transactionId
       in: query
-      required: false
+      required: true
       schema:
         type: string
         format: uuid
@@ -1582,7 +1726,7 @@ components:
     statementId:
       name: statementId
       in: query
-      required: false
+      required: true
       schema:
         type: string
         format: uuid
@@ -1592,7 +1736,7 @@ components:
       name: cardContractId
       in: query
       description: Uuid v4 of a specific existing card contract
-      required: false
+      required: true
       example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
       schema:
         type: string
@@ -1602,12 +1746,13 @@ components:
       name: limit
       in: query
       description: Optional parameter for pagination. Maximum number of entries to be returned.
-      required: false
+      required: true
       schema:
         type: integer
         format: int32
         example: 25
         minimum: 1
+
     cursor:
       name: cursor
       in: query
@@ -1616,6 +1761,7 @@ components:
       schema:
         type: string
         example: cursorIDxyz
+
   # ---- Responses - Standard Errors Common Data Model v1.2.2----
   responses:
     standard400:
