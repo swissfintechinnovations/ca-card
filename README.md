@@ -10,5 +10,5 @@
 
 This is the official SFTI repo for the card API. Documentations may be found in the [Wiki](https://github.com/swissfintechinnovations/ca-card/wiki).
 
-We refer to the SwaggerEditor for a graphical representation and source-file based documentation of the latest API state:
+An easy-to-read representation of the Card API is accessible via the following link:
 - [Card Info API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/swissfintechinnovations/ca-card/main/cardInfoAPI.yaml)
