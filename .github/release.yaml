@@ -1,0 +1,44 @@
+name: Release Pipeline (reusable)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version tag (required format: v[mayor].[minor].[bugfix], e.g. v1.3.0)"
+        type: string
+        required: true
+      draft:
+        description: Should a release draft be created? (Otherwise the release will be published immediately)
+        type: boolean
+        default: true
+        required: true
+      artifact:
+        description: Add artifacts to the release. All files from /docs are added to the release.
+        type: boolean
+        default: false
+        required: false
+      force:
+        description: "If force is true, already published releases can be overwritten. Caution: This action deletes already published releases and can **not** be undone!"
+        type: boolean
+        required: false
+
+jobs:
+  check-permissions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check user permission
+        id: param_check
+        run: |
+          if [[ "${{ github.actor }}" != "christiangmehling" && "${{ github.actor }}" != "dkoeni" && "${{ github.actor }}" != "juergen-petry" ]]; then
+            echo "You have no permissons to start the release action."
+            exit 1
+          fi
+
+  release:
+    needs: check-permissions
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-release-workflow.yaml@main
+    with:
+      version: ${{ github.event.inputs.version }}
+      draft: ${{ fromJSON(github.event.inputs.draft) }}
+      artifact: ${{ fromJSON(github.event.inputs.artifact) }}
+      force: ${{ fromJSON(github.event.inputs.force) }}
