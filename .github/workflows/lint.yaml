@@ -9,4 +9,3 @@ jobs:
     uses: swissfintechinnovations/.github/.github/workflows/reusable-yamllint-workflow.yaml@main
     with:
         filenames: '*.yaml'
-        fail: false
