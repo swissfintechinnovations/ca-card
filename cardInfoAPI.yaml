@@ -3,7 +3,7 @@ info:
   version: 0.7
   title: Common Card Info API (Public)
   description: >
-    This specification defines a common card info API for payment cards used in Switzerland. 
+    This specification defines a common card info API for payment cards used in Switzerland.
     The API is supposed to be used to retrieve payment card infos (read only).
   # TODO update description
   contact:
@@ -37,8 +37,8 @@ paths:
     get:
       tags:
         - Cards
-      summary: # TODO
-      description: # TODO
+      summary:  # TODO
+      description:  # TODO
       parameters:
         - in: query
           name: contract_reference
@@ -72,7 +72,7 @@ paths:
             $ref: '#/components/schemas/BankAccountReference'
       responses:
         '200':
-          description: # TODO
+          description:  # TODO
           headers:
             # TODO headers?
           content:
@@ -101,8 +101,8 @@ paths:
     get:
       tags:
         - Card-tokens
-      summary: # TODO
-      description: # TODO
+      summary:  # TODO
+      description:  # TODO
       parameters:
         - in: query
           name: token_id
@@ -121,7 +121,7 @@ paths:
             $ref: '#components/schemas/TokenStatus'
       responses:
         '200':
-          description: # TODO
+          description:  # TODO
           headers:
             # TODO headers?
           content:
@@ -150,28 +150,28 @@ paths:
     get:
       tags:
         - Card-tokens
-      summary: # TODO
-      description: # TODO
+      summary:  # TODO
+      description:  # TODO
       parameters:
-          - in: query
-            name: transaction_id
-            required: false
-            schema:
-              type: string
-              maxLength: 50
-              example: 9e19df54-47cb-494b-84dc-1c126e95a05c
-            description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
-          - in: query
-            name: authorization_id
-            required: false
-            schema:
-              type: string
-              maxLength: 50
-              example: 9e19df54-47cb-494b-84dc-1c126e95a05c # TODO use unique values if not indicating same parameters to avoid confusions?
-            description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
+        - in: query
+          name: transaction_id
+          required: false
+          schema:
+            type: string
+            maxLength: 50
+            example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+          description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
+        - in: query
+          name: authorization_id
+          required: false
+          schema:
+            type: string
+            maxLength: 50
+            example: 9e19df54-47cb-494b-84dc-1c126e95a05c  # TODO use unique values if not indicating same parameters to avoid confusions?
+          description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
       responses:
         '200':
-          description: # TODO
+          description:  # TODO
           headers:
             # TODO headers?
           content:
@@ -199,8 +199,8 @@ paths:
 components:
   schemas:
     CardDetails:
-      title: # TODO
-      description: #TODO
+      title:  # TODO
+      description:  #TODO
       type: object
       required:
         - contract_reference
@@ -281,8 +281,8 @@ components:
           $ref: '#/components/schemas/Language'
 
   CardTokenDetails:
-    title: # TODO
-    description: #TODO
+    title:  # TODO
+    description:  #TODO
     type: object
     required:
       - token_id
@@ -320,8 +320,8 @@ components:
         $ref: '#/components/schemas/TokenScheme'
 
   TransactionDetails:
-    title: # TODO
-    description: #TODO
+    title:  # TODO
+    description:  #TODO
     type: object
     required:
       - transaction_date_time
@@ -436,7 +436,7 @@ components:
 
     Pan4Digits:
       type: string
-      maxLength: 4 # TODO use pattern: '\d{4}' or number?
+      maxLength: 4  # TODO use pattern: '\d{4}' or number?
       example: 4321
       description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
 
@@ -450,7 +450,7 @@ components:
 
     CardStatus:
       type: string
-      enum: # TODO list all allowed values in enum
+      enum:  # TODO list all allowed values in enum
         - ACTIVE
         - SUSPENDED
         - BLOCKED
@@ -473,7 +473,7 @@ components:
 
     Image:
       type: string
-      format: uri # TODO! specify custom openAPI format or use pattern according to RFC3986
+      format: uri  # TODO! specify custom openAPI format or use pattern according to RFC3986
       example: https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
 
@@ -504,7 +504,7 @@ components:
 
     Category:
       type: string
-      enum: # TODO list all allowed values in enum
+      enum:  # TODO list all allowed values in enum
         - primary_card
         - additional_card
       example: primary_card
@@ -512,7 +512,7 @@ components:
 
     IssuingType:
       type: string
-      enum: # TODO enum value and description do not match
+      enum:  # TODO enum value and description do not match
         - physical
         - virtual
       example: physical
@@ -560,7 +560,7 @@ components:
     BankAccountReference:
       type: string
       maxLength: 34
-      pattern: # TODO can we use a pattern for iban or similar?
+      pattern:  # TODO can we use a pattern for iban or similar?
       example: CH3456789012345678901
       description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
 
@@ -606,7 +606,7 @@ components:
 
     TokenId:
       type: string
-      format: uuid # TODO special format of id possible?
+      format: uuid  # TODO special format of id possible?
       maxLength: 50
       example: eb404f8d-656b-4e51-8872-88c42fa55536
       description: Unique identifier for the token of a card, defined by the Card Service Provider.
@@ -636,7 +636,7 @@ components:
     TokenRequestorId:
       type: string
       maxLength: 11
-      example: 1111111111 # TODO 11 digits?
+      example: 1111111111  # TODO 11 digits?
       description: Identifier for the token requestor / token service provider.
 
     TokenRequestorName:
@@ -660,12 +660,12 @@ components:
     FundingCardId:
       type: string
       maxLength: 50
-      example: 4321A1B2C3DE1234 # TODO use unique values if not indicating same parameters to avoid confusions?
+      example: 4321A1B2C3DE1234  # TODO use unique values if not indicating same parameters to avoid confusions?
       description: Reference to the card that is used to fund the transactions of the token.
 
     TokenStatus:
       type: string
-      enum: # TODO list all allowed values in enum
+      enum:  # TODO list all allowed values in enum
         - ACTIVE
         - SUSPENDED
         - BLOCKED
@@ -730,12 +730,12 @@ components:
     ApprovalCode:
       type: string
       maxLength: 6
-      example: 803051 # TODO always numbers?
+      example: 803051  # TODO always numbers?
       description: Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
 
     OriginalAmount:
       type: number
-      example: 2000.05 # TODO use string and pattern? format: float?
+      example: 2000.05  # TODO use string and pattern? format: float?
       description: Amount of the transaction in the currency used by the merchant.
 
     OriginalCurrency:
@@ -746,7 +746,7 @@ components:
 
     TotalAmount:
       type: number
-      example: 1957.50 # TODO use string and pattern? format: float?
+      example: 1957.50  # TODO use string and pattern? format: float?
       description: Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
@@ -761,11 +761,11 @@ components:
       description: Currency of the card account on which the transaction is charged.
 
     Fees:
-      title: # TODO optional
-      description: #TODO
+      title:  # TODO optional
+      description:  #TODO
       type: object
       required:
-        - # TODO Required in object?
+        -  # TODO Required in object?
       properties:
         fee_name:
           $ref: '#/components/schemas/FeeName'
@@ -812,7 +812,7 @@ components:
     Mcc:
       type: string
       maxLength: 4
-      example: 4812 # TODO zip code = numbers only?
+      example: 4812  # TODO zip code = numbers only?
       description: Merchant Category Code to identify the industry branch of the merchant.
 
     MccDescription:
@@ -836,7 +836,7 @@ components:
     AcquirerId:
       type: string
       maxLength: 11
-      example: 12345678901 # TODO exactly 11 digits?
+      example: 12345678901  # TODO exactly 11 digits?
       description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
 
     Channel:
@@ -861,7 +861,7 @@ components:
           value: P2P payment credit recipient "merchant", "fee", "atm"
       description: Category of the transaction, defined by the Card Service Provider.
 
-    ReferenceTokenId: # TODO TokenId already in use
+    ReferenceTokenId:  # TODO TokenId already in use
       type: string
       maxLength: 50
       example: eb404f8d-656b-4e51-8872-88c42fa55536
@@ -873,13 +873,13 @@ components:
       example: Peter Schweizer
       description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
 
-    ReferenceCardAccountId: # TODO CardAccountId already in use
+    ReferenceCardAccountId:  # TODO CardAccountId already in use
       type: string
       maxLength: 50
       example: AB-4567890123456
       description: Reference to the card account which is used to settle the transaction; not provided by all Card Service Providers.
 
-    ReferenceCardId: # TODO CardId already in use
+    ReferenceCardId:  # TODO CardId already in use
       type: string
       maxLength: 50
       example: 4321A1B2C3DE1234
@@ -903,7 +903,7 @@ components:
 
     FeePercentage:
       type: number
-      example: 3.5% # TODO type example mismatch
+      example: 3.5%  # TODO type example mismatch
       description: Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.
 
     FeeAmount:
@@ -1113,13 +1113,13 @@ components:
 
   headers:
     Content-Language:
-      description: #TODO
+      description:  #TODO
       schema:
         type: string
         example: en
 
     Content-Type:
-      description: # TODO
+      description:  # TODO
       schema:
         type: string
         example: application/problem+json; charset=utf-8 according to RFC7807
