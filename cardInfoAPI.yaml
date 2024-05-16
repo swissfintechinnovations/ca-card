@@ -1,79 +1,85 @@
-openapi: "3.0.3"
+openapi: 3.1.0
 info:
-  version: "0.6"
+  version: 0.7
   title: Common Card Info API (Public)
-  description:
-    This specification defines a common card info API for payment cards used in Switzerland. The API is supposed to be used to retrieve payment card infos (read only).
-  termsOfService: 'Tbd'
+  description: >
+    This specification defines a common card info API for payment cards used in Switzerland. 
+    The API is supposed to be used to retrieve payment card infos (read only).
+  # TODO update description
   contact:
     email: info@common-api.ch
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://card.common-api.ch
 externalDocs:
   description: Find out more about SFTI API specifications
-  url: 'https://www.common-api.ch'
+  url: https://www.common-api.ch
+
+# TODO make more detailed description
+tags:
+  - name: Cards
+    description: Operations related with managing cards
+  - name: Card-tokens
+    description: Operations related with managing card tokens
+  - name: Transactions
+    description: Operations related with retrieving card transactions
+
 security:
   - ApiKeyAuth: []
   - OAuth2:
       - read
       - write
 
-tags:
-  - name: cards
-    description: Operations related with managing cards
-  - name: card-accounts
-    description: Operations related with managing card accounts
-  - name: statements
-    description: Operations related with retrieving card account statements
-  - name: transactions
-    description: Operations related with retrieving card transactions
-  - name: persons
-    description: Operations related with managing persons
-  - name: card-contracts
-    description: Operations related with managing card contracts
-  - name: card-accountbundles
-    description: --
-  - name: card-consents
-    description: '[not used] Operations related with managing card consents'
-
 paths:
   /cards:
     get:
       tags:
-        - cards
-      description: List of cards for the authenticated context including all related information, optional filtered by personId / cardContractId / cardAccountId, sorted by cardId.
-      summary: Return the list of all cards for the authenticated context (filtered and sorted)
+        - Cards
+      summary: # TODO
+      description: # TODO
       parameters:
-        - $ref: '#/components/parameters/transactionId'
-        - $ref: '#/components/parameters/cardAccountId'
-        - $ref: '#/components/parameters/personId'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - in: query
+          name: contract_reference
+          required: true
+          schema:
+            $ref: '#/components/schemas/ContractReference'
+        - in: query
+          name: person_reference
+          required: true
+          schema:
+            $ref: '#/components/schemas/PersonReference'
+        - in: query
+          name: card_id
+          required: true
+          schema:
+            $ref: '#/components/schemas/CardId'
+        - in: query
+          name: card_status
+          required: true
+          schema:
+            $ref: '#/components/schemas/CardStatus'
+        - in: query
+          name: card_account_id
+          required: false
+          schema:
+            $ref: '#/components/schemas/CardAccountId'
+        - in: query
+          name: bank_account_reference
+          required: false
+          schema:
+            $ref: '#/components/schemas/BankAccountReference'
       responses:
         '200':
-          description: Paginated list of all cards with all related information sorted by cardId
+          description: # TODO
+          headers:
+            # TODO headers?
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cardList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/card'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
+                $ref: '#/components/schemas/CardDetails'
+        # TODO which standard error responses should be removed?
         '400':
           $ref: '#/components/responses/standard400'
         '401':
@@ -91,228 +97,38 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /cards/card-tokens:
-    get:
-      tags: 
-        - card-tokens
-      description: Card token (Child card) derived from parent card
-      summary: TODO
-      parameters:
-        - $ref: '#/components/parameters/cardTokenId'
-        - name: deviceName
-          in: query
-          description: Name of device, where token is used
-          required: false
-          example: apple
-          schema:
-            type: string
-            enum:
-              - apple
-              - samsung
-              - other
-        - name: cardLink
-          in: query
-          description: TODO
-          required: true
-          example: TODO
-          schema:
-            type: string
-        - name: dpan
-          in: query
-          description: TODO
-          required: true
-          example: TODO
-          schema:
-            type: string
-            format: uuid
-        - name: statusGeneric
-          in: query
-          description: TODO
-          required: false
-          example: TODO
-          schema:
-            type: string
-        - name: walletTypeName
-          in: query
-          description: Issuer of token card
-          required: false
-          example: TODO
-          schema:
-            type: string
-            enum:
-              - mastercard
-              - visa
-              - amex
-              - dinersclub
-              - apple pay
-              - google pay
-              - other
-        - name: provisionDate
-          in: query
-          description: TODO
-          required: false
-          example: TODO
-          schema:
-            type: string
-            format: Date
-        - name: expireDate
-          in: query
-          description: TODO
-          required: false
-          example: TODO
-          schema:
-            type: string
-            format: Date
-        - name: schemeTokenId
-          in: query
-          description: TODO
-          required: false
-          example: TODO
-          schema:
-            type: string
-            enum:
-              - TODO
-        - $ref: '#/components/schemas/cardTransaction'
-      responses:
-        '200':
-          description: Paginated list of all token cards with all related information sorted by cardTokenId
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardToken'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-accounts:
+  /card-tokens:
     get:
       tags:
-        - card-accounts
-      description: List of card accounts for the authenticated context including all related information, filtered by query, sorted by cardAccountId.
-      summary: Return the list of all card accounts for the authenticated context (filtered and sorted)
+        - Card-tokens
+      summary: # TODO
+      description: # TODO
       parameters:
-        - $ref: '#/components/parameters/transactionId'
-        - $ref: '#/components/parameters/cardId'
-        - $ref: '#/components/parameters/statementId'
-        - $ref: '#/components/parameters/personId'
-        - $ref: '#/components/parameters/card-accountbundleId'
-        - $ref: '#/components/parameters/cardContractId'
         - in: query
-          name: IBAN
-          description: International Bank Account Number that is associated with the payment card account. Note, that one IBAN can be associated to multiple card accounts.
-          required: false
+          name: token_id
+          required: true
           schema:
-            type: string
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+            $ref: '#components/schemas/TokenId'
+        - in: query
+          name: funding_card_id
+          required: true
+          schema:
+            $ref: '#components/schemas/FundingCardId'
+        - in: query
+          name: token_status
+          required: true
+          schema:
+            $ref: '#components/schemas/TokenStatus'
       responses:
         '200':
-          description: Paginated list of all card accounts with all related information sorted by cardAccountId
+          description: # TODO
+          headers:
+            # TODO headers?
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cardAccountList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardAccount'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-accounts/statements:
-    get:
-      tags:
-        - statements
-      description: List of card account statements for the authenticated context including all related information, filtered by query, sorted by cardAccountStatementId.
-      summary: Return the list of all card account statements for the authenticated context (filtered and sorted)
-      parameters:
-        - $ref: '#/components/parameters/cardAccountId'
-        - in: query
-          name: fromDate
-          description: Date from which statement entries should be retrieved
-          required: false
-          schema:
-            $ref: '#/components/schemas/date'
-        - in: query
-          name: untilDate
-          description: Date until which statement entries should be retrieved
-          required: false
-          schema:
-            $ref: '#/components/schemas/date'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Paginated list of all card account statements with all related information sorted by cardAccountStatementId
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardAccountStatementList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardAccountStatement'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
+                $ref: '#/components/schemas/CardTokenDetails'
+        # TODO which standard error responses should be removed?
         '400':
           $ref: '#/components/responses/standard400'
         '401':
@@ -333,69 +149,36 @@ paths:
   /card-transactions:
     get:
       tags:
-        - transactions
-      description: List of card transactions for the authenticated context including all related information, filtered by query, sorted by cardTransactionId.
-      summary: Return the list of all card transactions for the authenticated context (filtered and sorted)
+        - Card-tokens
+      summary: # TODO
+      description: # TODO
       parameters:
-        - $ref: '#/components/parameters/cardId'
-        - $ref: '#/components/parameters/cardAccountId'
-        - in: query
-          name: inclName
-          description: Only retrieve transactions that include this text in as a merchant name
-          required: false
-          example: Hotel
-          schema:
-            type: string
-        - name: inclLocation
-          in: query
-          description: Only retrieve transactions that include this text in as a merchant location
-          required: false
-          example: London
-          schema:
-            type: string
-        - name: inclCountry
-          in: query
-          description: Only retrieve transactions that include this text in as a merchant country
-          required: false
-          example: Italien
-          schema:
-            type: string
-        - name: fromDate
-          in: query
-          description: Only retrieve transactions starting from this date (YYYY-MM-DD)
-          required: false
-          schema:
-            $ref: '#/components/schemas/date'
-        - name: untilDate
-          in: query
-          description: Only retrieve transactions up until this date (YYYY-MM-DD)
-          required: false
-          schema:
-            $ref: '#/components/schemas/date'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+          - in: query
+            name: transaction_id
+            required: false
+            schema:
+              type: string
+              maxLength: 50
+              example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+            description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
+          - in: query
+            name: authorization_id
+            required: false
+            schema:
+              type: string
+              maxLength: 50
+              example: 9e19df54-47cb-494b-84dc-1c126e95a05c # TODO use unique values if not indicating same parameters to avoid confusions?
+            description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
       responses:
         '200':
-          description: Paginated list of all card transactions with all related information sorted by cardTransactionId
+          description: # TODO
+          headers:
+            # TODO headers?
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cardTransactionList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardTransaction'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
+                $ref: '#/components/schemas/CardTokenDetails'
+        # TODO which standard error responses should be removed?
         '400':
           $ref: '#/components/responses/standard400'
         '401':
@@ -413,1193 +196,756 @@ paths:
         '503':
           $ref: '#/components/responses/standard503'
 
-  /persons:
-    get:
-      tags:
-        - persons
-      description: List of persons for the authenticated context including all related information, filtered by query which also allows searching, sorted by personId.
-      summary: Return the list of all persons for the authenticated context (filtered and sorted)
-      parameters:
-        - $ref: '#/components/parameters/cardId'
-        - $ref: '#/components/parameters/cardAccountId'
-        - $ref: '#/components/parameters/cardContractId'
-        - in: query
-          name: personSurName
-          description: First name of the customer.
-          required: false
-          schema:
-            $ref: '#/components/schemas/personSurName'
-        - in: query
-          name: personName
-          description: Last name of the customer.
-          required: false
-          schema:
-            $ref: '#/components/schemas/personName'
-        - in: query
-          name: companyName
-          description: 'Retrieve a list of customers given the company name.'
-          required: false
-          schema:
-            $ref: '#/components/schemas/entityName'
-        - in: query
-          name: birthDate
-          description: Date of birth of the person.
-          required: false
-          schema:
-            $ref: '#/components/schemas/date'
-        - in: query
-          name: contractType
-          description: Possible values are consumer, business, corporate (if left empty, any will be provided)
-          required: false
-          schema:
-            $ref: '#/components/schemas/contractType'
-        - in: query
-          name: searchType
-          description: Possible values are same, soundex, ccv
-          required: false
-          schema:
-            type: string
-            enum:
-            - same
-            - soundex
-            - cvv
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Paginated list of all person with all related information sorted by personId
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  personList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/person'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-contracts:
-    get:
-      tags:
-        - card-contracts
-      description: List of cards contracts for the authenticated context including all related information, filtered by query, sorted by cardContractId.
-      summary: Return the list of all card contracts for the authenticated context (filtered and sorted)
-      parameters:
-        - $ref: '#/components/parameters/personId'
-        - $ref: '#/components/parameters/cardAccountId'
-        - $ref: '#/components/parameters/card-accountbundleId'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: Paginated list of all queried card contracts with all related information sorted by cardContractsId
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardContractList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardContract'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-  /card-accountbundles:
-    get:
-      tags:
-        - card-accountbundles
-      description: --
-      summary: --
-      parameters:
-        - $ref: '#/components/parameters/cardAccountId'
-        - $ref: '#/components/parameters/card-accountbundleId'
-        - $ref: '#/components/parameters/cardContractId'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
-        - $ref: '#/components/parameters/clientid_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
-      responses:
-        '200':
-          description: --
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cardAccountbundleList:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/cardAccountbundle'
-                  _links:
-                    $ref: '#/components/schemas/linksPagination'
-          headers:
-            X-Correlation-ID:
-              schema:
-                type: string
-              description: Reflects the ID (set by the caller) from the request.
-        '400':
-          $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
-        '500':
-          $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
-
-
-# -------------------------
-# -------- Models ---------
-# -------------------------
 components:
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
-
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://example.com/oauth/authorize
-          tokenUrl: https://example.com/oauth/token
-          scopes:
-            read: Grants read access
-            write: Grants write access
-
   schemas:
-    # ---- Card Account Object ----
-    cardAccount:
-      description: The representation of a card account object
+    CardDetails:
+      title: # TODO
+      description: #TODO
       type: object
       required:
-        - cardAccountId
+        - contract_reference
+        - person_reference
+        - card_id
+        - embossing_line_1
+        - embossing_line_2
+        - pan_4_digits
+        - expiry_date
+        - card_status
+        - currency
+        - image
+        - product_id
+        - product_name
+        - scheme
+        - issuing_type
+        - product_type
+        - product_line
+        - card_limit_cycle
+        - card_limit_daily
+        - issuer_id
+        - issuer_name
+        - language
       properties:
-        cardAccountId:
-          $ref: '#/components/schemas/entityId'
-        cards:
-          type: array
-          description: List of card_uids linked to this account
-          items:
-            $ref: '#/components/schemas/card'
+        contract_reference:
+          $ref: '#/components/schemas/ContractReference'
+        person_reference:
+          $ref: '#/components/schemas/PersonReference'
+        card_id:
+          $ref: '#/components/schemas/CardId'
+        embossing_line_1:
+          $ref: '#/components/schemas/EmbossingLine1'
+        embossing_line_2:
+          $ref: '#/components/schemas/EmbossingLine2'
+        pan_4_digits:
+          $ref: '#/components/schemas/Pan4Digits'
+        expiry_date:
+          $ref: '#/components/schemas/ExpiryDate'
+        initial_issuing_date:
+          $ref: '#/components/schemas/InitialIssuingDate'
+        card_status:
+          $ref: '#/components/schemas/CardStatus'
         currency:
-          $ref: '#/components/schemas/currency'
-        ibanAccount:
-          $ref: '#/components/schemas/paymentQrIbanAccount'
-        billingCycle:
-          type: string
-          description: code that determines the billing cycle
-          example: monthly
-          enum:
-          - weekly
-          - monthly
-          - quarterly
-          - halfyearly
-          - yearly
-        cardAccountStatus:
-          $ref: '#/components/schemas/genericStatus'
-        cardLoyality:
-          $ref: '#/components/schemas/cardLoyality'
-        paymentDetails:
-          type: object
-          properties:
-            paymentType:
-                $ref: '#/components/schemas/paymentType'          
-            paymentOption:
-                $ref: '#/components/schemas/paymentOption'  
-        statementDetails:
-          type: object
-          properties:
-            deliveryType:
-              type: string
-              example: paper
-              description: Description of the delivery format of the statement. 
-              enum:
-              - paper
-              - paperless
-              - estatement
-              - other
-            activeDeliveryFee:
-              type: number
-              example: 1.0
-              description: Amount charged to the customer for each statement delivery. Typically, paperless is free.
-            nextStatementDate:
-              $ref: '#/components/schemas/date'
-    # ---------
+          $ref: '#/components/schemas/Currency'
+        image:
+          $ref: '#/components/schemas/Image'
+        product_id:
+          $ref: '#/components/schemas/ProductId'
+        product_name:
+          $ref: '#/components/schemas/ProductName'
+        scheme:
+          $ref: '#/components/schemas/Scheme'
+        category:
+          $ref: '#/components/schemas/Category'
+        issuing_type:
+          $ref: '#/components/schemas/IssuingType'
+        product_type:
+          $ref: '#/components/schemas/ProductType'
+        product_line:
+          $ref: '#/components/schemas/ProductLine'
+        card_limit_cycle:
+          $ref: '#/components/schemas/CardLimitCycle'
+        card_limit_daily:
+          $ref: '#/components/schemas/CardLimitDaily'
+        card_account_id:
+          $ref: '#/components/schemas/CardAccountId'
+        bank_account_reference:
+          $ref: '#/components/schemas/BankAccountReference'
+        issuer_id:
+          $ref: '#/components/schemas/IssuerId'
+        issuer_name:
+          $ref: '#/components/schemas/IssuerName'
+        distribution_partner_id:
+          $ref: '#/components/schemas/DistributionPartnerId'
+        distribution_partner_name:
+          $ref: '#/components/schemas/DistributionPartnerName'
+        language:
+          $ref: '#/components/schemas/Language'
 
-    # ---- Card Loyality Object ----
-    cardLoyality:
-      description: The representation of a card loyality object
-      type: object
-      required:
-        - cardLoyalityId
-      properties:
-        cardLoyalityId:
-          $ref: '#/components/schemas/entityId'
-        name:
-          type: string
-          description: Program name
-          example: surprize
-        reference:
-          type: string
-          example: "2501021032295"
-          description: Additional reference number if available
-        enrollment_date:
-          $ref: '#/components/schemas/date'
-    # ---------
+  CardTokenDetails:
+    title: # TODO
+    description: #TODO
+    type: object
+    required:
+      - token_id
+      - token_pan_4_digits
+      - token_requestor_id
+      - token_requestor_name
+      - funding_card_id
+      - token_status
+      - token_issuing_date
+      - token_scheme
+    properties:
+      token_id:
+        $ref: '#/components/schemas/TokenId'
+      token_pan_4_digits:
+        $ref: '#/components/schemas/TokenPan4Digits'
+      wallet_id:
+        $ref: '#/components/schemas/WalletId'
+      wallet_name:
+        $ref: '#/components/schemas/WalletName'
+      token_requestor_id:
+        $ref: '#/components/schemas/TokenRequestorId'
+      token_requestor_name:
+        $ref: '#/components/schemas/TokenRequestorName'
+      device_name:
+        $ref: '#/components/schemas/DeviceName'
+      device_type:
+        $ref: '#/components/schemas/DeviceType'
+      funding_card_id:
+        $ref: '#/components/schemas/FundingCardId'
+      token_status:
+        $ref: '#/components/schemas/TokenStatus'
+      token_issuing_date:
+        $ref: '#/components/schemas/TokenIssuingDate'
+      token_scheme:
+        $ref: '#/components/schemas/TokenScheme'
 
-    # ---- Card API Object ----
-    cardApi:
-      description: List of APIs supported for a API consumer
+  TransactionDetails:
+    title: # TODO
+    description: #TODO
+    type: object
+    required:
+      - transaction_date_time
+      - valuta_date
+      - transaction_status
+      - original_amount
+      - original_currency
+      - total_amount
+      - transaction_amount
+      - transaction_currency
+      - mcc
+      - mcc_description
+      - transaction_category
+      - card_id
+    properties:
+      transaction_id:
+        $ref: '#/components/schemas/TransactionId'
+      authorization_id:
+        $ref: '#/components/schemas/AuthorizationId'
+      transaction_date_time:
+        $ref: '#/components/schemas/TransactionDateTime'
+      valuta_date:
+        $ref: '#/components/schemas/ValutaDate'
+      statement_date:
+        $ref: '#/components/schemas/StatementDate'
+      transaction_status:
+        $ref: '#/components/schemas/TransactionStatus'
+      approval_code:
+        $ref: '#/components/schemas/ApprovalCode'
+      original_amount:
+        $ref: '#/components/schemas/OriginalAmount'
+      original_currency:
+        $ref: '#/components/schemas/OriginalCurrency'
+      total_amount:
+        $ref: '#/components/schemas/TotalAmount'
+      transaction_amount:
+        $ref: '#/components/schemas/TransactionAmount'
+      transaction_currency:
+        $ref: '#/components/schemas/TransactionCurrency'
+      fees:
+        $ref: '#/components/schemas/Fees'
+      exchange_rate:
+        $ref: '#/components/schemas/ExchangeRate'
+      exchange_rate_date:
+        $ref: '#/components/schemas/ExchangeRateDate'
+      description:
+        $ref: '#/components/schemas/Description'
+      merchant_name:
+        $ref: '#/components/schemas/MerchantName'
+      merchant_country:
+        $ref: '#/components/schemas/MerchantCountry'
+      merchant_city:
+        $ref: '#/components/schemas/MerchantCity'
+      mcc:
+        $ref: '#/components/schemas/Mcc'
+      mcc_description:
+        $ref: '#/components/schemas/MccDescription'
+      terminal_id:
+        $ref: '#/components/schemas/TerminalId'
+      card_acceptor_id:
+        $ref: '#/components/schemas/CardAcceptorId'
+      acquirer_id:
+        $ref: '#/components/schemas/AcquirerId'
+      channel:
+        $ref: '#/components/schemas/Channel'
+      transaction_category:
+        $ref: '#/components/schemas/TransactionCategory'
+      token_id:
+        $ref: '#/components/schemas/ReferenceTokenId'
+      cardholder_id:
+        $ref: '#/components/schemas/CardholderId'
+      card_account_id:
+        $ref: '#/components/schemas/ReferenceCardAccountId'
+      card_id:
+        $ref: '#/components/schemas/ReferenceCardId'
+      transaction_reference:
+        $ref: '#/components/schemas/TransactionReference'
+
+    ContractReference:
       type: string
-      example: get:cards
-    # ---------
+      maxLength: 50
+      examples:
+        swiss:
+          value: CH3456789012345678901
+        custom:
+          value: ABC-56789012345
+      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
 
-
-    # ---- Card Consent Object ----
-    cardConsent:
-      description: The representation of a card consent object
-      type: object
-      required:
-        - cardConsentId
-        - cardApiList
-        - identificationType
-        - identificationValue
-      properties:
-        cardConsentId:
-          $ref: '#/components/schemas/entityId'
-        identificationType:
-          type: string
-          example: card_uid
-          description: Audit type field in order to identify the actual user who granted the consent. This field contains the type of identifier.
-        identificationValue:
-          type: string
-          example: 404003004CCL50000
-          description: Audit type field in order to identify the actual user who granted the consent. This field contains the actual identifier of the type defined before.
-        cardApiList:
-          type: array
-          description: List of the APIs to which access is requested.
-          items:
-            $ref: '#/components/schemas/cardApi'
-    # ---------
+    PersonReference:
+      type: string
+      maxLength: 50
+      example: 123456789
+      description: Functional reference to a cardholder, defined by the Card Service Provider.
     
-    # ---- Card Object ----
-    card:
-      description: The representation of a card objectw
-      type: object
-      required:
-        - cardId
-      properties:
-        cardId:
-          $ref: '#/components/schemas/entityId'
-        personId:
-          $ref: '#/components/schemas/entityId'
-        contractId:
-          $ref: '#/components/schemas/entityId'
-        cardAccountId:
-          $ref: '#/components/schemas/entityId'
-        issuingPartnerId:
-          $ref: '#/components/schemas/entityIdName'
-        issuerId:
-          $ref: '#/components/schemas/entityIdName'
-        cardDetail:
-          type: object
-          required:
-            - cardNumberCustomer
-          properties:
-            cardNumber:
-              type: string
-              example: 4566549683425654
-              maxLength: 19
-              description: Card number
-            cardNumberCustomer:
-              type: string
-              example: 4566549683425654
-              maxLength: 50
-              description: Card number
-            initialCreationDate:
-              $ref: '#/components/schemas/date'
-            expiryDate:
-              type: string
-              example: 05/19
-              description: Card expiry date in the format MM/YY
-            embossingLine1:
-              type: string
-              maxLength: 30
-              example: FRANZ MUSTERMANN
-              description: Embossing Line 1 contains the person name as visible on the card plastic
-            embossingLine2:
-              type: string
-              maxLength: 30
-              example: VISECA CARD SERVICES
-              description: Embossing Line 2 may contain a person-specified or product-specific value, as visible on the card plastic
-            purgedDate:
-              $ref: '#/components/schemas/date'
-            currency:
-              $ref: '#/components/schemas/currency'
-            card_scheme:
-              type: string
-              example: visa
-              description: Card payment scheme
-              enum:
-              - mastercard
-              - visa
-              - amex
-              - dinersclub
-              - other
-            productId:
-              type: string
-              example: "1010101"
-              description: Issuer identifier of a card product
-            productType:
-              type: string
-              example: prepaid
-              description: States if the card is credit or debit. Prepaid cards are labelled as credit in this operation
-              enum:
-              - credit
-              - debit
-              - prepaid
-            productCategory:
-              type: string
-              example: gold
-              description: 'Product category corresponds to the tier of card: gold, platinum, basic etc.'
-            productLine:
-              $ref: '#/components/schemas/contractType'
-            productName:
-              type: string
-              maxLength: 50
-              example: World Mastercard Gold CHF
-              description: Commercial name of the card product as defined by the bank
-            cardImage:
-              type: string
-              example: "https://bank.ch/images/cardImage.png"
-              description: URL to the (png) card image corresponding to the card
-            cardRelationship:
-              type: string
-              example: main_card
-              description: 'Identifies the nature of the card in regards to the overall account: main card or additional card'
-              enum:
-              - main_card
-              - additional_card
-            previousCardId:
-              $ref: '#/components/schemas/entityId'
-            previousReplacementDate:
-              $ref: '#/components/schemas/date'
-            replacementReason:
-              type: string
-              example: other
-              description: Reason for the replacement of this card
-            nextCardId:
-              $ref: '#/components/schemas/entityId'
-            nextReplacementDate:
-              $ref: '#/components/schemas/date'
-            atmDirectDebit:
-              type: boolean
-              description: A flag indicating if the ATM Direct Debit functionality is enabled
-              example: true
-            cardStatus:
-              $ref: '#/components/schemas/genericStatus'  
-    # ---------
+    CardId:
+      type: string
+      maxLength: 50
+      example: 4321A1B2C3DE1234
+      description: Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals)
 
-    # TODO: define object with properties
-    cardToken:
-      description: Card Account Token Information.
-      type: object
-      required:
-        - cardTokenId
-      properties:
-        cardTokenId:
-          type: string
-          format: uuid
-          description: UUID v4 of the card accountbundle
-          example: 576f8de3-6b30-4882-a7af-da2132a456cf
+    EmbossingLine1:
+      type: string
+      maxLength: 35
+      example: Peter Schweizer
+      description: First line embossed on the card to indicate the cardholder.
 
-    # ---- Card Account Statement ----
-    cardAccountStatement:
-      description: xy
-      type: object
-      required:
-        - cardAccountStatementId
-      properties:
-        cardAccountStatementId:
-            $ref: '#/components/schemas/entityId'
-        cardAccountId:
-            $ref: '#/components/schemas/entityId'
-        statementCreationDate:
-            $ref: '#/components/schemas/date'
-        statementAmount:
-            $ref: '#/components/schemas/paymentCurrencyAmount'
-        paymentDueDate:
-            $ref: '#/components/schemas/date'
-        statementMinimalDueAmount:
-            $ref: '#/components/schemas/paymentCurrencyAmount'
-        paymentType:
-            $ref: '#/components/schemas/paymentType'
-        paymentOption:
-            $ref: '#/components/schemas/paymentOption'
-    # ---------
-    
-    # ---- Card Transaction ----
-    cardTransaction:
-      description: Transaction object adapted for card use
-      type: object
-      required:
-        - cardTransactionId
-      properties:
-        cardTransactionId:
-          type: string
-          format: uuid
-          example: d452083f-8316-410d-a609-d49463687329
-          description: Uuid v4 of the specific transaction. Must not change when the status (approved, booked, etc.) is changed.
-        approvalCode:
-          type: string
-          example: Please-Provide-Example-and-MaxLength
-          description: Additional transaction identifier provided by schemes or processing system
-        transactionTimestamp:
-          $ref: '#/components/schemas/dateTime'
-        originalCurrencyAmount:
-          $ref: '#/components/schemas/paymentCurrencyAmount'
-        targetCurrencyAmountt:
-          $ref: '#/components/schemas/paymentCurrencyAmount'
-        exchangeRate:
-          type: string
-          example: "0.957"
-          pattern: "[0-9][.][0-9]{1,10}"
-          maxLength: 12
-        exchangeRateDate:
-          $ref: '#/components/schemas/date'
-        merchant:
-          type: object
-          description: Merchant information of the card transaction
-          properties:
-            merchantName:
-              type: string
-              example: COOP PRONTO
-              description: Value that contains the merchant name and location
-            merchantLocation:
-              type: string
-              example: Zurich
-              # Please maxLength
-              description: Value that contains the merchant name and location
-            merchantLocationLatitude:
-              type: string
-              example: "-35.253252"
-              # Please regex
-              description: Value that contains the merchant name and location
-            merchantLocationLongitude:
-              type: string
-              example: "174.071674"
-              # Please regex
-              description: Value that contains the merchant name and location
-            merchantCountry:
-              $ref: '#/components/schemas/country'
-            merchangeCategoryCode:
-              type: string
-              example: "5411"
-              description: Value that contains the merchant category code as defined by ISO 18245
-        posEntryMode:
-          $ref: '#/components/schemas/posEntryMode'
-        terminalId:
-          type: string
-          description: Identifier of the point of sale terminal
-          #Please add example and regex
-        channel:
-          type: string
-          description: Showing if it was a eCommerce transaction or not
-          enum:
-          - ecom
-          - other
-        offline:
-          type: string
-          description: Indicator if the transaction was offline authorized
-          #Please add example and regex
-        statementDate:
-          type: string
-          format: date
-          example: '2018-08-03'
-          description: Settlement date
-        fees:
-          type: array
-          description: |-
-            This array shows individual fee objects that are associated with the
-            transaction. Please note that multiple fee objects can be transmitted.
-          items:
-             $ref: '#/components/schemas/cardTransactionFee'
-        state:
-          type: string
-          example: authorised
-          description: Used to identify if a transactions has been settled (booked) or just authorised
-        transactionCategory:
-          type: string
-          example: merchant
-          description: Transaction type identifying merchant to non-merchant entries
-          enum:
-          - merchant
-          - fee
-          - atm
-        transactionType:
-          $ref: '#/components/schemas/cardTransactionType'
-        personId:
-          $ref: '#/components/schemas/entityId'
-        personName:
-          type: object
-          description: Name of the person
-          properties:
-            company:
-              $ref: '#/components/schemas/entityName'
-            name:
-              $ref: '#/components/schemas/personName'
-            surName:
-              $ref: '#/components/schemas/personSurName'
-        cardAccountId:
-          $ref: '#/components/schemas/entityId'
-        cardId:
-          $ref: '#/components/schemas/entityId'
-        walletProvider:
-          type: string
-          example: Apple Pay
-          description: Identifier of the wallet provider if transaction was perfomred with a payment token (e.g. mobile payment such as Apple Pay)
-        token:
-          type: string
-          example: "1234"
-          maxLength: 4
-          description: last 4 digits of the token
-        tokenRequestorId:
-          type: string
-          example: "1234"
-          maxLength: 4
-          description: last 4 digits of the token
-          # Is this a duplicate of token?
-        securityLevelIndicator:
-          type: string
-          # Please provide example and regex
-          description: Security Level Indicator provides additional information about 3DS, recurring transactions and other authentication related information
-        actionCode:
-          type: string
-          example: "121"
-          description: The Action Code provides information about the why a transaction was approved or declined
-    # ---------
+    EmbossingLine2:
+      type: string
+      maxLength: 35
+      example: Peter Schweizer
+      description: Second line embossed on the card to indicate the cardholder.
 
-    # ---- Card Transaction Fee ----
-    cardTransactionFee:
-      description: Individual fee objects that are associated with the transaction
-      type: object
-      properties:
-        type:
-          type: string
-          example: Bearbeitungsgebühr 1.75%
-          description: Name of the fee
-        amount:
-          $ref: '#/components/schemas/amount'
-        currency:
-          $ref: '#/components/schemas/currency'
-    # ---------
+    Pan4Digits:
+      type: string
+      maxLength: 4 # TODO use pattern: '\d{4}' or number?
+      example: 4321
+      description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
 
-    # ---- Card Transaction Type ----
-    cardTransactionType:
-      type: object
-      properties:
-        acquiringType:
-          type: string
-          # Please provide example
-          description: Provides further insight into the interface used
-        financialMeaning:
-          type: string
-          # Please provide example
-          description: Additional functional information about a transaction
-        transactionReference:
-          type: string
-          # Please provide example
-          description: Provides information about connecting a transaction to a previous occurred transaction. E.g. Storno
-    # -------
+    ExpiryDate:
+      $ref: '#/components/schemas/Date'
+      description: Last day when the card is valid and can be used for payments.
 
-    # ---- Card POS Entry Mode ----
-    posEntryMode:
-      type: object
-      description: The POS Entry Mode object contain multiple fields that further define how the transaction was captured at its point of origin including information about authentication, payment infrastructure and other related topics.
-      properties:
-        cardDataInputCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        personAuthenticationCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardCaptureCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        operatingEnvironment:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        personPresent:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardPresent:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardDataInputMode:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        personAuthenticationMethod:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        personAuthenticationEntity:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        cardDataOutputCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        terminalOutputCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
-        pinCaptureCapability:
-          type: string
-          description: Please_Add_Description_and_Example_and_Regex-MaxLength
+    InitialIssuingDate:
+      $ref: '#/components/schemas/Date'
+      description: Date when card was issued initially.
 
-    # ---- Person ----
-    person:
-      description: Person information .
-      type: object
-      required:
-        - personId
-      properties:
-        personId:
-          $ref: '#/components/schemas/entityId'
-        contractId:
-          $ref: '#/components/schemas/entityId'        
-        personType:
-          $ref: '#/components/schemas/contractType'
-        isMainPerson:
-          type: boolean
-          description: Flag to identify if the person is a main person
-          example: true
-        personStatistics:
-          type: object
-          properties:
-            total_accounts:
-              type: integer
-              example: 1
-              description: Total number of accounts of a private customer or a company
-            totalActivAccounts:
-              type: integer
-              description: Total number of active accounts of a private customer or a company
-              example: 2
-            totalCards:
-              type: integer
-              example: 1
-              description: Total number of cards of a private customer or a company
-            totalActiveCards:
-              type: integer
-              description: Total number of active cards of a private customer or a company
-        personDetail:
-          type: object
-          properties:
-            salutation:
-              $ref: '#/components/schemas/personSalutation'
-            company:
-              $ref: '#/components/schemas/entityName'
-            name:
-              $ref: '#/components/schemas/personName'
-            surName:
-              $ref: '#/components/schemas/personSurName'
-            middleName:
-              $ref: '#/components/schemas/personMiddleName'
-            address:
-              $ref: '#/components/schemas/structuredAddress'
-            country:
-              $ref: '#/components/schemas/country'
-            language:
-              $ref: '#/components/schemas/language'
-            nationality:
-              $ref: '#/components/schemas/country'
-            birthDay:
-              $ref: '#/components/schemas/date'
-            gender:
-              $ref: '#/components/schemas/personGender'
-            permit:
-              $ref: '#/components/schemas/personPermit'
-            externalReferenceId:
-              type: string
-              maxLength: 30
-              example: No1
-              description: Reference id of company customers (e.g. employee number)
-            amloCheck:
-              type: boolean
-              example: true
-              description: Flag to show if the Anti-Money Laundering Ordinance has been already checked for this customer
-            adPermission:
-              type: boolean
-              example: false
-              description: Flag to see if the customer give his/her permission to marketing advertisement
-            phoneNumber:
-              type: array
-              description: Phone numbers of the person
-              items:
-                $ref: '#/components/schemas/personPhoneNumber'
-            email:
-              type: array
-              description: Email addresses of the person
-              items:
-                $ref: '#/components/schemas/personEmail'
-    # ---------
+    CardStatus:
+      type: string
+      enum: # TODO list all allowed values in enum
+        - ACTIVE
+        - SUSPENDED
+        - BLOCKED
+      example: ACTIVE
+      description: |
+        Effective status of the card to indicate whether it can be used for payments; definition of enums:
+        - active: authorizations are possible
+        - suspended: authorizations are temporarily not possible
+        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
 
-    # ---- Card Contract ----
-    cardContract:
-      description: Card Contract Information .
-      type: object
-      required:
-        - cardContractId
-      properties:
-        cardContractId:
-          type: string
-          format: uuid
-          description: UUID v4 of the card contract
-          example: 576f8de3-6b30-4882-a7af-da2132a456cf
-        openingDate:
-          description: Date when the card contract was created
-          type: string
-          format: date
-          example: 2018-04-13
-        purgedDate:
-          description: Date that indicates if and when this card contract was purged in the processor system
-          type: string
-          format: date
-          example: 2018-04-13
-        cardAccounts:
-          type: array
-          items: 
-            $ref: '#/components/schemas/cardAccount'        
-        personId:
-          $ref: '#/components/schemas/entityId'        
-        contractType:
-          $ref: '#/components/schemas/contractType'        
-        issuingPartnerId:
-          $ref: '#/components/schemas/entityIdName'        
-        issuerId:
-          $ref: '#/components/schemas/entityIdName'        
-        fulfillEntity:
-          $ref: '#/components/schemas/entityName'        
-        contractStatus:
-          $ref: '#/components/schemas/genericStatus'        
-    # ---------
+    Currency:
+      type: string
+      pattern: '^[a-zA-Z0-9]{3}$'
+      examples:
+        swiss:
+          value: CHF
+        eu:
+          value: EUR
+      description: Settlement currency of the card / card account in ISO code format.
 
-    # TODO: define object with properties
-    cardAccountbundle:
-      description: Card Accountbundle Information.
-      type: object
-      required:
-        - cardAccountbundleId
-      properties:
-        cardAccountbundleId:
-          type: string
-          format: uuid
-          description: UUID v4 of the card accountbundle
-          example: 576f8de3-6b30-4882-a7af-da2132a456cf
+    Image:
+      type: string
+      format: uri # TODO! specify custom openAPI format or use pattern according to RFC3986
+      example: https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+      description: URL reference to an image for the design of the card.
 
-    # ---- Card API Model ----
-    contractType:
-      description: Type of a contract
+    ProductId:
+      type: string
+      maxLength: 50
+      example: 1234567
+      description: Identifier for the card product.
+
+    ProductName:
+      type: string
+      maxLength: 100
+      examples:
+        basic:
+          value: A1
+        gold:
+          value: MC/VI Gold CHF
+      description: Name for the card product assigned by the issuer.
+
+    Scheme:
       type: string
       enum:
-      - business
-      - corporate
-      - consumer
+        - mastercard
+        - visa
+        - americanexpress
+      example: mastercard
+      description: Card network which is used to process payments with the card.
+
+    Category:
+      type: string
+      enum: # TODO list all allowed values in enum
+        - primary_card
+        - additional_card
+      example: primary_card
+      description: Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of certain lifecycle use cases.
+
+    IssuingType:
+      type: string
+      enum: # TODO enum value and description do not match
+        - physical
+        - virtual
+      example: physical
+      description: |
+        Specifies in which form the card is issued; definition of enums: 
+        - plastic: the card is being embossed on a physical material and delivered to the cardholder by mail
+        - virtual: the card is being issued only virtually for digital usage
+
+    ProductType:
+      type: string
+      enum:
+        - credit
+        - debit
+        - prepaid
+      example: credit
+      description: Type of the card product.
+
+    ProductLine:
+      type: string
+      enum:
+        - consumer
+        - business
+        - corporate
       example: consumer
-    entityId:
-        type: string
-        format: uuid
-        description: UUID of an entity 
-        example: 1b19aeb0-60db-4160-8551-c37de178ca10
-    entityName:
-        type: string
-        maxLength: 70
-        description: Name of an entity 
-        example: Abteilung B
-    personSurName:
-        type: string
-        maxLength: 70
-        description: Sur name of person 
-        example: Muster
-    personMiddleName:
-        type: string
-        maxLength: 70
-        description: Middle name of person 
-        example: Gustav
-    personName:    
-        type: string
-        maxLength: 70
-        description: Name of person 
-        example: Max
-    personGender:             
-      type: string
-      enum:
-      - male
-      - female
-      - other
-      example: female
-      description: Gender of the person.
-    personSalutation:             
-      type: string
-      enum:
-      - none
-      - mr
-      - mrs
-      - company
-      - male_academic
-      - female_academic
-      - male_nobility
-      - female_nobility
-      - neutral
-      example: mrs
-      description: Salutation for the person.
-    language:    
-      type: string
-      example: fr
-      description: Language - for example, preferred contact language
-      enum:
-      - de
-      - fr
-      - it
-      - en
-    personPermit:
-      description: Permit of a person
-      type: object
-      required:
-      - permitStatus
-      properties:
-        permitStatus:
-          type: string
-          example: B
-          description: Permit status
-          enum:
-          - C
-          - B
-          - other
-        permitSince:
-          $ref: '#/components/schemas/date'
-    personPhoneNumber:
-      description: Phone number of a person
-      type: object
-      required:
-      - phoneNumber
-      properties:
-        phoneNumberType:
-          type: string
-          example: mobile
-          description: phone number type
-          enum:
-          - mobile
-          - mobile private
-          - mobile business
-          - fixline
-          - fixline private
-          - fixline business
-          - other
-        emailAddress:
-          type: string
-          maxLength: 30
-          example: max.muster@company.ch
-          description: Email address 
-    personEmail:
-      description: Email address of a person
-      type: object
-      required:
-      - emailAddress
-      properties:
-        emailType:
-          type: string
-          example: personal
-          description: Email type
-          enum:
-          - personal
-          - business
-          - other
-        emailAddress:
-          type: string
-          maxLength: 30
-          example: max.muster@company.ch
-          description: Email address 
-    entityIdName:
-      description: Issuing entity of the card
-      type: object
-      required:
-      - issuingEntityId
-      properties:
-        issuingEntityId:
-          $ref: '#/components/schemas/entityId'
-        name:
-          $ref: '#/components/schemas/entityName'
+      description: Customer segment to which the card is offered.
 
-    paymentType:
-      type: string
-      example: lsv
-      description: Identifier of the payment method selected by the person to settle the account. 
-      enum:
-      - lsv
-      - debit_direct
-      - esr
-      - ipi
-      - pos
-    paymentOption:
-      type: string
-      example: full
-      description: Identifier of the payment plan selected by the person to pay for a bill. 
-      enum:
-      - full
-      - instalment
-      - revolving
+    CardLimitCycle:
+      type: integer
+      format: int32
+      example: 2000
+      description: Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
 
-    genericStatus:
-      description: 
-        'Describes the status of a card object.
-        Effective: Aggregated effective status on the entity based on directly and inherited status.
-        Directly: Directly  applied status on the entity. Note: At a contract level effective status and direct status are the same.
-        Inherited: Inherited status on the entity. Note: At a contract level there is no inherited status
-        Last Change: Date of the last change of the effective status.'
-      type: object
-      required: 
-      - effective
-      properties:
-        effective:
-          $ref: '#/components/schemas/genericStatusEnum'
-        direct:
-          $ref: '#/components/schemas/genericStatusEnum'
-        inherited:
-          $ref: '#/components/schemas/genericStatusEnum'
-        last_change:
-          $ref: '#/components/schemas/date'
-    genericStatusEnum:
-      description: Status element 
-      type: object
-      required: 
-      - status
-      properties:
-        status:
-          type: string
-          enum:
-          - ok
-          - nok
-          - unknown
-          - active
-          - blocked
-          - suspended_by_person
-          - suspended_by_bank
-          - suspended_by_issuer
-          description: Status type
-        detail:
-          type: string
-          description: 'Status detail in custom text'
-    # ---------
+    CardLimitDaily:
+      type: integer
+      format: int32
+      example: 2000
+      description: Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
 
-    # ---- Common Data Model v1.2.0
-    # ---- Date Formats
-    date:
+    CardAccountId:
+      type: string
+      maxLength: 50
+      example: AB-4567890123456
+      description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
+
+    BankAccountReference:
+      type: string
+      maxLength: 34
+      pattern: # TODO can we use a pattern for iban or similar?
+      example: CH3456789012345678901
+      description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+
+    IssuerId:
+      type: string
+      maxLength: 50
+      example: 123456789
+      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
+
+    IssuerName:
+      type: string
+      maxLength: 100
+      examples:
+        viseca:
+          value: Viseca Card Services
+        ubs:
+          value: UBS
+        zkb:
+          value: Zürcher Kantonalbank
+      description: Name of the legal issuer of a card.
+
+    DistributionPartnerId:
+      type: string
+      maxLength: 50
+      example: 123456789
+      description: Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+
+    DistributionPartnerName:
+      type: string
+      maxLength: 100
+      example: Zürcher Kantonalbank
+      description: Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+
+    Language:
+      type: string
+      enum:
+        - DE
+        - EN
+        - FR
+        - IT
+      example: DE
+      description: Preferred language of the cardholder for any communication.
+
+    TokenId:
+      type: string
+      format: uuid # TODO special format of id possible?
+      maxLength: 50
+      example: eb404f8d-656b-4e51-8872-88c42fa55536
+      description: Unique identifier for the token of a card, defined by the Card Service Provider.
+
+    TokenPan4Digits:
+      type: string
+      maxLength: 4
+      example: 4321
+      description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.
+
+    WalletId:
+      type: string
+      maxLength: 10
+      example: 123
+      description: Identifier for the wallet in which the token is used and managed.
+
+    WalletName:
+      type: string
+      enum:
+        - APPLE_PAY
+        - SAMSUNG_PAY
+        - GOOGLE_PAY
+        - GARMIN_PAY
+      example: APPLE_PAY
+      description: Name of the wallet in which the token is used and managed.
+
+    TokenRequestorId:
+      type: string
+      maxLength: 11
+      example: 1111111111 # TODO 11 digits?
+      description: Identifier for the token requestor / token service provider.
+
+    TokenRequestorName:
+      type: string
+      maxLength: 100
+      example: Zalando
+      description: Name of the token requestor / token service provider.
+
+    DeviceName:
+      type: string
+      maxLength: 100
+      example: Peter's iPhone
+      description: Name of the device which is associated to the token, only available for device-based tokens.
+
+    DeviceType:
+      type: string
+      maxLength: 100
+      example: IPHONE
+      description: Type of the device which is associated to the token, only available for device-based tokens; value defined by  the Card Service Provider.
+
+    FundingCardId:
+      type: string
+      maxLength: 50
+      example: 4321A1B2C3DE1234 # TODO use unique values if not indicating same parameters to avoid confusions?
+      description: Reference to the card that is used to fund the transactions of the token.
+
+    TokenStatus:
+      type: string
+      enum: # TODO list all allowed values in enum
+        - ACTIVE
+        - SUSPENDED
+        - BLOCKED
+        - PENDING
+      example: ACTIVE
+      description: |
+        Effective status of the token to indicate whether it can be used for payments; definition of enums:
+        - active: authorizations are possible
+        - suspended: authorizations are temporarily not possible
+        - blocked: authorizations are permanently not possible because the token was cancelled
+        - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
+
+    TokenIssuingDate:
+      $ref: '#/components/schemas/Date'
+      description: Date when the token was issued.
+
+    TokenScheme:
+      type: string
+      enum:
+        - mastercard
+        - visa
+        - americanexpress
+      example: mastercard
+      description: Scheme for which the token is issued.
+
+    TransactionId:
+      type: string
+      format: uuid
+      maxLength: 50
+      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+      description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
+
+    AuthorizationId:
+      type: string
+      maxLength: 50
+      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+      description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
+
+    TransactionDateTime:
+      $ref: '#/components/schemas/DateTime'
+      description: Date and time when transaction was authorized, always in CH timezone.
+
+    ValutaDate:
+      $ref: '#/components/schemas/Date'
+      description: Date when the transaction becomes effective on the card account for calculating interest.
+
+    StatementDate:
+      $ref: '#/components/schemas/Date'
+      description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
+
+    TransactionStatus:
+      type: string
+      enum:
+        - authorized
+        - booked
+      example: authorized
+      description: |
+      Status of the transaction; definition of enums:
+      - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
+      - booked: transaction was cleared/settled and charged to the card account
+
+    ApprovalCode:
+      type: string
+      maxLength: 6
+      example: 803051 # TODO always numbers?
+      description: Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
+
+    OriginalAmount:
+      type: number
+      example: 2000.05 # TODO use string and pattern? format: float?
+      description: Amount of the transaction in the currency used by the merchant.
+
+    OriginalCurrency:
+      type: string
+      pattern: '^[a-zA-Z0-9]{3}$'
+      example: CHF
+      description: Currency of the card account on which the transaction is charged.
+
+    TotalAmount:
+      type: number
+      example: 1957.50 # TODO use string and pattern? format: float?
+      description: Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); positive amounts are debit transactions, negative amounts are credit transactions.
+
+    TransactionAmount:
+      type: number
+      example: 1952.50
+      description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
+
+    TransactionCurrency:
+      type: string
+      pattern: '^[a-zA-Z0-9]{3}$'
+      example: CHF
+      description: Currency of the card account on which the transaction is charged.
+
+    Fees:
+      title: # TODO optional
+      description: #TODO
+      type: object
+      required:
+        - # TODO Required in object?
+      properties:
+        fee_name:
+          $ref: '#/components/schemas/FeeName'
+        fee_percentage:
+          $ref: '#/components/schemas/FeePercentage'
+        fee_amount:
+          $ref: '#/components/schemas/FeeAmount'
+        fee_currency:
+          $ref: '#/components/schemas/FeeCurrency'
+
+    ExchangeRate:
+      type: number
+      example: 1.0485930
+      description: Exchange rate for converting the originalAmount into the transactionAmount.
+
+    ExchangeRateDate:
+      $ref: '#/components/schemas/Date'
+      description: Date which was used to determine the exchange rate, usually the valutaDate.
+
+    Description:
+      type: string
+      maxLength: 100
+      example: Aufladung
+      description: Description of the purpose of the transaction and potentially a reference to the merchant.
+
+    MerchantName:
+      type: string
+      maxLength: 100
+      example: Yallo
+      description: Name of the merchant who requested the transaction.
+
+    MerchantCountry:
+      type: string
+      pattern: '^[a-zA-Z0-9]{3}$'
+      example: CHE
+      description: Country in which the merchant is located.
+
+    MerchantCity:
+      type: string
+      maxLength: 50
+      example: Zurich
+      description: City in which the merchant is located.
+
+    Mcc:
+      type: string
+      maxLength: 4
+      example: 4812 # TODO zip code = numbers only?
+      description: Merchant Category Code to identify the industry branch of the merchant.
+
+    MccDescription:
+      type: string
+      maxLength: 100
+      example: Telco
+      description: Description for the mcc.
+
+    TerminalId:
+      type: string
+      maxLength: 8
+      example: 12345678
+      description: Identifier for the terminal which has read the card data.
+
+    CardAcceptorId:
+      type: string
+      maxLength: 15
+      example: 87040
+      description: Identifier for the merchant who requested the transaction.
+
+    AcquirerId:
+      type: string
+      maxLength: 11
+      example: 12345678901 # TODO exactly 11 digits?
+      description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
+
+    Channel:
+      type: string
+      enum:
+        - standard
+        - ecommerce
+      example: standard
+      description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
+
+    TransactionCategory:
+      type: string
+      maxLength: 50
+      examples:
+        100:
+          value: Cash withdrawal
+        103: 
+          value: ATM operator refund
+        117: 
+          value: P2P payment charge sender
+        118:
+          value: P2P payment credit recipient "merchant", "fee", "atm"
+      description: Category of the transaction, defined by the Card Service Provider.
+
+    ReferenceTokenId: # TODO TokenId already in use
+      type: string
+      maxLength: 50
+      example: eb404f8d-656b-4e51-8872-88c42fa55536
+      description: Reference to the token that was used for the transaction, only present for token-based transactions.
+
+    CardholderId:
+      type: string
+      maxLength: 50
+      example: Peter Schweizer
+      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
+
+    ReferenceCardAccountId: # TODO CardAccountId already in use
+      type: string
+      maxLength: 50
+      example: AB-4567890123456
+      description: Reference to the card account which is used to settle the transaction; not provided by all Card Service Providers.
+
+    ReferenceCardId: # TODO CardId already in use
+      type: string
+      maxLength: 50
+      example: 4321A1B2C3DE1234
+      description: Reference to the card that was used for the transaction.
+
+    TransactionReference:
+      type: string
+      maxLength: 50
+      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
+
+    FeeName:
+      type: string
+      maxLength: 50
+      examples:
+        tip:
+          value: transactionTipAmount
+        surcharge:
+          value: transactionSurchargeAmount
+      description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
+
+    FeePercentage:
+      type: number
+      example: 3.5% # TODO type example mismatch
+      description: Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.
+
+    FeeAmount:
+      type: number
+      example: 5.00
+      description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
+
+    FeeCurrency:
+      type: string
+      pattern: '^[a-zA-Z0-9]{3}$'
+      example: CHF
+      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
+
+    Date:
       type: string
       format: date
       example: 2018-04-13
-    dateTime:
+
+    DateTime:
       type: string
       format: date-time
       example: 2018-04-13T11:11:11Z
-    # --------
-    # ---- Links for Pagination----
-    linksPagination:
-      description: Links (or cursors) returned in the answer of an API call.
-      type: object
-      properties:
-        self:
-          type: string
-          description: Link / cursor to the current result set (based on the submitted pagination approach)
-          example: /card-app/api/v1/cards?offset=75&limit=25
-        first:
-          type: string
-          description: Link / cursor to the first result set (based on the submitted pagination approach)
-          example: /card-app/api/v1/cards?offset=0&limit=25
-        previous:
-          type: string
-          description: Link / cursor to the previous result set (based on the submitted pagination approach)
-          example: /card-app/api/v1/cards?offset=50&limit=25
-        next:
-          type: string
-          description: Link / cursor to the next result set (based on the submitted pagination approach)
-          example: /card-app/api/v1/cards?offset=100&limit=25
-        last:
-          type: string
-          description: Link / cursor to the last result set (based on the submitted pagination approach)
-          example: /card-app/api/v1/cards?offset=150&limit=25
-    # ---------
 
-    # ---- Account objects from payment API ----
-    paymentQrIbanAccount:
-      title: Payment QR-IBAN Account
-      type: object
-      required:
-        - type
-        - identification
-      properties:
-        type:
-          type: string
-          description: IBAN or QR-IBAN of the creditor.
-          enum:
-            - "IBAN"
-            - "QR_IBAN"
-        identification:
-          type: string
-          maxLength: 34
-          example: "CH9300762011623852957"
-          pattern: "[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}"
-    # ---------
-
-    # ---- Currency ----
-    currency:
-      description: ISO 4217 code
-      type: string
-      pattern: '[A-Z]{3}'
-      example: CHF
-    # ---------
-
-    # ---- Payment Currency Amount compatible to SFTI XS2A API----
-    paymentCurrencyAmount:
-      title: Payment Currency-Amount
-      type: object
-      required:
-        - currency
-        - amount
-      properties:
-        currency:
-          $ref: '#/components/schemas/currency'
-        amount:
-          $ref: '#/components/schemas/amount'
-
-    # ---- Amount ----
-    amount:
-      type: string
-      description: Amount given with fractional digits, the separator is a dot
-      pattern: "[0-9]{1,12}([.][0-9]{1,5})?"
-      maxLength: 18
-      example: "10.25"
-    # --------
-
-    # ---- Address compliant to payment address (b.Link & ISO20022)----
-    structuredAddress:
-      title: Structured Address
-      type: object
-      required:
-        - streetName
-        - postCode
-        - townName
-        - country
-      properties:
-        streetName:
-          type: string
-          maxLength: 70
-          example: "Rue de la gare"
-        buildingNumber:
-          type: string
-          maxLength: 16
-          example: "24"
-        postCode:
-          type: string
-          maxLength: 16
-          example: "2501"
-        townName:
-          type: string
-          maxLength: 35
-          example: "Biel"
-        country:
-          type: string
-          maxLength: 2
-          example: "CH"
-    # -----------
-    # ---- Country Code ----
-    country:
-      type: string
-      pattern: '[A-Z]{2}'
-      example: CH
-      description: 2-Letter ISO 3166-2 Country Code
-    # ------------
-    # ---- Error Response (compliant to SIX b.Link)
-    commonErrorResponse:
+    CommonErrorResponse:
       title: Common Error Response
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/commonErrorType'
+          $ref: '#/components/schemas/CommonErrorType'
         title:
           type: string
-          example:
-            This is the general problem description
+          example: This is the general problem description
         detail:
           type: string
-          example:
-            Detailed problem description with respect to the current request
+          example: Detailed problem description with respect to the current request
         instance:
           type: string
-          example:
-            path/to/corresponding/resource
+          example: path/to/corresponding/resource
 
-    commonErrorType:
+    CommonErrorType:
       title: Common Error Type
-      description: Error Types for commonErrorResponse.
+      description: Error Types for CommonErrorResponse.
       type: string
       enum:
         - /problems/INVALID_PAYLOAD
@@ -1616,328 +962,164 @@ components:
         - /problems/TECHNICAL_ERROR
         - /problems/NOT_IMPLEMENTED
         - /problems/SERVICE_UNAVAILABLE
-      example: '/problems/TECHNICAL_ERROR'
-    # ---- End Error Response
-    # ---- End Common Data Model
+      example: /problems/TECHNICAL_ERROR
 
-  # ---- Global Common Header Parameters ----
   parameters:
-    clientid_in_header:
+
+  securitySchemes:
+    - ApiKeyAuth:
+      type: apiKey
       in: header
-      name: X-CorAPI-Client-ID
-      schema:
-        type: string
-      description: 'ID of the client forwarded to the provider. (SCOPE: FI)'
-      required: true
-    
-    correlation_in_header:
-      in: header
-      name: X-Correlation-ID
-      schema:
-        type: string
-      description: Unique ID (defined by the caller) which will be reflected back in the response.
-      required: true
-    
-    agent_in_header:
-      in: header
-      name: User-Agent
-      schema:
-        type: string
-      description: Name and version of the of the Client software
-      required: true
-    
-    offset:
-      name: offset
-      in: query
-      description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        example: 25
-        minimum: 0
-    
-    cardConsentId:
-      in: header
-      name: cardConsentId
-      description: Identifier for a consent that must have been given to allow data access.
-      required: true
-      schema:
-        type: string
-    
-    cardId:
-      name: cardId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 7306fd9b-9df5-4f68-9d03-2c3674f48086
-      description: Card ID
-
-    cardTokenId:
-      name: cardTokenId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 7306fd9b-9df5-4f68-9d03-2c3674f48086
-      description: Card Token ID
-    
-    personId:
-      name: personId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
-      description: Person ID
-    
-    cardAccountId:
-      name: cardAccountId
-      in: query
-      description: Uuid v4 of a specific existing card account
-      required: true
-      example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-      schema:
-        type: string
-        format: uuid
-
-    card-accountbundleId:
-      name: card-accountbundleId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
-
-    transactionId:
-      name: transactionId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
-
-    statementId:
-      name: statementId
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 73065f9b-8cf5-4f68-9d03-2c3674f48086
-    
-    cardContractId:
-      name: cardContractId
-      in: query
-      description: Uuid v4 of a specific existing card contract
-      required: true
-      example: bcb5d762-8d28-43a2-9398-393b2e8d56ba
-      schema:
-        type: string
-        format: uuid
-    
-    limit:
-      name: limit
-      in: query
-      description: Optional parameter for pagination. Maximum number of entries to be returned.
-      required: true
-      schema:
-        type: integer
-        format: int32
-        example: 25
-        minimum: 1
-
-    cursor:
-      name: cursor
-      in: query
-      description: Optional parameter for pagination. An opaque string value used for pagination.
-      required: false
-      schema:
-        type: string
-        example: cursorIDxyz
-
-  # ---- Responses - Standard Errors Common Data Model v1.2.2----
+      name: X-API-KEY
+    - OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+  
   responses:
+    # TODO adjust description due to actual use in API, descriptions are generic from RFC
     standard400:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Bad Request - The server cannot or will not process the request due to something that is perceived to be a client error as malformed request syntax.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Bad Request - The 400 (Bad Request) status code indicates that the server cannot or
+        will not process the request due to something that is perceived to be
+        a client error (e.g., malformed request syntax, invalid request
+        message framing, or deceptive request routing).
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard401:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Unauthorized - The request has not been applied because it lacks valid authentication credentials for the target resource.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Unauthorized - The request has not been applied because it provides no valid authentication credentials for the target resource.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard403:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Forbidden - The server understood the request but refuses to authorize it.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Forbidden - The 403 (Forbidden) status code indicates that the server understood
+        the request but refuses to authorize it. A server that wishes to
+        make public why the request has been forbidden can describe that
+        reason in the response payload (if any).
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard404:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Not Found - The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Not Found - The 404 (Not Found) status code indicates that the origin server did
+        not find a current representation for the target resource or is not
+        willing to disclose that one exists. A 404 status code does not
+        indicate whether this lack of representation is temporary or
+        permanent; the 410 (Gone) status code is preferred over 404 if the
+        origin server knows, presumably through some configurable means, that
+        the condition is likely to be permanent.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard405:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Method Not Allowed - The method received in the request-line is known by the origin server but not supported by the target resource.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Method Not Allowed - The 405 (Method Not Allowed) status code indicates that the method
+        received in the request-line is known by the origin server but not
+        supported by the target resource. The origin server MUST generate an
+        Allow header field in a 405 response containing a list of the target
+        resource's currently supported methods.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard500:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Internal Server Error - The server encountered an unexpected condition that prevented it from fulfilling the request.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Internal Server Error - The 500 (Internal Server Error) status code indicates that the server encountered an unexpected condition that prevented it from fulfilling
+        the request.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard501:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Not Implemented - The server does not support the functionality required to fulfill the request.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Not Implemented - The 501 (Not Implemented) status code indicates that the server does
+        not support the functionality required to fulfill the request. This
+        is the appropriate response when the server does not recognize the
+        request method and is not capable of supporting it for any resource.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
+            $ref: '#/components/schemas/CommonErrorResponse'
+
     standard503:
       headers:
         Content-Type:
-          schema:
-            type: string
-            description: 'application/problem+json; charset=utf-8 according to RFC7807'
-            example: application/problem+json
+          $ref: '#/components/headers/Content-Type'
         Content-Language:
-          schema:
-            type: string
-            description: 'Response language - always en'
-            example: en
-        X-Correlation-ID:
-          schema:
-            type: string
-            description: Client defined ID from request to correlates HTTP requests between a client and server.
-            example: f058ebd6-02f7-4d3f-942e-904344e8cde5
-      description: Service Unavailable. The server is currently unable to handle the request due to a temporary overload or scheduled maintenance.
+          $ref: '#/components/headers/Content-Language'
+      description: |
+        Service Unavailable - The 503 (Service Unavailable) status code indicates that the server is currently unable to handle the request due to a temporary overload
+        or scheduled maintenance, which will likely be alleviated after some
+        delay. The server MAY send a Retry-After header field
+        (Section 7.1.3) to suggest an appropriate amount of time for the
+        client to wait before retrying the request.
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/commonErrorResponse'
-  # ---- End Responses - Standard Errors
+            $ref: '#/components/schemas/CommonErrorResponse'
+
+  headers:
+    Content-Language:
+      description: #TODO
+      schema:
+        type: string
+        example: en
+
+    Content-Type:
+      description: # TODO
+      schema:
+        type: string
+        example: application/problem+json; charset=utf-8 according to RFC7807
