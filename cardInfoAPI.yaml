@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 0.7
+  version: 0.7.0
   title: Common Card Info API (Public)
   description: >
     This specification defines a common card info API for payment cards used in Switzerland.
@@ -20,11 +20,11 @@ externalDocs:
 # TODO make more detailed description
 tags:
   - name: Cards
-    description: Operations related with managing cards
+    description: Operations related with managing cards.
   - name: Card-tokens
-    description: Operations related with managing card tokens
+    description: Operations related with managing card tokens.
   - name: Transactions
-    description: Operations related with retrieving card transactions
+    description: Operations related with retrieving card transactions.
 
 security:
   - ApiKeyAuth: []
@@ -35,29 +35,24 @@ security:
 paths:
   /cards:
     get:
-      tags:
-        - Cards
       summary:  # TODO
       description:  # TODO
+      tags:
+        - Cards
       parameters:
         - in: query
           name: contract_reference
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/ContractReference'
         - in: query
           name: person_reference
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/PersonReference'
         - in: query
-          name: card_id
-          required: true
-          schema:
-            $ref: '#/components/schemas/CardId'
-        - in: query
           name: card_status
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/CardStatus'
         - in: query
@@ -70,6 +65,41 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/BankAccountReference'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description:  # TODO
+          headers:
+            # TODO headers?
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardList:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardDetails'
+                  _links:
+                    $ref: '#/components/schemas/linksPagination'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '500':
+          $ref: '#/components/responses/standard500'
+
+  /cards/{cardId}:
+    get:
+      summary:  # TODO
+      description:  # TODO
+      tags:
+        - Cards
+      parameters:
+        - in: path
+          name: cardId
+          required: true
+          schema:
+            $ref: '#/components/schemas/CardId'
       responses:
         '200':
           description:  # TODO
@@ -79,46 +109,71 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CardDetails'
-        # TODO which standard error responses should be removed?
         '400':
           $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
         '500':
           $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
 
-  /card-tokens:
+  /cards/{cardId}/card-tokens:
     get:
-      tags:
-        - Card-tokens
       summary:  # TODO
       description:  # TODO
+      tags:
+        - Card-tokens
       parameters:
-        - in: query
-          name: token_id
+        - in: path
+          name: cardId
           required: true
           schema:
-            $ref: '#components/schemas/TokenId'
+            $ref: '#/components/schemas/CardId'
         - in: query
           name: funding_card_id
-          required: true
           schema:
-            $ref: '#components/schemas/FundingCardId'
+            $ref: '#/components/schemas/FundingCardId'
         - in: query
           name: token_status
+          schema:
+            $ref: '#/components/schemas/TokenStatus'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description:  # TODO
+          headers:
+            # TODO headers?
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardList:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardTokenDetails'
+                  _links:
+                    $ref: '#/components/schemas/linksPagination'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '500':
+          $ref: '#/components/responses/standard500'
+
+  /cards/{cardId}/card-tokens/{tokenId}:
+    get:
+      summary:  # TODO
+      description:  # TODO
+      tags:
+        - Card-tokens
+      parameters:
+        - in: path
+          name: cardId
           required: true
           schema:
-            $ref: '#components/schemas/TokenStatus'
+            $ref: '#/components/schemas/CardId'
+        - in: path
+          name: tokenId
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenId'
       responses:
         '200':
           description:  # TODO
@@ -128,47 +183,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CardTokenDetails'
-        # TODO which standard error responses should be removed?
         '400':
           $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
         '500':
           $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
 
   /card-transactions:
     get:
-      tags:
-        - Card-tokens
       summary:  # TODO
       description:  # TODO
+      tags:
+        - Transactions
       parameters:
-        - in: query
-          name: transaction_id
-          required: false
-          schema:
-            type: string
-            maxLength: 50
-            example: 9e19df54-47cb-494b-84dc-1c126e95a05c
-          description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
         - in: query
           name: authorization_id
           required: false
           schema:
-            type: string
-            maxLength: 50
-            example: 9e19df54-47cb-494b-84dc-1c126e95a05c  # TODO use unique values if not indicating same parameters to avoid confusions?
-          description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
+            $ref: '#/components/schemas/AuthorizationId'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
       responses:
         '200':
           description:  # TODO
@@ -177,30 +210,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardTokenDetails'
-        # TODO which standard error responses should be removed?
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionDetails'
         '400':
           $ref: '#/components/responses/standard400'
-        '401':
-          $ref: '#/components/responses/standard401'
-        '403':
-          $ref: '#/components/responses/standard403'
-        '404':
-          $ref: '#/components/responses/standard404'
-        '405':
-          $ref: '#/components/responses/standard405'
         '500':
           $ref: '#/components/responses/standard500'
-        '501':
-          $ref: '#/components/responses/standard501'
-        '503':
-          $ref: '#/components/responses/standard503'
+
+  /card-transactions/{transactionId}:
+    get:
+      summary:  # TODO
+      description:  # TODO
+      tags:
+        - Transactions
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            $ref: '#/components/schemas/TransactionId'
+        - in: query # TODO necessary?
+          name: authorization_id
+          required: false
+          schema:
+            $ref: '#/components/schemas/AuthorizationId'
+      responses:
+        '200':
+          description:  # TODO
+          headers:
+            # TODO headers?
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDetails'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '500':
+          $ref: '#/components/responses/standard500'
 
 components:
   schemas:
     CardDetails:
-      title:  # TODO
-      description:  #TODO
+      title: Card details
+      description:  # TODO
       type: object
       required:
         - contract_reference
@@ -280,181 +333,195 @@ components:
         language:
           $ref: '#/components/schemas/Language'
 
-  CardTokenDetails:
-    title:  # TODO
-    description:  #TODO
-    type: object
-    required:
-      - token_id
-      - token_pan_4_digits
-      - token_requestor_id
-      - token_requestor_name
-      - funding_card_id
-      - token_status
-      - token_issuing_date
-      - token_scheme
-    properties:
-      token_id:
-        $ref: '#/components/schemas/TokenId'
-      token_pan_4_digits:
-        $ref: '#/components/schemas/TokenPan4Digits'
-      wallet_id:
-        $ref: '#/components/schemas/WalletId'
-      wallet_name:
-        $ref: '#/components/schemas/WalletName'
-      token_requestor_id:
-        $ref: '#/components/schemas/TokenRequestorId'
-      token_requestor_name:
-        $ref: '#/components/schemas/TokenRequestorName'
-      device_name:
-        $ref: '#/components/schemas/DeviceName'
-      device_type:
-        $ref: '#/components/schemas/DeviceType'
-      funding_card_id:
-        $ref: '#/components/schemas/FundingCardId'
-      token_status:
-        $ref: '#/components/schemas/TokenStatus'
-      token_issuing_date:
-        $ref: '#/components/schemas/TokenIssuingDate'
-      token_scheme:
-        $ref: '#/components/schemas/TokenScheme'
+    CardTokenDetails:
+      title: Card token details
+      description:  #TODO
+      type: object
+      required:
+        - token_id
+        - token_pan_4_digits
+        - token_requestor_id
+        - token_requestor_name
+        - funding_card_id
+        - token_status
+        - token_issuing_date
+        - token_scheme
+      properties:
+        token_id:
+          $ref: '#/components/schemas/TokenId'
+        token_pan_4_digits:
+          $ref: '#/components/schemas/TokenPan4Digits'
+        wallet_id:
+          $ref: '#/components/schemas/WalletId'
+        wallet_name:
+          $ref: '#/components/schemas/WalletName'
+        token_requestor_id:
+          $ref: '#/components/schemas/TokenRequestorId'
+        token_requestor_name:
+          $ref: '#/components/schemas/TokenRequestorName'
+        device_name:
+          $ref: '#/components/schemas/DeviceName'
+        device_type:
+          $ref: '#/components/schemas/DeviceType'
+        funding_card_id:
+          $ref: '#/components/schemas/FundingCardId'
+        token_status:
+          $ref: '#/components/schemas/TokenStatus'
+        token_issuing_date:
+          $ref: '#/components/schemas/TokenIssuingDate'
+        token_scheme:
+          $ref: '#/components/schemas/TokenScheme'
 
-  TransactionDetails:
-    title:  # TODO
-    description:  #TODO
-    type: object
-    required:
-      - transaction_date_time
-      - valuta_date
-      - transaction_status
-      - original_amount
-      - original_currency
-      - total_amount
-      - transaction_amount
-      - transaction_currency
-      - mcc
-      - mcc_description
-      - transaction_category
-      - card_id
-    properties:
-      transaction_id:
-        $ref: '#/components/schemas/TransactionId'
-      authorization_id:
-        $ref: '#/components/schemas/AuthorizationId'
-      transaction_date_time:
-        $ref: '#/components/schemas/TransactionDateTime'
-      valuta_date:
-        $ref: '#/components/schemas/ValutaDate'
-      statement_date:
-        $ref: '#/components/schemas/StatementDate'
-      transaction_status:
-        $ref: '#/components/schemas/TransactionStatus'
-      approval_code:
-        $ref: '#/components/schemas/ApprovalCode'
-      original_amount:
-        $ref: '#/components/schemas/OriginalAmount'
-      original_currency:
-        $ref: '#/components/schemas/OriginalCurrency'
-      total_amount:
-        $ref: '#/components/schemas/TotalAmount'
-      transaction_amount:
-        $ref: '#/components/schemas/TransactionAmount'
-      transaction_currency:
-        $ref: '#/components/schemas/TransactionCurrency'
-      fees:
-        $ref: '#/components/schemas/Fees'
-      exchange_rate:
-        $ref: '#/components/schemas/ExchangeRate'
-      exchange_rate_date:
-        $ref: '#/components/schemas/ExchangeRateDate'
-      description:
-        $ref: '#/components/schemas/Description'
-      merchant_name:
-        $ref: '#/components/schemas/MerchantName'
-      merchant_country:
-        $ref: '#/components/schemas/MerchantCountry'
-      merchant_city:
-        $ref: '#/components/schemas/MerchantCity'
-      mcc:
-        $ref: '#/components/schemas/Mcc'
-      mcc_description:
-        $ref: '#/components/schemas/MccDescription'
-      terminal_id:
-        $ref: '#/components/schemas/TerminalId'
-      card_acceptor_id:
-        $ref: '#/components/schemas/CardAcceptorId'
-      acquirer_id:
-        $ref: '#/components/schemas/AcquirerId'
-      channel:
-        $ref: '#/components/schemas/Channel'
-      transaction_category:
-        $ref: '#/components/schemas/TransactionCategory'
-      token_id:
-        $ref: '#/components/schemas/ReferenceTokenId'
-      cardholder_id:
-        $ref: '#/components/schemas/CardholderId'
-      card_account_id:
-        $ref: '#/components/schemas/ReferenceCardAccountId'
-      card_id:
-        $ref: '#/components/schemas/ReferenceCardId'
-      transaction_reference:
-        $ref: '#/components/schemas/TransactionReference'
+    TransactionDetails:
+      title: Transaction details
+      description:  #TODO
+      type: object
+      required:
+        - transaction_date_time
+        - valuta_date
+        - transaction_status
+        - original_amount
+        - original_currency
+        - total_amount
+        - transaction_amount
+        - transaction_currency
+        - mcc
+        - mcc_description
+        - transaction_category
+        - card_id
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        authorization_id:
+          $ref: '#/components/schemas/AuthorizationId'
+        transaction_date_time:
+          $ref: '#/components/schemas/TransactionDateTime'
+        valuta_date:
+          $ref: '#/components/schemas/ValutaDate'
+        statement_date:
+          $ref: '#/components/schemas/StatementDate'
+        transaction_status:
+          $ref: '#/components/schemas/TransactionStatus'
+        approval_code:
+          $ref: '#/components/schemas/ApprovalCode'
+        original_amount:
+          $ref: '#/components/schemas/OriginalAmount'
+        original_currency:
+          $ref: '#/components/schemas/OriginalCurrency'
+        total_amount:
+          $ref: '#/components/schemas/TotalAmount'
+        transaction_amount:
+          $ref: '#/components/schemas/TransactionAmount'
+        transaction_currency:
+          $ref: '#/components/schemas/TransactionCurrency'
+        fees:
+          $ref: '#/components/schemas/Fees'
+        exchange_rate:
+          $ref: '#/components/schemas/ExchangeRate'
+        exchange_rate_date:
+          $ref: '#/components/schemas/ExchangeRateDate'
+        description:
+          $ref: '#/components/schemas/Description'
+        merchant_name:
+          $ref: '#/components/schemas/MerchantName'
+        merchant_country:
+          $ref: '#/components/schemas/MerchantCountry'
+        merchant_city:
+          $ref: '#/components/schemas/MerchantCity'
+        mcc:
+          $ref: '#/components/schemas/Mcc'
+        mcc_description:
+          $ref: '#/components/schemas/MccDescription'
+        terminal_id:
+          $ref: '#/components/schemas/TerminalId'
+        card_acceptor_id:
+          $ref: '#/components/schemas/CardAcceptorId'
+        acquirer_id:
+          $ref: '#/components/schemas/AcquirerId'
+        channel:
+          $ref: '#/components/schemas/Channel'
+        transaction_category:
+          $ref: '#/components/schemas/TransactionCategory'
+        token_id:
+          $ref: '#/components/schemas/ReferenceTokenId'
+        cardholder_id:
+          $ref: '#/components/schemas/CardholderId'
+        card_account_id:
+          $ref: '#/components/schemas/ReferenceCardAccountId'
+        card_id:
+          $ref: '#/components/schemas/ReferenceCardId'
+        transaction_reference:
+          $ref: '#/components/schemas/TransactionReference'
 
     ContractReference:
+      title: Contract reference
       type: string
       maxLength: 50
       examples:
-        swiss:
-          value: CH3456789012345678901
-        custom:
-          value: ABC-56789012345
+        - CH3456789012345678901
+        - ABC-56789012345
       description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
 
     PersonReference:
+      title: Person reference
       type: string
       maxLength: 50
-      example: 123456789
+      examples:
+        - 123456789
       description: Functional reference to a cardholder, defined by the Card Service Provider.
-    
+
     CardId:
+      title: Card id
       type: string
       maxLength: 50
-      example: 4321A1B2C3DE1234
+      examples:
+        - 4321A1B2C3DE1234
       description: Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals)
 
     EmbossingLine1:
+      title: Embossing line 1
       type: string
       maxLength: 35
-      example: Peter Schweizer
+      examples:
+        - Peter Schweizer
       description: First line embossed on the card to indicate the cardholder.
 
     EmbossingLine2:
+      title: Embossing line 2
       type: string
       maxLength: 35
-      example: Peter Schweizer
+      examples:
+        - Peter Schweizer
       description: Second line embossed on the card to indicate the cardholder.
 
     Pan4Digits:
+      title: Pan 4 digits
       type: string
-      maxLength: 4  # TODO use pattern: '\d{4}' or number?
-      example: 4321
+      maxLength: 4
+      pattern: '^\d{4}$' 
+      examples:
+        - 4321
       description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
 
     ExpiryDate:
+      title: Expiry date
       $ref: '#/components/schemas/Date'
       description: Last day when the card is valid and can be used for payments.
 
     InitialIssuingDate:
+      title: Initial issuing date
       $ref: '#/components/schemas/Date'
       description: Date when card was issued initially.
 
     CardStatus:
+      title: Card status
       type: string
-      enum:  # TODO list all allowed values in enum
+      enum:
         - ACTIVE
         - SUSPENDED
         - BLOCKED
-      example: ACTIVE
+      examples:
+        - ACTIVE
       description: |
         Effective status of the card to indicate whether it can be used for payments; definition of enums:
         - active: authorizations are possible
@@ -465,32 +532,32 @@ components:
       type: string
       pattern: '^[a-zA-Z0-9]{3}$'
       examples:
-        swiss:
-          value: CHF
-        eu:
-          value: EUR
+        - CHF
+        - EUR
       description: Settlement currency of the card / card account in ISO code format.
 
     Image:
       type: string
       format: uri  # TODO! specify custom openAPI format or use pattern according to RFC3986
-      example: https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+      examples:
+        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
 
     ProductId:
+      title: Product id
       type: string
       maxLength: 50
-      example: 1234567
+      examples:
+        - 1234567
       description: Identifier for the card product.
 
     ProductName:
+      title: Product name
       type: string
       maxLength: 100
       examples:
-        basic:
-          value: A1
-        gold:
-          value: MC/VI Gold CHF
+        - A1
+        - MC/VI Gold CHF
       description: Name for the card product assigned by the issuer.
 
     Scheme:
@@ -499,99 +566,119 @@ components:
         - mastercard
         - visa
         - americanexpress
-      example: mastercard
-      description: Card network which is used to process payments with the card.
+        - dinersclub
+      examples:
+        - mastercard
+      description: Card network which is used to process payments with the card in switzerland.
 
     Category:
       type: string
-      enum:  # TODO list all allowed values in enum
+      enum:
         - primary_card
         - additional_card
-      example: primary_card
+      examples:
+        - primary_card
       description: Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of certain lifecycle use cases.
 
     IssuingType:
+      title: Issuing type
       type: string
-      enum:  # TODO enum value and description do not match
+      enum:
         - physical
         - virtual
-      example: physical
+      examples:
+        - physical
       description: |
         Specifies in which form the card is issued; definition of enums: 
-        - plastic: the card is being embossed on a physical material and delivered to the cardholder by mail
+        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
         - virtual: the card is being issued only virtually for digital usage
 
     ProductType:
+      title: Product type
       type: string
       enum:
         - credit
         - debit
         - prepaid
-      example: credit
+      examples:
+        - credit
       description: Type of the card product.
 
     ProductLine:
+      title: Product line
       type: string
       enum:
         - consumer
         - business
         - corporate
-      example: consumer
+      examples:
+        - consumer
       description: Customer segment to which the card is offered.
 
     CardLimitCycle:
+      title: Card limit cycle
       type: integer
       format: int32
-      example: 2000
+      examples:
+        - 2000
       description: Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
 
     CardLimitDaily:
+      title: Card limit daily
       type: integer
       format: int32
-      example: 2000
+      examples:
+        - 2000
       description: Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
 
     CardAccountId:
+      title: Card account id
       type: string
       maxLength: 50
-      example: AB-4567890123456
+      examples:
+        - AB-4567890123456
       description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
 
     BankAccountReference:
+      title: Bank account reference
       type: string
       maxLength: 34
-      pattern:  # TODO can we use a pattern for iban or similar?
-      example: CH3456789012345678901
+      examples:
+        - CH3456789012345678901
       description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
 
     IssuerId:
+      title: Issuer id
       type: string
       maxLength: 50
-      example: 123456789
+      examples:
+        - 123456789
       description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
 
     IssuerName:
+      title: Issuer name
       type: string
       maxLength: 100
       examples:
-        viseca:
-          value: Viseca Card Services
-        ubs:
-          value: UBS
-        zkb:
-          value: Zürcher Kantonalbank
+        - Viseca Card Services
+        - UBS
+        - Zürcher Kantonalbank
       description: Name of the legal issuer of a card.
 
     DistributionPartnerId:
+      title: Distribution partner id
       type: string
       maxLength: 50
-      example: 123456789
+      examples:
+        - 123456789
       description: Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     DistributionPartnerName:
+      title: Distribution partner name
       type: string
       maxLength: 100
-      example: Zürcher Kantonalbank
+      examples:
+        - Zürcher Kantonalbank
       description: Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     Language:
@@ -601,76 +688,97 @@ components:
         - EN
         - FR
         - IT
-      example: DE
+      examples:
+        - DE
       description: Preferred language of the cardholder for any communication.
 
     TokenId:
+      title: Token id
       type: string
       format: uuid  # TODO special format of id possible?
       maxLength: 50
-      example: eb404f8d-656b-4e51-8872-88c42fa55536
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
       description: Unique identifier for the token of a card, defined by the Card Service Provider.
 
     TokenPan4Digits:
+      title: Token pan 4 digits
       type: string
       maxLength: 4
-      example: 4321
+      examples:
+        - 4321
       description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.
 
     WalletId:
+      title: Wallet id
       type: string
       maxLength: 10
-      example: 123
+      examples:
+        - 123
       description: Identifier for the wallet in which the token is used and managed.
 
     WalletName:
+      title: Wallet name
       type: string
       enum:
         - APPLE_PAY
         - SAMSUNG_PAY
         - GOOGLE_PAY
         - GARMIN_PAY
-      example: APPLE_PAY
+      examples:
+        - APPLE_PAY
       description: Name of the wallet in which the token is used and managed.
 
     TokenRequestorId:
+      title: Token requestor id
       type: string
       maxLength: 11
-      example: 1111111111  # TODO 11 digits?
+      examples:
+        - 1111111111  # TODO 11 digits?
       description: Identifier for the token requestor / token service provider.
 
     TokenRequestorName:
+      title: Token requestor name
       type: string
       maxLength: 100
-      example: Zalando
+      examples:
+        - Zalando
       description: Name of the token requestor / token service provider.
 
     DeviceName:
+      title: Device name
       type: string
       maxLength: 100
-      example: Peter's iPhone
+      examples:
+        - Peter's iPhone
       description: Name of the device which is associated to the token, only available for device-based tokens.
 
     DeviceType:
+      title: Device type
       type: string
       maxLength: 100
-      example: IPHONE
+      examples:
+        - IPHONE
       description: Type of the device which is associated to the token, only available for device-based tokens; value defined by  the Card Service Provider.
 
     FundingCardId:
+      title: Funding card id
       type: string
       maxLength: 50
-      example: 4321A1B2C3DE1234  # TODO use unique values if not indicating same parameters to avoid confusions?
+      examples:
+        - 4321A1B2C3DE1234  # TODO use unique values if not indicating same parameters to avoid confusions?
       description: Reference to the card that is used to fund the transactions of the token.
 
     TokenStatus:
+      title: Token status
       type: string
       enum:  # TODO list all allowed values in enum
         - ACTIVE
         - SUSPENDED
         - BLOCKED
         - PENDING
-      example: ACTIVE
+      examples:
+        - ACTIVE
       description: |
         Effective status of the token to indicate whether it can be used for payments; definition of enums:
         - active: authorizations are possible
@@ -679,89 +787,113 @@ components:
         - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
 
     TokenIssuingDate:
+      title: Token issuing date
       $ref: '#/components/schemas/Date'
       description: Date when the token was issued.
 
     TokenScheme:
+      title: Token scheme
       type: string
       enum:
         - mastercard
         - visa
         - americanexpress
-      example: mastercard
+      examples:
+        - mastercard
       description: Scheme for which the token is issued.
 
     TransactionId:
+      title: Transaction id
       type: string
       format: uuid
       maxLength: 50
-      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: Unique identifier for booked transactions; Id does not overlap with authorizationId; at least one of authorizationId or transactionId is always present.
 
     AuthorizationId:
+      title: Authorization id
       type: string
       maxLength: 50
-      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: Unique identifier for authorized transactions; Id does not overlap with transactionId; at least one of authorizationId or transactionId is always present.
 
     TransactionDateTime:
+      title: Transaction date-time
       $ref: '#/components/schemas/DateTime'
       description: Date and time when transaction was authorized, always in CH timezone.
 
     ValutaDate:
+      title: Valuta date
       $ref: '#/components/schemas/Date'
       description: Date when the transaction becomes effective on the card account for calculating interest.
 
     StatementDate:
+      title: Statement date
       $ref: '#/components/schemas/Date'
       description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
 
     TransactionStatus:
+      title: Transaction status
       type: string
       enum:
         - authorized
         - booked
-      example: authorized
+      examples:
+        - authorized
       description: |
       Status of the transaction; definition of enums:
       - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
       - booked: transaction was cleared/settled and charged to the card account
 
     ApprovalCode:
+      title: Approval code
       type: string
       maxLength: 6
-      example: 803051  # TODO always numbers?
+      examples:
+        - 803051  # TODO always numbers?
       description: Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
 
     OriginalAmount:
+      title: Original amount
       type: number
-      example: 2000.05  # TODO use string and pattern? format: float?
+      examples:
+        - 2000.05  # TODO use string and pattern? format: float?
       description: Amount of the transaction in the currency used by the merchant.
 
     OriginalCurrency:
+      title: Original currency
       type: string
       pattern: '^[a-zA-Z0-9]{3}$'
-      example: CHF
+      examples:
+        - CHF
       description: Currency of the card account on which the transaction is charged.
 
     TotalAmount:
+      title: Total amount
       type: number
-      example: 1957.50  # TODO use string and pattern? format: float?
+      examples:
+        - 1957.50  # TODO use string and pattern? format: float?
       description: Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
+      title: Transaction amount
       type: number
-      example: 1952.50
+      examples:
+        - 1952.50
       description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
 
     TransactionCurrency:
+      title: TransactionC currency
       type: string
       pattern: '^[a-zA-Z0-9]{3}$'
-      example: CHF
+      examples:
+        - CHF
       description: Currency of the card account on which the transaction is charged.
 
     Fees:
-      title:  # TODO optional
+      title: Fees
       description:  #TODO
       type: object
       required:
@@ -777,66 +909,85 @@ components:
           $ref: '#/components/schemas/FeeCurrency'
 
     ExchangeRate:
+      title: Exchange rate
       type: number
-      example: 1.0485930
+      examples:
+        - 1.0485930
       description: Exchange rate for converting the originalAmount into the transactionAmount.
 
     ExchangeRateDate:
+      title: Exchange rate date
       $ref: '#/components/schemas/Date'
       description: Date which was used to determine the exchange rate, usually the valutaDate.
 
     Description:
       type: string
       maxLength: 100
-      example: Aufladung
+      examples:
+        - Aufladung
       description: Description of the purpose of the transaction and potentially a reference to the merchant.
 
     MerchantName:
+      title: Merchant name
       type: string
       maxLength: 100
-      example: Yallo
+      examples:
+        - Yallo
       description: Name of the merchant who requested the transaction.
 
     MerchantCountry:
+      title: Merchant country
       type: string
       pattern: '^[a-zA-Z0-9]{3}$'
-      example: CHE
+      examples:
+        - CHE
       description: Country in which the merchant is located.
 
     MerchantCity:
+      title: Merchant city
       type: string
       maxLength: 50
-      example: Zurich
+      examples:
+        - Zurich
       description: City in which the merchant is located.
 
     Mcc:
       type: string
       maxLength: 4
-      example: 4812  # TODO zip code = numbers only?
+      examples:
+        - 4812  # TODO zip code = numbers only?
       description: Merchant Category Code to identify the industry branch of the merchant.
 
     MccDescription:
+      title: Mcc description
       type: string
       maxLength: 100
-      example: Telco
+      examples:
+        - Telco
       description: Description for the mcc.
 
     TerminalId:
+      title: Terminal id
       type: string
       maxLength: 8
-      example: 12345678
+      examples:
+        - 12345678
       description: Identifier for the terminal which has read the card data.
 
     CardAcceptorId:
+      title: Card acceptor id
       type: string
       maxLength: 15
-      example: 87040
+      examples:
+        - 87040
       description: Identifier for the merchant who requested the transaction.
 
     AcquirerId:
+      title: Acquirer id
       type: string
       maxLength: 11
-      example: 12345678901  # TODO exactly 11 digits?
+      examples:
+        - 12345678901  # TODO exactly 11 digits?
       description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
 
     Channel:
@@ -844,88 +995,139 @@ components:
       enum:
         - standard
         - ecommerce
-      example: standard
+      examples:
+        - standard
       description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
 
     TransactionCategory:
+      title: Transaction category
       type: string
       maxLength: 50
       examples:
-        100:
-          value: Cash withdrawal
-        103: 
-          value: ATM operator refund
-        117: 
-          value: P2P payment charge sender
-        118:
-          value: P2P payment credit recipient "merchant", "fee", "atm"
+        - '100: Cash withdrawal'
+        - '103: ATM operator refund'
+        - '117: P2P payment charge sender'
+        - '118: P2P payment credit recipient "merchant", "fee", "atm"'
       description: Category of the transaction, defined by the Card Service Provider.
 
     ReferenceTokenId:  # TODO TokenId already in use
-      type: string
-      maxLength: 50
-      example: eb404f8d-656b-4e51-8872-88c42fa55536
-      description: Reference to the token that was used for the transaction, only present for token-based transactions.
-
-    CardholderId:
-      type: string
-      maxLength: 50
-      example: Peter Schweizer
-      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
-
-    ReferenceCardAccountId:  # TODO CardAccountId already in use
-      type: string
-      maxLength: 50
-      example: AB-4567890123456
-      description: Reference to the card account which is used to settle the transaction; not provided by all Card Service Providers.
-
-    ReferenceCardId:  # TODO CardId already in use
-      type: string
-      maxLength: 50
-      example: 4321A1B2C3DE1234
-      description: Reference to the card that was used for the transaction.
-
-    TransactionReference:
-      type: string
-      maxLength: 50
-      example: 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
-
-    FeeName:
+      title: Reference token id
       type: string
       maxLength: 50
       examples:
-        tip:
-          value: transactionTipAmount
-        surcharge:
-          value: transactionSurchargeAmount
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+      description: Reference to the token that was used for the transaction, only present for token-based transactions.
+
+    CardholderId:
+      title: Cardholder id
+      type: string
+      maxLength: 50
+      examples:
+        - Peter Schweizer
+      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
+
+    ReferenceCardAccountId:  # TODO CardAccountId already in use
+      title: Reference card account id
+      type: string
+      maxLength: 50
+      examples:
+        - AB-4567890123456
+      description: Reference to the card account which is used to settle the transaction; not provided by all Card Service Providers.
+
+    ReferenceCardId:  # TODO CardId already in use
+      title: Reference card id
+      type: string
+      maxLength: 50
+      examples:
+        - 4321A1B2C3DE1234
+      description: Reference to the card that was used for the transaction.
+
+    TransactionReference:
+      title: Transaction reference
+      type: string
+      maxLength: 50
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
+      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
+
+    FeeName:
+      title: Fee name
+      type: string
+      maxLength: 50
+      examples:
+        - transactionTipAmount
+        - transactionSurchargeAmount
       description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
 
     FeePercentage:
+      title: Fee percentage
       type: number
-      example: 3.5%  # TODO type example mismatch
+      examples:
+        - 3.5%  # TODO type example mismatch
       description: Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.
 
     FeeAmount:
+      title: Fee amount
       type: number
-      example: 5.00
+      examples:
+        - 5.00
       description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
 
     FeeCurrency:
+      title: Fee currency
       type: string
       pattern: '^[a-zA-Z0-9]{3}$'
-      example: CHF
+      examples:
+        - CHF
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
 
     Date:
       type: string
       format: date
-      example: 2018-04-13
+      examples:
+        - 2018-04-13
 
     DateTime:
+      title: Date-time
       type: string
       format: date-time
-      example: 2018-04-13T11:11:11Z
+      examples:
+        - 2018-04-13T11:11:11Z
+
+    linksPagination:
+      description: Links (or cursors) returned in the answer of an API call.
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+          description: Link / cursor to the current result set (based on the submitted pagination approach)
+          examples:
+            - /card-app/api/v1/products?offset=75&limit=25
+        first:
+          type: string
+          format: uri
+          description: Link / cursor to the first result set (based on the submitted pagination approach)
+          examples:
+            - /card-app/api/v1/products?offset=0&limit=25
+        previous:
+          type: string
+          format: uri
+          description: Link / cursor to the previous result set (based on the submitted pagination approach)
+          examples:
+            - /card-app/api/v1/products?offset=50&limit=25
+        next:
+          type: string
+          format: uri
+          description: Link / cursor to the next result set (based on the submitted pagination approach)
+          examples:
+            - /card-app/api/v1/products?offset=100&limit=25
+        last:
+          type: string
+          format: uri
+          description: Link / cursor to the last result set (based on the submitted pagination approach)
+          examples:
+            - /card-app/api/v1/products?offset=150&limit=25
 
     CommonErrorResponse:
       title: Common Error Response
@@ -935,13 +1137,16 @@ components:
           $ref: '#/components/schemas/CommonErrorType'
         title:
           type: string
-          example: This is the general problem description
+          examples:
+            - This is the general problem description
         detail:
           type: string
-          example: Detailed problem description with respect to the current request
+          examples:
+            - Detailed problem description with respect to the current request
         instance:
           type: string
-          example: path/to/corresponding/resource
+          examples:
+            - path/to/corresponding/resource
 
     CommonErrorType:
       title: Common Error Type
@@ -962,16 +1167,40 @@ components:
         - /problems/TECHNICAL_ERROR
         - /problems/NOT_IMPLEMENTED
         - /problems/SERVICE_UNAVAILABLE
-      example: /problems/TECHNICAL_ERROR
+      examples:
+        - /problems/TECHNICAL_ERROR
 
   parameters:
+    limit:
+      name: limit
+      in: query
+      description: Optional parameter for pagination. Maximum number of entries to be returned.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        examples:
+          - 25
+
+    offset:
+      name: offset
+      in: query
+      description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 0
+        examples:
+          - 25
 
   securitySchemes:
-    - ApiKeyAuth:
+    ApiKeyAuth:
       type: apiKey
       in: header
-      name: X-API-KEY
-    - OAuth2:
+      name: X-API-Key
+    OAuth2:
       type: oauth2
       flows:
         authorizationCode:
@@ -1116,10 +1345,12 @@ components:
       description:  #TODO
       schema:
         type: string
-        example: en
+        examples:
+          - en
 
     Content-Type:
       description:  # TODO
       schema:
         type: string
-        example: application/problem+json; charset=utf-8 according to RFC7807
+        examples:
+          - application/problem+json; charset=utf-8 according to RFC7807
