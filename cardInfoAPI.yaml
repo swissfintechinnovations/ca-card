@@ -95,11 +95,7 @@ paths:
       tags:
         - Cards
       parameters:
-        - in: path
-          name: cardId
-          required: true
-          schema:
-            $ref: '#/components/schemas/CardId'
+        - $ref: '#/components/parameters/path_cardId'
       responses:
         '200':
           description:  # TODO
@@ -121,11 +117,7 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - in: path
-          name: cardId
-          required: true
-          schema:
-            $ref: '#/components/schemas/CardId'
+        - $ref: '#/components/parameters/path_cardId'
         - in: query
           name: funding_card_id
           schema:
@@ -164,16 +156,8 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - in: path
-          name: cardId
-          required: true
-          schema:
-            $ref: '#/components/schemas/CardId'
-        - in: path
-          name: tokenId
-          required: true
-          schema:
-            $ref: '#/components/schemas/TokenId'
+        - $ref: '#/components/parameters/path_cardId'
+        - $ref: '#/components/parameters/path_tokenId'
       responses:
         '200':
           description:  # TODO
@@ -225,11 +209,7 @@ paths:
       tags:
         - Transactions
       parameters:
-        - in: path
-          name: transactionId
-          required: true
-          schema:
-            $ref: '#/components/schemas/TransactionId'
+        - $ref: '#/components/parameters/path_transactionId'
         - in: query # TODO necessary?
           name: authorization_id
           required: false
@@ -538,7 +518,7 @@ components:
 
     Image:
       type: string
-      format: uri  # TODO! specify custom openAPI format or use pattern according to RFC3986
+      format: uri
       examples:
         - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
@@ -1171,6 +1151,27 @@ components:
         - /problems/TECHNICAL_ERROR
 
   parameters:
+    path_cardId:
+      in: path
+      name: cardId
+      required: true
+      schema:
+        $ref: '#/components/schemas/CardId'
+
+    path_tokenId:
+      in: path
+      name: tokenId
+      required: true
+      schema:
+        $ref: '#/components/schemas/TokenId'
+
+    path_transactionId:
+      in: path
+      name: transactionId
+      required: true
+      schema:
+        $ref: '#/components/schemas/TransactionId'
+
     limit:
       name: limit
       in: query
