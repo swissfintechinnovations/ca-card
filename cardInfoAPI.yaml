@@ -175,7 +175,7 @@ paths:
             $ref: '#/components/schemas/CardId'
       responses:
         '200':
-          description: Single token was found. # TODO
+          description: Single token was found.  # TODO
           headers:
             # TODO headers?
           content:
@@ -528,7 +528,7 @@ components:
       title: Pan 4 digits
       type: string
       maxLength: 4
-      pattern: '^\d{4}$' 
+      pattern: '^\d{4}$'
       examples:
         - 4321
       description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
@@ -618,8 +618,8 @@ components:
         - virtual
       examples:
         - physical
-      description: |
-        Specifies in which form the card is issued; definition of enums: 
+      description: >
+        Specifies in which form the card is issued; definition of enums:
         - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
         - virtual: the card is being issued only virtually for digital usage
 
@@ -847,7 +847,7 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present. # TODO remove one-of dependency?
+      description: Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.  # TODO remove one-of dependency?
 
     ClearingReference:
       title: Clearing reference
@@ -880,10 +880,10 @@ components:
         - booked
       examples:
         - authorized
-      description: |
-      Status of the transaction; definition of enums:
-      - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
-      - booked: transaction was cleared/settled and charged to the card account
+      description: >
+        Status of the transaction; definition of enums:
+        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
+        - booked: transaction was cleared/settled and charged to the card account
 
     ApprovalCode:
       title: Approval code
@@ -932,7 +932,7 @@ components:
 
     Fees:
       title: Fees
-      description:  #TODO
+      description:  # TODO
       type: object
       required:
         -  # TODO Required in object?
@@ -1078,7 +1078,7 @@ components:
       type: number
       examples:
         - 3.5
-      description: Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. # TODO 3.5 = 3.5%
+      description: Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.  # TODO 3.5 = 3.5%
 
     FeeAmount:
       title: Fee amount
@@ -1244,7 +1244,7 @@ components:
           scopes:
             read: Grants read access
             write: Grants write access
-  
+
   responses:
     # TODO adjust description due to actual use in API, descriptions are generic from RFC
     standard400:
@@ -1279,7 +1279,7 @@ components:
 
   headers:
     Content-Language:
-      description:  #TODO
+      description:  # TODO
       schema:
         type: string
         examples:
