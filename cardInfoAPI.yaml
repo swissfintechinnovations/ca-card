@@ -1045,7 +1045,7 @@ components:
         - '100: Cash withdrawal'
         - '103: ATM operator refund'
         - '117: P2P payment charge sender'
-        - '118: P2P payment credit recipient "merchant", "fee", "atm"' # TODO example more than 50 chars
+        - '118: P2P payment credit recipient "merchant", "fee", "atm"'  # TODO example more than 50 chars
       description: Category of the transaction, defined by the Card Service Provider.
 
     CardholderId:
