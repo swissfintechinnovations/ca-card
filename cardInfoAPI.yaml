@@ -85,7 +85,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/CardDetails'
                   _links:
-                    $ref: '#/components/schemas/linksPagination'
+                    $ref: '#/components/schemas/LinksPagination'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -152,7 +152,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/CardTokenDetails'
                   _links:
-                    $ref: '#/components/schemas/linksPagination'
+                    $ref: '#/components/schemas/LinksPagination'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -497,7 +497,7 @@ components:
       type: string
       maxLength: 50
       examples:
-        - 123456789
+        - '123456789'
       description: Functional reference to a cardholder, defined by the Card Service Provider.
 
     CardId:
@@ -506,7 +506,7 @@ components:
       maxLength: 50
       examples:
         - 4321A1B2C3DE1234
-      description: Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals)
+      description: Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
 
     EmbossingLine1:
       title: Embossing line 1
@@ -530,7 +530,7 @@ components:
       maxLength: 4
       pattern: '^\d{4}$'
       examples:
-        - 4321
+        - '4321'
       description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
 
     ExpiryDate:
@@ -578,7 +578,7 @@ components:
       type: string
       maxLength: 50
       examples:
-        - 1234567
+        - '1234567'
       description: Identifier for the card product.
 
     ProductName:
@@ -682,7 +682,7 @@ components:
       type: string
       maxLength: 50
       examples:
-        - 123456789
+        - '123456789'
       description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
 
     IssuerName:
@@ -700,7 +700,7 @@ components:
       type: string
       maxLength: 50
       examples:
-        - 123456789
+        - '123456789'
       description: Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     DistributionPartnerName:
@@ -736,7 +736,7 @@ components:
       type: string
       maxLength: 4
       examples:
-        - 4321
+        - '4321'
       description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.
 
     WalletId:
@@ -744,7 +744,7 @@ components:
       type: string
       maxLength: 10
       examples:
-        - 123
+        - '123'
       description: Identifier for the wallet in which the token is used and managed.
 
     WalletName:
@@ -764,7 +764,7 @@ components:
       type: string
       maxLength: 11
       examples:
-        - 11111111111
+        - '11111111111'
       description: Identifier for the token requestor / token service provider.
 
     TokenRequestorName:
@@ -993,7 +993,7 @@ components:
       type: string
       maxLength: 4
       examples:
-        - 4812
+        - '4812'
       description: Merchant Category Code to identify the industry branch of the merchant.
 
     MccDescription:
@@ -1009,7 +1009,7 @@ components:
       type: string
       maxLength: 8
       examples:
-        - 12345678
+        - '12345678'
       description: Identifier for the terminal which has read the card data.
 
     CardAcceptorId:
@@ -1025,7 +1025,7 @@ components:
       type: string
       maxLength: 11
       examples:
-        - 12345678901
+        - '12345678901'
       description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
 
     Channel:
@@ -1045,7 +1045,7 @@ components:
         - '100: Cash withdrawal'
         - '103: ATM operator refund'
         - '117: P2P payment charge sender'
-        - '118: P2P payment credit recipient "merchant", "fee", "atm"'
+        - '118: P2P payment credit recipient "merchant", "fee", "atm"' # TODO example more than 50 chars
       description: Category of the transaction, defined by the Card Service Provider.
 
     CardholderId:
@@ -1108,38 +1108,38 @@ components:
       examples:
         - 2018-04-13T11:11:11Z
 
-    linksPagination:
+    LinksPagination:
       description: Links (or cursors) returned in the answer of an API call.
       type: object
       properties:
         self:
           type: string
           format: uri
-          description: Link / cursor to the current result set (based on the submitted pagination approach)
+          description: Link / cursor to the current result set (based on the submitted pagination approach).
           examples:
             - /card-app/api/v1/products?offset=75&limit=25
         first:
           type: string
           format: uri
-          description: Link / cursor to the first result set (based on the submitted pagination approach)
+          description: Link / cursor to the first result set (based on the submitted pagination approach).
           examples:
             - /card-app/api/v1/products?offset=0&limit=25
         previous:
           type: string
           format: uri
-          description: Link / cursor to the previous result set (based on the submitted pagination approach)
+          description: Link / cursor to the previous result set (based on the submitted pagination approach).
           examples:
             - /card-app/api/v1/products?offset=50&limit=25
         next:
           type: string
           format: uri
-          description: Link / cursor to the next result set (based on the submitted pagination approach)
+          description: Link / cursor to the next result set (based on the submitted pagination approach).
           examples:
             - /card-app/api/v1/products?offset=100&limit=25
         last:
           type: string
           format: uri
-          description: Link / cursor to the last result set (based on the submitted pagination approach)
+          description: Link / cursor to the last result set (based on the submitted pagination approach).
           examples:
             - /card-app/api/v1/products?offset=150&limit=25
 
@@ -1207,8 +1207,8 @@ components:
         $ref: '#/components/schemas/TransactionId'
 
     limit:
-      name: limit
       in: query
+      name: limit
       description: Optional parameter for pagination. Maximum number of entries to be returned.
       required: false
       schema:
@@ -1219,8 +1219,8 @@ components:
           - 25
 
     offset:
-      name: offset
       in: query
+      name: offset
       description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
       required: false
       schema:
