@@ -57,10 +57,10 @@ paths:
           schema:
             $ref: '#/components/schemas/CardStatus'
         - in: query
-          name: card_account_id
+          name: card_account_reference
           required: false
           schema:
-            $ref: '#/components/schemas/CardAccountId'
+            $ref: '#/components/schemas/CardAccountReference'
         - in: query
           name: bank_account_reference
           required: false
@@ -320,7 +320,7 @@ components:
         - card_status
         - currency
         - image
-        - product_id
+        - product_code
         - product_name
         - scheme
         - issuing_type
@@ -328,7 +328,7 @@ components:
         - product_line
         - card_limit_cycle
         - card_limit_daily
-        - issuer_id
+        - issuer_code
         - issuer_name
         - language
       properties:
@@ -354,8 +354,8 @@ components:
           $ref: '#/components/schemas/Currency'
         image:
           $ref: '#/components/schemas/Image'
-        product_id:
-          $ref: '#/components/schemas/ProductId'
+        product_code:
+          $ref: '#/components/schemas/ProductCode'
         product_name:
           $ref: '#/components/schemas/ProductName'
         scheme:
@@ -372,16 +372,16 @@ components:
           $ref: '#/components/schemas/CardLimitCycle'
         card_limit_daily:
           $ref: '#/components/schemas/CardLimitDaily'
-        card_account_id:
-          $ref: '#/components/schemas/CardAccountId'
+        card_account_reference:
+          $ref: '#/components/schemas/CardAccountReference'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
-        issuer_id:
-          $ref: '#/components/schemas/IssuerId'
+        issuer_code:
+          $ref: '#/components/schemas/IssuerCode'
         issuer_name:
           $ref: '#/components/schemas/IssuerName'
-        distribution_partner_id:
-          $ref: '#/components/schemas/DistributionPartnerId'
+        distribution_partner_code:
+          $ref: '#/components/schemas/DistributionPartnerCode'
         distribution_partner_name:
           $ref: '#/components/schemas/DistributionPartnerName'
         language:
@@ -394,7 +394,7 @@ components:
       required:
         - token_id
         - token_pan_4_digits
-        - token_requestor_id
+        - token_requestor_code
         - token_requestor_name
         - funding_card_id
         - token_status
@@ -405,12 +405,12 @@ components:
           $ref: '#/components/schemas/TokenId'
         token_pan_4_digits:
           $ref: '#/components/schemas/TokenPan4Digits'
-        wallet_id:
-          $ref: '#/components/schemas/WalletId'
+        wallet_code:
+          $ref: '#/components/schemas/WalletCode'
         wallet_name:
           $ref: '#/components/schemas/WalletName'
-        token_requestor_id:
-          $ref: '#/components/schemas/TokenRequestorId'
+        token_requestor_code:
+          $ref: '#/components/schemas/TokenRequestorCode'
         token_requestor_name:
           $ref: '#/components/schemas/TokenRequestorName'
         device_name:
@@ -456,8 +456,8 @@ components:
           $ref: '#/components/schemas/StatementDate'
         transaction_status:
           $ref: '#/components/schemas/TransactionStatus'
-        approval_code:
-          $ref: '#/components/schemas/ApprovalCode'
+        approval_number:
+          $ref: '#/components/schemas/ApprovalNumber'
         original_amount:
           $ref: '#/components/schemas/OriginalAmount'
         original_currency:
@@ -486,26 +486,26 @@ components:
           $ref: '#/components/schemas/Mcc'
         mcc_description:
           $ref: '#/components/schemas/MccDescription'
-        terminal_id:
-          $ref: '#/components/schemas/TerminalId'
-        card_acceptor_id:
-          $ref: '#/components/schemas/CardAcceptorId'
-        acquirer_id:
-          $ref: '#/components/schemas/AcquirerId'
+        terminal_reference:
+          $ref: '#/components/schemas/TerminalReference'
+        card_acceptor_reference:
+          $ref: '#/components/schemas/CardAcceptorReference'
+        acquirer_reference:
+          $ref: '#/components/schemas/AcquirerReference'
         channel:
           $ref: '#/components/schemas/Channel'
         transaction_category:
           $ref: '#/components/schemas/TransactionCategory'
         token_id:
           $ref: '#/components/schemas/TokenId'
-        cardholder_id:
-          $ref: '#/components/schemas/CardholderId'
-        card_account_id:
-          $ref: '#/components/schemas/CardAccountId'
+        cardholder_reference:
+          $ref: '#/components/schemas/CardholderReference'
+        card_account_reference:
+          $ref: '#/components/schemas/CardAccountReference'
         card_id:
           $ref: '#/components/schemas/CardId'
-        transaction_reference:
-          $ref: '#/components/schemas/TransactionReference'
+        related_transaction_id:
+          $ref: '#/components/schemas/RelatedTransactionId'
 
     ContractReference:
       title: Contract reference
@@ -597,8 +597,8 @@ components:
         - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
 
-    ProductId:
-      title: Product id
+    ProductCode:
+      title: Product code
       type: string
       maxLength: 50
       examples:
@@ -691,8 +691,8 @@ components:
         effective limit is provided that considers limits on the card and relationship;
         does not indicate the actually available amount for authorizations on the current day.
 
-    CardAccountId:
-      title: Card account id
+    CardAccountReference:
+      title: Card account reference
       type: string
       maxLength: 50
       examples:
@@ -709,8 +709,8 @@ components:
         - CH3456789012345678901
       description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
 
-    IssuerId:
-      title: Issuer id
+    IssuerCode:
+      title: Issuer code
       type: string
       maxLength: 50
       examples:
@@ -727,8 +727,8 @@ components:
         - Zürcher Kantonalbank
       description: Name of the legal issuer of a card.
 
-    DistributionPartnerId:
-      title: Distribution partner id
+    DistributionPartnerCode:
+      title: Distribution partner code
       type: string
       maxLength: 50
       examples:
@@ -775,8 +775,8 @@ components:
         - '4321'
       description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.
 
-    WalletId:
-      title: Wallet id
+    WalletCode:
+      title: Wallet code
       type: string
       maxLength: 10
       examples:
@@ -795,8 +795,8 @@ components:
         - APPLE_PAY
       description: Name of the wallet in which the token is used and managed.
 
-    TokenRequestorId:
-      title: Token requestor id
+    TokenRequestorCode:
+      title: Token requestor code
       type: string
       maxLength: 11
       examples:
@@ -923,8 +923,8 @@ components:
         - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
         - booked: transaction was cleared/settled and charged to the card account
 
-    ApprovalCode:
-      title: Approval code
+    ApprovalNumber:
+      title: Approval number (also known as approval code)
       type: string
       pattern: '^\d{6}$'
       examples:
@@ -1046,24 +1046,24 @@ components:
         - Telco
       description: Description for the mcc.
 
-    TerminalId:
-      title: Terminal id
+    TerminalReference:
+      title: Terminal reference (also known as terminal id)
       type: string
       maxLength: 8
       examples:
         - '12345678'
       description: Identifier for the terminal which has read the card data.
 
-    CardAcceptorId:
-      title: Card acceptor id
+    CardAcceptorReference:
+      title: Card acceptor reference
       type: string
       maxLength: 15
       examples:
         - '87040'
       description: Identifier for the merchant who requested the transaction.
 
-    AcquirerId:
-      title: Acquirer id
+    AcquirerReference:
+      title: Acquirer reference (also known as acquirer id)
       type: string
       maxLength: 11
       examples:
@@ -1093,15 +1093,15 @@ components:
         - 'atm'
       description: Category of the transaction, defined by the Card Service Provider.
 
-    CardholderId:
-      title: Cardholder id
+    CardholderReference:
+      title: Cardholder reference
       type: string
       maxLength: 50
       examples:
         - Peter Schweizer
       description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
 
-    TransactionReference:
+    RelatedTransactionId:
       title: Transaction reference
       type: string
       maxLength: 50
