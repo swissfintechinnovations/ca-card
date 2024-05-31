@@ -5,7 +5,6 @@ info:
   description: >
     This specification defines a common card API for payment cards used in Switzerland.
     The API is supposed to be used by third parties to retrieve payment card information for scheme-based debit, credit or prepaid cards (read only).
-  # TODO update description - TO BE REVIEWED
   contact:
     email: info@common-api.ch
   license:
@@ -17,7 +16,6 @@ externalDocs:
   description: Find out more about SFTI API specifications
   url: https://www.common-api.ch
 
-# TODO make more detailed description - TO BE REVIEWED
 tags:
   - name: Cards
     description: Operations for retrieving information about payment cards.
@@ -35,11 +33,11 @@ security:
 paths:
   /cards:
     get:
-      summary: Provides a list of cards which match the provided query parameters.  # TODO - TO BE REVIEWED
-      description: |
+      summary: Provides a list of cards which match the provided query parameters.
+      description: >
         This operation enables the retrieval of a list of payment cards. Payment cards can be physical or virtual cards.
         In order to prevent API consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant for this regulation are included.
-        The API consumer is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account number). # TODO - TO BE REVIEWED
+        The API consumer is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account number).
       tags:
         - Cards
       parameters:
@@ -70,11 +68,15 @@ paths:
             $ref: '#/components/schemas/BankAccountReference'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.  # TODO - TO BE REVIEWED
+          description: Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -93,19 +95,23 @@ paths:
 
   /cards/{cardId}:
     get:
-      summary: Provides a single card which matches the id.  # TODO - TO BE REVIEWED
+      summary: Provides a single card which matches the id.
       description: >
         This operation enables the retrieval of a single payment card when the cardId is already known.
-        The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.  # TODO - TO BE REVIEWED
+        The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
       tags:
         - Cards
       parameters:
         - $ref: '#/components/parameters/path_cardId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Single payment card was found. If the cardId was not found, a 400 is returned.  # TODO - TO BE REVIEWED
+          description: Single payment card was found. If the cardId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -117,11 +123,11 @@ paths:
 
   /card-tokens:
     get:
-      summary: Provides a list of card tokens which are associated with a card.  # TODO - TO BE REVIEWED
+      summary: Provides a list of card tokens which are associated with a card.
       description: >
         This operation enables the retrieval of a list of tokens associated with a payment card.
         The tokens can be filtered further by status.
-        Tokens are representations of a payment card used in specific wallets , wearables or merchants.  # TODO - TO BE REVIEWED
+        Tokens are representations of a payment card used in specific wallets , wearables or merchants.
       tags:
         - Card-tokens
       parameters:
@@ -137,11 +143,17 @@ paths:
             $ref: '#/components/schemas/TokenStatus'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Card tokens were found which match the query parameters. If no card tokens matched the parameters or access rights are missing, an empty list is returned.  # TODO - TO BE REVIEWED
+          description: >
+            Card tokens were found which match the query parameters. 
+            If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -160,10 +172,10 @@ paths:
 
   /card-tokens/{tokenId}:
     get:
-      summary: Provides a single token which matches the cardId and tokenId  # TODO - TO BE REVIEWED
+      summary: Provides a single token which matches the cardId and tokenId
       description: >
         This operation enables the retrieval of a single token when the cardId and tokenId are already known.T
-        The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.  # TODO - TO BE REVIEWED
+        The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
       parameters:
@@ -173,11 +185,15 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Single token was found. If the tokenId was not found, a 400 is returned.  # TODO - TO BE REVIEWED
+          description: Single token was found. If the tokenId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -189,11 +205,11 @@ paths:
 
   /card-transactions:
     get:
-      summary: Provides a list of transactions which match the provided query parameters.  # TODO - TO BE REVIEWED
+      summary: Provides a list of transactions which match the provided query parameters.
       description: >
         This operation enables the retrieval of a list of transactions performed with a payment card or token.
         Different query parameters are provided to support an efficient retrieval of individual transactions.
-        With the Level 1 of the Common Card API only card-based financial transactions are included.  # TODO - TO BE REVIEWED
+        With the Level 1 of the Common Card API only card-based financial transactions are included.
       tags:
         - Transactions
       parameters:
@@ -239,11 +255,15 @@ paths:
             $ref: '#/components/schemas/OriginalCurrency'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.  # TODO - TO BE REVIEWED
+          description: Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -257,19 +277,23 @@ paths:
 
   /card-transactions/{transactionId}:
     get:
-      summary: Provides a single transaction which matches the transactionId  # TODO - TO BE REVIEWED
+      summary: Provides a single transaction which matches the transactionId
       description: >
         This operation enables the retrieval of a single transaction when the transactionId is already known.
-        The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.  # TODO - TO BE REVIEWED
+        The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.
       tags:
         - Transactions
       parameters:
         - $ref: '#/components/parameters/path_transactionId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Single token was found. If the transactionId was not found, a 400 is returned.  # TODO - TO BE REVIEWED
+          description: Single token was found. If the transactionId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -283,7 +307,7 @@ components:
   schemas:
     CardDetails:
       title: Card details
-      description: Describes a payment card with its relevant characteristics.  # TODO - TO BE REVIEWED
+      description: Describes a payment card with its relevant characteristics.
       type: object
       required:
         - contract_reference
@@ -365,7 +389,7 @@ components:
 
     CardTokenDetails:
       title: Card token details
-      description: Describes a token with its relevant characteristics.   # TODO - TO BE REVIEWED
+      description: Describes a token with its relevant characteristics.
       type: object
       required:
         - token_id
@@ -404,7 +428,7 @@ components:
 
     TransactionDetails:
       title: Transaction details
-      description: Describes a transaction with its relevant characteristics.  # TODO - TO BE REVIEWED
+      description: Describes a transaction with its relevant characteristics.
       type: object
       required:
         - transaction_id
@@ -651,7 +675,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
+      description: >
+        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card;
+        effective limit is provided that considers limits on the card and relationship;
+        does not indicate the actually available amount for authorizations in the current cycle.
 
     CardLimitDaily:
       title: Card limit daily
@@ -659,7 +686,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+      description: >
+        Total amount of authorizations possible for the card per day in the currency of the card;
+        effective limit is provided that considers limits on the card and relationship;
+        does not indicate the actually available amount for authorizations on the current day.
 
     CardAccountId:
       title: Card account id
@@ -667,7 +697,9 @@ components:
       maxLength: 50
       examples:
         - AB-4567890123456
-      description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
+      description: >
+        Technical reference to the card account which is used to settle the transactions of the card;
+        can be empty for debit cards which are settled directly to the bank account.
 
     BankAccountReference:
       title: Bank account reference
@@ -701,7 +733,9 @@ components:
       maxLength: 50
       examples:
         - '123456789'
-      description: Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+      description: >
+        Identifier for the organization which is distributing / selling cards to end customers
+        and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     DistributionPartnerName:
       title: Distribution partner name
@@ -709,7 +743,9 @@ components:
       maxLength: 100
       examples:
         - Zürcher Kantonalbank
-      description: Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+      description: >
+        Name of the organization which is distributing / issuing cards to end customers 
+        and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     Language:
       type: string
@@ -725,7 +761,7 @@ components:
     TokenId:
       title: Token id
       type: string
-      format: uuid  # TODO special format of id possible?
+      format: uuid
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
@@ -847,8 +883,8 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: > 
-        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.  # TODO remove one-of dependency?
+      description: >
+        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.
 
     ClearingReference:
       title: Clearing reference
@@ -857,7 +893,7 @@ components:
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: >
-        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or ClearingReference is always present.  # TODO remove one-of dependency?
+        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or ClearingReference is always present.
 
     TransactionDateTime:
       title: Transaction date-time
@@ -893,7 +929,9 @@ components:
       pattern: '^\d{6}$'
       examples:
         - '803051'
-      description: Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
+      description: >
+        Identifies a transaction from the entity that authorized it;
+        in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
 
     OriginalAmount:
       title: Original amount
@@ -915,7 +953,9 @@ components:
       type: number
       examples:
         - 1957.50
-      description: Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); positive amounts are debit transactions, negative amounts are credit transactions.
+      description: >
+        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); 
+        positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
       title: Transaction amount
@@ -934,7 +974,7 @@ components:
 
     Fees:
       title: Fees
-      description:  One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
+      description: One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
       type: object
       required:
         -  fee_name
@@ -1085,7 +1125,7 @@ components:
         - 3.5
       description: >
         Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. 
-        Values are provided to be compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).   # TODO verify description
+        Values are provided to be compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
 
     FeeAmount:
       title: Fee amount
@@ -1115,7 +1155,7 @@ components:
       format: date-time
       examples:
         - 2018-04-13T11:11:11Z
-      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ss' # TODO - include timezone?
+      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ss'.
 
     LinksPagination:
       description: Links (or cursors) returned in the answer of an API call.
@@ -1161,17 +1201,17 @@ components:
           $ref: '#/components/schemas/CommonErrorType'
         title:
           type: string
-          description: Short name for the problem
+          description: Short name for the problem.
           examples:
             - This is the general problem description
         detail:
           type: string
-          description: More details about the problem
+          description: More details about the problem.
           examples:
             - Detailed problem description with respect to the current request
         instance:
           type: string
-          description: Reference to an individual entity or request which caused the problem
+          description: Reference to an individual entity or request which caused the problem.
           examples:
             - path/to/corresponding/resource
 
@@ -1243,6 +1283,30 @@ components:
           - 25
       description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
 
+    clientid_in_header:
+      name: X-CorAPI-Client-ID
+      in: header
+      schema:
+        type: string
+      description: ID of the client forwarded to the provider.
+      required: true
+
+    correlation_in_header:
+      name: X-Correlation-ID
+      in: header
+      schema:
+        $ref: '#/components/headers/X-Correlation-ID'
+      description: Unique ID (defined by the caller) which will be reflected back in the response.
+      required: true
+
+    agent_in_header:
+      name: User-Agent
+      in: header
+      schema:
+        type: string
+      description: Name and version of the of the Client software.
+      required: true
+
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -1259,15 +1323,17 @@ components:
             write: Grants write access
 
   responses:
-    # TODO adjust description due to actual use in API, descriptions are generic from RFC - TO BE REVIEWED
     standard400:
       headers:
         Content-Type:
           $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
-      description: |
-        Client Error - The request could not be processed due to a problem in the data provided. This could be for any of the reasons of the HTML standard that would result in a 4xx code.
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: >
+        Client Error - The request could not be processed due to a problem in the data provided.
+        This could be for any of the reasons of the HTML standard that would result in a 4xx code.
       content:
         application/problem+json:
           schema:
@@ -1279,8 +1345,11 @@ components:
           $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
-      description: |
-        Internal Server Error - The request could not be processed due to a problem at the data provider. This could be for any of the reasons of the HTML standard that would result in a 5xx code.
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: >
+        Internal Server Error - The request could not be processed due to a problem at the data provider.
+        This could be for any of the reasons of the HTML standard that would result in a 5xx code.
       content:
         application/problem+json:
           schema:
@@ -1288,15 +1357,23 @@ components:
 
   headers:
     Content-Language:
-      description:  # TODO
+      description: Language of provided content.
       schema:
         type: string
         examples:
           - en
 
     Content-Type:
-      description:  # TODO
+      description: Type of provided content.
       schema:
         type: string
         examples:
+          - application/json
           - application/problem+json; charset=utf-8 according to RFC7807
+
+    X-Correlation-ID:
+      description: Client defined ID from request to correlates HTTP requests between a client and server
+      schema:
+        type: string
+        examples:
+          - f058ebd6-02f7-4d3f-942e-904344e8cde5
