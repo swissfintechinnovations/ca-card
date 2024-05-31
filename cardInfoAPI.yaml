@@ -34,7 +34,7 @@ paths:
   /cards:
     get:
       summary: Provides a list of cards which match the provided query parameters.
-      description: |
+      description: >
         This operation enables the retrieval of a list of payment cards. Payment cards can be physical or virtual cards.
         In order to prevent API consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant for this regulation are included.
         The API consumer is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account number).
@@ -68,11 +68,15 @@ paths:
             $ref: '#/components/schemas/BankAccountReference'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
           description: Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -99,11 +103,15 @@ paths:
         - Cards
       parameters:
         - $ref: '#/components/parameters/path_cardId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
           description: Single payment card was found. If the cardId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -135,11 +143,17 @@ paths:
             $ref: '#/components/schemas/TokenStatus'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
-          description: Card tokens were found which match the query parameters. If no card tokens matched the parameters or access rights are missing, an empty list is returned.
+          description: >
+            Card tokens were found which match the query parameters. 
+            If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -171,11 +185,15 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
           description: Single token was found. If the tokenId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -237,11 +255,15 @@ paths:
             $ref: '#/components/schemas/OriginalCurrency'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
           description: Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -263,11 +285,15 @@ paths:
         - Transactions
       parameters:
         - $ref: '#/components/parameters/path_transactionId'
+        - $ref: '#/components/parameters/clientid_in_header'
+        - $ref: '#/components/parameters/correlation_in_header'
+        - $ref: '#/components/parameters/agent_in_header'
       responses:
         '200':
           description: Single token was found. If the transactionId was not found, a 400 is returned.
           headers:
-            # TODO headers?
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
               schema:
@@ -649,7 +675,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
+      description: >
+        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card;
+        effective limit is provided that considers limits on the card and relationship;
+        does not indicate the actually available amount for authorizations in the current cycle.
 
     CardLimitDaily:
       title: Card limit daily
@@ -657,7 +686,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+      description: >
+        Total amount of authorizations possible for the card per day in the currency of the card;
+        effective limit is provided that considers limits on the card and relationship;
+        does not indicate the actually available amount for authorizations on the current day.
 
     CardAccountId:
       title: Card account id
@@ -665,7 +697,9 @@ components:
       maxLength: 50
       examples:
         - AB-4567890123456
-      description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
+      description: >
+        Technical reference to the card account which is used to settle the transactions of the card;
+        can be empty for debit cards which are settled directly to the bank account.
 
     BankAccountReference:
       title: Bank account reference
@@ -699,7 +733,9 @@ components:
       maxLength: 50
       examples:
         - '123456789'
-      description: Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+      description: >
+        Identifier for the organization which is distributing / selling cards to end customers
+        and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     DistributionPartnerName:
       title: Distribution partner name
@@ -707,7 +743,9 @@ components:
       maxLength: 100
       examples:
         - Zürcher Kantonalbank
-      description: Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+      description: >
+        Name of the organization which is distributing / issuing cards to end customers 
+        and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     Language:
       type: string
@@ -845,7 +883,7 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: > 
+      description: >
         Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.
 
     ClearingReference:
@@ -891,7 +929,9 @@ components:
       pattern: '^\d{6}$'
       examples:
         - '803051'
-      description: Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
+      description: >
+        Identifies a transaction from the entity that authorized it;
+        in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
 
     OriginalAmount:
       title: Original amount
@@ -913,7 +953,9 @@ components:
       type: number
       examples:
         - 1957.50
-      description: Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); positive amounts are debit transactions, negative amounts are credit transactions.
+      description: >
+        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); 
+        positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
       title: Transaction amount
@@ -932,7 +974,7 @@ components:
 
     Fees:
       title: Fees
-      description:  One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
+      description: One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
       type: object
       required:
         -  fee_name
@@ -1159,17 +1201,17 @@ components:
           $ref: '#/components/schemas/CommonErrorType'
         title:
           type: string
-          description: Short name for the problem
+          description: Short name for the problem.
           examples:
             - This is the general problem description
         detail:
           type: string
-          description: More details about the problem
+          description: More details about the problem.
           examples:
             - Detailed problem description with respect to the current request
         instance:
           type: string
-          description: Reference to an individual entity or request which caused the problem
+          description: Reference to an individual entity or request which caused the problem.
           examples:
             - path/to/corresponding/resource
 
@@ -1241,6 +1283,30 @@ components:
           - 25
       description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
 
+    clientid_in_header:
+      name: X-CorAPI-Client-ID
+      in: header
+      schema:
+        type: string
+      description: ID of the client forwarded to the provider.
+      required: true
+
+    correlation_in_header:
+      name: X-Correlation-ID
+      in: header
+      schema:
+        $ref: '#/components/headers/X-Correlation-ID'
+      description: Unique ID (defined by the caller) which will be reflected back in the response.
+      required: true
+
+    agent_in_header:
+      name: User-Agent
+      in: header
+      schema:
+        type: string
+      description: Name and version of the of the Client software.
+      required: true
+
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -1263,8 +1329,11 @@ components:
           $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
-      description: |
-        Client Error - The request could not be processed due to a problem in the data provided. This could be for any of the reasons of the HTML standard that would result in a 4xx code.
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: >
+        Client Error - The request could not be processed due to a problem in the data provided.
+        This could be for any of the reasons of the HTML standard that would result in a 4xx code.
       content:
         application/problem+json:
           schema:
@@ -1276,8 +1345,11 @@ components:
           $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
-      description: |
-        Internal Server Error - The request could not be processed due to a problem at the data provider. This could be for any of the reasons of the HTML standard that would result in a 5xx code.
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: >
+        Internal Server Error - The request could not be processed due to a problem at the data provider.
+        This could be for any of the reasons of the HTML standard that would result in a 5xx code.
       content:
         application/problem+json:
           schema:
@@ -1285,15 +1357,23 @@ components:
 
   headers:
     Content-Language:
-      description:  # TODO Dominik
+      description: Language of provided content.
       schema:
         type: string
         examples:
           - en
 
     Content-Type:
-      description:  # TODO Dominik
+      description: Type of provided content.
       schema:
         type: string
         examples:
+          - application/json
           - application/problem+json; charset=utf-8 according to RFC7807
+
+    X-Correlation-ID:
+      description: Client defined ID from request to correlates HTTP requests between a client and server
+      schema:
+        type: string
+        examples:
+          - f058ebd6-02f7-4d3f-942e-904344e8cde5
