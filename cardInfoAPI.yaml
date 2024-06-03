@@ -46,26 +46,31 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/ContractReference'
+          description: Retrieves all cards related to a contract. Value has to be a functional reference to the contract that can be known by the end customer.
         - in: query
           name: person_reference
           required: false
           schema:
             $ref: '#/components/schemas/PersonReference'
+          description: Retrieves all cards related to an individual person/cardholder. Value has to be a functional reference to the person that can be known by the end customer.
         - in: query
           name: card_status
           required: false
           schema:
             $ref: '#/components/schemas/CardStatus'
+          description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
         - in: query
           name: card_account_reference
           required: false
           schema:
             $ref: '#/components/schemas/CardAccountReference'
+          description: Retrieves all cards related to a card account (not bank account). Value has to be a functional reference to the account that can be known by the end customer.
         - in: query
           name: bank_account_reference
           required: false
           schema:
             $ref: '#/components/schemas/BankAccountReference'
+          description: Retrieves all cards related to a bank account (not card account). Value has to be a functional reference to the account that can be known by the end customer and is usually an IBAN.
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -136,11 +141,13 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
+          description: Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
         - in: query
           name: token_status
           required: false
           schema:
             $ref: '#/components/schemas/TokenStatus'
+          description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -174,14 +181,14 @@ paths:
     get:
       summary: Provides a single token which matches the cardId and tokenId
       description: >
-        This operation enables the retrieval of a single token when the cardId and tokenId are already known.T
+        This operation enables the retrieval of a single token when the cardId and tokenId are already known.
         The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
       parameters:
         - $ref: '#/components/parameters/path_tokenId'
         - in: query
-          name: card_id
+          name: card_id # TODO should we keep this parameter when it is anyway optional?
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
@@ -218,41 +225,52 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/AuthorizationReference'
+          description: >
+            Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on the authorization reference.
         - in: query
           name: clearing_reference
           required: false
           schema:
             $ref: '#/components/schemas/ClearingReference'
+          description: >
+            Retrieves the transaction related to an individual clearing. 
+            Query parameter only returns results for cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).
         - in: query
           name: card_id
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
+          description: Retrieves all transactions related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
         - in: query
           name: token_id
           required: false
           schema:
             $ref: '#/components/schemas/TokenId'
+          description: Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET /card-tokens endpoint.
         - in: query
           name: from_date
           required: false
           schema:
             $ref: '#/components/schemas/DateTime'
+          description: Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
         - in: query
           name: to_date
           required: false
           schema:
             $ref: '#/components/schemas/DateTime'
+          description: Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
         - in: query
           name: status
           required: false
           schema:
             $ref: '#/components/schemas/TransactionStatus'
+          description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
         - in: query
           name: original_currency
           required: false
           schema:
             $ref: '#/components/schemas/OriginalCurrency'
+          description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/clientid_in_header'
@@ -1244,6 +1262,7 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/CardId'
+      description: Identifier (technical) for a card for which information is requested.
 
     path_tokenId:
       in: path
@@ -1251,6 +1270,7 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TokenId'
+      description: Identifier (technical) for a token for which information is requested.
 
     path_transactionId:
       in: path
@@ -1258,6 +1278,7 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TransactionId'
+      description: Identifier (technical) for a transaction for which information is requested.
 
     limit:
       in: query
