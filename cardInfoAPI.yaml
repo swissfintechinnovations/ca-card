@@ -188,7 +188,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/path_tokenId'
         - in: query
-          name: card_id # TODO should we keep this parameter when it is anyway optional?
+          name: card_id   # TODO should we keep this parameter when it is anyway optional?
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
@@ -995,7 +995,7 @@ components:
       description: One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
       type: object
       required:
-        -  fee_name
+        - fee_name
       properties:
         fee_name:
           $ref: '#/components/schemas/FeeName'
@@ -1106,9 +1106,9 @@ components:
         - '103: ATM operator refund'
         - '117: P2P payment charge sender'
         - '118: P2P payment credit recipient'
-        - 'merchant'
-        - 'fee'
-        - 'atm'
+        - merchant
+        - fee
+        - atm
       description: Category of the transaction, defined by the Card Service Provider.
 
     CardholderReference:
@@ -1165,7 +1165,7 @@ components:
       format: date
       examples:
         - 2018-04-13
-      description: General date that is used for different attributes, format is 'YYYY-MM-DD'
+      description: General date that is used for different attributes, format is 'YYYY-MM-DD'.
 
     DateTime:
       title: Date-time
@@ -1173,7 +1173,7 @@ components:
       format: date-time
       examples:
         - 2018-04-13T11:11:11Z
-      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'
+      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
 
     LinksPagination:
       description: Links (or cursors) returned in the answer of an API call.
@@ -1305,28 +1305,28 @@ components:
       description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
 
     clientid_in_header:
-      name: X-CorAPI-Client-ID
       in: header
+      name: X-CorAPI-Client-ID
+      required: true
       schema:
         type: string
       description: ID of the client forwarded to the provider.
-      required: true
 
     correlation_in_header:
-      name: X-Correlation-ID
       in: header
+      name: X-Correlation-ID
+      required: true
       schema:
         $ref: '#/components/headers/X-Correlation-ID'
       description: Unique ID (defined by the caller) which will be reflected back in the response.
-      required: true
 
     agent_in_header:
-      name: User-Agent
       in: header
+      name: User-Agent
+      required: true
       schema:
         type: string
       description: Name and version of the of the Client software.
-      required: true
 
   securitySchemes:
     ApiKeyAuth:
@@ -1393,7 +1393,7 @@ components:
           - application/problem+json; charset=utf-8 according to RFC7807
 
     X-Correlation-ID:
-      description: Client defined ID from request to correlates HTTP requests between a client and server
+      description: Client defined ID from request to correlates HTTP requests between a client and server.
       schema:
         type: string
         examples:
