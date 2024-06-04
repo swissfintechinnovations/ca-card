@@ -156,7 +156,7 @@ paths:
       responses:
         '200':
           description: >
-            Card tokens were found which match the query parameters. 
+            Card tokens were found which match the query parameters.
             If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
@@ -233,7 +233,7 @@ paths:
           schema:
             $ref: '#/components/schemas/ClearingReference'
           description: >
-            Retrieves the transaction related to an individual clearing. 
+            Retrieves the transaction related to an individual clearing.
             Query parameter only returns results for cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).
         - in: query
           name: card_id
@@ -763,7 +763,7 @@ components:
       examples:
         - Zürcher Kantonalbank
       description: >
-        Name of the organization which is distributing / issuing cards to end customers 
+        Name of the organization which is distributing / issuing cards to end customers
         and who can define the services and branding of the card; empty if the card is distributed by the issuer.
 
     Language:
@@ -974,7 +974,7 @@ components:
       examples:
         - 1957.50
       description: >
-        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees); 
+        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees);
         positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
@@ -1145,7 +1145,7 @@ components:
       examples:
         - 3.5
       description: >
-        Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. 
+        Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.
         Values are provided to be compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
 
     FeeAmount:
