@@ -187,11 +187,6 @@ paths:
         - Card-tokens
       parameters:
         - $ref: '#/components/parameters/path_tokenId'
-        - in: query
-          name: card_id   # TODO should we keep this parameter when it is anyway optional?
-          required: false
-          schema:
-            $ref: '#/components/schemas/CardId'
         - $ref: '#/components/parameters/client_in_header'
         - $ref: '#/components/parameters/correlation_in_header'
         - $ref: '#/components/parameters/agent_in_header'
