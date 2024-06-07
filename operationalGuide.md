@@ -1,11 +1,42 @@
 # Operational Guide
 
-- [Central Design Decisions](#central-design-decisions) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Central-Design-Decisions)
-- [Card API Level 1](#card-api-level-1) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-1)
-- [Card API Level 2](#card-api-level-2) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-2)
-- [Card API Level 3](#card-api-level-3) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-3)
-- [Use of this spec](#use-of-this-spec) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Use-of-this-spec)
-- [Appendix](#appendix) | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Appendix)
+- Scope of the Card API | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Scope-of-the-Card-API)
+- Central Design Decisions | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Central-Design-Decisions)
+- Card API Level 1 | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-1)
+- Card API Level 2 | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-2)
+- Card API Level 3 | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Card-API-Level-3)
+- Use of this spec | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Use-of-this-spec)
+- Appendix | [Card Wiki Page](https://github.com/swissfintechinnovations/ca-card/wiki/Appendix)
+
+# Scope of the Card API
+
+## Card types covered with the Card API
+In scope:
+* Debit
+* Credit
+* Prepaid
+
+Ouf of scope:
+* Deposit cards or non-Scheme-based cards (e.g.loyalty cards) 
+
+The focus for creating the Card API specification was on the Mastercard and Visa schemes. However, the standard is open to other schemes as well and feedback that gives hints on necessary adaptations will be implemented.
+
+## Transaction types covered with the Card API
+* All transactions authorized or settled via a payment card (given that the card type is in scope of this API)
+* Card account-based transactions (e.g. fees, deposits, bill payments) are only available from Level 2 upwards. 
+* Only financial transactions are covered (i.e., no PIN changes, balance inquiries, or status checks).
+
+Matching transactions retrieved via Card API with debit card transactions which are accessible on the bank account via the XS2A API is not actively supported. 
+The Card API only provides card transactions and from Level 2 upwards on the card account as well. Please note that this card account is not equivalent to the bank account.
+
+## Provider and User of the API
+* Provider: All organizations which are able to implement API endpoints which meet the requirements of the Common API Card API specifications (e.g. provide mandatory fields) can act as provider. It is expected that most often Card Service Providers will act at least as technical providers of the Card API.
+* User: The Card API primarily targets Open Finance Use Cases described within each of the foreseen levels (i.e. level 1 to 3). The Card API is suitable for direct integration between Card Service Providers and third parties needing card data to enable new services or further develop existing use cases.
+
+Using the Card API for integrating Card Service Providers with distribution partners or issuers is not the main focus, as more detailed information and further enhanced use cases are usually required. 
+
+The contractual and technical requirements for exchanging card data and the allowed uses can be freely agreed upon between Provider and User. The standard does not set any specific rule in this regard. 
+
 
 # Central Design Decisions
 
