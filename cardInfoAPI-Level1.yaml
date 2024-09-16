@@ -35,9 +35,10 @@ paths:
     get:
       summary: Provides a list of cards which match the provided query parameters.
       description: >
-        This operation enables the retrieval of a list of payment cards. Payment cards can be physical or virtual cards.
-        In order to prevent API consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant for this regulation are included.
-        The API consumer is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account number).
+        This operation enables the retrieval of a list of payment cards. Payment cards can be physical or virtual cards. In order to prevent API
+        consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant for this regulation are included. The API consumer
+        is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account
+        number).
       tags:
         - Cards
       parameters:
@@ -49,12 +50,14 @@ paths:
           description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
         - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
-          description: Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
+          description: >
+            Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing,
+            an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -86,9 +89,9 @@ paths:
         - Cards
       parameters:
         - $ref: '#/components/parameters/path_cardId'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
           description: Single payment card was found. If the cardId was not found, a 400 is returned.
@@ -119,7 +122,9 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
-          description: Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
+          description: >
+            Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards
+            endpoint.
         - in: query
           name: token_status
           required: false
@@ -128,9 +133,9 @@ paths:
           description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
         - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
           description: >
@@ -167,9 +172,9 @@ paths:
         - Card-tokens
       parameters:
         - $ref: '#/components/parameters/path_tokenId'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
           description: Single token was found. If the tokenId was not found, a 400 is returned.
@@ -201,39 +206,48 @@ paths:
           schema:
             $ref: '#/components/schemas/AuthorizationReference'
           description: >
-            Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on the authorization reference.
+            Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based
+            on the authorization reference.
         - in: query
           name: clearing_reference
           required: false
           schema:
             $ref: '#/components/schemas/ClearingReference'
           description: >
-            Retrieves the transaction related to an individual clearing.
-            Query parameter only returns results for cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).
+            Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those
+            booked on the card account for credit and prepaid or bank account for debit cards).
         - in: query
           name: card_id
           required: false
           schema:
             $ref: '#/components/schemas/CardId'
-          description: Retrieves all transactions related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
+          description: >
+            Retrieves all transactions related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET
+            /cards endpoint.
         - in: query
           name: token_id
           required: false
           schema:
             $ref: '#/components/schemas/TokenId'
-          description: Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET /card-tokens endpoint.
+          description: >
+            Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET
+            /card-tokens endpoint.
         - in: query
           name: from_date
           required: false
           schema:
             $ref: '#/components/schemas/DateTime'
-          description: Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+          description: >
+            Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time
+            attribute.
         - in: query
           name: to_date
           required: false
           schema:
             $ref: '#/components/schemas/DateTime'
-          description: Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+          description: >
+            Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time
+            attribute.
         - in: query
           name: status
           required: false
@@ -248,12 +262,14 @@ paths:
           description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
         - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
-          description: Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
+          description: >
+            Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
+            an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -285,9 +301,9 @@ paths:
         - Transactions
       parameters:
         - $ref: '#/components/parameters/path_transactionId'
-        - $ref: '#/components/parameters/client_in_header'
-        - $ref: '#/components/parameters/correlation_in_header'
-        - $ref: '#/components/parameters/agent_in_header'
+        - $ref: '#/components/parameters/optional_client_in_header'
+        - $ref: '#/components/parameters/optional_correlation_in_header'
+        - $ref: '#/components/parameters/optional_agent_in_header'
       responses:
         '200':
           description: Single token was found. If the transactionId was not found, a 400 is returned.
@@ -633,7 +649,9 @@ components:
         - additional_card
       examples:
         - primary_card
-      description: Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of certain lifecycle use cases.
+      description: >
+        Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect
+        of certain lifecycle use cases.
 
     IssuingType:
       title: Issuing type
@@ -708,7 +726,8 @@ components:
       maxLength: 34
       examples:
         - CH3456789012345678901
-      description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+      description: >
+        Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
 
     IssuerCode:
       title: Issuer code
@@ -826,7 +845,8 @@ components:
       maxLength: 100
       examples:
         - IPHONE
-      description: Type of the device which is associated to the token, only available for device-based tokens; value defined by  the Card Service Provider.
+      description: >
+        Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
 
     FundingCardId:
       title: Funding card id
@@ -886,7 +906,8 @@ components:
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: >
-        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.
+        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or
+        ClearingReference is always present.
 
     ClearingReference:
       title: Clearing reference
@@ -895,7 +916,8 @@ components:
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: >
-        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or ClearingReference is always present.
+        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or
+        ClearingReference is always present.
 
     TransactionDateTime:
       title: Transaction date-time
@@ -910,7 +932,8 @@ components:
     StatementDate:
       title: Statement date
       $ref: '#/components/schemas/Date'
-      description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
+      description: >
+        Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
 
     TransactionStatus:
       title: Transaction status
@@ -976,7 +999,9 @@ components:
 
     Fees:
       title: Fees
-      description: One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
+      description: >
+        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or
+        fee_amount is provided.
       type: object
       required:
         - fee_name
@@ -1110,7 +1135,8 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
+      description: >
+        Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
 
     FeeName:
       title: Fee name
@@ -1220,13 +1246,13 @@ components:
       description: Identifier (technical) for a transaction for which information is requested.
 
     cursor:
-      name: cursor
       in: query
-      description: Optional parameter for pagination. An opaque string value used for pagination.
+      name: cursor
       required: false
       schema:
         type: string
         example: cursorIDxyz
+      description: Optional parameter for pagination. An opaque string value used for pagination.
 
     limit:
       in: query
@@ -1239,7 +1265,7 @@ components:
         example: 25
       description: Optional parameter for pagination. Maximum number of entries to be returned.
 
-    client_in_header:
+    optional_client_in_header:
       in: header
       name: X-CorAPI-Client-ID
       required: false
@@ -1247,7 +1273,7 @@ components:
         type: string
       description: ID of the client forwarded to the provider.
 
-    correlation_in_header:
+    optional_correlation_in_header:
       in: header
       name: X-Correlation-ID
       required: false
@@ -1255,7 +1281,7 @@ components:
         $ref: '#/components/schemas/Correlation'
       description: Unique ID (defined by the caller) which will be reflected back in the response.
 
-    agent_in_header:
+    optional_agent_in_header:
       in: header
       name: User-Agent
       required: false
