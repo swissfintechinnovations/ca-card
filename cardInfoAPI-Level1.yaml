@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 0.7.0
+  version: 0.8.0
   title: Common Card API (Public)
   description: >
     This specification defines a common card API for payment cards used in Switzerland.
@@ -42,37 +42,13 @@ paths:
         - Cards
       parameters:
         - in: query
-          name: contract_reference
-          required: false
-          schema:
-            $ref: '#/components/schemas/ContractReference'
-          description: Retrieves all cards related to a contract. Value has to be a functional reference to the contract that can be known by the end customer.
-        - in: query
-          name: person_reference
-          required: false
-          schema:
-            $ref: '#/components/schemas/PersonReference'
-          description: Retrieves all cards related to an individual person/cardholder. Value has to be a functional reference to the person that can be known by the end customer.
-        - in: query
           name: card_status
           required: false
           schema:
             $ref: '#/components/schemas/CardStatus'
           description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
-        - in: query
-          name: card_account_reference
-          required: false
-          schema:
-            $ref: '#/components/schemas/CardAccountReference'
-          description: Retrieves all cards related to a card account (not bank account). Value has to be a functional reference to the account that can be known by the end customer.
-        - in: query
-          name: bank_account_reference
-          required: false
-          schema:
-            $ref: '#/components/schemas/BankAccountReference'
-          description: Retrieves all cards related to a bank account (not card account). Value has to be a functional reference to the account that can be known by the end customer and is usually an IBAN.
+        - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/client_in_header'
         - $ref: '#/components/parameters/correlation_in_header'
         - $ref: '#/components/parameters/agent_in_header'
@@ -82,17 +58,19 @@ paths:
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
           content:
             application/json:
               schema:
                 type: object
+                required:
+                  - cards
                 properties:
-                  cardList:
+                  cards:
                     type: array
                     items:
                       $ref: '#/components/schemas/CardDetails'
-                  _links:
-                    $ref: '#/components/schemas/LinksPagination'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -148,8 +126,8 @@ paths:
           schema:
             $ref: '#/components/schemas/TokenStatus'
           description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
+        - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/client_in_header'
         - $ref: '#/components/parameters/correlation_in_header'
         - $ref: '#/components/parameters/agent_in_header'
@@ -161,17 +139,19 @@ paths:
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
           content:
             application/json:
               schema:
                 type: object
+                required:
+                  - card_tokens
                 properties:
-                  cardList:
+                  card_tokens:
                     type: array
                     items:
                       $ref: '#/components/schemas/CardTokenDetails'
-                  _links:
-                    $ref: '#/components/schemas/LinksPagination'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -266,8 +246,8 @@ paths:
           schema:
             $ref: '#/components/schemas/OriginalCurrency'
           description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
+        - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
         - $ref: '#/components/parameters/client_in_header'
         - $ref: '#/components/parameters/correlation_in_header'
         - $ref: '#/components/parameters/agent_in_header'
@@ -277,12 +257,19 @@ paths:
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TransactionDetails'
+                type: object
+                required:
+                  - card-transactions
+                properties:
+                  card-transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TransactionDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -1145,15 +1132,16 @@ components:
 
     FeeAmount:
       title: Fee amount
-      type: number
+      type: string
+      pattern: '^[0-9]{1,12}([.][0-9]{1,5})?$'
       examples:
-        - 5.00
+        - '5.00'
       description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
 
     FeeCurrency:
       title: Fee currency
       type: string
-      pattern: '^[a-zA-Z0-9]{3}$'
+      pattern: '^[A-Z]{3}$'
       examples:
         - CHF
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
@@ -1179,85 +1167,32 @@ components:
         - 2018-04-13T11:11:11Z
       description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
 
-    LinksPagination:
-      description: Links (or cursors) returned in the answer of an API call.
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-          description: Link / cursor to the current result set (based on the submitted pagination approach).
-          examples:
-            - /card-app/api/v1/products?offset=75&limit=25
-        first:
-          type: string
-          format: uri
-          description: Link / cursor to the first result set (based on the submitted pagination approach).
-          examples:
-            - /card-app/api/v1/products?offset=0&limit=25
-        previous:
-          type: string
-          format: uri
-          description: Link / cursor to the previous result set (based on the submitted pagination approach).
-          examples:
-            - /card-app/api/v1/products?offset=50&limit=25
-        next:
-          type: string
-          format: uri
-          description: Link / cursor to the next result set (based on the submitted pagination approach).
-          examples:
-            - /card-app/api/v1/products?offset=100&limit=25
-        last:
-          type: string
-          format: uri
-          description: Link / cursor to the last result set (based on the submitted pagination approach).
-          examples:
-            - /card-app/api/v1/products?offset=150&limit=25
-
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/CommonErrorType'
+          type: string
+          description: |
+            A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP
+            status phrase for that code (e.g., "Not Found" for 404, and so on)
+          example: about:blank
         title:
           type: string
-          description: Short name for the problem.
+          description: A short, human-readable summary of the problem type.
           examples:
             - This is the general problem description
         detail:
           type: string
-          description: More details about the problem.
+          description: A human-readable explanation specific to this occurrence of the problem.
           examples:
             - Detailed problem description with respect to the current request
         instance:
           type: string
-          description: Reference to an individual entity or request which caused the problem.
+          description: A (relative) URI reference that identifies the specific occurrence of the problem.
           examples:
             - path/to/corresponding/resource
-
-    CommonErrorType:
-      title: Common Error Type
-      description: Error Types for CommonErrorResponse.
-      type: string
-      enum:
-        - /problems/INVALID_PAYLOAD
-        - /problems/MALFORMED_PAYLOAD
-        - /problems/INVALID_TOKEN
-        - /problems/EXPIRED_TOKEN
-        - /problems/INSUFFICIENT_PRIVILEGES
-        - /problems/NO_ACCESS_TO_RESOURCE
-        - /problems/RESOURCE_DOES_NOT_EXIST
-        - /problems/RESOURCE_NOT_READY
-        - /problems/RESOURCE_TOO_LARGE
-        - /problems/WRONG_METHOD
-        - /problems/OPERATION_NOT_ALLOWED
-        - /problems/TECHNICAL_ERROR
-        - /problems/NOT_IMPLEMENTED
-        - /problems/SERVICE_UNAVAILABLE
-      examples:
-        - /problems/TECHNICAL_ERROR
 
   parameters:
     path_cardId:
@@ -1284,6 +1219,15 @@ components:
         $ref: '#/components/schemas/TransactionId'
       description: Identifier (technical) for a transaction for which information is requested.
 
+    cursor:
+      name: cursor
+      in: query
+      description: Optional parameter for pagination. An opaque string value used for pagination.
+      required: false
+      schema:
+        type: string
+        example: cursorIDxyz
+
     limit:
       in: query
       name: limit
@@ -1292,26 +1236,13 @@ components:
         type: integer
         format: int32
         minimum: 1
-        examples:
-          - 25
+        example: 25
       description: Optional parameter for pagination. Maximum number of entries to be returned.
-
-    offset:
-      in: query
-      name: offset
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        examples:
-          - 25
-      description: Optional parameter for pagination. The number of items to skip before starting to collect the result set.
 
     client_in_header:
       in: header
       name: X-CorAPI-Client-ID
-      required: true
+      required: false
       schema:
         type: string
       description: ID of the client forwarded to the provider.
@@ -1319,7 +1250,7 @@ components:
     correlation_in_header:
       in: header
       name: X-Correlation-ID
-      required: true
+      required: false
       schema:
         $ref: '#/components/schemas/Correlation'
       description: Unique ID (defined by the caller) which will be reflected back in the response.
@@ -1327,7 +1258,7 @@ components:
     agent_in_header:
       in: header
       name: User-Agent
-      required: true
+      required: false
       schema:
         type: string
       description: Name and version of the of the Client software.
@@ -1350,8 +1281,6 @@ components:
   responses:
     standard400:
       headers:
-        Content-Type:
-          $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
@@ -1366,8 +1295,6 @@ components:
 
     standard500:
       headers:
-        Content-Type:
-          $ref: '#/components/headers/Content-Type'
         Content-Language:
           $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
@@ -1388,15 +1315,13 @@ components:
           - en
       description: Language of provided content.
 
-    Content-Type:
-      schema:
-        type: string
-        examples:
-          - application/json
-          - application/problem+json; charset=utf-8 according to RFC7807
-      description: Type of provided content.
-
     X-Correlation-ID:
       schema:
         $ref: '#/components/schemas/Correlation'
       description: Client defined ID from request to correlates HTTP requests between a client and server.
+
+    X-Next-Cursor:
+      description: An opaque string value, or an empty string if there are no more results.
+      schema:
+        type: string
+        example: cursorIDxyz
