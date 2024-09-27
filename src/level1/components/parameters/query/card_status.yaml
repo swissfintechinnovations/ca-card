@@ -1,0 +1,8 @@
+in: query
+name: card_status
+required: false
+schema:
+  $ref: ../../schemas/datamodel/CardStatus.yaml
+description: >-
+  Retrieves all cards in a certain status. Only one status can be filtered
+  at a time.

@@ -1,0 +1,7 @@
+type: string
+maxLength: 100
+examples:
+  - Aufladung
+description: >-
+  Description of the purpose of the transaction and potentially a reference to
+  the merchant.

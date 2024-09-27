@@ -1,0 +1,9 @@
+title: Contract reference
+type: string
+maxLength: 50
+examples:
+  - CH3456789012345678901
+  - ABC-56789012345
+description: >-
+  Functional reference to a customer relationship/contract that is responsible
+  for the card, defined by the Card Service Provider.

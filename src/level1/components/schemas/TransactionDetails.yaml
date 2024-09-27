@@ -1,0 +1,79 @@
+title: Transaction details
+description: Describes a transaction with its relevant characteristics.
+type: object
+required:
+  - transaction_id
+  - transaction_date_time
+  - valuta_date
+  - transaction_status
+  - original_amount
+  - original_currency
+  - mcc
+  - mcc_description
+  - transaction_category
+  - card_id
+properties:
+  transaction_id:
+    $ref: ./datamodel/TransactionId.yaml
+  authorization_reference:
+    $ref: ./datamodel/AuthorizationReference.yaml
+  clearing_reference:
+    $ref: ./datamodel/ClearingReference.yaml
+  transaction_date_time:
+    $ref: ./datamodel/TransactionDateTime.yaml
+  valuta_date:
+    $ref: ./datamodel/ValutaDate.yaml
+  statement_date:
+    $ref: ./datamodel/StatementDate.yaml
+  transaction_status:
+    $ref: ./datamodel/TransactionStatus.yaml
+  approval_number:
+    $ref: ./datamodel/ApprovalNumber.yaml
+  original_amount:
+    $ref: ./datamodel/OriginalAmount.yaml
+  original_currency:
+    $ref: ./datamodel/OriginalCurrency.yaml
+  total_amount:
+    $ref: ./datamodel/TotalAmount.yaml
+  transaction_amount:
+    $ref: ./datamodel/TransactionAmount.yaml
+  transaction_currency:
+    $ref: ./datamodel/TransactionCurrency.yaml
+  fees:
+    $ref: ./Fees.yaml
+  exchange_rate:
+    $ref: ./datamodel/ExchangeRate.yaml
+  exchange_rate_date:
+    $ref: ./datamodel/ExchangeRateDate.yaml
+  description:
+    $ref: ./datamodel/Description.yaml
+  merchant_name:
+    $ref: ./datamodel/MerchantName.yaml
+  merchant_country:
+    $ref: ./datamodel/MerchantCountry.yaml
+  merchant_city:
+    $ref: ./datamodel/MerchantCity.yaml
+  mcc:
+    $ref: ./datamodel/Mcc.yaml
+  mcc_description:
+    $ref: ./datamodel/MccDescription.yaml
+  terminal_reference:
+    $ref: ./datamodel/TerminalReference.yaml
+  card_acceptor_reference:
+    $ref: ./datamodel/CardAcceptorReference.yaml
+  acquirer_reference:
+    $ref: ./datamodel/AcquirerReference.yaml
+  channel:
+    $ref: ./datamodel/Channel.yaml
+  transaction_category:
+    $ref: ./datamodel/TransactionCategory.yaml
+  token_id:
+    $ref: ./datamodel/TokenId.yaml
+  cardholder_reference:
+    $ref: ./datamodel/CardholderReference.yaml
+  card_account_reference:
+    $ref: ./datamodel/CardAccountReference.yaml
+  card_id:
+    $ref: ./datamodel/CardId.yaml
+  related_transaction_id:
+    $ref: ./datamodel/RelatedTransactionId.yaml

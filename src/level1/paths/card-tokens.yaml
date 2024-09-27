@@ -1,0 +1,58 @@
+get:
+  summary: Provides a list of card tokens which are associated with a card.
+  description: >
+    This operation enables the retrieval of a list of tokens associated with a
+    payment card. The tokens can be filtered further by status. Tokens are
+    representations of a payment card used in specific wallets , wearables or
+    merchants.
+  tags:
+    - Card-tokens
+  parameters:
+    - in: query
+      name: card_id
+      required: false
+      schema:
+        $ref: ../components/schemas/CardId.yaml
+      description: >
+        Retrieves all tokens related to a card. Value has to be a technical
+        identifier for the card that can be retrieved with the GET /cards
+        endpoint.
+    - in: query
+      name: token_status
+      required: false
+      schema:
+        $ref: ../components/schemas/TokenStatus.yaml
+      description: >-
+        Retrieves all tokens in a certain status. Only one status can be
+        filtered at a time.
+    - $ref: ../components/parameters/query/cursor.yaml
+    - $ref: ../components/parameters/query/limit.yaml
+    - $ref: ../components/parameters/header/client.yaml
+    - $ref: ../components/parameters/header/correlation.yaml
+    - $ref: ../components/parameters/header/agent.yaml
+  responses:
+    '200':
+      description: >
+        Card tokens were found which match the query parameters. If no card
+        tokens matched the parameters or access rights are missing, an empty
+        list is returned.
+      headers:
+        X-Correlation-ID:
+          $ref: ../components/headers/X-Correlation-ID.yaml
+        X-Next-Cursor:
+          $ref: ../components/headers/X-Next-Cursor.yaml
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - card_tokens
+            properties:
+              card_tokens:
+                type: array
+                items:
+                  $ref: ../components/schemas/CardTokenDetails.yaml
+    '400':
+      $ref: ../components/responses/standard400.yaml
+    '500':
+      $ref: ../components/responses/standard500.yaml

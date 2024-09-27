@@ -1,0 +1,6 @@
+title: Card acceptor reference
+type: string
+maxLength: 15
+examples:
+  - '87040'
+description: Identifier for the merchant who requested the transaction.

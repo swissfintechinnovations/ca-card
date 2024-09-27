@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  version: 0.8.0
+  title: Common Card API (Public)
+  description: >
+    This specification defines a common card API for payment cards used in
+    Switzerland. The API is supposed to be used by third parties to retrieve
+    payment card information for scheme-based debit, credit or prepaid cards
+    (read only).
+  contact:
+    email: info@common-api.ch
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://card.common-api.ch
+externalDocs:
+  description: Find out more about SFTI API specifications
+  url: https://www.common-api.ch
+tags:
+  - name: Cards
+    description: Operations for retrieving information about payment cards.
+  - name: Card-tokens
+    description: >-
+      Operations for retrieving information about tokens associated with payment
+      cards.
+  - name: Transactions
+    description: >-
+      Operations for retrieving information about transactions and
+      authorizations done with payment cards or tokens.
+security:
+  - ApiKeyAuth: []
+  - OAuth2:
+      - read
+      - write
+paths:
+  /cards:
+    get:
+      summary: Provides a list of cards which match the provided query parameters.
+      description: >
+        This operation enables the retrieval of a list of payment cards. Payment
+        cards can be physical or virtual cards. In order to prevent API consumers
+        from having to fulfill PCI DSS requirements, no full PAN or other data
+        relevant for this regulation are included. The API consumer is expected to
+        have a non-card related identifier for the customer for whom data should be
+        returned (e.g. card account number, bank account number).
+      tags:
+        - Cards
+      parameters:
+        - $ref: ./components/parameters/query/card_status.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          $ref: ./components/responses/cards200.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /cards/{cardId}:
+    $ref: paths/cards_{cardId}.yaml
+  /card-tokens:
+    $ref: paths/card-tokens.yaml
+  /card-tokens/{tokenId}:
+    $ref: paths/card-tokens_{tokenId}.yaml
+  /card-transactions:
+    $ref: paths/card-transactions.yaml
+  /card-transactions/{transactionId}:
+    $ref: paths/card-transactions_{transactionId}.yaml
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access

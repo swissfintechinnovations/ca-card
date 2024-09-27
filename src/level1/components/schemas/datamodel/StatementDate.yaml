@@ -1,0 +1,5 @@
+title: Statement date
+description: >
+  Date when the statement is created through which the issuer settles the
+  transaction with the cardholder; only available for credit cards.
+$ref: ./shared/Date.yaml

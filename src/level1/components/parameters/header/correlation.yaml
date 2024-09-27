@@ -1,0 +1,8 @@
+in: header
+name: X-Correlation-ID
+required: false
+schema:
+  $ref: ../../schemas/datamodel/shared/Correlation.yaml
+description: >-
+  Unique ID (defined by the caller) which will be reflected back in the
+  response.

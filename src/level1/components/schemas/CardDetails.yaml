@@ -1,0 +1,80 @@
+title: Card details
+description: Describes a payment card with its relevant characteristics.
+type: object
+required:
+  - contract_reference
+  - person_reference
+  - card_id
+  - embossing_line_1
+  - embossing_line_2
+  - pan_4_digits
+  - expiry_date
+  - card_status
+  - currency
+  - image
+  - product_code
+  - product_name
+  - scheme
+  - issuing_type
+  - product_type
+  - product_line
+  - card_limit_cycle
+  - card_limit_daily
+  - issuer_code
+  - issuer_name
+  - language
+properties:
+  contract_reference:
+    $ref: ./datamodel/ContractReference.yaml
+  person_reference:
+    $ref: ./datamodel/PersonReference.yaml
+  card_id:
+    $ref: ./datamodel/CardId.yaml
+  embossing_line_1:
+    $ref: ./datamodel/EmbossingLine1.yaml
+  embossing_line_2:
+    $ref: ./datamodel/EmbossingLine2.yaml
+  pan_4_digits:
+    $ref: ./datamodel/Pan4Digits.yaml
+  expiry_date:
+    $ref: ./datamodel/ExpiryDate.yaml
+  initial_issuing_date:
+    $ref: ./datamodel/InitialIssuingDate.yaml
+  card_status:
+    $ref: ./datamodel/CardStatus.yaml
+  currency:
+    $ref: ./datamodel/Currency.yaml
+  image:
+    $ref: ./datamodel/Image.yaml
+  product_code:
+    $ref: ./datamodel/ProductCode.yaml
+  product_name:
+    $ref: ./datamodel/ProductName.yaml
+  scheme:
+    $ref: ./datamodel/Scheme.yaml
+  category:
+    $ref: ./datamodel/Category.yaml
+  issuing_type:
+    $ref: ./datamodel/IssuingType.yaml
+  product_type:
+    $ref: ./datamodel/ProductType.yaml
+  product_line:
+    $ref: ./datamodel/ProductLine.yaml
+  card_limit_cycle:
+    $ref: ./datamodel/CardLimitCycle.yaml
+  card_limit_daily:
+    $ref: ./datamodel/CardLimitDaily.yaml
+  card_account_reference:
+    $ref: ./datamodel/CardAccountReference.yaml
+  bank_account_reference:
+    $ref: ./datamodel/BankAccountReference.yaml
+  issuer_code:
+    $ref: ./datamodel/IssuerCode.yaml
+  issuer_name:
+    $ref: ./datamodel/IssuerName.yaml
+  distribution_partner_code:
+    $ref: ./datamodel/DistributionPartnerCode.yaml
+  distribution_partner_name:
+    $ref: ./datamodel/DistributionPartnerName.yaml
+  language:
+    $ref: ./datamodel/Language.yaml

@@ -1,0 +1,110 @@
+get:
+  summary: Provides a list of transactions which match the provided query parameters.
+  description: >
+    This operation enables the retrieval of a list of transactions performed
+    with a payment card or token. Different query parameters are provided to
+    support an efficient retrieval of individual transactions. With the Level 1
+    of the Common Card API only card-based financial transactions are included.
+  tags:
+    - Transactions
+  parameters:
+    - in: query
+      name: authorization_reference
+      required: false
+      schema:
+        $ref: ../components/schemas/AuthorizationReference.yaml
+      description: >
+        Retrieves the transaction related to an individual authorization.
+        Parameter can be used to also retrieve the cleared transaction based on
+        the authorization reference.
+    - in: query
+      name: clearing_reference
+      required: false
+      schema:
+        $ref: ../components/schemas/ClearingReference.yaml
+      description: >
+        Retrieves the transaction related to an individual clearing. Query
+        parameter only returns results for cleared transactions (those booked on
+        the card account for credit and prepaid or bank account for debit
+        cards).
+    - in: query
+      name: card_id
+      required: false
+      schema:
+        $ref: ../components/schemas/CardId.yaml
+      description: >
+        Retrieves all transactions related to a card. Value has to be a
+        technical identifier for the card that can be retrieved with the GET
+        /cards endpoint.
+    - in: query
+      name: token_id
+      required: false
+      schema:
+        $ref: ../components/schemas/TokenId.yaml
+      description: >
+        Retrieves all transactions related to a token. Value has to be a
+        technical identifier for the card that can be retrieved with the GET
+        /card-tokens endpoint.
+    - in: query
+      name: from_date
+      required: false
+      schema:
+        $ref: ../components/schemas/DateTime.yaml
+      description: >
+        Retrieves all transactions that took place after the provided date time.
+        Filtering is applied on the transaction_date_time attribute.
+    - in: query
+      name: to_date
+      required: false
+      schema:
+        $ref: ../components/schemas/DateTime.yaml
+      description: >
+        Retrieves all transactions that took place before the provided date
+        time. Filtering is applied on the transaction_date_time attribute.
+    - in: query
+      name: status
+      required: false
+      schema:
+        $ref: ../components/schemas/TransactionStatus.yaml
+      description: >-
+        Retrieves all transactions in a certain status. Only one status can be
+        filtered at a time.
+    - in: query
+      name: original_currency
+      required: false
+      schema:
+        $ref: ../components/schemas/OriginalCurrency.yaml
+      description: >-
+        Retrieves all transactions in a certain currency. Filtering is applied
+        on the original_currency attribute.
+    - $ref: ../components/parameters/query/cursor.yaml
+    - $ref: ../components/parameters/query/limit.yaml
+    - $ref: ../components/parameters/header/client.yaml
+    - $ref: ../components/parameters/header/correlation.yaml
+    - $ref: ../components/parameters/header/agent.yaml
+  responses:
+    '200':
+      description: >
+        Transactions were found which match the query parameters. If no
+        transactions matched the parameters or access rights are missing, an
+        empty list is returned.
+      headers:
+        X-Correlation-ID:
+          $ref: ../components/headers/X-Correlation-ID.yaml
+        X-Next-Cursor:
+          $ref: ../components/headers/X-Next-Cursor.yaml
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - card-transactions
+            properties:
+              card-transactions:
+                type: array
+                items:
+                  $ref: ../components/schemas/TransactionDetails.yaml
+    '400':
+      $ref: ../components/responses/standard400.yaml
+    '500':
+      $ref: ../components/responses/standard500.yaml

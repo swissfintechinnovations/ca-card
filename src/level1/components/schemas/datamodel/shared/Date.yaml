@@ -1,0 +1,6 @@
+title: Shared date
+description: General date that is used for different attributes, format is 'YYYY-MM-DD'.
+type: string
+format: date
+examples:
+  - '2018-04-13'
