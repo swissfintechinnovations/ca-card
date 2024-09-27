@@ -280,9 +280,9 @@ paths:
               schema:
                 type: object
                 required:
-                  - card-transactions
+                  - card_transactions
                 properties:
-                  card-transactions:
+                  card_transactions:
                     type: array
                     items:
                       $ref: '#/components/schemas/TransactionDetails'
@@ -366,8 +366,8 @@ components:
           $ref: '#/components/schemas/InitialIssuingDate'
         card_status:
           $ref: '#/components/schemas/CardStatus'
-        currency:
-          $ref: '#/components/schemas/Currency'
+        card_account_currency:
+          $ref: '#/components/schemas/CardAccountCurrency'
         image:
           $ref: '#/components/schemas/Image'
         product_code:
@@ -599,12 +599,9 @@ components:
         - suspended: authorizations are temporarily not possible
         - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
 
-    Currency:
+    CardAccountCurrency:
       type: string
-      pattern: '^[a-zA-Z0-9]{3}$'
-      examples:
-        - CHF
-        - EUR
+      $ref: '#/components/schemas/Amount'
       description: Settlement currency of the card / card account in ISO code format.
 
     Image:
@@ -960,41 +957,29 @@ components:
 
     OriginalAmount:
       title: Original amount
-      type: number
-      examples:
-        - 2000.05
+      $ref: '#/components/schemas/Amount'
       description: Amount of the transaction in the currency used by the merchant.
 
     OriginalCurrency:
       title: Original currency
-      type: string
-      pattern: '^[a-zA-Z0-9]{3}$'
-      examples:
-        - CHF
+      $ref: '#/components/schemas/Amount'
       description: Currency of the card account on which the transaction is charged.
 
     TotalAmount:
       title: Total amount
-      type: number
-      examples:
-        - 1957.50
+      $ref: '#/components/schemas/Amount'
       description: >
         Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees);
         positive amounts are debit transactions, negative amounts are credit transactions.
 
     TransactionAmount:
       title: Transaction amount
-      type: number
-      examples:
-        - 1952.50
+      $ref: '#/components/schemas/Amount'
       description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
 
     TransactionCurrency:
       title: Transaction currency
-      type: string
-      pattern: '^[a-zA-Z0-9]{3}$'
-      examples:
-        - CHF
+      $ref: '#/components/schemas/Amount'
       description: Currency of the card account on which the transaction is charged.
 
     Fees:
@@ -1017,9 +1002,10 @@ components:
 
     ExchangeRate:
       title: Exchange rate
-      type: number
+      type: string
+      pattern: '^[0-9]+[.][0-9]+$'
       examples:
-        - 1.0485930
+        - '1.0485930'
       description: Exchange rate for converting the originalAmount into the transactionAmount.
 
     ExchangeRateDate:
@@ -1149,28 +1135,38 @@ components:
 
     FeePercentage:
       title: Fee percentage
-      type: number
+      type: string
+      pattern: '^(100([.][0]{1,2})?|[0-9]{1,2}([.][0-9]{1,2})?)$'
       examples:
-        - 3.5
+        - '3.5'
       description: >
         Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers.
         Values are provided to be compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
 
     FeeAmount:
       title: Fee amount
-      type: string
-      pattern: '^[0-9]{1,12}([.][0-9]{1,5})?$'
-      examples:
-        - '5.00'
+      $ref: '#/components/schemas/Amount'
       description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
 
     FeeCurrency:
       title: Fee currency
+      $ref: '#/components/schemas/Amount'
+      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
+
+    Amount:
+      type: string
+      pattern: '^[0-9]{1,12}([.][0-9]{1,5})?$'
+      examples:
+        - '5.00'
+      description: Amount of money for fees and services.
+
+    Currency:
       type: string
       pattern: '^[A-Z]{3}$'
       examples:
         - CHF
-      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
+        - EUR
+      description: Currency in ISO code format.
 
     Correlation:
       type: string
