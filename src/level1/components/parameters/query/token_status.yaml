@@ -1,0 +1,6 @@
+in: query
+name: token_status
+required: false
+schema:
+  $ref: '../../schemas/datamodel/TokenStatus.yaml'
+description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.

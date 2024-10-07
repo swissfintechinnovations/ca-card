@@ -2,5 +2,5 @@ in: path
 name: cardId
 required: true
 schema:
-  $ref: ../schemas/CardId.yaml
+  $ref: '../../schemas/datamodel/CardId.yaml'
 description: Identifier (technical) for a card for which information is requested.

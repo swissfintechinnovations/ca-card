@@ -1,0 +1,8 @@
+description: Single token was found. If the tokenId was not found, a 400 is returned.
+headers:
+  X-Correlation-ID:
+    $ref: '../headers/X-Correlation-ID.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/CardTokenDetails.yaml'

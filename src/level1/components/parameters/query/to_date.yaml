@@ -1,0 +1,8 @@
+in: query
+name: to_date
+required: false
+schema:
+  $ref: '../../schemas/datamodel/shared/DateTime.yaml'
+description: >
+  Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time
+  attribute.

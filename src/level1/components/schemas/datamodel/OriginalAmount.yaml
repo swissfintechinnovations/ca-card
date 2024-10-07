@@ -1,5 +1,3 @@
 title: Original amount
-type: number
-examples:
-  - 2000.05
 description: Amount of the transaction in the currency used by the merchant.
+$ref: './shared/Amount.yaml'

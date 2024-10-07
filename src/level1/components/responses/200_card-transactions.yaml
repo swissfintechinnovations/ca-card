@@ -1,0 +1,19 @@
+description: >
+  Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
+  an empty list is returned.
+headers:
+  X-Correlation-ID:
+    $ref: '../headers/X-Correlation-ID.yaml'
+  X-Next-Cursor:
+    $ref: '../headers/X-Next-Cursor.yaml'
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - card-transactions
+      properties:
+        card-transactions:
+          type: array
+          items:
+            $ref: '../schemas/TransactionDetails.yaml'

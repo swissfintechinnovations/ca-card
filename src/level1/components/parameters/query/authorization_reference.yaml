@@ -1,0 +1,8 @@
+in: query
+name: authorization_reference
+required: false
+schema:
+  $ref: '../../schemas/datamodel/AuthorizationReference.yaml'
+description: >
+  Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based
+  on the authorization reference.

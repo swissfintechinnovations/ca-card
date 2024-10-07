@@ -43,7 +43,7 @@ properties:
   card_status:
     $ref: ./datamodel/CardStatus.yaml
   currency:
-    $ref: ./datamodel/Currency.yaml
+    $ref: ./datamodel/CardAccountCurrency.yaml
   image:
     $ref: ./datamodel/Image.yaml
   product_code:

@@ -8,10 +8,10 @@ required:
   - fee_name
 properties:
   fee_name:
-    $ref: ./FeeName.yaml
+    $ref: ./datamodel/FeeName.yaml
   fee_percentage:
-    $ref: ./FeePercentage.yaml
+    $ref: ./datamodel/FeePercentage.yaml
   fee_amount:
-    $ref: ./FeeAmount.yaml
+    $ref: ./datamodel/FeeAmount.yaml
   fee_currency:
-    $ref: ./FeeCurrency.yaml
+    $ref: ./datamodel/FeeCurrency.yaml

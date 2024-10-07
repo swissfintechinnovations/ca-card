@@ -4,9 +4,9 @@ description: >
   returned.
 headers:
   X-Correlation-ID:
-    $ref: ../headers/X-Correlation-ID.yaml
+    $ref: '../headers/X-Correlation-ID.yaml'
   X-Next-Cursor:
-    $ref: ../headers/X-Next-Cursor.yaml
+    $ref: '../headers/X-Next-Cursor.yaml'
 content:
   application/json:
     schema:
@@ -17,4 +17,4 @@ content:
         cards:
           type: array
           items:
-            $ref: ../schemas/CardDetails.yaml
+            $ref: '../schemas/CardDetails.yaml'

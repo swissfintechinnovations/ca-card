@@ -1,8 +1,6 @@
 title: Total amount
-type: number
-examples:
-  - 1957.5
 description: >
   Total amount including fees for the transaction that is charged by the issuer
   to the card account (sum of transactionAmount and fees); positive amounts are
   debit transactions, negative amounts are credit transactions.
+$ref: './shared/Amount.yaml'
