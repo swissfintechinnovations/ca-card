@@ -10,7 +10,7 @@ required:
   - pan_4_digits
   - expiry_date
   - card_status
-  - currency
+  - card_account_currency
   - image
   - product_code
   - product_name
@@ -42,7 +42,7 @@ properties:
     $ref: ./datamodel/InitialIssuingDate.yaml
   card_status:
     $ref: ./datamodel/CardStatus.yaml
-  currency:
+  card_account_currency:
     $ref: ./datamodel/CardAccountCurrency.yaml
   image:
     $ref: ./datamodel/Image.yaml

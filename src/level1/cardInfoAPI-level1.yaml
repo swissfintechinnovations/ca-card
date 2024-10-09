@@ -182,3 +182,347 @@ paths:
           $ref: './components/responses/400_standard.yaml'
         '500':
           $ref: './components/responses/500_standard.yaml'
+
+components:
+  schemas:
+    CardDetails:
+      $ref: './components/schemas/CardDetails.yaml'
+
+    CardTokenDetails:
+      $ref: './components/schemas/CardTokenDetails.yaml'
+    
+    TransactionDetails:
+      $ref: './components/schemas/TransactionDetails.yaml'
+
+    ContractReference:
+      $ref: './components/schemas/datamodel/ContractReference.yaml'
+
+    PersonReference:
+      $ref: './components/schemas/datamodel/PersonReference.yaml'
+
+    CardId:
+      $ref: './components/schemas/datamodel/CardId.yaml'
+
+    EmbossingLine1:
+      $ref: './components/schemas/datamodel/EmbossingLine1.yaml'
+
+    EmbossingLine2:
+      $ref: './components/schemas/datamodel/EmbossingLine2.yaml'
+
+    Pan4Digits:
+      $ref: './components/schemas/datamodel/Pan4Digits.yaml'
+
+    ExpiryDate:
+      $ref: './components/schemas/datamodel/ExpiryDate.yaml'
+
+    InitialIssuingDate:
+      $ref: './components/schemas/datamodel/InitialIssuingDate.yaml'
+
+    CardStatus:
+      $ref: './components/schemas/datamodel/CardStatus.yaml'
+
+    CardAccountCurrency:
+      $ref: './components/schemas/datamodel/CardAccountCurrency.yaml'
+
+    Image:
+      $ref: './components/schemas/datamodel/Image.yaml'
+
+    ProductCode:
+      $ref: './components/schemas/datamodel/ProductCode.yaml'
+
+    ProductName:
+      $ref: './components/schemas/datamodel/ProductName.yaml'
+
+    Scheme:
+      $ref: './components/schemas/datamodel/Scheme.yaml'
+
+    Category:
+      $ref: './components/schemas/datamodel/Category.yaml'
+
+    IssuingType:
+      $ref: './components/schemas/datamodel/IssuingType.yaml'
+
+    ProductType:
+      $ref: './components/schemas/datamodel/ProductType.yaml'
+
+    ProductLine:
+      $ref: './components/schemas/datamodel/ProductLine.yaml'
+
+    CardLimitCycle:
+      $ref: './components/schemas/datamodel/CardLimitCycle.yaml'
+
+    CardLimitDaily:
+       $ref: './components/schemas/datamodel/CardLimitDaily.yaml'
+
+    CardAccountReference:
+      $ref: './components/schemas/datamodel/CardAccountReference.yaml'
+
+    BankAccountReference:
+      $ref: './components/schemas/datamodel/BankAccountReference.yaml'
+
+    IssuerCode:
+      $ref: './components/schemas/datamodel/IssuerCode.yaml'
+
+    IssuerName:
+      $ref: './components/schemas/datamodel/IssuerName.yaml'
+
+    DistributionPartnerCode:
+      $ref: './components/schemas/datamodel/DistributionPartnerCode.yaml'
+
+    DistributionPartnerName:
+      $ref: './components/schemas/datamodel/DistributionPartnerName.yaml'
+
+    Language:
+      $ref: './components/schemas/datamodel/Language.yaml'
+
+    TokenId:
+      $ref: './components/schemas/datamodel/TokenId.yaml'
+
+    TokenPan4Digits:
+      $ref: './components/schemas/datamodel/TokenPan4Digits.yaml'
+
+    WalletCode:
+      $ref: './components/schemas/datamodel/WalletCode.yaml'
+
+    WalletName:
+      $ref: './components/schemas/datamodel/WalletName.yaml'
+
+    TokenRequestorCode:
+      $ref: './components/schemas/datamodel/TokenRequestorCode.yaml'
+
+    TokenRequestorName:
+      $ref: './components/schemas/datamodel/TokenRequestorName.yaml'
+
+    DeviceName:
+      $ref: './components/schemas/datamodel/DeviceName.yaml'
+
+    DeviceType:
+      $ref: './components/schemas/datamodel/DeviceType.yaml'
+
+    FundingCardId:
+      $ref: './components/schemas/datamodel/FundingCardId.yaml'
+
+    TokenStatus:
+      $ref: './components/schemas/datamodel/TokenStatus.yaml'
+
+    TokenIssuingDate:
+      $ref: './components/schemas/datamodel/TokenIssuingDate.yaml'
+
+    TokenScheme:
+      $ref: './components/schemas/datamodel/TokenScheme.yaml'
+
+    TransactionId:
+      $ref: './components/schemas/datamodel/TransactionId.yaml'
+
+    AuthorizationReference:
+      $ref: './components/schemas/datamodel/AuthorizationReference.yaml'
+
+    ClearingReference:
+      $ref: './components/schemas/datamodel/ClearingReference.yaml'
+
+    TransactionDateTime:
+      $ref: './components/schemas/datamodel/TransactionDateTime.yaml'
+
+    ValutaDate:
+      $ref: './components/schemas/datamodel/ValutaDate.yaml'
+
+    StatementDate:
+      $ref: './components/schemas/datamodel/StatementDate.yaml'
+
+    TransactionStatus:
+      $ref: './components/schemas/datamodel/TransactionStatus.yaml'
+
+    ApprovalNumber:
+      $ref: './components/schemas/datamodel/ApprovalNumber.yaml'
+
+    OriginalAmount:
+      $ref: './components/schemas/datamodel/OriginalAmount.yaml'
+
+    OriginalCurrency:
+      $ref: './components/schemas/datamodel/OriginalCurrency.yaml'
+
+    TotalAmount:
+      $ref: './components/schemas/datamodel/TotalAmount.yaml'
+
+    TransactionAmount:
+      $ref: './components/schemas/datamodel/TransactionAmount.yaml'
+
+    TransactionCurrency:
+      $ref: './components/schemas/datamodel/TransactionCurrency.yaml'
+
+    Fees:
+      $ref: './components/schemas/Fees.yaml'
+
+    ExchangeRate:
+      $ref: './components/schemas/datamodel/ExchangeRate.yaml'
+
+    ExchangeRateDate:
+      $ref: './components/schemas/datamodel/ExchangeRateDate.yaml'
+
+    Description:
+      $ref: './components/schemas/datamodel/Description.yaml'
+
+    MerchantName:
+      $ref: './components/schemas/datamodel/MerchantName.yaml'
+
+    MerchantCountry:
+      $ref: './components/schemas/datamodel/MerchantCountry.yaml'
+
+    MerchantCity:
+      $ref: './components/schemas/datamodel/MerchantCity.yaml'
+
+    Mcc:
+      $ref: './components/schemas/datamodel/Mcc.yaml'
+
+    MccDescription:
+      $ref: './components/schemas/datamodel/MccDescription.yaml'
+
+    TerminalReference:
+      $ref: './components/schemas/datamodel/TerminalReference.yaml'
+
+    CardAcceptorReference:
+      $ref: './components/schemas/datamodel/CardAcceptorReference.yaml'
+
+    AcquirerReference:
+      $ref: './components/schemas/datamodel/AcquirerReference.yaml'
+
+    Channel:
+      $ref: './components/schemas/datamodel/Channel.yaml'
+
+    TransactionCategory:
+      $ref: './components/schemas/datamodel/TransactionCategory.yaml'
+
+    CardholderReference:
+      $ref: './components/schemas/datamodel/CardholderReference.yaml'
+
+    RelatedTransactionId:
+      $ref: './components/schemas/datamodel/RelatedTransactionId.yaml'
+
+    FeeName:
+      $ref: './components/schemas/datamodel/FeeName.yaml'
+
+    FeePercentage:
+      $ref: './components/schemas/datamodel/FeePercentage.yaml'
+
+    FeeAmount:
+      $ref: './components/schemas/datamodel/FeeAmount.yaml'
+
+    FeeCurrency:
+      $ref: './components/schemas/datamodel/FeeCurrency.yaml'
+
+    Amount:
+      $ref: './components/schemas/datamodel/shared/Amount.yaml'
+
+    Correlation:
+      $ref: './components/schemas/datamodel/shared/Correlation.yaml'
+
+    Currency:
+      $ref: './components/schemas/datamodel/shared/Currency.yaml'
+
+    Date:
+      $ref: './components/schemas/datamodel/shared/Date.yaml'
+
+    DateTime:
+      $ref: './components/schemas/datamodel/shared/DateTime.yaml'
+
+    Id:
+      $ref: './components/schemas/datamodel/shared/Id.yaml'
+
+    CommonErrorResponse:
+      $ref: './components/schemas/CommonErrorResponse.yaml'
+
+  parameters:
+    cardId:
+      $ref: './components/parameters/path/cardId.yaml'
+
+    tokenId:
+      $ref: './components/parameters/path/tokenId.yaml'
+
+    transactionId:
+      $ref: './components/parameters/path/transactionId.yaml'
+
+    cursor:
+      $ref: './components/parameters/query/cursor.yaml'
+
+    limit:
+      $ref: './components/parameters/query/limit.yaml'
+
+    card_status:
+      $ref: './components/parameters/query/card_status.yaml'
+
+    card_id:
+      $ref: './components/parameters/query/card_id.yaml'
+
+    token_status:
+      $ref: './components/parameters/query/token_status.yaml'
+
+    authorization_reference:
+      $ref: './components/parameters/query/authorization_reference.yaml'
+
+    clearing_reference:
+      $ref: './components/parameters/query/clearing_reference.yaml'
+
+    token_id:
+      $ref: './components/parameters/query/token_id.yaml'
+
+    from_date:
+      $ref: './components/parameters/query/from_date.yaml'
+
+    to_date:
+      $ref: './components/parameters/query/to_date.yaml'
+
+    status:
+      $ref: './components/parameters/query/status.yaml'
+
+    original_currency:
+      $ref: './components/parameters/query/original_currency.yaml'
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+
+  responses:
+    cards200:
+      $ref: './components/responses/200_cards.yaml'
+
+    cards{cardId}200:
+      $ref: './components/responses/200_cards_{cardId}.yaml'
+
+    card-tokens:
+      $ref: './components/responses/200_card-tokens.yaml'
+
+    card-tokens{tokenId}200:
+      $ref: './components/responses/200_card-tokens_{tokenId}.yaml'
+
+    card-transactions200:
+      $ref: './components/responses/200_card-transactions.yaml'
+
+    card-transactions{transactionId}200:
+      $ref: './components/responses/200_card-transactions_{transactionId}.yaml'
+
+    standard400:
+      $ref: './components/responses/400_standard.yaml'
+
+    standard500:
+      $ref: './components/responses/500_standard.yaml'
+
+  headers:
+    Content-Language:
+      $ref: './components/headers/Content-Language.yaml'
+
+    X-Correlation-ID:
+      $ref: './components/headers/X-Correlation-ID.yaml'
+
+    X-Next-Cursor:
+      $ref: './components/headers/X-Next-Cursor.yaml'
