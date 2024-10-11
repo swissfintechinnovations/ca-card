@@ -79,9 +79,9 @@ paths:
                     items:
                       $ref: './components/schemas/CardDetails.yaml'
         '400':
-          $ref: './components/responses/400_standard.yaml'
+          $ref: './components/responses/standard400.yaml'
         '500':
-          $ref: './components/responses/500_standard.yaml'
+          $ref: './components/responses/standard500.yaml'
 
   /cards/{cardId}:
       get:
@@ -107,9 +107,9 @@ paths:
                 schema:
                   $ref: './components/schemas/CardDetails.yaml'
           '400':
-            $ref: './components/responses/400_standard.yaml'
+            $ref: './components/responses/standard400.yaml'
           '500':
-            $ref: './components/responses/500_standard.yaml'
+            $ref: './components/responses/standard500.yaml'
 
   /card-tokens:
     get:
@@ -150,9 +150,9 @@ paths:
                     items:
                       $ref: './components/schemas/CardTokenDetails.yaml'
         '400':
-          $ref: './components/responses/400_standard.yaml'
+          $ref: './components/responses/standard400.yaml'
         '500':
-          $ref: './components/responses/500_standard.yaml'
+          $ref: './components/responses/standard500.yaml'
 
   /card-tokens/{tokenId}:
     get:
@@ -178,9 +178,9 @@ paths:
               schema:
                 $ref: './components/schemas/CardTokenDetails.yaml'
         '400':
-          $ref: './components/responses/400_standard.yaml'
+          $ref: './components/responses/standard400.yaml'
         '500':
-          $ref: './components/responses/500_standard.yaml'
+          $ref: './components/responses/standard500.yaml'
 
   /card-transactions:
     get:
@@ -227,9 +227,9 @@ paths:
                     items:
                       $ref: './components/schemas/TransactionDetails.yaml'
         '400':
-          $ref: './components/responses/400_standard.yaml'
+          $ref: './components/responses/standard400.yaml'
         '500':
-          $ref: './components/responses/500_standard.yaml'
+          $ref: './components/responses/standard500.yaml'
 
   /card-transactions/{transactionId}:
     get:
@@ -255,9 +255,9 @@ paths:
               schema:
                 $ref: './components/schemas/TransactionDetails.yaml'
         '400':
-          $ref: './components/responses/400_standard.yaml'
+          $ref: './components/responses/standard400.yaml'
         '500':
-          $ref: './components/responses/500_standard.yaml'
+          $ref: './components/responses/standard500.yaml'
 
 components:
   schemas:
@@ -570,10 +570,10 @@ components:
 
   responses:
     standard400:
-      $ref: './components/responses/400_standard.yaml'
+      $ref: './components/responses/standard400.yaml'
 
     standard500:
-      $ref: './components/responses/500_standard.yaml'
+      $ref: './components/responses/standard500.yaml'
 
   headers:
     Content-Language:
