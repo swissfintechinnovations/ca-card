@@ -12,26 +12,26 @@ required:
   - token_scheme
 properties:
   token_id:
-    $ref: ./datamodel/TokenId.yaml
+    $ref: ./TokenId.yaml
   token_pan_4_digits:
-    $ref: ./datamodel/TokenPan4Digits.yaml
+    $ref: ./TokenPan4Digits.yaml
   wallet_code:
-    $ref: ./datamodel/WalletCode.yaml
+    $ref: ./WalletCode.yaml
   wallet_name:
-    $ref: ./datamodel/WalletName.yaml
+    $ref: ./WalletName.yaml
   token_requestor_code:
-    $ref: ./datamodel/TokenRequestorCode.yaml
+    $ref: ./TokenRequestorCode.yaml
   token_requestor_name:
-    $ref: ./datamodel/TokenRequestorName.yaml
+    $ref: ./TokenRequestorName.yaml
   device_name:
-    $ref: ./datamodel/DeviceName.yaml
+    $ref: ./DeviceName.yaml
   device_type:
-    $ref: ./datamodel/DeviceType.yaml
+    $ref: ./DeviceType.yaml
   funding_card_id:
-    $ref: ./datamodel/FundingCardId.yaml
+    $ref: ./FundingCardId.yaml
   token_status:
-    $ref: ./datamodel/TokenStatus.yaml
+    $ref: ./TokenStatus.yaml
   token_issuing_date:
-    $ref: ./datamodel/TokenIssuingDate.yaml
+    $ref: ./TokenIssuingDate.yaml
   token_scheme:
-    $ref: ./datamodel/TokenScheme.yaml
+    $ref: ./TokenScheme.yaml

@@ -25,56 +25,56 @@ required:
   - language
 properties:
   contract_reference:
-    $ref: ./datamodel/ContractReference.yaml
+    $ref: ./ContractReference.yaml
   person_reference:
-    $ref: ./datamodel/PersonReference.yaml
+    $ref: ./PersonReference.yaml
   card_id:
-    $ref: ./datamodel/CardId.yaml
+    $ref: ./CardId.yaml
   embossing_line_1:
-    $ref: ./datamodel/EmbossingLine1.yaml
+    $ref: ./EmbossingLine1.yaml
   embossing_line_2:
-    $ref: ./datamodel/EmbossingLine2.yaml
+    $ref: ./EmbossingLine2.yaml
   pan_4_digits:
-    $ref: ./datamodel/Pan4Digits.yaml
+    $ref: ./Pan4Digits.yaml
   expiry_date:
-    $ref: ./datamodel/ExpiryDate.yaml
+    $ref: ./ExpiryDate.yaml
   initial_issuing_date:
-    $ref: ./datamodel/InitialIssuingDate.yaml
+    $ref: ./InitialIssuingDate.yaml
   card_status:
-    $ref: ./datamodel/CardStatus.yaml
+    $ref: ./CardStatus.yaml
   card_account_currency:
-    $ref: ./datamodel/CardAccountCurrency.yaml
+    $ref: ./CardAccountCurrency.yaml
   image:
-    $ref: ./datamodel/Image.yaml
+    $ref: ./Image.yaml
   product_code:
-    $ref: ./datamodel/ProductCode.yaml
+    $ref: ./ProductCode.yaml
   product_name:
-    $ref: ./datamodel/ProductName.yaml
+    $ref: ./ProductName.yaml
   scheme:
-    $ref: ./datamodel/Scheme.yaml
+    $ref: ./Scheme.yaml
   category:
-    $ref: ./datamodel/Category.yaml
+    $ref: ./Category.yaml
   issuing_type:
-    $ref: ./datamodel/IssuingType.yaml
+    $ref: ./IssuingType.yaml
   product_type:
-    $ref: ./datamodel/ProductType.yaml
+    $ref: ./ProductType.yaml
   product_line:
-    $ref: ./datamodel/ProductLine.yaml
+    $ref: ./ProductLine.yaml
   card_limit_cycle:
-    $ref: ./datamodel/CardLimitCycle.yaml
+    $ref: ./CardLimitCycle.yaml
   card_limit_daily:
-    $ref: ./datamodel/CardLimitDaily.yaml
+    $ref: ./CardLimitDaily.yaml
   card_account_reference:
-    $ref: ./datamodel/CardAccountReference.yaml
+    $ref: ./CardAccountReference.yaml
   bank_account_reference:
-    $ref: ./datamodel/BankAccountReference.yaml
+    $ref: ./BankAccountReference.yaml
   issuer_code:
-    $ref: ./datamodel/IssuerCode.yaml
+    $ref: ./IssuerCode.yaml
   issuer_name:
-    $ref: ./datamodel/IssuerName.yaml
+    $ref: ./IssuerName.yaml
   distribution_partner_code:
-    $ref: ./datamodel/DistributionPartnerCode.yaml
+    $ref: ./DistributionPartnerCode.yaml
   distribution_partner_name:
-    $ref: ./datamodel/DistributionPartnerName.yaml
+    $ref: ./DistributionPartnerName.yaml
   language:
-    $ref: ./datamodel/Language.yaml
+    $ref: ./Language.yaml

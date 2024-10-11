@@ -14,66 +14,66 @@ required:
   - card_id
 properties:
   transaction_id:
-    $ref: ./datamodel/TransactionId.yaml
+    $ref: ./TransactionId.yaml
   authorization_reference:
-    $ref: ./datamodel/AuthorizationReference.yaml
+    $ref: ./AuthorizationReference.yaml
   clearing_reference:
-    $ref: ./datamodel/ClearingReference.yaml
+    $ref: ./ClearingReference.yaml
   transaction_date_time:
-    $ref: ./datamodel/TransactionDateTime.yaml
+    $ref: ./TransactionDateTime.yaml
   valuta_date:
-    $ref: ./datamodel/ValutaDate.yaml
+    $ref: ./ValutaDate.yaml
   statement_date:
-    $ref: ./datamodel/StatementDate.yaml
+    $ref: ./StatementDate.yaml
   transaction_status:
-    $ref: ./datamodel/TransactionStatus.yaml
+    $ref: ./TransactionStatus.yaml
   approval_number:
-    $ref: ./datamodel/ApprovalNumber.yaml
+    $ref: ./ApprovalNumber.yaml
   original_amount:
-    $ref: ./datamodel/OriginalAmount.yaml
+    $ref: ./OriginalAmount.yaml
   original_currency:
-    $ref: ./datamodel/OriginalCurrency.yaml
+    $ref: ./OriginalCurrency.yaml
   total_amount:
-    $ref: ./datamodel/TotalAmount.yaml
+    $ref: ./TotalAmount.yaml
   transaction_amount:
-    $ref: ./datamodel/TransactionAmount.yaml
+    $ref: ./TransactionAmount.yaml
   transaction_currency:
-    $ref: ./datamodel/TransactionCurrency.yaml
+    $ref: ./TransactionCurrency.yaml
   fees:
     $ref: ./Fees.yaml
   exchange_rate:
-    $ref: ./datamodel/ExchangeRate.yaml
+    $ref: ./ExchangeRate.yaml
   exchange_rate_date:
-    $ref: ./datamodel/ExchangeRateDate.yaml
+    $ref: ./ExchangeRateDate.yaml
   description:
-    $ref: ./datamodel/Description.yaml
+    $ref: ./Description.yaml
   merchant_name:
-    $ref: ./datamodel/MerchantName.yaml
+    $ref: ./MerchantName.yaml
   merchant_country:
-    $ref: ./datamodel/MerchantCountry.yaml
+    $ref: ./MerchantCountry.yaml
   merchant_city:
-    $ref: ./datamodel/MerchantCity.yaml
+    $ref: ./MerchantCity.yaml
   mcc:
-    $ref: ./datamodel/Mcc.yaml
+    $ref: ./Mcc.yaml
   mcc_description:
-    $ref: ./datamodel/MccDescription.yaml
+    $ref: ./MccDescription.yaml
   terminal_reference:
-    $ref: ./datamodel/TerminalReference.yaml
+    $ref: ./TerminalReference.yaml
   card_acceptor_reference:
-    $ref: ./datamodel/CardAcceptorReference.yaml
+    $ref: ./CardAcceptorReference.yaml
   acquirer_reference:
-    $ref: ./datamodel/AcquirerReference.yaml
+    $ref: ./AcquirerReference.yaml
   channel:
-    $ref: ./datamodel/Channel.yaml
+    $ref: ./Channel.yaml
   transaction_category:
-    $ref: ./datamodel/TransactionCategory.yaml
+    $ref: ./TransactionCategory.yaml
   token_id:
-    $ref: ./datamodel/TokenId.yaml
+    $ref: ./TokenId.yaml
   cardholder_reference:
-    $ref: ./datamodel/CardholderReference.yaml
+    $ref: ./CardholderReference.yaml
   card_account_reference:
-    $ref: ./datamodel/CardAccountReference.yaml
+    $ref: ./CardAccountReference.yaml
   card_id:
-    $ref: ./datamodel/CardId.yaml
+    $ref: ./CardId.yaml
   related_transaction_id:
-    $ref: ./datamodel/RelatedTransactionId.yaml
+    $ref: ./RelatedTransactionId.yaml

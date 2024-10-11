@@ -2,5 +2,5 @@ in: path
 name: transactionId
 required: true
 schema:
-  $ref: '../../schemas/datamodel/TransactionId.yaml'
+  $ref: '../../schemas/TransactionId.yaml'
 description: Identifier (technical) for a transaction for which information is requested.
