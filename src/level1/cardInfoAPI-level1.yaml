@@ -58,7 +58,26 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          $ref: './components/responses/200_cards.yaml'
+          description: >
+            Payment cards were found which match the query parameters. If no cards
+            matched the parameters or access rights are missing, an empty list is
+            returned.
+          headers:
+            X-Correlation-ID:
+              $ref: './components/headers/X-Correlation-ID.yaml'
+            X-Next-Cursor:
+              $ref: './components/headers/X-Next-Cursor.yaml'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - cards
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      $ref: './components/schemas/CardDetails.yaml'
         '400':
           $ref: './components/responses/400_standard.yaml'
         '500':
@@ -79,7 +98,14 @@ paths:
           - $ref: './components/parameters/header/agent.yaml'
         responses:
           '200':
-            $ref: './components/responses/200_cards_{cardId}.yaml'
+            description: Single payment card was found. If the cardId was not found, a 400 is returned.
+            headers:
+              X-Correlation-ID:
+                $ref: './components/headers/X-Correlation-ID.yaml'
+            content:
+              application/json:
+                schema:
+                  $ref: './components/schemas/CardDetails.yaml'
           '400':
             $ref: './components/responses/400_standard.yaml'
           '500':
@@ -104,7 +130,25 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          $ref: './components/responses/200_card-tokens.yaml'
+          description: >
+            Card tokens were found which match the query parameters.
+            If no card tokens matched the parameters or access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: './components/headers/X-Correlation-ID.yaml'
+            X-Next-Cursor:
+              $ref: './components/headers/X-Next-Cursor.yaml'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card_tokens
+                properties:
+                  card_tokens:
+                    type: array
+                    items:
+                      $ref: './components/schemas/CardTokenDetails.yaml'
         '400':
           $ref: './components/responses/400_standard.yaml'
         '500':
@@ -125,7 +169,14 @@ paths:
           - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          $ref: './components/responses/200_card-tokens_{tokenId}.yaml'
+          description: Single token was found. If the tokenId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: './components/headers/X-Correlation-ID.yaml'
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/CardTokenDetails.yaml'
         '400':
           $ref: './components/responses/400_standard.yaml'
         '500':
@@ -156,7 +207,25 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          $ref: './components/responses/200_card-tokens_{tokenId}.yaml'
+          description: >
+            Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
+            an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: './components/headers/X-Correlation-ID.yaml'
+            X-Next-Cursor:
+              $ref: './components/headers/X-Next-Cursor.yaml'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-transactions
+                properties:
+                  card-transactions:
+                    type: array
+                    items:
+                      $ref: './components/schemas/TransactionDetails.yaml'
         '400':
           $ref: './components/responses/400_standard.yaml'
         '500':
@@ -177,7 +246,14 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          $ref: './components/responses/200_card-transactions_{transactionId}.yaml'
+          description: Single token was found. If the transactionId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: './components/headers/X-Correlation-ID.yaml'
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/TransactionDetails.yaml'
         '400':
           $ref: './components/responses/400_standard.yaml'
         '500':
@@ -493,24 +569,6 @@ components:
             write: Grants write access
 
   responses:
-    cards200:
-      $ref: './components/responses/200_cards.yaml'
-
-    cards{cardId}200:
-      $ref: './components/responses/200_cards_{cardId}.yaml'
-
-    card-tokens:
-      $ref: './components/responses/200_card-tokens.yaml'
-
-    card-tokens{tokenId}200:
-      $ref: './components/responses/200_card-tokens_{tokenId}.yaml'
-
-    card-transactions200:
-      $ref: './components/responses/200_card-transactions.yaml'
-
-    card-transactions{transactionId}200:
-      $ref: './components/responses/200_card-transactions_{transactionId}.yaml'
-
     standard400:
       $ref: './components/responses/400_standard.yaml'
 

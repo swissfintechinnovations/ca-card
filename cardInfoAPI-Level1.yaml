@@ -43,7 +43,24 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_cards'
+          description: |
+            Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - cards
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -62,7 +79,14 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_cards_{cardId}'
+          description: Single payment card was found. If the cardId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -84,7 +108,24 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_card-tokens'
+          description: |
+            Card tokens were found which match the query parameters. If no card tokens matched the parameters or access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card_tokens
+                properties:
+                  card_tokens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardTokenDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -103,7 +144,14 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_card-tokens_{tokenId}'
+          description: Single token was found. If the tokenId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTokenDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -131,7 +179,24 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_card-tokens_{tokenId}'
+          description: |
+            Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-transactions
+                properties:
+                  card-transactions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TransactionDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -150,7 +215,14 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          $ref: '#/components/responses/200_card-transactions_{transactionId}'
+          description: Single token was found. If the transactionId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDetails'
         '400':
           $ref: '#/components/responses/400_standard'
         '500':
@@ -1073,41 +1145,10 @@ components:
             read: Grants read access
             write: Grants write access
   responses:
-    cards200:
-      $ref: '#/components/responses/200_cards'
-    cards{cardId}200:
-      $ref: '#/components/responses/200_cards_{cardId}'
-    card-tokens:
-      $ref: '#/components/responses/200_card-tokens'
-    card-tokens{tokenId}200:
-      $ref: '#/components/responses/200_card-tokens_{tokenId}'
-    card-transactions200:
-      $ref: '#/components/responses/200_card-transactions'
-    card-transactions{transactionId}200:
-      $ref: '#/components/responses/200_card-transactions_{transactionId}'
     standard400:
       $ref: '#/components/responses/400_standard'
     standard500:
       $ref: '#/components/responses/500_standard'
-    200_cards:
-      description: |
-        Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-        X-Next-Cursor:
-          $ref: '#/components/headers/X-Next-Cursor'
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - cards
-            properties:
-              cards:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CardDetails'
     400_standard:
       headers:
         Content-Language:
@@ -1132,71 +1173,6 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/CommonErrorResponse'
-    200_cards_{cardId}:
-      description: Single payment card was found. If the cardId was not found, a 400 is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CardDetails'
-    200_card-tokens:
-      description: |
-        Card tokens were found which match the query parameters. If no card tokens matched the parameters or access rights are missing, an empty list is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-        X-Next-Cursor:
-          $ref: '#/components/headers/X-Next-Cursor'
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - card_tokens
-            properties:
-              card_tokens:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CardTokenDetails'
-    200_card-tokens_{tokenId}:
-      description: Single token was found. If the tokenId was not found, a 400 is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CardTokenDetails'
-    200_card-transactions_{transactionId}:
-      description: Single token was found. If the transactionId was not found, a 400 is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TransactionDetails'
-    200_card-transactions:
-      description: |
-        Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
-      headers:
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-        X-Next-Cursor:
-          $ref: '#/components/headers/X-Next-Cursor'
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - card-transactions
-            properties:
-              card-transactions:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TransactionDetails'
   headers:
     Content-Language:
       schema:
