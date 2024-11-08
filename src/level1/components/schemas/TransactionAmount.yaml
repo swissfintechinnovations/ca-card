@@ -2,4 +2,4 @@ title: Transaction amount
 description: >-
   Amount of the transaction (excluding fees) in the currency used by the issuer
   to settle the charge to the card account.
-$ref: './shared/Amount.yaml'
+$ref: './generic/Amount.yaml'

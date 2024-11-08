@@ -1,4 +1,4 @@
-shared: Shared id
+title: Shared id
 description: Unique identifier to referenece resources.
 type: string
 format: uuid

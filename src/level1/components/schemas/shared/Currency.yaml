@@ -1,7 +1,0 @@
-Currency:
-  type: string
-  pattern: '^[A-Z]{3}$'
-  examples:
-    - CHF
-    - EUR
-  description: Currency in ISO code format.

@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   version: 0.8.0
   title: Common Card API (Public)
-  description: >
+  description: |
     This specification defines a common card API for payment cards used in
     Switzerland. The API is supposed to be used by third parties to retrieve
     payment card information for scheme-based debit, credit or prepaid cards
@@ -22,11 +22,11 @@ tags:
   - name: Cards
     description: Operations for retrieving information about payment cards.
   - name: Card-tokens
-    description: >-
+    description: |
       Operations for retrieving information about tokens associated with payment
       cards.
   - name: Transactions
-    description: >-
+    description: |
       Operations for retrieving information about transactions and
       authorizations done with payment cards or tokens.
 
@@ -40,7 +40,7 @@ paths:
   /cards:
     get:
       summary: Provides a list of cards which match the provided query parameters.
-      description: >
+      description: |
         This operation enables the retrieval of a list of payment cards. Payment
         cards can be physical or virtual cards. In order to prevent API consumers
         from having to fulfill PCI DSS requirements, no full PAN or other data
@@ -58,7 +58,7 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          description: >
+          description: |
             Payment cards were found which match the query parameters. If no cards
             matched the parameters or access rights are missing, an empty list is
             returned.
@@ -86,7 +86,7 @@ paths:
   /cards/{cardId}:
       get:
         summary: Provides a single card which matches the id.
-        description: >
+        description: |
           This operation enables the retrieval of a single payment card when the cardId is already known.
           The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
         tags:
@@ -114,7 +114,7 @@ paths:
   /card-tokens:
     get:
       summary: Provides a list of card tokens which are associated with a card.
-      description: >
+      description: |
         This operation enables the retrieval of a list of tokens associated with a payment card.
         The tokens can be filtered further by status.
         Tokens are representations of a payment card used in specific wallets , wearables or merchants.
@@ -130,7 +130,7 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          description: >
+          description: |
             Card tokens were found which match the query parameters.
             If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
@@ -157,7 +157,7 @@ paths:
   /card-tokens/{tokenId}:
     get:
       summary: Provides a single token which matches the cardId and tokenId
-      description: >
+      description: |
         This operation enables the retrieval of a single token when the cardId and tokenId are already known.
         The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
@@ -185,7 +185,7 @@ paths:
   /card-transactions:
     get:
       summary: Provides a list of transactions which match the provided query parameters.
-      description: >
+      description: |
         This operation enables the retrieval of a list of transactions performed with a payment card or token.
         Different query parameters are provided to support an efficient retrieval of individual transactions.
         With the Level 1 of the Common Card API only card-based financial transactions are included.
@@ -207,7 +207,7 @@ paths:
         - $ref: './components/parameters/header/agent.yaml'
       responses:
         '200':
-          description: >
+          description: |
             Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
             an empty list is returned.
           headers:
@@ -234,7 +234,7 @@ paths:
   /card-transactions/{transactionId}:
     get:
       summary: Provides a single transaction which matches the transactionId
-      description: >
+      description: |
         This operation enables the retrieval of a single transaction when the transactionId is already known.
         The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.
       tags:
@@ -487,22 +487,22 @@ components:
       $ref: './components/schemas/FeeCurrency.yaml'
 
     Amount:
-      $ref: './components/schemas/shared/Amount.yaml'
+      $ref: './components/schemas/generic/Amount.yaml'
 
     Correlation:
-      $ref: './components/schemas/shared/Correlation.yaml'
+      $ref: './components/schemas/generic/Correlation.yaml'
 
     Currency:
-      $ref: './components/schemas/shared/Currency.yaml'
+      $ref: './components/schemas/generic/Currency.yaml'
 
     Date:
-      $ref: './components/schemas/shared/Date.yaml'
+      $ref: './components/schemas/generic/Date.yaml'
 
     DateTime:
-      $ref: './components/schemas/shared/DateTime.yaml'
+      $ref: './components/schemas/generic/DateTime.yaml'
 
     Id:
-      $ref: './components/schemas/shared/Id.yaml'
+      $ref: './components/schemas/generic/Id.yaml'
 
     CommonErrorResponse:
       $ref: './components/schemas/CommonErrorResponse.yaml'
