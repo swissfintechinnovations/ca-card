@@ -17,6 +17,6 @@ on:
 
 jobs:
   yaml-lint:
-    uses: swissfintechinnovations/.github/.github/workflows/reusable-bundle-workflow.yaml@main
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-bundle-workflow.yaml@bundle-actions
     with:
       filenames: ${{ github.event.inputs.filenames || 'src/*.yaml' }}
