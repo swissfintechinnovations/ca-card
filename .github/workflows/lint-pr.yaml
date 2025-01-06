@@ -1,0 +1,24 @@
+name: 'SFTI Lint PR'
+
+on:
+  workflow_run:
+    workflows:
+      - 'Bundle API specification'
+    types:
+      - completed
+
+jobs:
+    yaml-lint-src:
+        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+        with:
+          filenames: 'src/**'
+
+    yaml-lint:
+        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+        with:
+          filenames: '*.yaml'
+
+    openapi-lint:
+        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@main
+        with:
+            filenames: '*.yaml'
