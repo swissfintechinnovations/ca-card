@@ -8,43 +8,82 @@ on:
 jobs:
   bundle-run-status:
     runs-on: ubuntu-latest
+    outputs:
+      BUNDLE_WORKFLOW_CONCLUSION: ${{ steps.bundle-exit-status.outputs.CONCLUSION }}
+      BUNDLE_WORKFLOW_START_TIME: ${{ steps.bundle-exit-status.outputs.START_TIME }}
+      BUNDLE_WORKFLOW_LINK: ${{ steps.bundle-exit-status.outputs.LINK }}
+    
     steps:
       - name: Get latest workflow run status
         id: bundle-exit-status
         run: |
-          WORKFLOWS=$(curl -s \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github+json" \
-          https://api.github.com/repos/${{ github.repository }}/actions/workflows)
-
           WORKFLOW_ID=$(curl -s \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows \
-            | jq -r '.workflows[] | select(.name=="SFTI Bundle API specification") | .id')
+            | jq -r '.workflows[] | select(.path==".github/workflows/bundle-spec.yaml") | .id')
 
-          LATEST_RUN=$(curl -s \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/$WORKFLOW_ID/runs?per_page=1 \
-            | jq -r '.workflow_runs[0]')
+          # Poll until the latest run is completed
+          while true; do
+            LATEST_RUN=$(curl -s \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github+json" \
+              https://api.github.com/repos/${{ github.repository }}/actions/workflows/$WORKFLOW_ID/runs?per_page=1 \
+              | jq -r '.workflow_runs[0]')
+            
+            STATUS=$(echo $LATEST_RUN | jq -r '.status')
+            CONCLUSION=$(echo $LATEST_RUN | jq -r '.conclusion')
+            START_TIME=$(echo $LATEST_RUN | jq -r '.run_started_at')
+            LINK=$(echo $LATEST_RUN | jq -r '.html_url')
 
-          echo "Workflows: $WORKFLOWS"
-          echo "Latest Run Details: $LATEST_RUN"
-          echo "Status: $(echo $LATEST_RUN | jq -r '.status')"
-          echo "Conclusion: $(echo $LATEST_RUN | jq -r '.conclusion')"
+            if [ "$STATUS" == "completed" ]; then
+              echo "BUNDLE_WORKFLOW_CONCLUSION=$CONCLUSION" >> $GITHUB_OUTPUT
+              echo "BUNDLE_WORKFLOW_START_TIME=$START_TIME" >> $GITHUB_OUTPUT
+              echo "BUNDLE_WORKFLOW_LINK=$LINK" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+
+            echo "Workflow Run not completed yet. Retrying in 5 seconds..."
+            sleep 5
+          done
+
+      - name: check-exit-status
+        run: |
+          START_TIME="${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_START_TIME }}"
+          CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          START_EPOCH=$(date -d "$INPUT_TIMESTAMP" +%s)
+          CURRENT_EPOCH=$(date -d "$CURRENT_TIME" +%s)
+          
+          DIFF=$(( CURRENT_EPOCH - START_EPOCH ))
+
+          if [ "$DIFF" -ge 0 ] && [ "$DIFF" -le 180 ]; then
+            if [ ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_CONCLUSION}} == "success" ]; then
+              echo "Bundle workflow ran successful."
+            else
+              echo "::error::Bundle workflow failed. Please check the status of the workflow run at ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_LINK }} for more details."
+            fi
+          else
+            echo "::warning::The latest bundle workflow did NOT run within the last 3 minutes. Please check the status of the workflow run at ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_LINK }}, if not expected!"
+          fi
 
   yaml-lint-src:
+    needs: bundle-run-status
+    if: ${{ always() }}
     uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
     with:
       filenames: 'src/**'
 
   yaml-lint:
+    needs: bundle-run-status
+    if: ${{ success() }}
     uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
     with:
       filenames: '*.yaml'
 
   openapi-lint:
+    needs: bundle-run-status
+    if: ${{ success() }}
     uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@main
     with:
       filenames: '*.yaml'
