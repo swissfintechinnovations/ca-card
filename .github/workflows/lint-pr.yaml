@@ -1,24 +1,50 @@
-name: 'SFTI Lint PR'
+name: 'SFTI Lint PRs'
 
 on:
-  workflow_run:
-    workflows:
-      - 'Bundle API specification'
-    types:
-      - completed
+  pull_request:
+    paths:
+      - 'src/**'
 
 jobs:
-    yaml-lint-src:
-        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
-        with:
-          filenames: 'src/**'
+  bundle-run-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest workflow run status
+        id: bundle-exit-status
+        run: |
+          WORKFLOWS=$(curl -s \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github+json" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows)
 
-    yaml-lint:
-        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
-        with:
-          filenames: '*.yaml'
+          WORKFLOW_ID=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows \
+            | jq -r '.workflows[] | select(.name=="SFTI Bundle API specification") | .id')
 
-    openapi-lint:
-        uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@main
-        with:
-            filenames: '*.yaml'
+          LATEST_RUN=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/$WORKFLOW_ID/runs?per_page=1 \
+            | jq -r '.workflow_runs[0]')
+
+          echo "Workflows: $WORKFLOWS"
+          echo "Latest Run Details: $LATEST_RUN"
+          echo "Status: $(echo $LATEST_RUN | jq -r '.status')"
+          echo "Conclusion: $(echo $LATEST_RUN | jq -r '.conclusion')"
+
+  yaml-lint-src:
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+    with:
+      filenames: 'src/**'
+
+  yaml-lint:
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+    with:
+      filenames: '*.yaml'
+
+  openapi-lint:
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@main
+    with:
+      filenames: '*.yaml'

@@ -1,4 +1,4 @@
-name: 'Bundle API specification'
+name: 'SFTI Bundle API specification' # do not rename as lint-pr workflow depends on this name
 
 on:
   pull_request:
