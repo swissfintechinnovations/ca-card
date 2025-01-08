@@ -1,0 +1,9 @@
+title: Fee name
+type: string
+maxLength: 50
+examples:
+  - transactionTipAmount
+  - transactionSurchargeAmount
+description: >-
+  Name of the fee that is charged for the transaction; value is defined by the
+  Issuer.

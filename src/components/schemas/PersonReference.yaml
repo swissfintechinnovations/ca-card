@@ -1,0 +1,6 @@
+title: Person reference
+type: string
+maxLength: 50
+examples:
+  - '123456789'
+description: Functional reference to a cardholder, defined by the Card Service Provider.

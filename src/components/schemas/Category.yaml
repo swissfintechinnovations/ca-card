@@ -1,0 +1,10 @@
+type: string
+enum:
+  - primary_card
+  - additional_card
+examples:
+  - primary_card
+description: >
+  Identifies the nature of the card in regards to the overall account; for some
+  issuers the cardCategory has an influence on the effect of certain lifecycle
+  use cases.
