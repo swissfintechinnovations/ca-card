@@ -2,7 +2,7 @@ name: 'SFTI Lint PRs'
 
 on:
   pull_request:
-    paths:
+    paths-ignore:
       - 'src/**'
 
 jobs:
