@@ -3,10 +3,13 @@
 
 
 ---
-[![GitHub release](https://img.shields.io/github/release/swissfintechinnovations/ca-card)](https://github.com/swissfintechinnovations/ca-card/releases/)
-![GitHub checks](https://img.shields.io/github/checks-status/swissfintechinnovations/ca-card/main)
-![Swagger Validator](https://img.shields.io/swagger/valid/3.0?specUrl=https%3A%2F%2Fraw.githubusercontent.com%2FOAI%2FOpenAPI-Specification%2Fmaster%2Fexamples%2Fv2.0%2Fjson%2Fpetstore-expanded.json)
-[![GitHub license](https://img.shields.io/github/license/swissfintechinnovations/ca-card)](https://github.com/swissfintechinnovations/ca-card/blob/main/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/swissfintechinnovations/ca-card?color=blue)](https://github.com/swissfintechinnovations/ca-card/releases/)
+![Card Major Version](https://img.shields.io/badge/major_version-v0-blue)
+[![OpenAPI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fgithub.com%2Fswissfintechinnovations%2Fca-card%2Fraw%2Fmain%2FcardInfoAPI.yaml&query=openapi&prefix=v&label=OpenAPI&color=blue)](https://swagger.io/resources/open-api/)
+[![GitHub license](https://img.shields.io/github/license/swissfintechinnovations/ca-card?color=de980d)](https://github.com/swissfintechinnovations/ca-card/blob/main/LICENSE)
+
+[![GitHub Action Status OpenAPI](https://img.shields.io/github/actions/workflow/status/swissfintechinnovations/ca-card/lint-openapi.yaml?branch=main&label=openapi%20checks)](https://github.com/swissfintechinnovations/ca-card/actions/workflows/lint-openapi.yaml)
+[![GitHub Action Status Yaml](https://img.shields.io/github/actions/workflow/status/swissfintechinnovations/ca-card/lint-yaml.yaml?branch=main&label=yaml%20checks)](https://github.com/swissfintechinnovations/ca-card/actions/workflows/lint-yaml.yaml)
 
 This is the official SFTI repo for the card API. Documentations may be found in the [Wiki](https://github.com/swissfintechinnovations/ca-card/wiki).
 
