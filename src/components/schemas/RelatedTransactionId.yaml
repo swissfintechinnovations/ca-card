@@ -1,5 +1,5 @@
 title: Transaction reference
-description: >
+description: |
   Reference to another transaction or authorization that is linked to the
   current one, e.g. for separately charged fees, chargeback credits.
 $ref: ./generic/Id.yaml

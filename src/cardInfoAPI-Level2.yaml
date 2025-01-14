@@ -50,12 +50,12 @@ paths:
       tags:
         - Cards
       parameters:
-        - $ref: './components/parameters/query/card_status.yaml'
-        - $ref: './components/parameters/query/cursor.yaml'
-        - $ref: './components/parameters/query/limit.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/query/card_status.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -64,9 +64,9 @@ paths:
             returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
             X-Next-Cursor:
-              $ref: './components/headers/X-Next-Cursor.yaml'
+              $ref: ./components/headers/X-Next-Cursor.yaml
           content:
             application/json:
               schema:
@@ -77,11 +77,11 @@ paths:
                   cards:
                     type: array
                     items:
-                      $ref: './components/schemas/CardDetails.yaml'
+                      $ref: ./components/schemas/CardDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
   /cards/{cardId}:
     get:
@@ -92,24 +92,24 @@ paths:
       tags:
         - Cards
       parameters:
-        - $ref: './components/parameters/path/cardId.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/path/cardId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single payment card was found. If the cardId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
           content:
             application/json:
               schema:
-                $ref: './components/schemas/CardDetails.yaml'
+                $ref: ./components/schemas/CardDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
   /card-tokens:
     get:
@@ -121,13 +121,13 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - $ref: './components/parameters/query/card_id.yaml'
-        - $ref: './components/parameters/query/token_status.yaml'
-        - $ref: './components/parameters/query/cursor.yaml'
-        - $ref: './components/parameters/query/limit.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/query/card_id.yaml
+        - $ref: ./components/parameters/query/token_status.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -135,9 +135,9 @@ paths:
             If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
             X-Next-Cursor:
-              $ref: './components/headers/X-Next-Cursor.yaml'
+              $ref: ./components/headers/X-Next-Cursor.yaml
           content:
             application/json:
               schema:
@@ -148,11 +148,11 @@ paths:
                   card_tokens:
                     type: array
                     items:
-                      $ref: './components/schemas/CardTokenDetails.yaml'
+                      $ref: ./components/schemas/CardTokenDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
   /card-tokens/{tokenId}:
     get:
@@ -163,24 +163,24 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - $ref: './components/parameters/path/tokenId.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/path/tokenId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single token was found. If the tokenId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
           content:
             application/json:
               schema:
-                $ref: './components/schemas/CardTokenDetails.yaml'
+                $ref: ./components/schemas/CardTokenDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
   /card-transactions:
     get:
@@ -192,19 +192,19 @@ paths:
       tags:
         - Transactions
       parameters:
-        - $ref: './components/parameters/query/authorization_reference.yaml'
-        - $ref: './components/parameters/query/clearing_reference.yaml'
-        - $ref: './components/parameters/query/card_id.yaml'
-        - $ref: './components/parameters/query/token_id.yaml'
-        - $ref: './components/parameters/query/from_date.yaml'
-        - $ref: './components/parameters/query/to_date.yaml'
-        - $ref: './components/parameters/query/status.yaml'
-        - $ref: './components/parameters/query/original_currency.yaml'
-        - $ref: './components/parameters/query/cursor.yaml'
-        - $ref: './components/parameters/query/limit.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/query/authorization_reference.yaml
+        - $ref: ./components/parameters/query/clearing_reference.yaml
+        - $ref: ./components/parameters/query/card_id.yaml
+        - $ref: ./components/parameters/query/token_id.yaml
+        - $ref: ./components/parameters/query/from_date.yaml
+        - $ref: ./components/parameters/query/to_date.yaml
+        - $ref: ./components/parameters/query/status.yaml
+        - $ref: ./components/parameters/query/original_currency.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -212,9 +212,9 @@ paths:
             an empty list is returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
             X-Next-Cursor:
-              $ref: './components/headers/X-Next-Cursor.yaml'
+              $ref: ./components/headers/X-Next-Cursor.yaml
           content:
             application/json:
               schema:
@@ -225,11 +225,11 @@ paths:
                   card-transactions:
                     type: array
                     items:
-                      $ref: './components/schemas/TransactionDetails.yaml'
+                      $ref: ./components/schemas/TransactionDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
   /card-transactions/{transactionId}:
     get:
@@ -240,24 +240,24 @@ paths:
       tags:
         - Transactions
       parameters:
-        - $ref: './components/parameters/path/transactionId.yaml'
-        - $ref: './components/parameters/header/client.yaml'
-        - $ref: './components/parameters/header/correlation.yaml'
-        - $ref: './components/parameters/header/agent.yaml'
+        - $ref: ./components/parameters/path/transactionId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single token was found. If the transactionId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
-              $ref: './components/headers/X-Correlation-ID.yaml'
+              $ref: ./components/headers/X-Correlation-ID.yaml
           content:
             application/json:
               schema:
-                $ref: './components/schemas/TransactionDetails.yaml'
+                $ref: ./components/schemas/TransactionDetails.yaml
         '400':
-          $ref: './components/responses/standard400.yaml'
+          $ref: ./components/responses/standard400.yaml
         '500':
-          $ref: './components/responses/standard500.yaml'
+          $ref: ./components/responses/standard500.yaml
 
 components:
   schemas: {}

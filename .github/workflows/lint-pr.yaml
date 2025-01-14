@@ -79,7 +79,7 @@ jobs:
     if: ${{ always() }}
     uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
     with:
-      filenames: 'src/**'
+      filenames: 'src/**.yaml'
 
   yaml-lint:
     needs: bundle-run-status

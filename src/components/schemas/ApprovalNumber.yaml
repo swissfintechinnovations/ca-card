@@ -3,7 +3,7 @@ type: string
 pattern: ^\d{6}$
 examples:
   - '803051'
-description: >
+description: |
   Identifies a transaction from the entity that authorized it; in combination
   with cardId and transactionDateTime usually unique (except for reversals or
   other special situations).

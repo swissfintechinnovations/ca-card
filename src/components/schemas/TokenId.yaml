@@ -1,5 +1,5 @@
 title: Token id
-description: >-
+description: |
   Unique identifier for the token of a card, defined by the Card Service
   Provider.
 $ref: ./generic/Id.yaml

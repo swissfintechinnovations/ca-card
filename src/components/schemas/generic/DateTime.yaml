@@ -1,9 +1,8 @@
 title: Shared date-time
-description: >-
+description: |
   General date-time that is used for different attributes, format is
   'YYYY-MM-DDThh:mm:ssZ'.
 type: string
 format: date-time
 examples:
   - '2018-04-13T11:11:11Z'
-

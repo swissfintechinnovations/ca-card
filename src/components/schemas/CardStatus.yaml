@@ -6,7 +6,7 @@ enum:
   - BLOCKED
 examples:
   - ACTIVE
-description: >
+description: |
   Effective status of the card to indicate whether it can be used for payments;
   definition of enums:
 

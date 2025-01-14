@@ -2,7 +2,7 @@ in: query
 name: token_id
 required: false
 schema:
-  $ref: '../../schemas/TokenId.yaml'
-description: >
+  $ref: ../../schemas/TokenId.yaml
+description: |
   Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET
   /card-tokens endpoint.

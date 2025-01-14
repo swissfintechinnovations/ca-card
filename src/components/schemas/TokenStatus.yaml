@@ -7,7 +7,7 @@ enum:
   - PENDING
 examples:
   - ACTIVE
-description: >
+description: |
   Effective status of the token to indicate whether it can be used for payments;
   definition of enums:
 

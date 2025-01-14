@@ -2,5 +2,5 @@ in: query
 name: original_currency
 required: false
 schema:
-  $ref: '../../schemas/OriginalCurrency.yaml'
+  $ref: ../../schemas/OriginalCurrency.yaml
 description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
