@@ -55,9 +55,12 @@ jobs:
         run: |
           START_TIME="${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_START_TIME }}"
           CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo $CURRENT_TIME
 
           START_EPOCH=$(date -d "$INPUT_TIMESTAMP" +%s)
           CURRENT_EPOCH=$(date -d "$CURRENT_TIME" +%s)
+          echo $START_EPOCH
+          echo $CURRENT_EPOCH
           
           DIFF=$(( CURRENT_EPOCH - START_EPOCH ))
           echo $DIFF
