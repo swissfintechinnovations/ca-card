@@ -1,0 +1,3 @@
+title: Initial issuing date
+description: Date when card was issued initially.
+$ref: ./generic/Date.yaml

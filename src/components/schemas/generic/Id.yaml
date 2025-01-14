@@ -1,0 +1,7 @@
+title: Shared id
+description: Unique identifier to referenece resources.
+type: string
+format: uuid
+maxLength: 50
+examples:
+  - eb404f8d-656b-4e51-8872-88c42fa55536

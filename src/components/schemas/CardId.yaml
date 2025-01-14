@@ -1,0 +1,5 @@
+title: Card id
+description: |
+  Technical reference to a card (unique, constant in the lifecycle of a card
+  even in case of replacements or renewals).
+$ref: ./generic/Id.yaml

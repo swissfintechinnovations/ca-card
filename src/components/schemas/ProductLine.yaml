@@ -1,0 +1,9 @@
+title: Product line
+type: string
+enum:
+  - consumer
+  - business
+  - corporate
+examples:
+  - consumer
+description: Customer segment to which the card is offered.

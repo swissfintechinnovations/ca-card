@@ -1,0 +1,7 @@
+title: Shared correlation
+description: |
+  Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems,
+  and used e.g. for debugging.
+type: string
+examples:
+  - f058ebd6-02f7-4d3f-942e-904344e8cde5

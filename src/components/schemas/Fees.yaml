@@ -1,0 +1,17 @@
+title: Fees
+description: |
+  One or more fees related to a transaction. Depending on the card service
+  provider and the type of fee only the fee_percentage or fee_amount is
+  provided.
+type: object
+required:
+  - fee_name
+properties:
+  fee_name:
+    $ref: ./FeeName.yaml
+  fee_percentage:
+    $ref: ./FeePercentage.yaml
+  fee_amount:
+    $ref: ./FeeAmount.yaml
+  fee_currency:
+    $ref: ./FeeCurrency.yaml

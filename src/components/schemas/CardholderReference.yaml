@@ -1,0 +1,8 @@
+title: Cardholder reference
+type: string
+maxLength: 50
+examples:
+  - Peter Schweizer
+description: |
+  Reference to the cardholder who owns the card which was used for the
+  transaction; not provided by all Card Service Providers.
