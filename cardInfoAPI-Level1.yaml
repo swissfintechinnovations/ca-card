@@ -458,7 +458,9 @@ components:
       examples:
         - CH3456789012345678901
         - ABC-56789012345
-      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
+      description: |
+        Functional reference to a customer relationship/contract that is responsible
+        for the card, defined by the Card Service Provider.
     PersonReference:
       title: Person reference
       type: string
@@ -489,7 +491,9 @@ components:
       pattern: ^\d{4}$
       examples:
         - '4321'
-      description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
+      description: |
+        Last 4 digits of the PAN; values can change for the same cardId during the
+        lifecycle.
     ExpiryDate:
       $ref: '#/components/schemas/Date'
     InitialIssuingDate:
@@ -504,10 +508,15 @@ components:
       examples:
         - ACTIVE
       description: |
-        Effective status of the card to indicate whether it can be used for payments; definition of enums:
+        Effective status of the card to indicate whether it can be used for payments;
+        definition of enums:
+
         - active: authorizations are possible
+
         - suspended: authorizations are temporarily not possible
-        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
+
+        - blocked: authorizations are permanently not possible because the card was
+        cancelled or permanently blocked for other reasons
     CardAccountCurrency:
       type: string
       pattern: ^[a-zA-Z0-9]{3}$
@@ -554,7 +563,9 @@ components:
       examples:
         - primary_card
       description: |
-        Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of certain lifecycle use cases.
+        Identifies the nature of the card in regards to the overall account; for some
+        issuers the cardCategory has an influence on the effect of certain lifecycle
+        use cases.
     IssuingType:
       title: Issuing type
       type: string
@@ -564,7 +575,10 @@ components:
       examples:
         - physical
       description: |
-        Specifies in which form the card is issued; definition of enums: - physical: the card is being embossed on a physical material and delivered to the cardholder by mail - virtual: the card is being issued only virtually for digital usage
+        Specifies in which form the card is issued; definition of enums: - physical:
+        the card is being embossed on a physical material and delivered to the
+        cardholder by mail - virtual: the card is being issued only virtually for
+        digital usage
     ProductType:
       title: Product type
       type: string
@@ -592,7 +606,10 @@ components:
       examples:
         - 2000
       description: |
-        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
+        Total amount of authorizations possible for the card per settlement cycle /
+        month in the currency of the card; effective limit is provided that considers
+        limits on the card and relationship; does not indicate the actually available
+        amount for authorizations in the current cycle.
     CardLimitDaily:
       title: Card limit daily
       type: integer
@@ -600,7 +617,10 @@ components:
       examples:
         - 2000
       description: |
-        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+        Total amount of authorizations possible for the card per day in the currency
+        of the card; effective limit is provided that considers limits on the card and
+        relationship; does not indicate the actually available amount for
+        authorizations on the current day.
     CardAccountReference:
       title: Card account reference
       type: string
@@ -608,7 +628,9 @@ components:
       examples:
         - AB-4567890123456
       description: |
-        Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
+        Technical reference to the card account which is used to settle the
+        transactions of the card; can be empty for debit cards which are settled
+        directly to the bank account.
     BankAccountReference:
       title: Bank account reference
       type: string
@@ -616,14 +638,17 @@ components:
       examples:
         - CH3456789012345678901
       description: |
-        Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+        Functional reference to the bank account linked to a card; mainly relevant for
+        debit cards, can be empty for credit or prepaid cards.
     IssuerCode:
       title: Issuer code
       type: string
       maxLength: 50
       examples:
         - '123456789'
-      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
+      description: |
+        Identifier for the legal issuer of a card; responsible towards the schemes for
+        keeping the rules.
     IssuerName:
       title: Issuer name
       type: string
@@ -640,7 +665,9 @@ components:
       examples:
         - '123456789'
       description: |
-        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+        Identifier for the organization which is distributing / selling cards to end
+        customers and who can define the services and branding of the card; empty if
+        the card is distributed by the issuer.
     DistributionPartnerName:
       title: Distribution partner name
       type: string
@@ -648,7 +675,9 @@ components:
       examples:
         - Zürcher Kantonalbank
       description: |
-        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+        Name of the organization which is distributing / issuing cards to end
+        customers and who can define the services and branding of the card; empty if
+        the card is distributed by the issuer.
     Language:
       type: string
       enum:
@@ -667,7 +696,9 @@ components:
       maxLength: 4
       examples:
         - '4321'
-      description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.
+      description: |
+        Last 4 digits of the PAN for the token, usually shown in wallets or on
+        receipts when the token is used for payments.
     WalletCode:
       title: Wallet code
       type: string
@@ -706,7 +737,9 @@ components:
       maxLength: 100
       examples:
         - Peter's iPhone
-      description: Name of the device which is associated to the token, only available for device-based tokens.
+      description: |
+        Name of the device which is associated to the token, only available for
+        device-based tokens.
     DeviceType:
       title: Device type
       type: string
@@ -714,7 +747,8 @@ components:
       examples:
         - IPHONE
       description: |
-        Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
+        Type of the device which is associated to the token, only available for
+        device-based tokens; value defined by the Card Service Provider.
     FundingCardId:
       $ref: '#/components/schemas/Id'
     TokenStatus:
@@ -728,11 +762,18 @@ components:
       examples:
         - ACTIVE
       description: |
-        Effective status of the token to indicate whether it can be used for payments; definition of enums:
+        Effective status of the token to indicate whether it can be used for payments;
+        definition of enums:
+
         - active: authorizations are possible
+
         - suspended: authorizations are temporarily not possible
-        - blocked: authorizations are permanently not possible because the token was cancelled
-        - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
+
+        - blocked: authorizations are permanently not possible because the token was
+        cancelled
+
+        - pending: authorizations are not possible because the token is not fully
+        issued or currently in transition between status
     TokenIssuingDate:
       $ref: '#/components/schemas/Date'
     TokenScheme:
@@ -754,7 +795,9 @@ components:
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: |
-        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or ClearingReference is always present.
+        Unique identifier for authorized transactions; Id does not overlap with
+        ClearingReference; at least one of AuthorizationReference or ClearingReference
+        is always present.
     ClearingReference:
       title: Clearing reference
       type: string
@@ -762,7 +805,9 @@ components:
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
       description: |
-        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or ClearingReference is always present.
+        Unique identifier for booked transactions; Id does not overlap with
+        AuthorizationReference; at least one of AuthorizationReference or
+        ClearingReference is always present.
     TransactionDateTime:
       $ref: '#/components/schemas/DateTime'
     ValutaDate:
@@ -778,7 +823,10 @@ components:
       examples:
         - authorized
       description: |
-        Status of the transaction; definition of enums: - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations - booked: transaction was cleared/settled and charged to the card account
+        Status of the transaction; definition of enums: - authorized: transaction was
+        approved from the issuer to the merchant, but not yet cleared; includes
+        reservations - booked: transaction was cleared/settled and charged to the card
+        account
     ApprovalNumber:
       title: Approval number (also known as approval code)
       type: string
@@ -786,7 +834,9 @@ components:
       examples:
         - '803051'
       description: |
-        Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for reversals or other special situations).
+        Identifies a transaction from the entity that authorized it; in combination
+        with cardId and transactionDateTime usually unique (except for reversals or
+        other special situations).
     OriginalAmount:
       $ref: '#/components/schemas/Amount'
     OriginalCurrency:
@@ -810,7 +860,9 @@ components:
     Fees:
       title: Fees
       description: |
-        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is provided.
+        One or more fees related to a transaction. Depending on the card service
+        provider and the type of fee only the fee_percentage or fee_amount is
+        provided.
       type: object
       required:
         - fee_name
@@ -836,7 +888,9 @@ components:
       maxLength: 100
       examples:
         - Aufladung
-      description: Description of the purpose of the transaction and potentially a reference to the merchant.
+      description: |
+        Description of the purpose of the transaction and potentially a reference to
+        the merchant.
     MerchantName:
       title: Merchant name
       type: string
@@ -891,7 +945,9 @@ components:
       maxLength: 11
       examples:
         - '12345678901'
-      description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
+      description: |
+        Identifies the acquirer who submitted the transaction; not provided by all
+        Card Service Providers.
     Channel:
       type: string
       enum:
@@ -899,7 +955,9 @@ components:
         - ecommerce
       examples:
         - standard
-      description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
+      description: |
+        Channel that was used by the cardholder for executing the transaction, allows
+        the identification of eCommerce transactions.
     TransactionCategory:
       title: Transaction category
       type: string
@@ -919,7 +977,9 @@ components:
       maxLength: 50
       examples:
         - Peter Schweizer
-      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
+      description: |
+        Reference to the cardholder who owns the card which was used for the
+        transaction; not provided by all Card Service Providers.
     RelatedTransactionId:
       $ref: '#/components/schemas/Id'
     FeeName:
@@ -929,14 +989,19 @@ components:
       examples:
         - transactionTipAmount
         - transactionSurchargeAmount
-      description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
+      description: |
+        Name of the fee that is charged for the transaction; value is defined by the
+        Issuer.
     FeePercentage:
       title: Fee percentage
       type: number
       examples:
         - 3.5
       description: |
-        Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. Values are provided to be compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
+        Percentage value of the transactionAmount for the fee type; not provided by
+        all Card Service Providers. Values are provided to be compatible with the %
+        notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as
+        decimal).
     FeeAmount:
       $ref: '#/components/schemas/Amount'
     FeeCurrency:
@@ -945,7 +1010,9 @@ components:
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
-      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
+      description: |
+        Currency that is used for charging the fee, usually the same as the currency
+        of the card account.
     Amount:
       title: Shared amount
       description: Amount of money for fees and services.
@@ -956,7 +1023,8 @@ components:
     Correlation:
       title: Shared correlation
       description: |
-        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and used e.g. for debugging.
+        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems,
+        and used e.g. for debugging.
       type: string
       examples:
         - f058ebd6-02f7-4d3f-942e-904344e8cde5
@@ -976,7 +1044,9 @@ components:
         - '2018-04-13'
     DateTime:
       title: Shared date-time
-      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
+      description: |
+        General date-time that is used for different attributes, format is
+        'YYYY-MM-DDThh:mm:ssZ'.
       type: string
       format: date-time
       examples:
@@ -997,7 +1067,9 @@ components:
         type:
           type: string
           description: |
-            A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP
+            A URI reference that identifies the problem type. When "about:blank" is
+            used, the title SHOULD be the same as the recommended HTTP
+
             status phrase for that code (e.g., "Not Found" for 404, and so on)
           example: about:blank
         title:
@@ -1012,7 +1084,9 @@ components:
             - Detailed problem description with respect to the current request
         instance:
           type: string
-          description: A (relative) URI reference that identifies the specific occurrence of the problem.
+          description: |
+            A (relative) URI reference that identifies the specific occurrence of the
+            problem.
           examples:
             - path/to/corresponding/resource
   parameters:
@@ -1061,7 +1135,9 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardStatus'
-      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
+      description: |
+        Retrieves all cards in a certain status. Only one status can be filtered
+        at a time.
     card_id:
       in: query
       name: card_id
@@ -1069,7 +1145,8 @@ components:
       schema:
         $ref: '#/components/schemas/Id'
       description: |
-        Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
+        Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards
+        endpoint.
     token_status:
       in: query
       name: token_status
@@ -1084,7 +1161,8 @@ components:
       schema:
         $ref: '#/components/schemas/AuthorizationReference'
       description: |
-        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on the authorization reference.
+        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based
+        on the authorization reference.
     clearing_reference:
       in: query
       name: clearing_reference
@@ -1092,7 +1170,8 @@ components:
       schema:
         $ref: '#/components/schemas/ClearingReference'
       description: |
-        Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).
+        Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those
+        booked on the card account for credit and prepaid or bank account for debit cards).
     token_id:
       in: query
       name: token_id
@@ -1100,7 +1179,8 @@ components:
       schema:
         $ref: '#/components/schemas/Id'
       description: |
-        Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET /card-tokens endpoint.
+        Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET
+        /card-tokens endpoint.
     from_date:
       in: query
       name: from_date
@@ -1108,7 +1188,8 @@ components:
       schema:
         $ref: '#/components/schemas/DateTime'
       description: |
-        Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+        Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time
+        attribute.
     to_date:
       in: query
       name: to_date
@@ -1116,7 +1197,8 @@ components:
       schema:
         $ref: '#/components/schemas/DateTime'
       description: |
-        Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+        Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time
+        attribute.
     status:
       in: query
       name: status
@@ -1144,7 +1226,9 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/Correlation'
-      description: Unique ID (defined by the caller) which will be reflected back in the response.
+      description: |
+        Unique ID (defined by the caller) which will be reflected back in the
+        response.
     agent:
       in: header
       name: User-Agent
@@ -1174,7 +1258,9 @@ components:
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
-        Client Error - The request could not be processed due to a problem in the data provided. This could be for any of the reasons of the HTML standard that would result in a 4xx code.
+        Client Error - The request could not be processed due to a problem in the data
+        provided. This could be for any of the reasons of the HTML standard that would
+        result in a 4xx code.
       content:
         application/problem+json:
           schema:
@@ -1186,7 +1272,9 @@ components:
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
-        Internal Server Error - The request could not be processed due to a problem at the data provider. This could be for any of the reasons of the HTML standard that would result in a 5xx code.
+        Internal Server Error - The request could not be processed due to a problem at
+        the data provider. This could be for any of the reasons of the HTML standard
+        that would result in a 5xx code.
       content:
         application/problem+json:
           schema:
@@ -1201,7 +1289,9 @@ components:
     X-Correlation-ID:
       schema:
         $ref: '#/components/schemas/Correlation'
-      description: Client defined ID from request to correlates HTTP requests between a client and server.
+      description: |
+        Client defined ID from request to correlates HTTP requests between a client
+        and server.
     X-Next-Cursor:
       description: An opaque string value, or an empty string if there are no more results.
       schema:
