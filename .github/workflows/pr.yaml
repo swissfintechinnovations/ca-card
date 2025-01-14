@@ -28,8 +28,6 @@ jobs:
             | jq -r '.workflows[] | select(.path==".github/workflows/bundle-spec.yaml")
             | .id')
 
-          echo "$WORKFLOW_ID"
-
           # Poll until the latest run is completed
           while true; do
             LATEST_RUN=$(curl -s \
@@ -43,7 +41,7 @@ jobs:
             START_TIME=$(echo $LATEST_RUN | jq -r '.run_started_at')
             LINK=$(echo $LATEST_RUN | jq -r '.html_url')
 
-            if [ "$STATUS" == "completed" ]; then
+            if [ "$STATUS" == "completed" && "$CONCLUSION" != "skipped" ]; then
               echo "BUNDLE_WORKFLOW_CONCLUSION=$CONCLUSION" >> $GITHUB_OUTPUT
               echo "BUNDLE_WORKFLOW_START_TIME=$START_TIME" >> $GITHUB_OUTPUT
               echo "BUNDLE_WORKFLOW_LINK=$LINK" >> $GITHUB_OUTPUT
@@ -67,6 +65,7 @@ jobs:
           if [ "$DIFF" -ge 0 ] && [ "$DIFF" -le 180 ]; then
             if [ ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_CONCLUSION}} == "success" ]; then
               echo "Bundle workflow ran successful."
+              echo "${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_LINK }}"
             else
               echo "::error::Bundle workflow failed. Please check the status of the workflow run at ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_LINK }} for more details."
             fi
