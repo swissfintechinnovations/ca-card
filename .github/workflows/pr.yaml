@@ -60,9 +60,10 @@ jobs:
           CURRENT_EPOCH=$(date -d "$CURRENT_TIME" +%s)
           
           DIFF=$(( CURRENT_EPOCH - START_EPOCH ))
+          echo $DIFF
 
           if [ "$DIFF" -ge 0 ] && [ "$DIFF" -le 180 ]; then
-            if [ ${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_CONCLUSION}} == "success" ]; then
+            if [ "${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_CONCLUSION}}" == "success" ]; then
               echo "Bundle workflow ran successful."
               echo "${{ steps.bundle-exit-status.outputs.BUNDLE_WORKFLOW_LINK }}"
             else
