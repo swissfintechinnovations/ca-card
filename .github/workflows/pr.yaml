@@ -22,6 +22,7 @@ jobs:
         id: bundle-exit-status
         run: |
           WORKFLOW_ID=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows \
             | jq -r '.workflows[] | select(.path==".github/workflows/bundle-spec.yaml") \
@@ -30,6 +31,7 @@ jobs:
           # Poll until the latest run is completed
           while true; do
             LATEST_RUN=$(curl -s \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github+json" \
               https://api.github.com/repos/${{ github.repository }}/actions/workflows/$WORKFLOW_ID/runs?per_page=20 \
               | jq -r '[.workflow_runs[] | select(.head_branch=="${{ github.head_ref }} and "$CONCLUSION" != "skipped"")][0]')
