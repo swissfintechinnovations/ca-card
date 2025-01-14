@@ -41,7 +41,7 @@ jobs:
             START_TIME=$(echo $LATEST_RUN | jq -r '.run_started_at')
             LINK=$(echo $LATEST_RUN | jq -r '.html_url')
 
-            if [ "$STATUS" == "completed" && "$CONCLUSION" != "skipped" ]; then
+            if [[ "$STATUS" == "completed" && "$CONCLUSION" != "skipped" ]]; then
               echo "BUNDLE_WORKFLOW_CONCLUSION=$CONCLUSION" >> $GITHUB_OUTPUT
               echo "BUNDLE_WORKFLOW_START_TIME=$START_TIME" >> $GITHUB_OUTPUT
               echo "BUNDLE_WORKFLOW_LINK=$LINK" >> $GITHUB_OUTPUT
