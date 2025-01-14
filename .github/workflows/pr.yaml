@@ -25,8 +25,7 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows \
-            | jq -r '.workflows[] | select(.path==".github/workflows/bundle-spec.yaml") \
-            | .id')
+            | jq -r '.workflows[] | select(.path==".github/workflows/bundle-spec.yaml") | .id')
 
           # Poll until the latest run is completed
           while true; do
