@@ -1,6 +1,9 @@
 name: 'SFTI Lint Specifications: Yaml Compliance'
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       filenames:
