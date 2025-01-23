@@ -5,7 +5,7 @@
 ---
 [![GitHub release](https://img.shields.io/github/release/swissfintechinnovations/ca-card?color=blue)](https://github.com/swissfintechinnovations/ca-card/releases/)
 ![Card Major Version](https://img.shields.io/badge/major_version-v0-blue)
-[![OpenAPI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fgithub.com%2Fswissfintechinnovations%2Fca-card%2Fraw%2Fmain%2FcardInfoAPI.yaml&query=openapi&prefix=v&label=OpenAPI&color=blue)](https://swagger.io/resources/open-api/)
+[![OpenAPI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fgithub.com%2Fswissfintechinnovations%2Fca-card%2Fraw%2Fmain%-Level1.yaml&query=openapi&prefix=v&label=OpenAPI&color=blue)](https://swagger.io/resources/open-api/)
 [![GitHub license](https://img.shields.io/github/license/swissfintechinnovations/ca-card?color=de980d)](https://github.com/swissfintechinnovations/ca-card/blob/main/LICENSE)
 
 [![GitHub Action Status OpenAPI](https://img.shields.io/github/actions/workflow/status/swissfintechinnovations/ca-card/lint-openapi.yaml?branch=main&label=openapi%20checks)](https://github.com/swissfintechinnovations/ca-card/actions/workflows/lint-openapi.yaml)
