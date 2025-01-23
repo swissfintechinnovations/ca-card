@@ -30,11 +30,7 @@ tags:
       Operations for retrieving information about transactions and
       authorizations done with payment cards or tokens.
 
-security:
-  - ApiKeyAuth: []
-  - OAuth2:
-      - read
-      - write
+security: []
 
 paths:
   /cards:
