@@ -14,11 +14,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://card.common-api.ch
-security:
-  - ApiKeyAuth: []
-  - OAuth2:
-      - read
-      - write
+security: []
 tags:
   - name: Cards
     description: Operations for retrieving information about payment cards.
