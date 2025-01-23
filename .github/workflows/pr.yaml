@@ -89,6 +89,6 @@ jobs:
   openapi-lint:
     needs: bundle-run-status
     if: ${{ success() }}
-    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@naming-conventions
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-openapi-workflow.yaml@naming-conventions ## TODO
     with:
       filenames: '*.yaml'
