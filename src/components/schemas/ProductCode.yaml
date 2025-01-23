@@ -1,0 +1,6 @@
+title: Product code
+type: string
+maxLength: 50
+examples:
+  - '1234567'
+description: Identifier for the card product.

@@ -1,0 +1,6 @@
+title: Embossing line 2
+type: string
+maxLength: 35
+examples:
+  - Peter Schweizer
+description: Second line embossed on the card to indicate the cardholder.

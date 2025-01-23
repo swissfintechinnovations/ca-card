@@ -1,0 +1,3 @@
+title: Transaction id
+description: UUID to link AuthorizationReference and ClearingReference.
+$ref: ./generic/Id.yaml

@@ -1,0 +1,9 @@
+title: Distribution partner code
+type: string
+maxLength: 50
+examples:
+  - '123456789'
+description: |
+  Identifier for the organization which is distributing / selling cards to end
+  customers and who can define the services and branding of the card; empty if
+  the card is distributed by the issuer.

@@ -1,0 +1,3 @@
+title: Funding card id
+description: Reference to the card that is used to fund the transactions of the token.
+$ref: ./generic/Id.yaml

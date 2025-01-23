@@ -1,0 +1,13 @@
+headers:
+  Content-Language:
+    $ref: ../headers/Content-Language.yaml
+  X-Correlation-ID:
+    $ref: ../headers/X-Correlation-ID.yaml
+description: |
+  Client Error - The request could not be processed due to a problem in the data
+  provided. This could be for any of the reasons of the HTML standard that would
+  result in a 4xx code.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/CommonErrorResponse.yaml

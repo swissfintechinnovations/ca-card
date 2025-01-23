@@ -1,0 +1,10 @@
+title: Card limit cycle
+type: integer
+format: int32
+examples:
+  - 2000
+description: |
+  Total amount of authorizations possible for the card per settlement cycle /
+  month in the currency of the card; effective limit is provided that considers
+  limits on the card and relationship; does not indicate the actually available
+  amount for authorizations in the current cycle.

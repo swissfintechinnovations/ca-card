@@ -1,0 +1,8 @@
+in: query
+name: from_date
+required: false
+schema:
+  $ref: ../../schemas/generic/DateTime.yaml
+description: |
+  Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time
+  attribute.

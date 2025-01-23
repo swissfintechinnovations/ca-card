@@ -1,0 +1,22 @@
+title: Token status
+type: string
+enum:
+  - ACTIVE
+  - SUSPENDED
+  - BLOCKED
+  - PENDING
+examples:
+  - ACTIVE
+description: |
+  Effective status of the token to indicate whether it can be used for payments;
+  definition of enums:
+
+  - active: authorizations are possible
+
+  - suspended: authorizations are temporarily not possible
+
+  - blocked: authorizations are permanently not possible because the token was
+  cancelled
+
+  - pending: authorizations are not possible because the token is not fully
+  issued or currently in transition between status
