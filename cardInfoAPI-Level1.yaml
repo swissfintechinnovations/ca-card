@@ -285,13 +285,15 @@ components:
       description: |
         Functional reference to a customer relationship/contract that is responsible
         for the card, defined by the Card Service Provider.
-    PersonReference:
-      title: Person reference
+    CardholderReference:
+      title: Cardholder reference
       type: string
       maxLength: 50
       examples:
         - '123456789'
-      description: Functional reference to a cardholder, defined by the Card Service Provider.
+      description: |
+        Reference to the cardholder who owns the card which was used for the
+        transaction; not provided by all Card Service Providers.
     CardId:
       title: Card id
       description: |
@@ -353,14 +355,14 @@ components:
       examples:
         - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
-    ProductCode:
+    CardProductCode:
       title: Product code
       type: string
       maxLength: 50
       examples:
         - '1234567'
       description: Identifier for the card product.
-    ProductName:
+    CardProductName:
       title: Product name
       type: string
       maxLength: 100
@@ -517,7 +519,7 @@ components:
       type: object
       required:
         - contract_reference
-        - person_reference
+        - cardholder_reference
         - card_id
         - embossing_line_1
         - embossing_line_2
@@ -526,8 +528,8 @@ components:
         - card_status
         - card_account_currency
         - image
-        - product_code
-        - product_name
+        - card_product_code
+        - card_product_name
         - scheme
         - issuing_type
         - product_type
@@ -540,8 +542,8 @@ components:
       properties:
         contract_reference:
           $ref: '#/components/schemas/ContractReference'
-        person_reference:
-          $ref: '#/components/schemas/PersonReference'
+        cardholder_reference:
+          $ref: '#/components/schemas/CardholderReference'
         card_id:
           $ref: '#/components/schemas/CardId'
         embossing_line_1:
@@ -560,10 +562,10 @@ components:
           $ref: '#/components/schemas/CardAccountCurrency'
         image:
           $ref: '#/components/schemas/Image'
-        product_code:
-          $ref: '#/components/schemas/ProductCode'
-        product_name:
-          $ref: '#/components/schemas/ProductName'
+        card_product_code:
+          $ref: '#/components/schemas/CardProductCode'
+        card_product_name:
+          $ref: '#/components/schemas/CardProductName'
         scheme:
           $ref: '#/components/schemas/Scheme'
         category:
@@ -1059,15 +1061,6 @@ components:
         - fee
         - atm
       description: Category of the transaction, defined by the Card Service Provider.
-    CardholderReference:
-      title: Cardholder reference
-      type: string
-      maxLength: 50
-      examples:
-        - Peter Schweizer
-      description: |
-        Reference to the cardholder who owns the card which was used for the
-        transaction; not provided by all Card Service Providers.
     RelatedTransactionId:
       title: Transaction reference
       description: |
