@@ -23,8 +23,7 @@ tags:
   - name: Cards
     description: Operations for retrieving information about payment cards.
   - name: Card-tokens
-    description: Operations for retrieving information about tokens associated with payment
-      cards.
+    description: Operations for retrieving information about tokens associated with payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
 
