@@ -3,6 +3,4 @@ type: string
 maxLength: 100
 examples:
   - Peter's iPhone
-description: |
-  Name of the device which is associated to the token, only available for
-  device-based tokens.
+description: Name of the device which is associated to the token, only available for device-based tokens.

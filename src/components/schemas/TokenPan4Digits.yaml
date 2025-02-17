@@ -3,6 +3,4 @@ type: string
 maxLength: 4
 examples:
   - '4321'
-description: |
-  Last 4 digits of the PAN for the token, usually shown in wallets or on
-  receipts when the token is used for payments.
+description: Last 4 digits of the PAN for the token, usually shown in wallets or on receipts when the token is used for payments.

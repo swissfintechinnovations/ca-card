@@ -3,6 +3,4 @@ type: string
 maxLength: 50
 examples:
   - '123456789'
-description: |
-  Identifier for the legal issuer of a card; responsible towards the schemes for
-  keeping the rules.
+description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.

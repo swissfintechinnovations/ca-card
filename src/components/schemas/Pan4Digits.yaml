@@ -4,6 +4,4 @@ maxLength: 4
 pattern: ^\d{4}$
 examples:
   - '4321'
-description: |
-  Last 4 digits of the PAN; values can change for the same cardId during the
-  lifecycle.
+description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.

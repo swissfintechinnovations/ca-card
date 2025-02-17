@@ -7,9 +7,7 @@ enum:
 examples:
   - ACTIVE
 description: |
-  Effective status of the card to indicate whether it can be used for payments;
-  definition of enums:
+  Effective status of the card to indicate whether it can be used for payments; definition of enums:
   - active: authorizations are possible
   - suspended: authorizations are temporarily not possible
-  - blocked: authorizations are permanently not possible because the card was
-  cancelled or permanently blocked for other reasons
+  - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
