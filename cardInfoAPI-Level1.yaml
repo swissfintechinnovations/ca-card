@@ -411,7 +411,8 @@ components:
       type: string
       format: uri
       examples:
-        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+        - >-
+          https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
     CardProductCode:
       title: Product code
