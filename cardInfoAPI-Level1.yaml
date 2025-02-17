@@ -11,28 +11,25 @@ info:
     email: info@common-api.ch
   license:
     name: Apache 2.0
+    identifier: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://card.common-api.ch
-security: []
+externalDocs:
+  description: Find out more about SFTI API specifications.
+  url: https://www.common-api.ch
 tags:
   - name: Cards
     description: Operations for retrieving information about payment cards.
   - name: Card-tokens
-    description: |
-      Operations for retrieving information about tokens associated with payment
-      cards.
+    description: Operations for retrieving information about tokens associated with payment cards.
   - name: Transactions
-    description: |
-      Operations for retrieving information about transactions and
-      authorizations done with payment cards or tokens.
-externalDocs:
-  description: Find out more about SFTI API specifications
-  url: https://www.common-api.ch
+    description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
+security: []
 paths:
   /cards:
     get:
-      summary: Provides a list of cards which match the provided query parameters.
+      summary: Provides a list of cards which match the provided query parameters
       description: |
         This operation enables the retrieval of a list of payment cards. Payment
         cards can be physical or virtual cards. In order to prevent API consumers
@@ -77,7 +74,7 @@ paths:
           $ref: '#/components/responses/standard500'
   /cards/{cardId}:
     get:
-      summary: Provides a single card which matches the id.
+      summary: Provides a single card which matches the id
       description: |
         This operation enables the retrieval of a single payment card when the cardId is already known.
         The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
@@ -104,7 +101,7 @@ paths:
           $ref: '#/components/responses/standard500'
   /card-tokens:
     get:
-      summary: Provides a list of card tokens which are associated with a card.
+      summary: Provides a list of card tokens which are associated with a card
       description: |
         This operation enables the retrieval of a list of tokens associated with a payment card.
         The tokens can be filtered further by status.
@@ -173,7 +170,7 @@ paths:
           $ref: '#/components/responses/standard500'
   /card-transactions:
     get:
-      summary: Provides a list of transactions which match the provided query parameters.
+      summary: Provides a list of transactions which match the provided query parameters
       description: |
         This operation enables the retrieval of a list of transactions performed with a payment card or token.
         Different query parameters are provided to support an efficient retrieval of individual transactions.
@@ -260,11 +257,8 @@ components:
       description: |
         Effective status of the card to indicate whether it can be used for payments;
         definition of enums:
-
         - active: authorizations are possible
-
         - suspended: authorizations are temporarily not possible
-
         - blocked: authorizations are permanently not possible because the card was
         cancelled or permanently blocked for other reasons
     Correlation:
@@ -285,13 +279,15 @@ components:
       description: |
         Functional reference to a customer relationship/contract that is responsible
         for the card, defined by the Card Service Provider.
-    PersonReference:
-      title: Person reference
+    CardholderReference:
+      title: Cardholder reference
       type: string
       maxLength: 50
       examples:
         - '123456789'
-      description: Functional reference to a cardholder, defined by the Card Service Provider.
+      description: |
+        Reference to the cardholder who owns the card which was used for the
+        transaction; not provided by all Card Service Providers.
     CardId:
       title: Card id
       description: |
@@ -353,14 +349,14 @@ components:
       examples:
         - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
-    ProductCode:
+    CardProductCode:
       title: Product code
       type: string
       maxLength: 50
       examples:
         - '1234567'
       description: Identifier for the card product.
-    ProductName:
+    CardProductName:
       title: Product name
       type: string
       maxLength: 100
@@ -517,7 +513,7 @@ components:
       type: object
       required:
         - contract_reference
-        - person_reference
+        - cardholder_reference
         - card_id
         - embossing_line_1
         - embossing_line_2
@@ -526,8 +522,8 @@ components:
         - card_status
         - card_account_currency
         - image
-        - product_code
-        - product_name
+        - card_product_code
+        - card_product_name
         - scheme
         - issuing_type
         - product_type
@@ -540,8 +536,8 @@ components:
       properties:
         contract_reference:
           $ref: '#/components/schemas/ContractReference'
-        person_reference:
-          $ref: '#/components/schemas/PersonReference'
+        cardholder_reference:
+          $ref: '#/components/schemas/CardholderReference'
         card_id:
           $ref: '#/components/schemas/CardId'
         embossing_line_1:
@@ -560,10 +556,10 @@ components:
           $ref: '#/components/schemas/CardAccountCurrency'
         image:
           $ref: '#/components/schemas/Image'
-        product_code:
-          $ref: '#/components/schemas/ProductCode'
-        product_name:
-          $ref: '#/components/schemas/ProductName'
+        card_product_code:
+          $ref: '#/components/schemas/CardProductCode'
+        card_product_name:
+          $ref: '#/components/schemas/CardProductName'
         scheme:
           $ref: '#/components/schemas/Scheme'
         category:
@@ -601,9 +597,8 @@ components:
           type: string
           description: |
             A URI reference that identifies the problem type. When "about:blank" is
-            used, the title SHOULD be the same as the recommended HTTP
-
-            status phrase for that code (e.g., "Not Found" for 404, and so on)
+            used, the title SHOULD be the same as the recommended HTTP status phrase
+            for that code (e.g., "Not Found" for 404, and so on)
           example: about:blank
         title:
           type: string
@@ -635,14 +630,10 @@ components:
       description: |
         Effective status of the token to indicate whether it can be used for payments;
         definition of enums:
-
         - active: authorizations are possible
-
         - suspended: authorizations are temporarily not possible
-
         - blocked: authorizations are permanently not possible because the token was
         cancelled
-
         - pending: authorizations are not possible because the token is not fully
         issued or currently in transition between status
     TokenId:
@@ -1059,15 +1050,6 @@ components:
         - fee
         - atm
       description: Category of the transaction, defined by the Card Service Provider.
-    CardholderReference:
-      title: Cardholder reference
-      type: string
-      maxLength: 50
-      examples:
-        - Peter Schweizer
-      description: |
-        Reference to the cardholder who owns the card which was used for the
-        transaction; not provided by all Card Service Providers.
     RelatedTransactionId:
       title: Transaction reference
       description: |
@@ -1158,6 +1140,35 @@ components:
           $ref: '#/components/schemas/CardId'
         related_transaction_id:
           $ref: '#/components/schemas/RelatedTransactionId'
+  responses:
+    standard400:
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/Content-Language'
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: |
+        Client Error - The request could not be processed due to a problem in the data
+        provided. This could be for any of the reasons of the HTML standard that would
+        result in a 4xx code.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+    standard500:
+      headers:
+        Content-Language:
+          $ref: '#/components/headers/Content-Language'
+        X-Correlation-ID:
+          $ref: '#/components/headers/X-Correlation-ID'
+      description: |
+        Internal Server Error - The request could not be processed due to a problem at
+        the data provider. This could be for any of the reasons of the HTML standard
+        that would result in a 5xx code.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
   parameters:
     card_status:
       in: query
@@ -1305,36 +1316,6 @@ components:
       schema:
         $ref: '#/components/schemas/TransactionId'
       description: Identifier (technical) for a transaction for which information is requested.
-  securitySchemes: {}
-  responses:
-    standard400:
-      headers:
-        Content-Language:
-          $ref: '#/components/headers/Content-Language'
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-      description: |
-        Client Error - The request could not be processed due to a problem in the data
-        provided. This could be for any of the reasons of the HTML standard that would
-        result in a 4xx code.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/CommonErrorResponse'
-    standard500:
-      headers:
-        Content-Language:
-          $ref: '#/components/headers/Content-Language'
-        X-Correlation-ID:
-          $ref: '#/components/headers/X-Correlation-ID'
-      description: |
-        Internal Server Error - The request could not be processed due to a problem at
-        the data provider. This could be for any of the reasons of the HTML standard
-        that would result in a 5xx code.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/CommonErrorResponse'
   headers:
     X-Correlation-ID:
       schema:
@@ -1353,3 +1334,4 @@ components:
         examples:
           - en
       description: Language of provided content.
+  securitySchemes: {}

@@ -3,7 +3,7 @@ description: Describes a payment card with its relevant characteristics.
 type: object
 required:
   - contract_reference
-  - person_reference
+  - cardholder_reference
   - card_id
   - embossing_line_1
   - embossing_line_2
@@ -12,8 +12,8 @@ required:
   - card_status
   - card_account_currency
   - image
-  - product_code
-  - product_name
+  - card_product_code
+  - card_product_name
   - scheme
   - issuing_type
   - product_type
@@ -26,8 +26,8 @@ required:
 properties:
   contract_reference:
     $ref: ./ContractReference.yaml
-  person_reference:
-    $ref: ./PersonReference.yaml
+  cardholder_reference:
+    $ref: ./CardholderReference.yaml
   card_id:
     $ref: ./CardId.yaml
   embossing_line_1:
@@ -46,10 +46,10 @@ properties:
     $ref: ./CardAccountCurrency.yaml
   image:
     $ref: ./Image.yaml
-  product_code:
-    $ref: ./ProductCode.yaml
-  product_name:
-    $ref: ./ProductName.yaml
+  card_product_code:
+    $ref: ./CardProductCode.yaml
+  card_product_name:
+    $ref: ./CardProductName.yaml
   scheme:
     $ref: ./Scheme.yaml
   category:
