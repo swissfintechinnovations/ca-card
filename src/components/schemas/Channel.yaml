@@ -4,6 +4,4 @@ enum:
   - ecommerce
 examples:
   - standard
-description: |
-  Channel that was used by the cardholder for executing the transaction, allows
-  the identification of eCommerce transactions.
+description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.

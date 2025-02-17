@@ -3,6 +3,4 @@ name: clearing_reference
 required: false
 schema:
   $ref: ../../schemas/ClearingReference.yaml
-description: |
-  Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those
-  booked on the card account for credit and prepaid or bank account for debit cards).
+description: Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).

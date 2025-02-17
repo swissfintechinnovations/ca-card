@@ -3,6 +3,4 @@ type: string
 pattern: ^[A-Z]{3}$
 examples:
   - CHF
-description: |
-  Currency that is used for charging the fee, usually the same as the currency
-  of the card account.
+description: Currency that is used for charging the fee, usually the same as the currency of the card account.
