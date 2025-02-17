@@ -33,20 +33,12 @@ paths:
   /cards:
     get:
       summary: Provides a list of cards which match the provided query parameters.
-      description: >
+      description: |
         This operation enables the retrieval of a list of payment cards. Payment
-
-        cards can be physical or virtual cards. In order to prevent API
-        consumers
-
+        cards can be physical or virtual cards. In order to prevent API consumers
         from having to fulfill PCI DSS requirements, no full PAN or other data
-
-        relevant for this regulation are included. The API consumer is expected
-        to
-
-        have a non-card related identifier for the customer for whom data should
-        be
-
+        relevant for this regulation are included. The API consumer is expected to
+        have a non-card related identifier for the customer for whom data should be
         returned (e.g. card account number, bank account number).
       tags:
         - Cards
@@ -59,13 +51,9 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >
-            Payment cards were found which match the query parameters. If no
-            cards
-
-            matched the parameters or access rights are missing, an empty list
-            is
-
+          description: |
+            Payment cards were found which match the query parameters. If no cards
+            matched the parameters or access rights are missing, an empty list is
             returned.
           headers:
             X-Correlation-ID:
@@ -90,12 +78,9 @@ paths:
   /cards/{cardId}:
     get:
       summary: Provides a single card which matches the id.
-      description: >
-        This operation enables the retrieval of a single payment card when the
-        cardId is already known.
-
-        The cardId must be retrieved with the GET /cards operation before or
-        stored locally at the API consumer.
+      description: |
+        This operation enables the retrieval of a single payment card when the cardId is already known.
+        The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
       tags:
         - Cards
       parameters:
@@ -105,9 +90,7 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >-
-            Single payment card was found. If the cardId was not found, a 400 is
-            returned.
+          description: Single payment card was found. If the cardId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -122,14 +105,10 @@ paths:
   /card-tokens:
     get:
       summary: Provides a list of card tokens which are associated with a card.
-      description: >
-        This operation enables the retrieval of a list of tokens associated with
-        a payment card.
-
+      description: |
+        This operation enables the retrieval of a list of tokens associated with a payment card.
         The tokens can be filtered further by status.
-
-        Tokens are representations of a payment card used in specific wallets ,
-        wearables or merchants.
+        Tokens are representations of a payment card used in specific wallets , wearables or merchants.
       tags:
         - Card-tokens
       parameters:
@@ -142,11 +121,9 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >
+          description: |
             Card tokens were found which match the query parameters.
-
-            If no card tokens matched the parameters or access rights are
-            missing, an empty list is returned.
+            If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -170,13 +147,9 @@ paths:
   /card-tokens/{tokenId}:
     get:
       summary: Provides a single token which matches the cardId and tokenId
-      description: >
-        This operation enables the retrieval of a single token when the cardId
-        and tokenId are already known.
-
-        The identifiers must be retrieved with the GET
-        /cards/{cardId}/card-tokens operation before or stored locally at the
-        API consumer.
+      description: |
+        This operation enables the retrieval of a single token when the cardId and tokenId are already known.
+        The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
       parameters:
@@ -186,9 +159,7 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >-
-            Single token was found. If the tokenId was not found, a 400 is
-            returned.
+          description: Single token was found. If the tokenId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -202,18 +173,11 @@ paths:
           $ref: '#/components/responses/standard500'
   /card-transactions:
     get:
-      summary: >-
-        Provides a list of transactions which match the provided query
-        parameters.
-      description: >
-        This operation enables the retrieval of a list of transactions performed
-        with a payment card or token.
-
-        Different query parameters are provided to support an efficient
-        retrieval of individual transactions.
-
-        With the Level 1 of the Common Card API only card-based financial
-        transactions are included.
+      summary: Provides a list of transactions which match the provided query parameters.
+      description: |
+        This operation enables the retrieval of a list of transactions performed with a payment card or token.
+        Different query parameters are provided to support an efficient retrieval of individual transactions.
+        With the Level 1 of the Common Card API only card-based financial transactions are included.
       tags:
         - Transactions
       parameters:
@@ -232,10 +196,8 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >
-            Transactions were found which match the query parameters. If no
-            transactions matched the parameters or access rights are missing,
-
+          description: |
+            Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
             an empty list is returned.
           headers:
             X-Correlation-ID:
@@ -260,12 +222,9 @@ paths:
   /card-transactions/{transactionId}:
     get:
       summary: Provides a single transaction which matches the transactionId
-      description: >
-        This operation enables the retrieval of a single transaction when the
-        transactionId is already known.
-
-        The transactionId must be retrieved with the GET /card-transactions
-        operation before or stored locally at the API consumer.
+      description: |
+        This operation enables the retrieval of a single transaction when the transactionId is already known.
+        The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.
       tags:
         - Transactions
       parameters:
@@ -275,9 +234,7 @@ paths:
         - $ref: '#/components/parameters/agent'
       responses:
         '200':
-          description: >-
-            Single token was found. If the transactionId was not found, a 400 is
-            returned.
+          description: Single token was found. If the transactionId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
@@ -300,29 +257,17 @@ components:
         - BLOCKED
       examples:
         - ACTIVE
-      description: >
-        Effective status of the card to indicate whether it can be used for
-        payments;
-
+      description: |
+        Effective status of the card to indicate whether it can be used for payments;
         definition of enums:
-
-
         - active: authorizations are possible
-
-
         - suspended: authorizations are temporarily not possible
-
-
-        - blocked: authorizations are permanently not possible because the card
-        was
-
+        - blocked: authorizations are permanently not possible because the card was
         cancelled or permanently blocked for other reasons
     Correlation:
       title: Shared correlation
-      description: >
-        Schema for X-Correlation-ID header. The correlation value is a unique
-        value to trace API calls across multiple systems,
-
+      description: |
+        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems,
         and used e.g. for debugging.
       type: string
       examples:
@@ -334,10 +279,8 @@ components:
       examples:
         - CH3456789012345678901
         - ABC-56789012345
-      description: >
-        Functional reference to a customer relationship/contract that is
-        responsible
-
+      description: |
+        Functional reference to a customer relationship/contract that is responsible
         for the card, defined by the Card Service Provider.
     CardholderReference:
       title: Cardholder reference
@@ -350,10 +293,8 @@ components:
         transaction; not provided by all Card Service Providers.
     CardId:
       title: Card id
-      description: >
-        Technical reference to a card (unique, constant in the lifecycle of a
-        card
-
+      description: |
+        Technical reference to a card (unique, constant in the lifecycle of a card
         even in case of replacements or renewals).
       type: string
       format: uuid
@@ -381,10 +322,8 @@ components:
       pattern: ^\d{4}$
       examples:
         - '4321'
-      description: >
-        Last 4 digits of the PAN; values can change for the same cardId during
-        the
-
+      description: |
+        Last 4 digits of the PAN; values can change for the same cardId during the
         lifecycle.
     ExpiryDate:
       title: Expiry date
@@ -411,8 +350,7 @@ components:
       type: string
       format: uri
       examples:
-        - >-
-          https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
       description: URL reference to an image for the design of the card.
     CardProductCode:
       title: Product code
@@ -438,9 +376,7 @@ components:
         - dinersclub
       examples:
         - mastercard
-      description: >-
-        Card network which is used to process payments with the card in
-        switzerland.
+      description: Card network which is used to process payments with the card in switzerland.
     Category:
       type: string
       enum:
@@ -448,13 +384,9 @@ components:
         - additional_card
       examples:
         - primary_card
-      description: >
-        Identifies the nature of the card in regards to the overall account; for
-        some
-
-        issuers the cardCategory has an influence on the effect of certain
-        lifecycle
-
+      description: |
+        Identifies the nature of the card in regards to the overall account; for some
+        issuers the cardCategory has an influence on the effect of certain lifecycle
         use cases.
     IssuingType:
       title: Issuing type
@@ -464,15 +396,10 @@ components:
         - virtual
       examples:
         - physical
-      description: >
-        Specifies in which form the card is issued; definition of enums: -
-        physical:
-
+      description: |
+        Specifies in which form the card is issued; definition of enums: - physical:
         the card is being embossed on a physical material and delivered to the
-
-        cardholder by mail - virtual: the card is being issued only virtually
-        for
-
+        cardholder by mail - virtual: the card is being issued only virtually for
         digital usage
     ProductType:
       title: Product type
@@ -500,16 +427,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: >
-        Total amount of authorizations possible for the card per settlement
-        cycle /
-
-        month in the currency of the card; effective limit is provided that
-        considers
-
-        limits on the card and relationship; does not indicate the actually
-        available
-
+      description: |
+        Total amount of authorizations possible for the card per settlement cycle /
+        month in the currency of the card; effective limit is provided that considers
+        limits on the card and relationship; does not indicate the actually available
         amount for authorizations in the current cycle.
     CardLimitDaily:
       title: Card limit daily
@@ -517,15 +438,10 @@ components:
       format: int32
       examples:
         - 2000
-      description: >
-        Total amount of authorizations possible for the card per day in the
-        currency
-
-        of the card; effective limit is provided that considers limits on the
-        card and
-
+      description: |
+        Total amount of authorizations possible for the card per day in the currency
+        of the card; effective limit is provided that considers limits on the card and
         relationship; does not indicate the actually available amount for
-
         authorizations on the current day.
     CardAccountReference:
       title: Card account reference
@@ -543,10 +459,8 @@ components:
       maxLength: 34
       examples:
         - CH3456789012345678901
-      description: >
-        Functional reference to the bank account linked to a card; mainly
-        relevant for
-
+      description: |
+        Functional reference to the bank account linked to a card; mainly relevant for
         debit cards, can be empty for credit or prepaid cards.
     IssuerCode:
       title: Issuer code
@@ -554,10 +468,8 @@ components:
       maxLength: 50
       examples:
         - '123456789'
-      description: >
-        Identifier for the legal issuer of a card; responsible towards the
-        schemes for
-
+      description: |
+        Identifier for the legal issuer of a card; responsible towards the schemes for
         keeping the rules.
     IssuerName:
       title: Issuer name
@@ -574,13 +486,9 @@ components:
       maxLength: 50
       examples:
         - '123456789'
-      description: >
-        Identifier for the organization which is distributing / selling cards to
-        end
-
-        customers and who can define the services and branding of the card;
-        empty if
-
+      description: |
+        Identifier for the organization which is distributing / selling cards to end
+        customers and who can define the services and branding of the card; empty if
         the card is distributed by the issuer.
     DistributionPartnerName:
       title: Distribution partner name
@@ -588,12 +496,9 @@ components:
       maxLength: 100
       examples:
         - Zürcher Kantonalbank
-      description: >
+      description: |
         Name of the organization which is distributing / issuing cards to end
-
-        customers and who can define the services and branding of the card;
-        empty if
-
+        customers and who can define the services and branding of the card; empty if
         the card is distributed by the issuer.
     Language:
       type: string
@@ -693,14 +598,10 @@ components:
       properties:
         type:
           type: string
-          description: >
-            A URI reference that identifies the problem type. When "about:blank"
-            is
-
-            used, the title SHOULD be the same as the recommended HTTP
-
-
-            status phrase for that code (e.g., "Not Found" for 404, and so on)
+          description: |
+            A URI reference that identifies the problem type. When "about:blank" is
+            used, the title SHOULD be the same as the recommended HTTP status phrase
+            for that code (e.g., "Not Found" for 404, and so on)
           example: about:blank
         title:
           type: string
@@ -709,17 +610,13 @@ components:
             - This is the general problem description
         detail:
           type: string
-          description: >-
-            A human-readable explanation specific to this occurrence of the
-            problem.
+          description: A human-readable explanation specific to this occurrence of the problem.
           examples:
             - Detailed problem description with respect to the current request
         instance:
           type: string
-          description: >
-            A (relative) URI reference that identifies the specific occurrence
-            of the
-
+          description: |
+            A (relative) URI reference that identifies the specific occurrence of the
             problem.
           examples:
             - path/to/corresponding/resource
@@ -733,28 +630,14 @@ components:
         - PENDING
       examples:
         - ACTIVE
-      description: >
-        Effective status of the token to indicate whether it can be used for
-        payments;
-
+      description: |
+        Effective status of the token to indicate whether it can be used for payments;
         definition of enums:
-
-
         - active: authorizations are possible
-
-
         - suspended: authorizations are temporarily not possible
-
-
-        - blocked: authorizations are permanently not possible because the token
-        was
-
+        - blocked: authorizations are permanently not possible because the token was
         cancelled
-
-
-        - pending: authorizations are not possible because the token is not
-        fully
-
+        - pending: authorizations are not possible because the token is not fully
         issued or currently in transition between status
     TokenId:
       title: Token id
@@ -827,9 +710,7 @@ components:
         device-based tokens; value defined by the Card Service Provider.
     FundingCardId:
       title: Funding card id
-      description: >-
-        Reference to the card that is used to fund the transactions of the
-        token.
+      description: Reference to the card that is used to fund the transactions of the token.
       type: string
       format: uuid
       maxLength: 50
@@ -896,12 +777,9 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-      description: >
+      description: |
         Unique identifier for authorized transactions; Id does not overlap with
-
-        ClearingReference; at least one of AuthorizationReference or
-        ClearingReference
-
+        ClearingReference; at least one of AuthorizationReference or ClearingReference
         is always present.
     ClearingReference:
       title: Clearing reference
@@ -930,15 +808,10 @@ components:
         - booked
       examples:
         - authorized
-      description: >
-        Status of the transaction; definition of enums: - authorized:
-        transaction was
-
+      description: |
+        Status of the transaction; definition of enums: - authorized: transaction was
         approved from the issuer to the merchant, but not yet cleared; includes
-
-        reservations - booked: transaction was cleared/settled and charged to
-        the card
-
+        reservations - booked: transaction was cleared/settled and charged to the card
         account
     OriginalCurrency:
       title: Original currency
@@ -986,13 +859,9 @@ components:
       pattern: ^\d{6}$
       examples:
         - '803051'
-      description: >
-        Identifies a transaction from the entity that authorized it; in
-        combination
-
-        with cardId and transactionDateTime usually unique (except for reversals
-        or
-
+      description: |
+        Identifies a transaction from the entity that authorized it; in combination
+        with cardId and transactionDateTime usually unique (except for reversals or
         other special situations).
     OriginalAmount:
       title: Original amount
@@ -1003,13 +872,9 @@ components:
         - '5.00'
     TotalAmount:
       title: Total amount
-      description: >
-        Total amount including fees for the transaction that is charged by the
-        issuer
-
-        to the card account (sum of transactionAmount and fees); positive
-        amounts are
-
+      description: |
+        Total amount including fees for the transaction that is charged by the issuer
+        to the card account (sum of transactionAmount and fees); positive amounts are
         debit transactions, negative amounts are credit transactions.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
@@ -1017,10 +882,8 @@ components:
         - '5.00'
     TransactionAmount:
       title: Transaction amount
-      description: >
-        Amount of the transaction (excluding fees) in the currency used by the
-        issuer
-
+      description: |
+        Amount of the transaction (excluding fees) in the currency used by the issuer
         to settle the charge to the card account.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
@@ -1040,33 +903,23 @@ components:
       examples:
         - transactionTipAmount
         - transactionSurchargeAmount
-      description: >
-        Name of the fee that is charged for the transaction; value is defined by
-        the
-
+      description: |
+        Name of the fee that is charged for the transaction; value is defined by the
         Issuer.
     FeePercentage:
       title: Fee percentage
       type: number
       examples:
         - 3.5
-      description: >
-        Percentage value of the transactionAmount for the fee type; not provided
-        by
-
-        all Card Service Providers. Values are provided to be compatible with
-        the %
-
-        notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035
-        as
-
+      description: |
+        Percentage value of the transactionAmount for the fee type; not provided by
+        all Card Service Providers. Values are provided to be compatible with the %
+        notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as
         decimal).
     FeeAmount:
       title: Fee amount
-      description: >
-        Amount of the fee that is charged for the transaction; not provided by
-        all
-
+      description: |
+        Amount of the fee that is charged for the transaction; not provided by all
         Card Service Providers.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
@@ -1078,10 +931,8 @@ components:
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
-      description: >
-        Currency that is used for charging the fee, usually the same as the
-        currency
-
+      description: |
+        Currency that is used for charging the fee, usually the same as the currency
         of the card account.
     Fees:
       title: Fees
@@ -1106,14 +957,10 @@ components:
       type: number
       examples:
         - 1.048593
-      description: >-
-        Exchange rate for converting the originalAmount into the
-        transactionAmount.
+      description: Exchange rate for converting the originalAmount into the transactionAmount.
     ExchangeRateDate:
       title: Exchange rate date
-      description: >-
-        Date which was used to determine the exchange rate, usually the
-        valutaDate.
+      description: Date which was used to determine the exchange rate, usually the valutaDate.
       type: string
       format: date
       examples:
@@ -1123,10 +970,8 @@ components:
       maxLength: 100
       examples:
         - Aufladung
-      description: >
-        Description of the purpose of the transaction and potentially a
-        reference to
-
+      description: |
+        Description of the purpose of the transaction and potentially a reference to
         the merchant.
     MerchantName:
       title: Merchant name
@@ -1182,10 +1027,8 @@ components:
       maxLength: 11
       examples:
         - '12345678901'
-      description: >
-        Identifies the acquirer who submitted the transaction; not provided by
-        all
-
+      description: |
+        Identifies the acquirer who submitted the transaction; not provided by all
         Card Service Providers.
     Channel:
       type: string
@@ -1194,10 +1037,8 @@ components:
         - ecommerce
       examples:
         - standard
-      description: >
-        Channel that was used by the cardholder for executing the transaction,
-        allows
-
+      description: |
+        Channel that was used by the cardholder for executing the transaction, allows
         the identification of eCommerce transactions.
     TransactionCategory:
       title: Transaction category
@@ -1309,13 +1150,9 @@ components:
           $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
-      description: >
-        Client Error - The request could not be processed due to a problem in
-        the data
-
-        provided. This could be for any of the reasons of the HTML standard that
-        would
-
+      description: |
+        Client Error - The request could not be processed due to a problem in the data
+        provided. This could be for any of the reasons of the HTML standard that would
         result in a 4xx code.
       content:
         application/problem+json:
@@ -1327,13 +1164,9 @@ components:
           $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
-      description: >
-        Internal Server Error - The request could not be processed due to a
-        problem at
-
-        the data provider. This could be for any of the reasons of the HTML
-        standard
-
+      description: |
+        Internal Server Error - The request could not be processed due to a problem at
+        the data provider. This could be for any of the reasons of the HTML standard
         that would result in a 5xx code.
       content:
         application/problem+json:
@@ -1356,9 +1189,7 @@ components:
       schema:
         type: string
         example: cursorIDxyz
-      description: >-
-        Optional parameter for pagination. An opaque string value used for
-        pagination.
+      description: Optional parameter for pagination. An opaque string value used for pagination.
     limit:
       in: query
       name: limit
@@ -1368,9 +1199,7 @@ components:
         format: int32
         minimum: 1
         example: 25
-      description: >-
-        Optional parameter for pagination. Maximum number of entries to be
-        returned.
+      description: Optional parameter for pagination. Maximum number of entries to be returned.
     client:
       in: header
       name: X-CorAPI-Client-ID
@@ -1407,10 +1236,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardId'
-      description: >
-        Retrieves all tokens related to a card. Value has to be a technical
-        identifier for the card that can be retrieved with the GET /cards
-
+      description: |
+        Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards
         endpoint.
     token_status:
       in: query
@@ -1418,9 +1245,7 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenStatus'
-      description: >-
-        Retrieves all tokens in a certain status. Only one status can be
-        filtered at a time.
+      description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
     tokenId:
       in: path
       name: tokenId
@@ -1434,10 +1259,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/AuthorizationReference'
-      description: >
-        Retrieves the transaction related to an individual authorization.
-        Parameter can be used to also retrieve the cleared transaction based
-
+      description: |
+        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based
         on the authorization reference.
     clearing_reference:
       in: query
@@ -1445,22 +1268,17 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/ClearingReference'
-      description: >
-        Retrieves the transaction related to an individual clearing. Query
-        parameter only returns results for cleared transactions (those
-
-        booked on the card account for credit and prepaid or bank account for
-        debit cards).
+      description: |
+        Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those
+        booked on the card account for credit and prepaid or bank account for debit cards).
     token_id:
       in: query
       name: token_id
       required: false
       schema:
         $ref: '#/components/schemas/TokenId'
-      description: >
-        Retrieves all transactions related to a token. Value has to be a
-        technical identifier for the card that can be retrieved with the GET
-
+      description: |
+        Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET
         /card-tokens endpoint.
     from_date:
       in: query
@@ -1468,10 +1286,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
-      description: >
-        Retrieves all transactions that took place after the provided date time.
-        Filtering is applied on the transaction_date_time
-
+      description: |
+        Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time
         attribute.
     to_date:
       in: query
@@ -1479,10 +1295,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
-      description: >
-        Retrieves all transactions that took place before the provided date
-        time. Filtering is applied on the transaction_date_time
-
+      description: |
+        Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time
         attribute.
     status:
       in: query
@@ -1490,35 +1304,27 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TransactionStatus'
-      description: >-
-        Retrieves all transactions in a certain status. Only one status can be
-        filtered at a time.
+      description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
     original_currency:
       in: query
       name: original_currency
       required: false
       schema:
         $ref: '#/components/schemas/OriginalCurrency'
-      description: >-
-        Retrieves all transactions in a certain currency. Filtering is applied
-        on the original_currency attribute.
+      description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
     transactionId:
       in: path
       name: transactionId
       required: true
       schema:
         $ref: '#/components/schemas/TransactionId'
-      description: >-
-        Identifier (technical) for a transaction for which information is
-        requested.
+      description: Identifier (technical) for a transaction for which information is requested.
   headers:
     X-Correlation-ID:
       schema:
         $ref: '#/components/schemas/Correlation'
-      description: >
-        Client defined ID from request to correlates HTTP requests between a
-        client
-
+      description: |
+        Client defined ID from request to correlates HTTP requests between a client
         and server.
     X-Next-Cursor:
       description: An opaque string value, or an empty string if there are no more results.
