@@ -1,3 +1,4 @@
+description: Card network which is used to process payments with the card in switzerland.
 type: string
 enum:
   - mastercard
@@ -6,4 +7,3 @@ enum:
   - dinersclub
 examples:
   - mastercard
-description: Card network which is used to process payments with the card in switzerland.

@@ -1,6 +1,6 @@
 title: Bank account reference
+description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
 type: string
 maxLength: 34
 examples:
   - CH3456789012345678901
-description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.

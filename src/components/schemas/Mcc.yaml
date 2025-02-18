@@ -1,5 +1,5 @@
+description: Merchant Category Code to identify the industry branch of the merchant.
 type: string
 maxLength: 4
 examples:
   - '4812'
-description: Merchant Category Code to identify the industry branch of the merchant.

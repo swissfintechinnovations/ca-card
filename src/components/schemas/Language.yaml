@@ -1,3 +1,4 @@
+description: Preferred language of the cardholder for any communication.
 type: string
 enum:
   - DE
@@ -6,4 +7,3 @@ enum:
   - IT
 examples:
   - DE
-description: Preferred language of the cardholder for any communication.

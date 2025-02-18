@@ -1,6 +1,6 @@
 title: Terminal reference (also known as terminal id)
+description: Identifier for the terminal which has read the card data.
 type: string
 maxLength: 8
 examples:
   - '12345678'
-description: Identifier for the terminal which has read the card data.

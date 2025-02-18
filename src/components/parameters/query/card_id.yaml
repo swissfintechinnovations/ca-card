@@ -1,6 +1,6 @@
 in: query
 name: card_id
+description: Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.
 required: false
 schema:
   $ref: ../../schemas/CardId.yaml
-description: Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards endpoint.

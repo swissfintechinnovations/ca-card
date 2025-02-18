@@ -1,6 +1,6 @@
 title: Cardholder reference
+description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
 type: string
 maxLength: 50
 examples:
   - '123456789'
-description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.

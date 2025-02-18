@@ -1,6 +1,6 @@
 title: Mcc description
+description: Description for the mcc.
 type: string
 maxLength: 100
 examples:
   - Telco
-description: Description for the mcc.

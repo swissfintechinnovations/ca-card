@@ -1,6 +1,6 @@
 title: Original currency
+description: Currency of the card account on which the transaction is charged.
 type: string
 pattern: ^[a-zA-Z0-9]{3}$
 examples:
   - CHF
-description: Currency of the card account on which the transaction is charged.
