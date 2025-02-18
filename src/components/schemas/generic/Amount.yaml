@@ -1,6 +1,6 @@
 title: Shared amount
 description: Amount of money for fees and services.
 type: string
-pattern: '^[0-9]{1,12}([.][0-9]{1,5})?$'
+pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
 examples:
   - '5.00'

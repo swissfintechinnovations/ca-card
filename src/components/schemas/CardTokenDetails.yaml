@@ -2,36 +2,36 @@ title: Card token details
 description: Describes a token with its relevant characteristics.
 type: object
 required:
+  - funding_card_id
   - token_id
+  - token_issuing_date
   - token_pan_4_digits
   - token_requestor_code
   - token_requestor_name
-  - funding_card_id
-  - token_status
-  - token_issuing_date
   - token_scheme
+  - token_status
 properties:
+  funding_card_id:
+    $ref: ./FundingCardId.yaml
   token_id:
     $ref: ./TokenId.yaml
+  token_issuing_date:
+    $ref: ./TokenIssuingDate.yaml
   token_pan_4_digits:
     $ref: ./TokenPan4Digits.yaml
-  wallet_code:
-    $ref: ./WalletCode.yaml
-  wallet_name:
-    $ref: ./WalletName.yaml
   token_requestor_code:
     $ref: ./TokenRequestorCode.yaml
   token_requestor_name:
     $ref: ./TokenRequestorName.yaml
+  token_scheme:
+    $ref: ./TokenScheme.yaml
+  token_status:
+    $ref: ./TokenStatus.yaml
   device_name:
     $ref: ./DeviceName.yaml
   device_type:
     $ref: ./DeviceType.yaml
-  funding_card_id:
-    $ref: ./FundingCardId.yaml
-  token_status:
-    $ref: ./TokenStatus.yaml
-  token_issuing_date:
-    $ref: ./TokenIssuingDate.yaml
-  token_scheme:
-    $ref: ./TokenScheme.yaml
+  wallet_code:
+    $ref: ./WalletCode.yaml
+  wallet_name:
+    $ref: ./WalletName.yaml

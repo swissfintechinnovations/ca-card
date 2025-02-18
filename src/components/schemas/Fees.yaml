@@ -6,9 +6,9 @@ required:
 properties:
   fee_name:
     $ref: ./FeeName.yaml
-  fee_percentage:
-    $ref: ./FeePercentage.yaml
   fee_amount:
     $ref: ./FeeAmount.yaml
   fee_currency:
     $ref: ./FeeCurrency.yaml
+  fee_percentage:
+    $ref: ./FeePercentage.yaml

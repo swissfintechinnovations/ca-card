@@ -1,6 +1,6 @@
 title: Acquirer reference (also known as acquirer id)
+description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
 type: string
 maxLength: 11
 examples:
   - '12345678901'
-description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.

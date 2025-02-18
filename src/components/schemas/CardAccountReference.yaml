@@ -1,6 +1,6 @@
 title: Card account reference
+description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.
 type: string
 maxLength: 50
 examples:
   - AB-4567890123456
-description: Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are settled directly to the bank account.

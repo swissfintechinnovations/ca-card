@@ -14,17 +14,14 @@ servers:
 externalDocs:
   description: Find out more about SFTI API specifications.
   url: https://www.common-api.ch
-
 tags:
-  - name: Cards
-    description: Operations for retrieving information about payment cards.
   - name: Card-tokens
     description: Operations for retrieving information about tokens associated with payment cards.
+  - name: Cards
+    description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
-
 security: []
-
 paths:
   /cards:
     get:
@@ -62,7 +59,6 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
   /cards/{cardId}:
     get:
       summary: Provides a single card which matches the id
@@ -88,7 +84,6 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
   /card-tokens:
     get:
       summary: Provides a list of card tokens which are associated with a card
@@ -126,7 +121,6 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
   /card-tokens/{tokenId}:
     get:
       summary: Provides a single token which matches the cardId and tokenId
@@ -152,7 +146,6 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
   /card-transactions:
     get:
       summary: Provides a list of transactions which match the provided query parameters
@@ -196,7 +189,6 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
   /card-transactions/{transactionId}:
     get:
       summary: Provides a single transaction which matches the transactionId
