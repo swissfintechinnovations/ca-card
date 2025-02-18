@@ -2,11 +2,7 @@ openapi: 3.1.0
 info:
   version: 0.8.0
   title: Common Card API (Public)
-  description: |
-    This specification defines a common card API for payment cards used in
-    Switzerland. The API is supposed to be used by third parties to retrieve
-    payment card information for scheme-based debit, credit or prepaid cards
-    (read only).
+  description: This specification defines a common card API for payment cards used in Switzerland. The API is supposed to be used by third parties to retrieve payment card information for scheme-based debit, credit or prepaid cards (read only).
   contact:
     email: info@common-api.ch
   license:
@@ -33,13 +29,7 @@ paths:
   /cards:
     get:
       summary: Provides a list of cards which match the provided query parameters
-      description: |
-        This operation enables the retrieval of a list of payment cards. Payment
-        cards can be physical or virtual cards. In order to prevent API consumers
-        from having to fulfill PCI DSS requirements, no full PAN or other data
-        relevant for this regulation are included. The API consumer is expected to
-        have a non-card related identifier for the customer for whom data should be
-        returned (e.g. card account number, bank account number).
+      description: This operation enables the retrieval of a list of payment cards. Payment cards can be physical or virtual cards. In order to prevent API consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant for this regulation are included. The API consumer is expected to have a non-card related identifier for the customer for whom data should be returned (e.g. card account number, bank account number).
       tags:
         - Cards
       parameters:
@@ -51,10 +41,7 @@ paths:
         - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
-          description: |
-            Payment cards were found which match the query parameters. If no cards
-            matched the parameters or access rights are missing, an empty list is
-            returned.
+          description: Payment cards were found which match the query parameters. If no cards matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: ./components/headers/X-Correlation-ID.yaml
@@ -79,9 +66,7 @@ paths:
   /cards/{cardId}:
     get:
       summary: Provides a single card which matches the id
-      description: |
-        This operation enables the retrieval of a single payment card when the cardId is already known.
-        The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
+      description: This operation enables the retrieval of a single payment card when the cardId is already known. The cardId must be retrieved with the GET /cards operation before or stored locally at the API consumer.
       tags:
         - Cards
       parameters:
@@ -107,10 +92,7 @@ paths:
   /card-tokens:
     get:
       summary: Provides a list of card tokens which are associated with a card
-      description: |
-        This operation enables the retrieval of a list of tokens associated with a payment card.
-        The tokens can be filtered further by status.
-        Tokens are representations of a payment card used in specific wallets , wearables or merchants.
+      description: This operation enables the retrieval of a list of tokens associated with a payment card. The tokens can be filtered further by status. Tokens are representations of a payment card used in specific wallets , wearables or merchants.
       tags:
         - Card-tokens
       parameters:
@@ -123,9 +105,7 @@ paths:
         - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
-          description: |
-            Card tokens were found which match the query parameters.
-            If no card tokens matched the parameters or access rights are missing, an empty list is returned.
+          description: Card tokens were found which match the query parameters. If no card tokens matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: ./components/headers/X-Correlation-ID.yaml
@@ -150,9 +130,7 @@ paths:
   /card-tokens/{tokenId}:
     get:
       summary: Provides a single token which matches the cardId and tokenId
-      description: |
-        This operation enables the retrieval of a single token when the cardId and tokenId are already known.
-        The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
+      description: This operation enables the retrieval of a single token when the cardId and tokenId are already known. The identifiers must be retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
       parameters:
@@ -178,10 +156,7 @@ paths:
   /card-transactions:
     get:
       summary: Provides a list of transactions which match the provided query parameters
-      description: |
-        This operation enables the retrieval of a list of transactions performed with a payment card or token.
-        Different query parameters are provided to support an efficient retrieval of individual transactions.
-        With the Level 1 of the Common Card API only card-based financial transactions are included.
+      description: This operation enables the retrieval of a list of transactions performed with a payment card or token. Different query parameters are provided to support an efficient retrieval of individual transactions. With the Level 1 of the Common Card API only card-based financial transactions are included.
       tags:
         - Transactions
       parameters:
@@ -200,9 +175,7 @@ paths:
         - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
-          description: |
-            Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing,
-            an empty list is returned.
+          description: Transactions were found which match the query parameters. If no transactions matched the parameters or access rights are missing, an empty list is returned.
           headers:
             X-Correlation-ID:
               $ref: ./components/headers/X-Correlation-ID.yaml
@@ -227,9 +200,7 @@ paths:
   /card-transactions/{transactionId}:
     get:
       summary: Provides a single transaction which matches the transactionId
-      description: |
-        This operation enables the retrieval of a single transaction when the transactionId is already known.
-        The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.
+      description: This operation enables the retrieval of a single transaction when the transactionId is already known. The transactionId must be retrieved with the GET /card-transactions operation before or stored locally at the API consumer.
       tags:
         - Transactions
       parameters:
@@ -251,10 +222,3 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-
-components:
-  schemas: {}
-  parameters: {}
-  securitySchemes: {}
-  responses: {}
-  headers: {}
