@@ -372,8 +372,8 @@ components:
     IssuingType:
       title: Issuing type
       description: |
-        Specifies in which form the card is issued; definition of enums: 
-        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail 
+        Specifies in which form the card is issued; definition of enums:
+        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
         - virtual: the card is being issued only virtually for digital usage
       type: string
       enum:
@@ -755,8 +755,8 @@ components:
     TransactionStatus:
       title: Transaction status
       description: |
-        Status of the transaction; definition of enums: 
-        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations 
+        Status of the transaction; definition of enums:
+        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
         - booked: transaction was cleared/settled and charged to the card account
       type: string
       enum:
