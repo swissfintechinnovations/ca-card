@@ -1,6 +1,6 @@
 in: path
 name: transactionId
+description: Identifier (technical) for a transaction for which information is requested.
 required: true
 schema:
   $ref: ../../schemas/TransactionId.yaml
-description: Identifier (technical) for a transaction for which information is requested.

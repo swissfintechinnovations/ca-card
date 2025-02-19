@@ -1,12 +1,11 @@
 title: Issuing type
+description: |
+  Specifies in which form the card is issued; definition of enums:
+  - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
+  - virtual: the card is being issued only virtually for digital usage
 type: string
 enum:
   - physical
   - virtual
 examples:
   - physical
-description: |
-  Specifies in which form the card is issued; definition of enums: - physical:
-  the card is being embossed on a physical material and delivered to the
-  cardholder by mail - virtual: the card is being issued only virtually for
-  digital usage

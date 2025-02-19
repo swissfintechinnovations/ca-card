@@ -1,4 +1,5 @@
 title: Transaction category
+description: Category of the transaction, defined by the Card Service Provider.
 type: string
 maxLength: 50
 examples:
@@ -9,4 +10,3 @@ examples:
   - merchant
   - fee
   - atm
-description: Category of the transaction, defined by the Card Service Provider.

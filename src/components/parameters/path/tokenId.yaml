@@ -1,6 +1,6 @@
 in: path
 name: tokenId
+description: Identifier (technical) for a token for which information is requested.
 required: true
 schema:
   $ref: ../../schemas/TokenId.yaml
-description: Identifier (technical) for a token for which information is requested.

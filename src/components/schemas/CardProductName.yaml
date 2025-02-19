@@ -1,7 +1,7 @@
 title: Product name
+description: Name for the card product assigned by the issuer.
 type: string
 maxLength: 100
 examples:
   - A1
   - MC/VI Gold CHF
-description: Name for the card product assigned by the issuer.

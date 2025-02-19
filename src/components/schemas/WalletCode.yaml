@@ -1,6 +1,6 @@
 title: Wallet code
+description: Identifier for the wallet in which the token is used and managed.
 type: string
 maxLength: 10
 examples:
   - '123'
-description: Identifier for the wallet in which the token is used and managed.
