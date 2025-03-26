@@ -1,6 +1,6 @@
 title: Embossing line 2
+description: Second line embossed on the card to indicate the cardholder.
 type: string
 maxLength: 35
 examples:
   - Peter Schweizer
-description: Second line embossed on the card to indicate the cardholder.

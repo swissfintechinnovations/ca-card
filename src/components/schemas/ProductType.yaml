@@ -1,4 +1,5 @@
 title: Product type
+description: Type of the card product.
 type: string
 enum:
   - credit
@@ -6,4 +7,3 @@ enum:
   - prepaid
 examples:
   - credit
-description: Type of the card product.

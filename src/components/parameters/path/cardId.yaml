@@ -1,6 +1,6 @@
 in: path
 name: cardId
+description: Identifier (technical) for a card for which information is requested.
 required: true
 schema:
   $ref: ../../schemas/CardId.yaml
-description: Identifier (technical) for a card for which information is requested.
