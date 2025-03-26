@@ -9,7 +9,6 @@ info:
     email: info@common-api.ch
   license:
     name: Apache 2.0
-    identifier: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://card.common-api.ch
@@ -239,196 +238,31 @@ paths:
           $ref: '#/components/responses/standard500'
 components:
   schemas:
-    CardStatus:
-      title: Card status
-      description: |
-        Effective status of the card to indicate whether it can be used for payments; definition of enums:
-        - active: authorizations are possible
-        - suspended: authorizations are temporarily not possible
-        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
+    AcquirerReference:
+      title: Acquirer reference (also known as acquirer id)
+      description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
       type: string
-      enum:
-        - ACTIVE
-        - SUSPENDED
-        - BLOCKED
+      maxLength: 11
       examples:
-        - ACTIVE
-    Correlation:
-      title: Shared correlation
+        - '12345678901'
+    ApprovalNumber:
+      title: Approval number (also known as approval code)
       description: >-
-        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and used e.g. for
-        debugging.
+        Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for
+        reversals or other special situations).
       type: string
+      pattern: ^\d{6}$
       examples:
-        - f058ebd6-02f7-4d3f-942e-904344e8cde5
-    CardAccountCurrency:
-      description: Settlement currency of the card / card account in ISO code format.
-      type: string
-      pattern: ^[a-zA-Z0-9]{3}$
-      examples:
-        - CHF
-        - EUR
-    CardId:
-      title: Card id
-      description: |
-        Technical reference to a card (unique, constant in the lifecycle of a card
-        even in case of replacements or renewals).
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    CardLimitCycle:
-      title: Card limit cycle
+        - '803051'
+    AuthorizationReference:
+      title: Authorization reference
       description: >-
-        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided
-        that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
-      type: integer
-      format: int32
-      examples:
-        - 2000
-    CardLimitDaily:
-      title: Card limit daily
-      description: >-
-        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on
-        the card and relationship; does not indicate the actually available amount for authorizations on the current day.
-      type: integer
-      format: int32
-      examples:
-        - 2000
-    CardProductCode:
-      title: Product code
-      description: Identifier for the card product.
+        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or
+        ClearingReference is always present.
       type: string
       maxLength: 50
       examples:
-        - '1234567'
-    CardProductName:
-      title: Product name
-      description: Name for the card product assigned by the issuer.
-      type: string
-      maxLength: 100
-      examples:
-        - A1
-        - MC/VI Gold CHF
-    CardholderReference:
-      title: Cardholder reference
-      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    ContractReference:
-      title: Contract reference
-      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
-      type: string
-      maxLength: 50
-      examples:
-        - CH3456789012345678901
-        - ABC-56789012345
-    EmbossingLine1:
-      title: Embossing line 1
-      description: First line embossed on the card to indicate the cardholder.
-      type: string
-      maxLength: 35
-      examples:
-        - Peter Schweizer
-    EmbossingLine2:
-      title: Embossing line 2
-      description: Second line embossed on the card to indicate the cardholder.
-      type: string
-      maxLength: 35
-      examples:
-        - Peter Schweizer
-    ExpiryDate:
-      title: Expiry date
-      description: Last day when the card is valid and can be used for payments.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    Image:
-      description: URL reference to an image for the design of the card.
-      type: string
-      format: uri
-      examples:
-        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
-    IssuerCode:
-      title: Issuer code
-      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    IssuerName:
-      title: Issuer name
-      description: Name of the legal issuer of a card.
-      type: string
-      maxLength: 100
-      examples:
-        - Viseca Card Services
-        - UBS
-        - Zürcher Kantonalbank
-    IssuingType:
-      title: Issuing type
-      description: |
-        Specifies in which form the card is issued; definition of enums:
-        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
-        - virtual: the card is being issued only virtually for digital usage
-      type: string
-      enum:
-        - physical
-        - virtual
-      examples:
-        - physical
-    Language:
-      description: Preferred language of the cardholder for any communication.
-      type: string
-      enum:
-        - DE
-        - EN
-        - FR
-        - IT
-      examples:
-        - DE
-    Pan4Digits:
-      title: Pan 4 digits
-      description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
-      type: string
-      maxLength: 4
-      pattern: ^\d{4}$
-      examples:
-        - '4321'
-    ProductLine:
-      title: Product line
-      description: Customer segment to which the card is offered.
-      type: string
-      enum:
-        - consumer
-        - business
-        - corporate
-      examples:
-        - consumer
-    ProductType:
-      title: Product type
-      description: Type of the card product.
-      type: string
-      enum:
-        - credit
-        - debit
-        - prepaid
-      examples:
-        - credit
-    Scheme:
-      description: Card network which is used to process payments with the card in switzerland.
-      type: string
-      enum:
-        - mastercard
-        - visa
-        - americanexpress
-        - dinersclub
-      examples:
-        - mastercard
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     BankAccountReference:
       title: Bank account reference
       description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
@@ -436,6 +270,20 @@ components:
       maxLength: 34
       examples:
         - CH3456789012345678901
+    CardAcceptorReference:
+      title: Card acceptor reference
+      description: Identifier for the merchant who requested the transaction.
+      type: string
+      maxLength: 15
+      examples:
+        - '87040'
+    CardAccountCurrency:
+      description: Settlement currency of the card / card account in ISO code format.
+      type: string
+      pattern: ^[a-zA-Z0-9]{3}$
+      examples:
+        - CHF
+        - EUR
     CardAccountReference:
       title: Card account reference
       description: >-
@@ -445,41 +293,6 @@ components:
       maxLength: 50
       examples:
         - AB-4567890123456
-    Category:
-      description: >-
-        Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of
-        certain lifecycle use cases.
-      type: string
-      enum:
-        - primary_card
-        - additional_card
-      examples:
-        - primary_card
-    DistributionPartnerCode:
-      title: Distribution partner code
-      description: >-
-        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the
-        card; empty if the card is distributed by the issuer.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    DistributionPartnerName:
-      title: Distribution partner name
-      description: >-
-        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
-        empty if the card is distributed by the issuer.
-      type: string
-      maxLength: 100
-      examples:
-        - Zürcher Kantonalbank
-    InitialIssuingDate:
-      title: Initial issuing date
-      description: Date when card was issued initially.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
     CardDetails:
       title: Card details
       description: Describes a payment card with its relevant characteristics.
@@ -561,6 +374,135 @@ components:
           $ref: '#/components/schemas/DistributionPartnerName'
         initial_issuing_date:
           $ref: '#/components/schemas/InitialIssuingDate'
+    CardId:
+      title: Card id
+      description: |
+        Technical reference to a card (unique, constant in the lifecycle of a card
+        even in case of replacements or renewals).
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    CardLimitCycle:
+      title: Card limit cycle
+      description: >-
+        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided
+        that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current cycle.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardLimitDaily:
+      title: Card limit daily
+      description: >-
+        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers limits on
+        the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardProductCode:
+      title: Product code
+      description: Identifier for the card product.
+      type: string
+      maxLength: 50
+      examples:
+        - '1234567'
+    CardProductName:
+      title: Product name
+      description: Name for the card product assigned by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - A1
+        - MC/VI Gold CHF
+    CardStatus:
+      title: Card status
+      description: |
+        Effective status of the card to indicate whether it can be used for payments; definition of enums:
+        - active: authorizations are possible
+        - suspended: authorizations are temporarily not possible
+        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
+      type: string
+      enum:
+        - ACTIVE
+        - SUSPENDED
+        - BLOCKED
+      examples:
+        - ACTIVE
+    CardTokenDetails:
+      title: Card token details
+      description: Describes a token with its relevant characteristics.
+      type: object
+      required:
+        - funding_card_id
+        - token_id
+        - token_issuing_date
+        - token_pan_4_digits
+        - token_requestor_code
+        - token_requestor_name
+        - token_scheme
+        - token_status
+      properties:
+        funding_card_id:
+          $ref: '#/components/schemas/FundingCardId'
+        token_id:
+          $ref: '#/components/schemas/TokenId'
+        token_issuing_date:
+          $ref: '#/components/schemas/TokenIssuingDate'
+        token_pan_4_digits:
+          $ref: '#/components/schemas/TokenPan4Digits'
+        token_requestor_code:
+          $ref: '#/components/schemas/TokenRequestorCode'
+        token_requestor_name:
+          $ref: '#/components/schemas/TokenRequestorName'
+        token_scheme:
+          $ref: '#/components/schemas/TokenScheme'
+        token_status:
+          $ref: '#/components/schemas/TokenStatus'
+        device_name:
+          $ref: '#/components/schemas/DeviceName'
+        device_type:
+          $ref: '#/components/schemas/DeviceType'
+        wallet_code:
+          $ref: '#/components/schemas/WalletCode'
+        wallet_name:
+          $ref: '#/components/schemas/WalletName'
+    CardholderReference:
+      title: Cardholder reference
+      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    Category:
+      description: >-
+        Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of
+        certain lifecycle use cases.
+      type: string
+      enum:
+        - primary_card
+        - additional_card
+      examples:
+        - primary_card
+    Channel:
+      description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
+      type: string
+      enum:
+        - standard
+        - ecommerce
+      examples:
+        - standard
+    ClearingReference:
+      title: Clearing reference
+      description: >-
+        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or
+        ClearingReference is always present.
+      type: string
+      maxLength: 50
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.
@@ -587,22 +529,148 @@ components:
             A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP status
             phrase for that code (e.g., "Not Found" for 404, and so on).
           example: about:blank
-    TokenStatus:
-      title: Token status
-      description: |
-        Effective status of the token to indicate whether it can be used for payments; definition of enums:
-        - active: authorizations are possible
-        - suspended: authorizations are temporarily not possible
-        - blocked: authorizations are permanently not possible because the token was cancelled
-        - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
+    ContractReference:
+      title: Contract reference
+      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
       type: string
-      enum:
-        - ACTIVE
-        - SUSPENDED
-        - BLOCKED
-        - PENDING
+      maxLength: 50
       examples:
-        - ACTIVE
+        - CH3456789012345678901
+        - ABC-56789012345
+    Correlation:
+      title: Shared correlation
+      description: >-
+        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and used e.g. for
+        debugging.
+      type: string
+      examples:
+        - f058ebd6-02f7-4d3f-942e-904344e8cde5
+    DateTime:
+      title: Shared date-time
+      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
+      type: string
+      format: date-time
+      examples:
+        - '2018-04-13T11:11:11Z'
+    Description:
+      description: Description of the purpose of the transaction and potentially a reference to the merchant.
+      type: string
+      maxLength: 100
+      examples:
+        - Aufladung
+    DeviceName:
+      title: Device name
+      description: Name of the device which is associated to the token, only available for device-based tokens.
+      type: string
+      maxLength: 100
+      examples:
+        - Peter's iPhone
+    DeviceType:
+      title: Device type
+      description: Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
+      type: string
+      maxLength: 100
+      examples:
+        - IPHONE
+    DistributionPartnerCode:
+      title: Distribution partner code
+      description: >-
+        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the
+        card; empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    DistributionPartnerName:
+      title: Distribution partner name
+      description: >-
+        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
+        empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - Zürcher Kantonalbank
+    EmbossingLine1:
+      title: Embossing line 1
+      description: First line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    EmbossingLine2:
+      title: Embossing line 2
+      description: Second line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    ExchangeRate:
+      title: Exchange rate
+      description: Exchange rate for converting the originalAmount into the transactionAmount.
+      type: number
+      examples:
+        - 1.048593
+    ExchangeRateDate:
+      title: Exchange rate date
+      description: Date which was used to determine the exchange rate, usually the valutaDate.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    ExpiryDate:
+      title: Expiry date
+      description: Last day when the card is valid and can be used for payments.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    FeeAmount:
+      title: Fee amount
+      description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
+      type: string
+      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
+      examples:
+        - '5.00'
+    FeeCurrency:
+      title: Fee currency
+      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
+      type: string
+      pattern: ^[A-Z]{3}$
+      examples:
+        - CHF
+    FeeName:
+      title: Fee name
+      description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
+      type: string
+      maxLength: 50
+      examples:
+        - transactionTipAmount
+        - transactionSurchargeAmount
+    FeePercentage:
+      title: Fee percentage
+      description: >-
+        Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. Values are provided to be compatible
+        with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
+      type: number
+      examples:
+        - 3.5
+    Fees:
+      title: Fees
+      description: >-
+        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is
+        provided.
+      type: object
+      required:
+        - fee_name
+      properties:
+        fee_name:
+          $ref: '#/components/schemas/FeeName'
+        fee_amount:
+          $ref: '#/components/schemas/FeeAmount'
+        fee_currency:
+          $ref: '#/components/schemas/FeeCurrency'
+        fee_percentage:
+          $ref: '#/components/schemas/FeePercentage'
     FundingCardId:
       title: Funding card id
       description: Reference to the card that is used to fund the transactions of the token.
@@ -611,6 +679,165 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
+    Image:
+      description: URL reference to an image for the design of the card.
+      type: string
+      format: uri
+      examples:
+        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+    InitialIssuingDate:
+      title: Initial issuing date
+      description: Date when card was issued initially.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    IssuerCode:
+      title: Issuer code
+      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    IssuerName:
+      title: Issuer name
+      description: Name of the legal issuer of a card.
+      type: string
+      maxLength: 100
+      examples:
+        - Viseca Card Services
+        - UBS
+        - Zürcher Kantonalbank
+    IssuingType:
+      title: Issuing type
+      description: |
+        Specifies in which form the card is issued; definition of enums:
+        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
+        - virtual: the card is being issued only virtually for digital usage
+      type: string
+      enum:
+        - physical
+        - virtual
+      examples:
+        - physical
+    Language:
+      description: Preferred language of the cardholder for any communication.
+      type: string
+      enum:
+        - DE
+        - EN
+        - FR
+        - IT
+      examples:
+        - DE
+    Mcc:
+      description: Merchant Category Code to identify the industry branch of the merchant.
+      type: string
+      maxLength: 4
+      examples:
+        - '4812'
+    MccDescription:
+      title: Mcc description
+      description: Description for the mcc.
+      type: string
+      maxLength: 100
+      examples:
+        - Telco
+    MerchantCity:
+      title: Merchant city
+      description: City in which the merchant is located.
+      type: string
+      maxLength: 50
+      examples:
+        - Zurich
+    MerchantCountry:
+      title: Merchant country
+      description: Country in which the merchant is located.
+      type: string
+      pattern: ^[a-zA-Z0-9]{3}$
+      examples:
+        - CHE
+    MerchantName:
+      title: Merchant name
+      description: Name of the merchant who requested the transaction.
+      type: string
+      maxLength: 100
+      examples:
+        - Yallo
+    OriginalAmount:
+      title: Original amount
+      description: Amount of the transaction in the currency used by the merchant.
+      type: string
+      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
+      examples:
+        - '5.00'
+    OriginalCurrency:
+      title: Original currency
+      description: Currency of the card account on which the transaction is charged.
+      type: string
+      pattern: ^[a-zA-Z0-9]{3}$
+      examples:
+        - CHF
+    Pan4Digits:
+      title: Pan 4 digits
+      description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
+      type: string
+      maxLength: 4
+      pattern: ^\d{4}$
+      examples:
+        - '4321'
+    ProductLine:
+      title: Product line
+      description: Customer segment to which the card is offered.
+      type: string
+      enum:
+        - consumer
+        - business
+        - corporate
+      examples:
+        - consumer
+    ProductType:
+      title: Product type
+      description: Type of the card product.
+      type: string
+      enum:
+        - credit
+        - debit
+        - prepaid
+      examples:
+        - credit
+    RelatedTransactionId:
+      title: Transaction reference
+      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    Scheme:
+      description: Card network which is used to process payments with the card in switzerland.
+      type: string
+      enum:
+        - mastercard
+        - visa
+        - americanexpress
+        - dinersclub
+      examples:
+        - mastercard
+    StatementDate:
+      title: Statement date
+      description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    TerminalReference:
+      title: Terminal reference (also known as terminal id)
+      description: Identifier for the terminal which has read the card data.
+      type: string
+      maxLength: 8
+      examples:
+        - '12345678'
     TokenId:
       title: Token id
       description: Unique identifier for the token of a card, defined by the Card Service Provider.
@@ -657,136 +884,34 @@ components:
         - americanexpress
       examples:
         - mastercard
-    DeviceName:
-      title: Device name
-      description: Name of the device which is associated to the token, only available for device-based tokens.
-      type: string
-      maxLength: 100
-      examples:
-        - Peter's iPhone
-    DeviceType:
-      title: Device type
-      description: Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
-      type: string
-      maxLength: 100
-      examples:
-        - IPHONE
-    WalletCode:
-      title: Wallet code
-      description: Identifier for the wallet in which the token is used and managed.
-      type: string
-      maxLength: 10
-      examples:
-        - '123'
-    WalletName:
-      title: Wallet name
-      description: Name of the wallet in which the token is used and managed.
-      type: string
-      enum:
-        - APPLE_PAY
-        - SAMSUNG_PAY
-        - GOOGLE_PAY
-        - GARMIN_PAY
-      examples:
-        - APPLE_PAY
-    CardTokenDetails:
-      title: Card token details
-      description: Describes a token with its relevant characteristics.
-      type: object
-      required:
-        - funding_card_id
-        - token_id
-        - token_issuing_date
-        - token_pan_4_digits
-        - token_requestor_code
-        - token_requestor_name
-        - token_scheme
-        - token_status
-      properties:
-        funding_card_id:
-          $ref: '#/components/schemas/FundingCardId'
-        token_id:
-          $ref: '#/components/schemas/TokenId'
-        token_issuing_date:
-          $ref: '#/components/schemas/TokenIssuingDate'
-        token_pan_4_digits:
-          $ref: '#/components/schemas/TokenPan4Digits'
-        token_requestor_code:
-          $ref: '#/components/schemas/TokenRequestorCode'
-        token_requestor_name:
-          $ref: '#/components/schemas/TokenRequestorName'
-        token_scheme:
-          $ref: '#/components/schemas/TokenScheme'
-        token_status:
-          $ref: '#/components/schemas/TokenStatus'
-        device_name:
-          $ref: '#/components/schemas/DeviceName'
-        device_type:
-          $ref: '#/components/schemas/DeviceType'
-        wallet_code:
-          $ref: '#/components/schemas/WalletCode'
-        wallet_name:
-          $ref: '#/components/schemas/WalletName'
-    AuthorizationReference:
-      title: Authorization reference
-      description: >-
-        Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or
-        ClearingReference is always present.
-      type: string
-      maxLength: 50
-      examples:
-        - 9e19df54-47cb-494b-84dc-1c126e95a05c
-    ClearingReference:
-      title: Clearing reference
-      description: >-
-        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or
-        ClearingReference is always present.
-      type: string
-      maxLength: 50
-      examples:
-        - 9e19df54-47cb-494b-84dc-1c126e95a05c
-    DateTime:
-      title: Shared date-time
-      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
-      type: string
-      format: date-time
-      examples:
-        - '2018-04-13T11:11:11Z'
-    TransactionStatus:
-      title: Transaction status
+    TokenStatus:
+      title: Token status
       description: |
-        Status of the transaction; definition of enums:
-        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
-        - booked: transaction was cleared/settled and charged to the card account
+        Effective status of the token to indicate whether it can be used for payments; definition of enums:
+        - active: authorizations are possible
+        - suspended: authorizations are temporarily not possible
+        - blocked: authorizations are permanently not possible because the token was cancelled
+        - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
       type: string
       enum:
-        - authorized
-        - booked
+        - ACTIVE
+        - SUSPENDED
+        - BLOCKED
+        - PENDING
       examples:
-        - authorized
-    OriginalCurrency:
-      title: Original currency
-      description: Currency of the card account on which the transaction is charged.
+        - ACTIVE
+    TotalAmount:
+      title: Total amount
+      description: >-
+        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees);
+        positive amounts are debit transactions, negative amounts are credit transactions.
       type: string
-      pattern: ^[a-zA-Z0-9]{3}$
+      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
-        - CHF
-    Mcc:
-      description: Merchant Category Code to identify the industry branch of the merchant.
-      type: string
-      maxLength: 4
-      examples:
-        - '4812'
-    MccDescription:
-      title: Mcc description
-      description: Description for the mcc.
-      type: string
-      maxLength: 100
-      examples:
-        - Telco
-    OriginalAmount:
-      title: Original amount
-      description: Amount of the transaction in the currency used by the merchant.
+        - '5.00'
+    TransactionAmount:
+      title: Transaction amount
+      description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -804,184 +929,6 @@ components:
         - merchant
         - fee
         - atm
-    TransactionDateTime:
-      title: Transaction date-time
-      description: Date and time when transaction was authorized, always in CH timezone.
-      type: string
-      format: date-time
-      examples:
-        - '2018-04-13T11:11:11Z'
-    TransactionId:
-      title: Transaction id
-      description: UUID to link AuthorizationReference and ClearingReference.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    ValutaDate:
-      title: Valuta date
-      description: Date when the transaction becomes effective on the card account for calculating interest.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    AcquirerReference:
-      title: Acquirer reference (also known as acquirer id)
-      description: Identifies the acquirer who submitted the transaction; not provided by all Card Service Providers.
-      type: string
-      maxLength: 11
-      examples:
-        - '12345678901'
-    ApprovalNumber:
-      title: Approval number (also known as approval code)
-      description: >-
-        Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for
-        reversals or other special situations).
-      type: string
-      pattern: ^\d{6}$
-      examples:
-        - '803051'
-    CardAcceptorReference:
-      title: Card acceptor reference
-      description: Identifier for the merchant who requested the transaction.
-      type: string
-      maxLength: 15
-      examples:
-        - '87040'
-    Channel:
-      description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
-      type: string
-      enum:
-        - standard
-        - ecommerce
-      examples:
-        - standard
-    Description:
-      description: Description of the purpose of the transaction and potentially a reference to the merchant.
-      type: string
-      maxLength: 100
-      examples:
-        - Aufladung
-    ExchangeRate:
-      title: Exchange rate
-      description: Exchange rate for converting the originalAmount into the transactionAmount.
-      type: number
-      examples:
-        - 1.048593
-    ExchangeRateDate:
-      title: Exchange rate date
-      description: Date which was used to determine the exchange rate, usually the valutaDate.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    FeeName:
-      title: Fee name
-      description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
-      type: string
-      maxLength: 50
-      examples:
-        - transactionTipAmount
-        - transactionSurchargeAmount
-    FeeAmount:
-      title: Fee amount
-      description: Amount of the fee that is charged for the transaction; not provided by all Card Service Providers.
-      type: string
-      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
-      examples:
-        - '5.00'
-    FeeCurrency:
-      title: Fee currency
-      description: Currency that is used for charging the fee, usually the same as the currency of the card account.
-      type: string
-      pattern: ^[A-Z]{3}$
-      examples:
-        - CHF
-    FeePercentage:
-      title: Fee percentage
-      description: >-
-        Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. Values are provided to be compatible
-        with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
-      type: number
-      examples:
-        - 3.5
-    Fees:
-      title: Fees
-      description: >-
-        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or fee_amount is
-        provided.
-      type: object
-      required:
-        - fee_name
-      properties:
-        fee_name:
-          $ref: '#/components/schemas/FeeName'
-        fee_amount:
-          $ref: '#/components/schemas/FeeAmount'
-        fee_currency:
-          $ref: '#/components/schemas/FeeCurrency'
-        fee_percentage:
-          $ref: '#/components/schemas/FeePercentage'
-    MerchantCity:
-      title: Merchant city
-      description: City in which the merchant is located.
-      type: string
-      maxLength: 50
-      examples:
-        - Zurich
-    MerchantCountry:
-      title: Merchant country
-      description: Country in which the merchant is located.
-      type: string
-      pattern: ^[a-zA-Z0-9]{3}$
-      examples:
-        - CHE
-    MerchantName:
-      title: Merchant name
-      description: Name of the merchant who requested the transaction.
-      type: string
-      maxLength: 100
-      examples:
-        - Yallo
-    RelatedTransactionId:
-      title: Transaction reference
-      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    StatementDate:
-      title: Statement date
-      description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    TerminalReference:
-      title: Terminal reference (also known as terminal id)
-      description: Identifier for the terminal which has read the card data.
-      type: string
-      maxLength: 8
-      examples:
-        - '12345678'
-    TotalAmount:
-      title: Total amount
-      description: >-
-        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees);
-        positive amounts are debit transactions, negative amounts are credit transactions.
-      type: string
-      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
-      examples:
-        - '5.00'
-    TransactionAmount:
-      title: Transaction amount
-      description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
-      type: string
-      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
-      examples:
-        - '5.00'
     TransactionCurrency:
       title: Transaction currency
       description: Currency of the card account on which the transaction is charged.
@@ -989,6 +936,13 @@ components:
       pattern: ^[a-zA-Z0-9]{3}$
       examples:
         - CHF
+    TransactionDateTime:
+      title: Transaction date-time
+      description: Date and time when transaction was authorized, always in CH timezone.
+      type: string
+      format: date-time
+      examples:
+        - '2018-04-13T11:11:11Z'
     TransactionDetails:
       title: Transaction details
       description: Describes a transaction with its relevant characteristics.
@@ -1069,6 +1023,51 @@ components:
           $ref: '#/components/schemas/TransactionAmount'
         transaction_currency:
           $ref: '#/components/schemas/TransactionCurrency'
+    TransactionId:
+      title: Transaction id
+      description: UUID to link AuthorizationReference and ClearingReference.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    TransactionStatus:
+      title: Transaction status
+      description: |
+        Status of the transaction; definition of enums:
+        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
+        - booked: transaction was cleared/settled and charged to the card account
+      type: string
+      enum:
+        - authorized
+        - booked
+      examples:
+        - authorized
+    ValutaDate:
+      title: Valuta date
+      description: Date when the transaction becomes effective on the card account for calculating interest.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    WalletCode:
+      title: Wallet code
+      description: Identifier for the wallet in which the token is used and managed.
+      type: string
+      maxLength: 10
+      examples:
+        - '123'
+    WalletName:
+      title: Wallet name
+      description: Name of the wallet in which the token is used and managed.
+      type: string
+      enum:
+        - APPLE_PAY
+        - SAMSUNG_PAY
+        - GOOGLE_PAY
+        - GARMIN_PAY
+      examples:
+        - APPLE_PAY
   responses:
     standard400:
       headers:
@@ -1097,45 +1096,6 @@ components:
           schema:
             $ref: '#/components/schemas/CommonErrorResponse'
   parameters:
-    card_status:
-      in: query
-      name: card_status
-      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardStatus'
-    cursor:
-      in: query
-      name: cursor
-      description: Optional parameter for pagination. An opaque string value used for pagination.
-      required: false
-      schema:
-        type: string
-        example: cursorIDxyz
-    limit:
-      in: query
-      name: limit
-      description: Optional parameter for pagination. Maximum number of entries to be returned.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        example: 25
-    client:
-      in: header
-      name: X-CorAPI-Client-ID
-      description: ID of the client forwarded to the provider.
-      required: false
-      schema:
-        type: string
-    correlation:
-      in: header
-      name: X-Correlation-ID
-      description: Unique ID (defined by the caller) which will be reflected back in the response.
-      required: false
-      schema:
-        $ref: '#/components/schemas/Correlation'
     agent:
       in: header
       name: User-Agent
@@ -1143,6 +1103,15 @@ components:
       required: false
       schema:
         type: string
+    authorization_reference:
+      in: query
+      name: authorization_reference
+      description: >-
+        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on the
+        authorization reference.
+      required: false
+      schema:
+        $ref: '#/components/schemas/AuthorizationReference'
     cardId:
       in: path
       name: cardId
@@ -1159,29 +1128,13 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardId'
-    token_status:
+    card_status:
       in: query
-      name: token_status
-      description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
+      name: card_status
+      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
       required: false
       schema:
-        $ref: '#/components/schemas/TokenStatus'
-    tokenId:
-      in: path
-      name: tokenId
-      description: Identifier (technical) for a token for which information is requested.
-      required: true
-      schema:
-        $ref: '#/components/schemas/TokenId'
-    authorization_reference:
-      in: query
-      name: authorization_reference
-      description: >-
-        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on the
-        authorization reference.
-      required: false
-      schema:
-        $ref: '#/components/schemas/AuthorizationReference'
+        $ref: '#/components/schemas/CardStatus'
     clearing_reference:
       in: query
       name: clearing_reference
@@ -1191,6 +1144,73 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/ClearingReference'
+    client:
+      in: header
+      name: X-CorAPI-Client-ID
+      description: ID of the client forwarded to the provider.
+      required: false
+      schema:
+        type: string
+    correlation:
+      in: header
+      name: X-Correlation-ID
+      description: Unique ID (defined by the caller) which will be reflected back in the response.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Correlation'
+    cursor:
+      in: query
+      name: cursor
+      description: Optional parameter for pagination. An opaque string value used for pagination.
+      required: false
+      schema:
+        type: string
+        example: cursorIDxyz
+    from_date:
+      in: query
+      name: from_date
+      description: Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+      required: false
+      schema:
+        $ref: '#/components/schemas/DateTime'
+    limit:
+      in: query
+      name: limit
+      description: Optional parameter for pagination. Maximum number of entries to be returned.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        example: 25
+    original_currency:
+      in: query
+      name: original_currency
+      description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
+      required: false
+      schema:
+        $ref: '#/components/schemas/OriginalCurrency'
+    status:
+      in: query
+      name: status
+      description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TransactionStatus'
+    to_date:
+      in: query
+      name: to_date
+      description: Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+      required: false
+      schema:
+        $ref: '#/components/schemas/DateTime'
+    tokenId:
+      in: path
+      name: tokenId
+      description: Identifier (technical) for a token for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/TokenId'
     token_id:
       in: query
       name: token_id
@@ -1200,34 +1220,13 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenId'
-    from_date:
+    token_status:
       in: query
-      name: from_date
-      description: Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+      name: token_status
+      description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
       required: false
       schema:
-        $ref: '#/components/schemas/DateTime'
-    to_date:
-      in: query
-      name: to_date
-      description: Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
-      required: false
-      schema:
-        $ref: '#/components/schemas/DateTime'
-    status:
-      in: query
-      name: status
-      description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TransactionStatus'
-    original_currency:
-      in: query
-      name: original_currency
-      description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
-      required: false
-      schema:
-        $ref: '#/components/schemas/OriginalCurrency'
+        $ref: '#/components/schemas/TokenStatus'
     transactionId:
       in: path
       name: transactionId
@@ -1236,6 +1235,12 @@ components:
       schema:
         $ref: '#/components/schemas/TransactionId'
   headers:
+    Content-Language:
+      schema:
+        type: string
+        examples:
+          - en
+      description: Language of provided content.
     X-Correlation-ID:
       schema:
         $ref: '#/components/schemas/Correlation'
@@ -1245,9 +1250,3 @@ components:
       schema:
         type: string
         example: cursorIDxyz
-    Content-Language:
-      schema:
-        type: string
-        examples:
-          - en
-      description: Language of provided content.
