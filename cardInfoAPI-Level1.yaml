@@ -265,7 +265,8 @@ components:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
     BankAccountReference:
       title: Bank account reference
-      description: Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+      description: |
+        Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
       type: string
       maxLength: 34
       examples:
@@ -568,7 +569,8 @@ components:
         - Peter's iPhone
     DeviceType:
       title: Device type
-      description: Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
+      description: |
+        Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
       type: string
       maxLength: 100
       examples:
@@ -809,7 +811,8 @@ components:
         - credit
     RelatedTransactionId:
       title: Transaction reference
-      description: Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
+      description: |
+        Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
       type: string
       format: uuid
       maxLength: 50
@@ -827,7 +830,8 @@ components:
         - mastercard
     StatementDate:
       title: Statement date
-      description: Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
+      description: |
+        Date when the statement is created through which the issuer settles the transaction with the cardholder; only available for credit cards.
       type: string
       format: date
       examples:
@@ -1170,7 +1174,8 @@ components:
     from_date:
       in: query
       name: from_date
-      description: Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+      description: |
+        Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
@@ -1201,7 +1206,8 @@ components:
     to_date:
       in: query
       name: to_date
-      description: Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+      description: |
+        Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
