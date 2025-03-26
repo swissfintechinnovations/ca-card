@@ -19,5 +19,7 @@ properties:
       - This is the general problem description
   type:
     type: string
-    description: A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP status phrase for that code (e.g., "Not Found" for 404, and so on).
+    description: |
+      A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP
+      status phrase for that code (e.g., "Not Found" for 404, and so on).
     example: about:blank

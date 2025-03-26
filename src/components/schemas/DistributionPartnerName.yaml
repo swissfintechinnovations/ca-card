@@ -1,5 +1,7 @@
 title: Distribution partner name
-description: Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card; empty if the card is distributed by the issuer.
+description: |
+  Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
+  empty if the card is distributed by the issuer.
 type: string
 maxLength: 100
 examples:
