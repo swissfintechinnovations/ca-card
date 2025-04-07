@@ -682,14 +682,6 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
-    Id:
-      title: Shared id
-      description: Unique identifier to referenece resources.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
     Image:
       description: URL reference to an image for the design of the card.
       type: string
@@ -1141,7 +1133,7 @@ components:
         endpoint.
       required: false
       schema:
-        $ref: '#/components/schemas/Id'
+        $ref: '#/components/schemas/CardId'
     card_status:
       in: query
       name: card_status
@@ -1242,7 +1234,7 @@ components:
         /card-tokens endpoint.
       required: false
       schema:
-        $ref: '#/components/schemas/Id'
+        $ref: '#/components/schemas/TokenId'
     token_status:
       in: query
       name: token_status
