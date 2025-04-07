@@ -5,4 +5,4 @@ description: |
   /card-tokens endpoint.
 required: false
 schema:
-  $ref: ../../schemas/TokenId.yaml
+  $ref: ../../schemas/generic/Id.yaml

@@ -27,7 +27,7 @@ properties:
   card_account_currency:
     $ref: ./CardAccountCurrency.yaml
   card_id:
-    $ref: ./generic/CardId.yaml
+    $ref: ./CardId.yaml
   card_limit_cycle:
     $ref: ./CardLimitCycle.yaml
   card_limit_daily:
