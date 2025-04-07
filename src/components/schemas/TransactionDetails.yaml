@@ -14,7 +14,7 @@ required:
   - valuta_date
 properties:
   card_id:
-    $ref: ./CardId.yaml
+    $ref: ./generic/CardId.yaml
   mcc:
     $ref: ./Mcc.yaml
   mcc_description:

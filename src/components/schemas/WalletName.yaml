@@ -1,10 +1,8 @@
 title: Wallet name
 description: Name of the wallet in which the token is used and managed.
 type: string
-enum:
+examples:
   - APPLE_PAY
   - SAMSUNG_PAY
   - GOOGLE_PAY
   - GARMIN_PAY
-examples:
-  - APPLE_PAY

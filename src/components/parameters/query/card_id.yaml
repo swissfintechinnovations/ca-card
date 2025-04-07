@@ -5,4 +5,4 @@ description: |
   endpoint.
 required: false
 schema:
-  $ref: ../../schemas/CardId.yaml
+  $ref: ../../schemas/generic/CardId.yaml

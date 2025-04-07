@@ -3,4 +3,4 @@ name: cardId
 description: Identifier (technical) for a card for which information is requested.
 required: true
 schema:
-  $ref: ../../schemas/CardId.yaml
+  $ref: ../../schemas/generic/CardId.yaml

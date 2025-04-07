@@ -98,11 +98,11 @@ paths:
       summary: Provides a list of card tokens which are associated with a card
       description: |
         This operation enables the retrieval of a list of tokens associated with a payment card. The tokens can be filtered further by
-        status. Tokens are representations of a payment card used in specific wallets , wearables or merchants.
+        status. Tokens are representations of a payment card used in specific wallets, wearables or merchants.
       tags:
         - Card-tokens
       parameters:
-        - $ref: ./components/parameters/query/card_id.yaml
+        - $ref: ./components/parameters/query/funding_card_id.yaml
         - $ref: ./components/parameters/query/token_status.yaml
         - $ref: ./components/parameters/query/cursor.yaml
         - $ref: ./components/parameters/query/limit.yaml
@@ -136,9 +136,9 @@ paths:
           $ref: ./components/responses/standard500.yaml
   /card-tokens/{tokenId}:
     get:
-      summary: Provides a single token which matches the cardId and tokenId
+      summary: Provides a single token which matches the tokenId
       description: |
-        This operation enables the retrieval of a single token when the cardId and tokenId are already known. The identifiers must be
+        This operation enables the retrieval of a single token when the tokenId is already known. The identifiers must be
         retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
