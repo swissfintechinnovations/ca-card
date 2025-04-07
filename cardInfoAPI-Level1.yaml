@@ -98,11 +98,11 @@ paths:
       summary: Provides a list of card tokens which are associated with a card
       description: |
         This operation enables the retrieval of a list of tokens associated with a payment card. The tokens can be filtered further by
-        status. Tokens are representations of a payment card used in specific wallets , wearables or merchants.
+        status. Tokens are representations of a payment card used in specific wallets, wearables or merchants.
       tags:
         - Card-tokens
       parameters:
-        - $ref: '#/components/parameters/card_id'
+        - $ref: '#/components/parameters/funding_card_id'
         - $ref: '#/components/parameters/token_status'
         - $ref: '#/components/parameters/cursor'
         - $ref: '#/components/parameters/limit'
@@ -136,9 +136,9 @@ paths:
           $ref: '#/components/responses/standard500'
   /card-tokens/{tokenId}:
     get:
-      summary: Provides a single token which matches the cardId and tokenId
+      summary: Provides a single token which matches the tokenId
       description: |
-        This operation enables the retrieval of a single token when the cardId and tokenId are already known. The identifiers must be
+        This operation enables the retrieval of a single token when the tokenId is already known. The identifiers must be
         retrieved with the GET /cards/{cardId}/card-tokens operation before or stored locally at the API consumer.
       tags:
         - Card-tokens
@@ -281,7 +281,7 @@ components:
     CardAccountCurrency:
       description: Settlement currency of the card / card account in ISO code format.
       type: string
-      pattern: ^[a-zA-Z0-9]{3}$
+      pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
@@ -378,8 +378,7 @@ components:
     CardId:
       title: Card id
       description: |
-        Technical reference to a card (unique, constant in the lifecycle of a card
-        even in case of replacements or renewals).
+        Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
       type: string
       format: uuid
       maxLength: 50
@@ -473,14 +472,14 @@ components:
           $ref: '#/components/schemas/WalletName'
     CardholderReference:
       title: Cardholder reference
-      description: Reference to the cardholder who owns the card which was used for the transaction; not provided by all Card Service Providers.
+      description: Reference to the cardholder who owns the card which was used for the transaction.
       type: string
       maxLength: 50
       examples:
         - '123456789'
     Category:
       description: |
-        Identifies the nature of the card in regards to the overall account; for some issuers the cardCategory has an influence on the effect of
+        Identifies the nature of the card in regards to the overall account; for some issuers the Category has an influence on the effect of
         certain lifecycle use cases.
       type: string
       enum:
@@ -635,12 +634,13 @@ components:
       examples:
         - '5.00'
     FeeCurrency:
-      title: Fee currency
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
+        - EUR
+      title: Fee currency
     FeeName:
       title: Fee name
       description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
@@ -682,12 +682,20 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
+    Id:
+      title: Shared id
+      description: Unique identifier to referenece resources.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     Image:
       description: URL reference to an image for the design of the card.
       type: string
       format: uri
       examples:
-        - https://one-digitalservice.ch/public/Viseca/media/one-app-images/card-visuals/4_go_m_11_2017.png
+        - https://issuer.ch/public/media/images/card_image.png
     InitialIssuingDate:
       title: Initial issuing date
       description: Date when card was issued initially.
@@ -775,12 +783,13 @@ components:
       examples:
         - '5.00'
     OriginalCurrency:
-      title: Original currency
-      description: Currency of the card account on which the transaction is charged.
+      description: Currency used by the merchant for the transaction.
       type: string
-      pattern: ^[a-zA-Z0-9]{3}$
+      pattern: ^[A-Z]{3}$
       examples:
         - CHF
+        - EUR
+      title: Original currency
     Pan4Digits:
       title: Pan 4 digits
       description: Last 4 digits of the PAN; values can change for the same cardId during the lifecycle.
@@ -887,6 +896,7 @@ components:
         - mastercard
         - visa
         - americanexpress
+        - dinersclub
       examples:
         - mastercard
     TokenStatus:
@@ -935,12 +945,13 @@ components:
         - fee
         - atm
     TransactionCurrency:
-      title: Transaction currency
       description: Currency of the card account on which the transaction is charged.
       type: string
-      pattern: ^[a-zA-Z0-9]{3}$
+      pattern: ^[A-Z]{3}$
       examples:
         - CHF
+        - EUR
+      title: Transaction currency
     TransactionDateTime:
       title: Transaction date-time
       description: Date and time when transaction was authorized, always in CH timezone.
@@ -1066,13 +1077,11 @@ components:
       title: Wallet name
       description: Name of the wallet in which the token is used and managed.
       type: string
-      enum:
+      examples:
         - APPLE_PAY
         - SAMSUNG_PAY
         - GOOGLE_PAY
         - GARMIN_PAY
-      examples:
-        - APPLE_PAY
   responses:
     standard400:
       headers:
@@ -1132,7 +1141,7 @@ components:
         endpoint.
       required: false
       schema:
-        $ref: '#/components/schemas/CardId'
+        $ref: '#/components/schemas/Id'
     card_status:
       in: query
       name: card_status
@@ -1179,6 +1188,13 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
+    funding_card_id:
+      in: query
+      name: card_id
+      description: Reference to the card that is used to fund the transactions of the token.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardId'
     limit:
       in: query
       name: limit
@@ -1226,7 +1242,7 @@ components:
         /card-tokens endpoint.
       required: false
       schema:
-        $ref: '#/components/schemas/TokenId'
+        $ref: '#/components/schemas/Id'
     token_status:
       in: query
       name: token_status
