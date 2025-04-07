@@ -12,7 +12,7 @@ required:
   - token_status
 properties:
   funding_card_id:
-    $ref: ./generic/FundingCardId.yaml
+    $ref: ./FundingCardId.yaml
   token_id:
     $ref: ./TokenId.yaml
   token_issuing_date:
