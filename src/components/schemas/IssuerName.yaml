@@ -1,8 +1,8 @@
 title: Issuer name
+description: Name of the legal issuer of a card.
 type: string
 maxLength: 100
 examples:
   - Viseca Card Services
   - UBS
   - Zürcher Kantonalbank
-description: Name of the legal issuer of a card.

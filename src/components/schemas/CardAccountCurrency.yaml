@@ -1,6 +1,2 @@
-type: string
-pattern: ^[a-zA-Z0-9]{3}$
-examples:
-  - CHF
-  - EUR
 description: Settlement currency of the card / card account in ISO code format.
+$ref: ./generic/Currency.yaml

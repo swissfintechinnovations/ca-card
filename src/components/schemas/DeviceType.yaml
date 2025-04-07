@@ -1,8 +1,7 @@
 title: Device type
+description: |
+  Type of the device which is associated to the token, only available for device-based tokens; value defined by the Card Service Provider.
 type: string
 maxLength: 100
 examples:
   - IPHONE
-description: |
-  Type of the device which is associated to the token, only available for
-  device-based tokens; value defined by the Card Service Provider.

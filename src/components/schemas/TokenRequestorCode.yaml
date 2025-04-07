@@ -1,6 +1,6 @@
 title: Token requestor code
+description: Identifier for the token requestor / token service provider.
 type: string
 maxLength: 11
 examples:
   - '11111111111'
-description: Identifier for the token requestor / token service provider.
