@@ -1,6 +1,6 @@
 in: query
-name: card_id
+name: funding_card_id
 description: Reference to the card that is used to fund the transactions of the token.
 required: false
 schema:
-  $ref: ../../schemas/CardId.yaml
+  $ref: ../../schemas/FundingCardId.yaml
