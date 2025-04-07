@@ -281,7 +281,7 @@ components:
     CardAccountCurrency:
       description: Settlement currency of the card / card account in ISO code format.
       type: string
-      pattern: ^[A-Z]{3}$
+      pattern: ^[a-zA-Z0-9]{3}$
       examples:
         - CHF
         - EUR
@@ -636,7 +636,7 @@ components:
     FeeCurrency:
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
       type: string
-      pattern: ^[A-Z]{3}$
+      pattern: ^[a-zA-Z0-9]{3}$
       examples:
         - CHF
         - EUR
@@ -777,7 +777,7 @@ components:
     OriginalCurrency:
       description: Currency used by the merchant for the transaction.
       type: string
-      pattern: ^[A-Z]{3}$
+      pattern: ^[a-zA-Z0-9]{3}$
       examples:
         - CHF
         - EUR
@@ -939,7 +939,7 @@ components:
     TransactionCurrency:
       description: Currency of the card account on which the transaction is charged.
       type: string
-      pattern: ^[A-Z]{3}$
+      pattern: ^[a-zA-Z0-9]{3}$
       examples:
         - CHF
         - EUR
@@ -1182,11 +1182,11 @@ components:
         $ref: '#/components/schemas/DateTime'
     funding_card_id:
       in: query
-      name: card_id
+      name: funding_card_id
       description: Reference to the card that is used to fund the transactions of the token.
       required: false
       schema:
-        $ref: '#/components/schemas/CardId'
+        $ref: '#/components/schemas/FundingCardId'
     limit:
       in: query
       name: limit
