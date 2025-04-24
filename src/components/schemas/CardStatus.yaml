@@ -6,8 +6,8 @@ description: |
   - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
 type: string
 enum:
-  - ACTIVE
-  - SUSPENDED
-  - BLOCKED
+  - active
+  - suspended
+  - blocked
 examples:
-  - ACTIVE
+  - active

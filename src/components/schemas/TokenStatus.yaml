@@ -7,9 +7,9 @@ description: |
   - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
 type: string
 enum:
-  - ACTIVE
-  - SUSPENDED
-  - BLOCKED
-  - PENDING
+  - active
+  - suspended
+  - blocked
+  - pending
 examples:
-  - ACTIVE
+  - active

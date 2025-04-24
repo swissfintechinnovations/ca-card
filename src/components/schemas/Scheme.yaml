@@ -1,9 +1,3 @@
+title: Scheme
 description: Card network which is used to process payments with the card in switzerland.
-type: string
-enum:
-  - mastercard
-  - visa
-  - americanexpress
-  - dinersclub
-examples:
-  - mastercard
+$ref: ./generic/Scheme.yaml

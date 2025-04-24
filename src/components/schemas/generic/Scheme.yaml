@@ -1,0 +1,9 @@
+description: Card network which is used to process payments in switzerland.
+type: string
+enum:
+  - mastercard
+  - visa
+  - americanexpress
+  - dinersclub
+examples:
+  - mastercard

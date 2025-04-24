@@ -2,7 +2,7 @@ title: Wallet name
 description: Name of the wallet in which the token is used and managed.
 type: string
 examples:
-  - APPLE_PAY
-  - SAMSUNG_PAY
-  - GOOGLE_PAY
-  - GARMIN_PAY
+  - apple_pay
+  - samsung_pay
+  - google_pay
+  - garmin_pay
