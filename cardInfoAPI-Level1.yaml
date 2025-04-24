@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   version: 0.8.0
-  title: Common Card API (Public)
+  title: Common Card API
   description: |
     This specification defines a common card API for payment cards used in Switzerland. The API is supposed to be used by third parties to
     retrieve payment card information for scheme-based debit, credit or prepaid cards (read only).
@@ -427,11 +427,11 @@ components:
         - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
       type: string
       enum:
-        - ACTIVE
-        - SUSPENDED
-        - BLOCKED
+        - active
+        - suspended
+        - blocked
       examples:
-        - ACTIVE
+        - active
     CardTokenDetails:
       title: Card token details
       description: Describes a token with its relevant characteristics.
@@ -727,12 +727,12 @@ components:
       description: Preferred language of the cardholder for any communication.
       type: string
       enum:
-        - DE
-        - EN
-        - FR
-        - IT
+        - de
+        - en
+        - fr
+        - it
       examples:
-        - DE
+        - de
     Mcc:
       description: Merchant Category Code to identify the industry branch of the merchant.
       type: string
@@ -829,6 +829,7 @@ components:
         - dinersclub
       examples:
         - mastercard
+      title: Scheme
     StatementDate:
       title: Statement date
       description: |
@@ -881,7 +882,6 @@ components:
       examples:
         - Zalando
     TokenScheme:
-      title: Token scheme
       description: Scheme for which the token is issued.
       type: string
       enum:
@@ -891,6 +891,7 @@ components:
         - dinersclub
       examples:
         - mastercard
+      title: Token scheme
     TokenStatus:
       title: Token status
       description: |
@@ -901,12 +902,12 @@ components:
         - pending: authorizations are not possible because the token is not fully issued or currently in transition between status
       type: string
       enum:
-        - ACTIVE
-        - SUSPENDED
-        - BLOCKED
-        - PENDING
+        - active
+        - suspended
+        - blocked
+        - pending
       examples:
-        - ACTIVE
+        - active
     TotalAmount:
       title: Total amount
       description: |
@@ -1070,10 +1071,10 @@ components:
       description: Name of the wallet in which the token is used and managed.
       type: string
       examples:
-        - APPLE_PAY
-        - SAMSUNG_PAY
-        - GOOGLE_PAY
-        - GARMIN_PAY
+        - apple_pay
+        - samsung_pay
+        - google_pay
+        - garmin_pay
   responses:
     standard400:
       headers:
