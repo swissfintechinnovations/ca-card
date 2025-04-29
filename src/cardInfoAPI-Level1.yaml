@@ -177,7 +177,7 @@ paths:
         - $ref: ./components/parameters/query/token_id.yaml
         - $ref: ./components/parameters/query/from_date.yaml
         - $ref: ./components/parameters/query/to_date.yaml
-        - $ref: ./components/parameters/query/status.yaml
+        - $ref: ./components/parameters/query/transaction_status.yaml
         - $ref: ./components/parameters/query/original_currency.yaml
         - $ref: ./components/parameters/query/cursor.yaml
         - $ref: ./components/parameters/query/limit.yaml
