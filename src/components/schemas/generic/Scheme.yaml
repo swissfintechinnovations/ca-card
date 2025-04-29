@@ -1,4 +1,4 @@
-description: Card network which is used to process payments in switzerland.
+description: Card network which is used to process payments.
 type: string
 enum:
   - mastercard
