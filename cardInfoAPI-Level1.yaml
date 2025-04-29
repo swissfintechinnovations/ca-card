@@ -911,7 +911,7 @@ components:
     TotalAmount:
       title: Total amount
       description: |
-        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of transactionAmount and fees);
+        Total amount including fees for the transaction that is charged by the issuer to the card account (sum of Transaction amount and fees);
         positive amounts are debit transactions, negative amounts are credit transactions.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
