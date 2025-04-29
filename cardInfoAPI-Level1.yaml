@@ -820,7 +820,7 @@ components:
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     Scheme:
-      description: Card network which is used to process payments with the card in switzerland.
+      description: Card network which is used to process payments with the card.
       type: string
       enum:
         - mastercard
