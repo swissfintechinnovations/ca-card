@@ -1034,7 +1034,7 @@ components:
           $ref: '#/components/schemas/TransactionCurrency'
     TransactionId:
       title: Transaction id
-      description: UUID to link AuthorizationReference and ClearingReference.
+      description: UUID to link Authorization reference and Clearing reference.
       type: string
       format: uuid
       maxLength: 50
