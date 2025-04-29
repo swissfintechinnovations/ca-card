@@ -1,6 +1,6 @@
 title: Fee percentage
 description: |
-  Percentage value of the transactionAmount for the fee type; not provided by all Card Service Providers. Values are provided to be
+  Percentage value of the Transaction amount for the fee type; not provided by all Card Service Providers. Values are provided to be
   compatible with the % notation. For example a value 3.5 is to be interpreted as 3.5% (= 0.035 as decimal).
 type: number
 examples:
