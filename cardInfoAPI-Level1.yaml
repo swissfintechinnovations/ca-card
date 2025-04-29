@@ -248,7 +248,7 @@ components:
     ApprovalNumber:
       title: Approval number (also known as approval code)
       description: |
-        Identifies a transaction from the entity that authorized it; in combination with cardId and transactionDateTime usually unique (except for
+        Identifies a transaction from the entity that authorized it; in combination with Card id and Transaction date-time usually unique (except for
         reversals or other special situations).
       type: string
       pattern: ^\d{6}$
@@ -498,8 +498,8 @@ components:
     ClearingReference:
       title: Clearing reference
       description: |
-        Unique identifier for booked transactions; Id does not overlap with AuthorizationReference; at least one of AuthorizationReference or
-        ClearingReference is always present.
+        Unique identifier for booked transactions; Id does not overlap with Authorization reference; at least one of Authorization reference or
+        Clearing reference is always present.
       type: string
       maxLength: 50
       examples:
