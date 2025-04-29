@@ -1,7 +1,7 @@
 title: Authorization reference
 description: |
-  Unique identifier for authorized transactions; Id does not overlap with ClearingReference; at least one of AuthorizationReference or
-  ClearingReference is always present.
+  Unique identifier for authorized transactions; Id does not overlap with Clearing reference; at least one of Authorization reference or
+  Clearing reference is always present.
 type: string
 maxLength: 50
 examples:
