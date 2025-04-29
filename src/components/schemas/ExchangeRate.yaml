@@ -1,5 +1,5 @@
 title: Exchange rate
-description: Exchange rate for converting the originalAmount into the transactionAmount.
+description: Exchange rate for converting the Original amount into the Transaction amount.
 type: number
 examples:
   - 1.048593
