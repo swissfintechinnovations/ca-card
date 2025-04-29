@@ -660,8 +660,8 @@ components:
     Fees:
       title: Fees
       description: |
-        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the fee_percentage or
-        fee_amount is provided.
+        One or more fees related to a transaction. Depending on the card service provider and the type of fee only the Fee percentage or
+        Fee amount is provided.
       type: object
       required:
         - fee_name
