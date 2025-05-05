@@ -1,9 +1,7 @@
+description: Channel that was used by the cardholder for executing the transaction, allows the identification of eCommerce transactions.
 type: string
 enum:
   - standard
   - ecommerce
 examples:
   - standard
-description: |
-  Channel that was used by the cardholder for executing the transaction, allows
-  the identification of eCommerce transactions.

@@ -1,8 +1,6 @@
 in: header
 name: X-Correlation-ID
+description: Unique ID (defined by the caller) which will be reflected back in the response.
 required: false
 schema:
   $ref: ../../schemas/generic/Correlation.yaml
-description: |
-  Unique ID (defined by the caller) which will be reflected back in the
-  response.

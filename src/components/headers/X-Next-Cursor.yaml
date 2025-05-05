@@ -1,4 +1,5 @@
 description: An opaque string value, or an empty string if there are no more results.
 schema:
   type: string
-  example: cursorIDxyz
+  examples: 
+    - cursorIDxyz

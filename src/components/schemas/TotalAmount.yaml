@@ -1,6 +1,5 @@
 title: Total amount
 description: |
-  Total amount including fees for the transaction that is charged by the issuer
-  to the card account (sum of transactionAmount and fees); positive amounts are
-  debit transactions, negative amounts are credit transactions.
+  Total amount including fees for the transaction that is charged by the issuer to the card account (sum of Transaction amount and fees);
+  positive amounts are debit transactions, negative amounts are credit transactions.
 $ref: ./generic/Amount.yaml

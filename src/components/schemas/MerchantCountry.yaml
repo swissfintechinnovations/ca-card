@@ -1,6 +1,6 @@
 title: Merchant country
+description: Country in which the merchant is located.
 type: string
-pattern: ^[a-zA-Z0-9]{3}$
+pattern: ^[A-Z]{3}$
 examples:
   - CHE
-description: Country in which the merchant is located.

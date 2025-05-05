@@ -1,6 +1,6 @@
 title: Token requestor name
+description: Name of the token requestor / token service provider.
 type: string
 maxLength: 100
 examples:
   - Zalando
-description: Name of the token requestor / token service provider.

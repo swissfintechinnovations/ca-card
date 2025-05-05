@@ -1,8 +1,6 @@
 in: query
 name: card_status
+description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
 required: false
 schema:
   $ref: ../../schemas/CardStatus.yaml
-description: |
-  Retrieves all cards in a certain status. Only one status can be filtered
-  at a time.

@@ -2,78 +2,80 @@ title: Transaction details
 description: Describes a transaction with its relevant characteristics.
 type: object
 required:
-  - transaction_id
-  - transaction_date_time
-  - valuta_date
-  - transaction_status
-  - original_amount
-  - original_currency
+  - card_id
   - mcc
   - mcc_description
+  - original_amount
+  - original_currency
   - transaction_category
-  - card_id
+  - transaction_date_time
+  - transaction_id
+  - transaction_status
+  - valuta_date
 properties:
-  transaction_id:
-    $ref: ./TransactionId.yaml
-  authorization_reference:
-    $ref: ./AuthorizationReference.yaml
-  clearing_reference:
-    $ref: ./ClearingReference.yaml
-  transaction_date_time:
-    $ref: ./TransactionDateTime.yaml
-  valuta_date:
-    $ref: ./ValutaDate.yaml
-  statement_date:
-    $ref: ./StatementDate.yaml
-  transaction_status:
-    $ref: ./TransactionStatus.yaml
-  approval_number:
-    $ref: ./ApprovalNumber.yaml
+  card_id:
+    description: Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of replacements or renewals).
+    $ref: ./CardId.yaml
+  mcc:
+    $ref: ./Mcc.yaml
+  mcc_description:
+    $ref: ./MccDescription.yaml
   original_amount:
     $ref: ./OriginalAmount.yaml
   original_currency:
     $ref: ./OriginalCurrency.yaml
+  transaction_category:
+    $ref: ./TransactionCategory.yaml
+  transaction_date_time:
+    $ref: ./TransactionDateTime.yaml
+  transaction_id:
+    $ref: ./TransactionId.yaml
+  transaction_status:
+    $ref: ./TransactionStatus.yaml
+  valuta_date:
+    $ref: ./ValutaDate.yaml
+  acquirer_reference:
+    $ref: ./AcquirerReference.yaml
+  approval_number:
+    $ref: ./ApprovalNumber.yaml
+  authorization_reference:
+    $ref: ./AuthorizationReference.yaml
+  card_acceptor_reference:
+    $ref: ./CardAcceptorReference.yaml
+  card_account_reference:
+    $ref: ./CardAccountReference.yaml
+  cardholder_reference:
+    $ref: ./CardholderReference.yaml
+  channel:
+    $ref: ./Channel.yaml
+  clearing_reference:
+    $ref: ./ClearingReference.yaml
+  description:
+    $ref: ./Description.yaml
+  exchange_rate:
+    $ref: ./ExchangeRate.yaml
+  exchange_rate_date:
+    $ref: ./ExchangeRateDate.yaml
+  fees:
+    $ref: ./Fees.yaml
+  merchant_city:
+    $ref: ./MerchantCity.yaml
+  merchant_country:
+    $ref: ./MerchantCountry.yaml
+  merchant_name:
+    $ref: ./MerchantName.yaml
+  related_transaction_id:
+    $ref: ./RelatedTransactionId.yaml
+  statement_date:
+    $ref: ./StatementDate.yaml
+  terminal_reference:
+    $ref: ./TerminalReference.yaml
+  token_id:
+    description: Unique identifier for the card token which was used for the transaction.
+    $ref: ./TokenId.yaml
   total_amount:
     $ref: ./TotalAmount.yaml
   transaction_amount:
     $ref: ./TransactionAmount.yaml
   transaction_currency:
     $ref: ./TransactionCurrency.yaml
-  fees:
-    $ref: ./Fees.yaml
-  exchange_rate:
-    $ref: ./ExchangeRate.yaml
-  exchange_rate_date:
-    $ref: ./ExchangeRateDate.yaml
-  description:
-    $ref: ./Description.yaml
-  merchant_name:
-    $ref: ./MerchantName.yaml
-  merchant_country:
-    $ref: ./MerchantCountry.yaml
-  merchant_city:
-    $ref: ./MerchantCity.yaml
-  mcc:
-    $ref: ./Mcc.yaml
-  mcc_description:
-    $ref: ./MccDescription.yaml
-  terminal_reference:
-    $ref: ./TerminalReference.yaml
-  card_acceptor_reference:
-    $ref: ./CardAcceptorReference.yaml
-  acquirer_reference:
-    $ref: ./AcquirerReference.yaml
-  channel:
-    $ref: ./Channel.yaml
-  transaction_category:
-    $ref: ./TransactionCategory.yaml
-  token_id:
-    $ref: ./TokenId.yaml
-  cardholder_reference:
-    $ref: ./CardholderReference.yaml
-  card_account_reference:
-    $ref: ./CardAccountReference.yaml
-  card_id:
-    $ref: ./CardId.yaml
-  related_transaction_id:
-    $ref: ./RelatedTransactionId.yaml
