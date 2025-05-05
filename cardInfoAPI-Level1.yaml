@@ -529,7 +529,8 @@ components:
           description: |
             A URI reference that identifies the problem type. When "about:blank" is used, the title SHOULD be the same as the recommended HTTP
             status phrase for that code (e.g., "Not Found" for 404, and so on).
-          example: about:blank
+          examples:
+            - about:blank
     ContractReference:
       title: Contract reference
       description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
@@ -1176,7 +1177,8 @@ components:
       required: false
       schema:
         type: string
-        example: cursorIDxyz
+        examples:
+          - cursorIDxyz
     from_date:
       in: query
       name: from_date
@@ -1201,7 +1203,8 @@ components:
         type: integer
         format: int32
         minimum: 1
-        example: 25
+        examples:
+          - 25
     original_currency:
       in: query
       name: original_currency
@@ -1269,4 +1272,5 @@ components:
       description: An opaque string value, or an empty string if there are no more results.
       schema:
         type: string
-        example: cursorIDxyz
+        examples:
+          - cursorIDxyz
