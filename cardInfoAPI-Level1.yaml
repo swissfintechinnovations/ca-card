@@ -969,6 +969,9 @@ components:
         - valuta_date
       properties:
         card_id:
+          description: >-
+            Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of
+            replacements or renewals).
           $ref: '#/components/schemas/CardId'
         mcc:
           $ref: '#/components/schemas/Mcc'
@@ -1025,6 +1028,7 @@ components:
         terminal_reference:
           $ref: '#/components/schemas/TerminalReference'
         token_id:
+          description: Unique identifier for the card token which was used for the transaction.
           $ref: '#/components/schemas/TokenId'
         total_amount:
           $ref: '#/components/schemas/TotalAmount'
