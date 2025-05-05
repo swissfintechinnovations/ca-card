@@ -4,4 +4,5 @@ description: Optional parameter for pagination. An opaque string value used for 
 required: false
 schema:
   type: string
-  example: cursorIDxyz
+  examples: 
+    - cursorIDxyz
