@@ -42,7 +42,7 @@ If the working group participants agree to your proposal a pull [request](https:
 **4. Approval of pull request**  
 The pull request will then be presented and discussed in one of the next working group meetings. The participants then decide if the pull request can be approved and implemented (by merging it to the main branch) in one of the next releases. With the approval of the pull request and with the merging into the main branch, the associated issue will be closed. The requestor is responsible for ensuring that unrealized parts of the request (if any) are covered by a new request.
 
-![contrib](https://github.com/swissfintechinnovations/ca-payment/assets/116151702/4cad55d8-aed0-42cb-a2b6-b956d217fd0f)
+![contribute](https://github.com/user-attachments/assets/bdacc779-ddfa-484e-9e86-ff2008d4c7db)
 
 # SFTI guidelines and coding style
 At the [SFTI Wiki](https://github.com/swissfintechinnovations/.github/wiki) you can find more information about SFTI's API design principles, collaboration and implementation guidelines. If you contribute on API specifications, please pay special attention to SFTI's [style guide](https://github.com/swissfintechinnovations/.github/wiki/Style-Guide-Common-APIs) and [naming conventions](https://github.com/swissfintechinnovations/.github/wiki/Naming-Conventions). Make sure you are familiar with both guidelines before submitting your pull request, as there are special [GitHub Actions](https://github.com/swissfintechinnovations/.github/wiki/Github-Actions) implemented to check these rules automatically. Pull requests that do not pass all checks cannot be merged in to the main branch.
