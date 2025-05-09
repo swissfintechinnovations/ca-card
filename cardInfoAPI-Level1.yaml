@@ -970,7 +970,7 @@ components:
         - valuta_date
       properties:
         card_id:
-          description: >-
+          description: |
             Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of
             replacements or renewals).
           $ref: '#/components/schemas/CardId'
