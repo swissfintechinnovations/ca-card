@@ -8,8 +8,8 @@ on:
     inputs:
       filenames:
         type: string
-        default: '*.yaml src/**.yaml'
-        description: 'Files to be linted (list of files sperated by a whitespace). Default: *.yaml and src/**.yaml'
+        default: 'src/**.yaml'
+        description: 'Files to be linted (list of files sperated by a whitespace). Default: src/**.yaml'
 
 jobs:
   yaml-lint:
