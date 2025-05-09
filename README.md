@@ -4,7 +4,7 @@
 
 ---
 [![GitHub release](https://img.shields.io/github/release/swissfintechinnovations/ca-card?color=blue)](https://github.com/swissfintechinnovations/ca-card/releases/)
-![Card Major Version](https://img.shields.io/badge/major_version-v0-blue)
+![Card Major Version](https://img.shields.io/badge/major_version-v1-blue)
 [![OpenAPI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fgithub.com%2Fswissfintechinnovations%2Fca-card%2Fraw%2Fmain%2FcardInfoAPI-Level1.yaml&query=openapi&prefix=v&label=OpenAPI&color=blue)](https://swagger.io/resources/open-api/)
 [![GitHub license](https://img.shields.io/github/license/swissfintechinnovations/ca-card?color=de980d)](https://github.com/swissfintechinnovations/ca-card/blob/main/LICENSE)
 
@@ -14,4 +14,4 @@
 This is the official SFTI repo for the card API. Documentations may be found in the [Wiki](https://github.com/swissfintechinnovations/ca-card/wiki).
 
 An easy-to-read representation of the Card API is accessible via the following link:
-- [Card Info API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/swissfintechinnovations/ca-card/main/cardInfoAPI.yaml)
+- [Card Info API Level 1](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/swissfintechinnovations/ca-card/main/cardInfoAPI-Level1.yaml)
