@@ -8,11 +8,11 @@ on:
     inputs:
       filenames:
         type: string
-        default: 'src/**'
-        description: 'Files to be linted (list of files sperated by a whitespace). Default: src/**'
+        default: 'src/**.yaml'
+        description: 'Files to be linted (list of files sperated by a whitespace). Default: src/**.yaml'
 
 jobs:
   yaml-lint:
     uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
     with:
-      filenames: ${{ github.event.inputs.filenames || 'src/**' }}
+      filenames: ${{ github.event.inputs.filenames || '*.yaml src/**.yaml' }}
