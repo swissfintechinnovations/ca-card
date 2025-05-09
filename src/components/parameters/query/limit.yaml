@@ -6,5 +6,5 @@ schema:
   type: integer
   format: int32
   minimum: 1
-  examples: 
+  examples:
     - 25
