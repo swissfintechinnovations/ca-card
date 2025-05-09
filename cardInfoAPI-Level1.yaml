@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 0.8.0
+  version: 1.0.0
   title: Common Card API
   description: |
     This specification defines a common card API for payment cards used in Switzerland. The API is supposed to be used by third parties to
