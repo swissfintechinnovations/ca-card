@@ -224,7 +224,7 @@ paths:
         - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
-          description: Single token was found. If the transactionId was not found, a 400 is returned.
+          description: Single transaction was found. If the transactionId was not found, a 400 is returned.
           headers:
             X-Correlation-ID:
               $ref: ./components/headers/X-Correlation-ID.yaml
