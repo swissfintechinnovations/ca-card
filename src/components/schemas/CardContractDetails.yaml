@@ -1,0 +1,40 @@
+title: Card contract details
+description: Describes a card contract with its relevant characteristics.
+type: object
+required:
+  - card_account_bundles_list
+  - card_accounts_list
+  - card_contract_id
+  - card_contract_reference
+  - contract_limit
+  - issuer_code
+  - issuer_name
+  - person_id
+  - person_reference
+properties:
+  card_accounts_list:
+    $ref: ./CardAccountsList.yaml
+  card_account_bundles_list:
+    $ref: ./CardAccountBundlesList.yaml
+  card_contract_description:
+    $ref: ./CardContractDescription.yaml
+  card_contract_id:
+    $ref: ./CardContractId.yaml
+  card_contract_reference:
+    $ref: ./ContractReference.yaml
+  contract_limit:
+    $ref: ./ContractLimit.yaml
+  distribution_partner_code:
+    $ref: ./DistributionPartnerCode.yaml
+  distribution_partner_name:
+    $ref: ./DistributionPartnerName.yaml
+  external_reference:
+    $ref: ./ExternalReference.yaml
+  issuer_code:
+    $ref: ./IssuerCode.yaml
+  issuer_name:
+    $ref: ./IssuerName.yaml
+  person_id:
+    $ref: ./PersonId.yaml
+  person_reference:
+    $ref: ./PersonReference.yaml

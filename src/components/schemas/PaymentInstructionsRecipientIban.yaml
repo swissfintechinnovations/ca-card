@@ -1,0 +1,5 @@
+title: Payment instructions recipient IBAN
+description: |
+  International Bank Account Number linked to the recipient's bank account on which the amount due has to be paid. Only relevant for 
+  prepaid and debit cards.
+$ref: ./Iban.yaml

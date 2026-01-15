@@ -1,0 +1,7 @@
+title: Person reference
+description: |
+  Functional reference to a person (cardholder) for display purposes.
+type: string
+maxLength: 50
+examples:
+  - 'Muster Kunde'

@@ -1,0 +1,29 @@
+title: Card account bundle details
+description: Describes a card account bundle with its relevant characteristics.
+type: object
+required:
+  - card_account_bundle_id
+  - card_account_bundle_reference
+  - card_account_bundles_list
+  - card_accounts_list
+  - card_contract_id
+  - card_contract_reference
+properties:
+  card_account_bundle_description:
+    $ref: ./CardAccountBundleDescription.yaml
+  card_account_bundle_id:
+    $ref: ./CardAccountBundleId.yaml
+  card_account_bundle_parent:
+    $ref: ./CardAccountBundleParent.yaml
+  card_account_bundle_reference:
+    $ref: ./CardAccountBundleReference.yaml
+  card_account_bundles_list:
+    $ref: ./CardAccountBundlesList.yaml
+  card_accounts_list:
+    $ref: ./CardAccountsList.yaml
+  card_contract_id:
+    $ref: ./CardAccountContractId.yaml
+  card_contract_reference:
+    $ref: ./ContractReference.yaml
+  external_reference:
+    $ref: ./ExternalReference.yaml

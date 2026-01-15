@@ -1,0 +1,4 @@
+title: Due date
+description: |
+  Date by which the payment for the statement is due. Not used for debit and prepaid cards.
+$ref: ./generic/Date.yaml

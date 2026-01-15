@@ -1,0 +1,9 @@
+title: Billing cycle rhythm
+description: |
+  Frequency of billing cycles for statement generation.
+type: string
+enum:
+  - monthly
+  - debit
+examples:
+  - monthly

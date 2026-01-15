@@ -1,0 +1,4 @@
+title: Card contract id
+description: |
+  Unique identifier for the contract defined by the Card Service Provider.
+$ref: ./generic/Id.yaml

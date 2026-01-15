@@ -1,0 +1,8 @@
+title: Card account bundle description
+description: |
+  Description for the card-account-bundle so that an end-user can understand the scope of the bundle. Is filled with 
+  issuer-specific information.
+type: string
+maxLength: 100
+examples:
+  - 'Abteilung Forschung & Entwicklung'

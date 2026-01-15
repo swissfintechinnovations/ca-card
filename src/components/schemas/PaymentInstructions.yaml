@@ -1,0 +1,24 @@
+title: Payment instructions
+description: |
+  Details for payment instructions related to statement settlement.
+type: object
+required:
+  - bic
+  - payment_reference
+  - qr_code
+  - recipient_address
+  - recipient_iban
+  - recipient_name
+properties:
+  bic:
+    $ref: ./PaymentInstructionsRecipientBic.yaml
+  payment_reference:
+    $ref: ./PaymentReference.yaml
+  qr_code:
+    $ref: ./PaymentInstructionsQrCode.yaml
+  recipient_address:
+    $ref: ./RecipientAddress.yaml
+  recipient_iban:
+    $ref: ./PaymentInstructionsRecipientIban.yaml
+  recipient_name:
+    $ref: ./PaymentInstructionsRecipientName.yaml

@@ -1,0 +1,8 @@
+title: Card contract description
+description: |
+  Description for the card-contract so that an end-user can understand the scope of the contract. Is filled with 
+  issuer-specific information.
+type: string
+maxLength: 100
+examples:
+  - 'Framework agreement USD Cards'

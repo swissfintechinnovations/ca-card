@@ -1,0 +1,7 @@
+title: Statement document
+description: |
+  Statement document in a Base64 encoded audit-proof PDF format (signed, PDF/A).
+type: string
+format: byte
+examples:
+  - 'JVBERi0xLjQKJ... (base64-encoded PDF)'

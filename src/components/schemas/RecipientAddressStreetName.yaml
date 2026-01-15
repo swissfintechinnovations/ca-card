@@ -1,0 +1,7 @@
+title: Recipient address street name
+description: |
+  Name of the street where the recipient has the official business location.
+type: string
+maxLength: 70
+examples:
+  - 'Bahnhofstrasse'
