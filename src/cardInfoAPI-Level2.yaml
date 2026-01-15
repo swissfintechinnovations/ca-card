@@ -257,11 +257,11 @@ paths:
       summary: Provides a list of card accounts which match the provided query parameters
       description: |
         This operation enables the retrieval of a list of payment card accounts. Payment card accounts contain a list of cards and are
-        associated to a card contract. 
+        associated to a card contract.
       operationId: listCardAccounts
       tags:
         - Card-accounts
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
         '200':
           description: |
@@ -291,14 +291,14 @@ paths:
     get:
       summary: Provides a single card account which matches the id
       description: |
-        This operation enables the retrieval of a single payment card account when the cardAccountId is already known. 
+        This operation enables the retrieval of a single payment card account when the cardAccountId is already known.
         The cardAccountId must be retrieved with the GET /card-accounts operation (or any other operation which return this identifer)
         before or stored locally at the API consumer.
       operationId: getCardAccount
       tags:
         - Card-accounts
       parameters:
-        - $ref: ./components/parameters/path/cardId.yaml # toBeUpdated
+        - $ref: ./components/parameters/path/cardId.yaml  # toBeUpdated
       responses:
         '200':
           description: Single payment card account was found. If the cardAccountId was not found, a 400 is returned.
@@ -321,32 +321,32 @@ paths:
       operationId: listPersons
       tags:
         - Persons
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: |
-              Persons were found which match the query parameters. If no persons matched the parameters or access rights are missing,
-              an empty list is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-              X-Next-Cursor:
-                $ref: ./components/headers/X-Next-Cursor.yaml
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required:
-                    - persons
-                  properties:
-                    persons:
-                      type: array
-                      items:
-                        $ref: ./components/schemas/PersonDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: |
+            Persons were found which match the query parameters. If no persons matched the parameters or access rights are missing,
+            an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - persons
+                properties:
+                  persons:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/PersonDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /persons/{personId}:
     get:
       summary: Provides a single person which matches the id
@@ -355,21 +355,21 @@ paths:
       operationId: getPerson
       tags:
         - Persons
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: Single person was found. If the personId was not found, a 400 is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-            content:
-              application/json:
-                schema:
-                  $ref: ./components/schemas/PersonDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: Single person was found. If the personId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/PersonDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /statements:
     get:
       summary: Provides a list of statements which match the provided query parameters
@@ -378,32 +378,32 @@ paths:
       operationId: listStatements
       tags:
         - Statements
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: |
-              Statements were found which match the query parameters. If no statements matched the parameters or access rights are
-              missing, an empty list is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-              X-Next-Cursor:
-                $ref: ./components/headers/X-Next-Cursor.yaml
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required:
-                    - statements
-                  properties:
-                    statements:
-                      type: array
-                      items:
-                        $ref: ./components/schemas/StatementDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: |
+            Statements were found which match the query parameters. If no statements matched the parameters or access rights are
+            missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - statements
+                properties:
+                  statements:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/StatementDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /statements/{statementId}:
     get:
       summary: Provides a single statement which matches the id
