@@ -1,0 +1,21 @@
+title: Recipient address
+description: |
+  Address details for the recipient of the payment instructions. Matches with the ISO20022 standard.
+type: object
+required:
+  - building_number
+  - country
+  - postal_code
+  - street_name
+  - town_name
+properties:
+  building_number:
+    $ref: ./RecipientAddressBuildingNumber.yaml
+  country:
+    $ref: ./RecipientAddressCountry.yaml
+  postal_code:
+    $ref: ./RecipientAddressPostalCode.yaml
+  street_name:
+    $ref: ./RecipientAddressStreetName.yaml
+  town_name:
+    $ref: ./RecipientAddressTownName.yaml

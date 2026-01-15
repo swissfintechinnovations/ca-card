@@ -1,0 +1,6 @@
+title: Card account bundles list
+description: |
+  List of card account bundle identifiers that are part of the current bundle or associated to the contract.
+type: array
+items:
+  $ref: ./CardAccountBundleId.yaml

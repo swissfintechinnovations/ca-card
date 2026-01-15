@@ -1,0 +1,5 @@
+title: Name
+description: |
+  Last name of the person (for individuals) or company name (for business entities).
+type: string
+maxLength: 100

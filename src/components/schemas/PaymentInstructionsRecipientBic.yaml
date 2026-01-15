@@ -1,0 +1,7 @@
+title: Payment instructions recipient BIC
+description: |
+  Bank Identifier Code for the institution that manages the bank account on which the statement is paid.
+type: string
+maxLength: 11
+examples:
+  - "BEROCHZHXXX"

@@ -1,0 +1,14 @@
+title: Payment type
+description: |
+  Method used for settlement of the open balance. 
+  Value 'direct_debit' is used for lsv, debit_direct and other automatic debiting.
+  Value 'ipi' is used for international payments and if account is in non-CHF currency.
+  Value 'debit' is used for debit cards.
+type: string
+enum:
+  - direct_debit
+  - qr
+  - ipi
+  - debit
+examples:
+  - direct_debit

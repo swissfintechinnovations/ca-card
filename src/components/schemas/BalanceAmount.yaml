@@ -1,0 +1,4 @@
+title: Balance amount
+description: |
+  Sum of any booked transactions for the account. For debit cards the sume of the current calendar month.
+$ref: ./generic/Amount.yaml

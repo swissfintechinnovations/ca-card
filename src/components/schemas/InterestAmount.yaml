@@ -1,0 +1,4 @@
+title: Interest amount
+description: |
+  Interest amount due on the previous statement. Positive values are debit interest, negative values are credit interest.
+$ref: ./generic/Amount.yaml

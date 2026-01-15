@@ -1,0 +1,7 @@
+title: Card account bundle reference
+description: |
+  Functional reference for a card account bundle for display purposes.
+type: string
+maxLength: 50
+examples:
+  - 'R&D Department'

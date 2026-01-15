@@ -1,0 +1,7 @@
+title: Recipient address building number
+description: |
+  Building number where the recipient has the official business location.
+type: string
+maxLength: 35
+examples:
+  - '12B'

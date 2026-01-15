@@ -1,0 +1,7 @@
+title: Loyalty program name
+description: |
+  Name of the loyalty program associated with this account.
+type: string
+maxLength: 100
+examples:
+  - 'SuperSaver Rewards'

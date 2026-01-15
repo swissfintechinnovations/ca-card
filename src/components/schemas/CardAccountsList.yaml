@@ -1,0 +1,7 @@
+title: Card accounts list
+description: |
+  List of card account identifiers associated with a person / card-contract or card-account-bundle and accessible with the provided 
+  consent.
+type: array
+items:
+  $ref: ./CardAccountId.yaml

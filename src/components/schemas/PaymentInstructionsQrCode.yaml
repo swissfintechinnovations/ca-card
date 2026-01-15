@@ -1,0 +1,5 @@
+title: Payment instructions QR code
+description: |
+  Contents for the Swiss QR code standard of the payment instructions. Can be rendered into a QR code representation.
+type: string
+maxLength: 7100

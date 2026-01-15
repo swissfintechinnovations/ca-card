@@ -1,0 +1,7 @@
+title: Payment instructions recipient name
+description: |
+  Name of the bank (client) that is receiving the money for the statement, usually the issuer.
+type: string
+maxLength: 140
+examples:
+  - 'Muster Bank AG'

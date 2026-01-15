@@ -1,0 +1,4 @@
+title: Person id
+description: |
+  Technical reference to a person/cardholder, used as unique identifier for API calls to retrieve person details.
+$ref: ./generic/Id.yaml
