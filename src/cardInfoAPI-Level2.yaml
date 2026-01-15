@@ -412,21 +412,21 @@ paths:
       operationId: getStatement
       tags:
         - Statements
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: Single statement was found. If the statementId was not found, a 400 is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-            content:
-              application/json:
-                schema:
-                  $ref: ./components/schemas/StatementDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: Single statement was found. If the statementId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/StatementDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /statements/documents/{statementId}:
     get:
       summary: Provides a single statement which matches the id as pdf file
@@ -435,21 +435,21 @@ paths:
       operationId: getStatementDocument
       tags:
         - Statements
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: Single statement was found. If the statementId was not found, a 400 is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-            content:
-              application/json:
-                schema:
-                  $ref: ./components/schemas/StatementDocument.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: Single statement was found. If the statementId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/StatementDocument.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /card-contracts:
     get:
       summary: Provides a list of card contracts which match the provided query parameters
@@ -458,32 +458,32 @@ paths:
       operationId: listCardContracts
       tags:
         - Card-contracts
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: |
-              Card contracts were found which match the query parameters. If no card contracts matched the parameters or access rights
-              are missing, an empty list is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-              X-Next-Cursor:
-                $ref: ./components/headers/X-Next-Cursor.yaml
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required:
-                    - card-contracts
-                  properties:
-                    card-contracts:
-                      type: array
-                      items:
-                        $ref: ./components/schemas/CardContractDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: |
+            Card contracts were found which match the query parameters. If no card contracts matched the parameters or access rights
+            are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-contracts
+                properties:
+                  card-contracts:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/CardContractDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /card-contracts/{cardContractId}:
     get:
       summary: Provides a single card contract which matches the id
@@ -492,21 +492,21 @@ paths:
       operationId: getCardContract
       tags:
         - Card-contracts
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-            content:
-              application/json:
-                schema:
-                  $ref: ./components/schemas/CardContractDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/CardContractDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /card-account-bundles:
     get:
       summary: Provides a list of card account bundles which match the provided query parameters
@@ -515,32 +515,32 @@ paths:
       operationId: listCardAccountBundles
       tags:
         - Card-account-bundles
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: |
-              Card account bundles were found which match the query parameters. If no card account bundles matched the parameters or
-              access rights are missing, an empty list is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-              X-Next-Cursor:
-                $ref: ./components/headers/X-Next-Cursor.yaml
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required:
-                    - card-account-bundles
-                  properties:
-                    card-account-bundles:
-                      type: array
-                      items:
-                        $ref: ./components/schemas/CardAccountBundleDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: |
+            Card account bundles were found which match the query parameters. If no card account bundles matched the parameters or
+            access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-account-bundles
+                properties:
+                  card-account-bundles:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/CardAccountBundleDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
   /card-account-bundles/{cardAccountBundleId}:
     get:
       summary: Provides a single card account bundle which matches the id
@@ -549,18 +549,18 @@ paths:
       operationId: getCardAccountBundle
       tags:
         - Card-account-bundles
-      parameters: [] # toBeUpdated
+      parameters: []  # toBeUpdated
       responses:
-          '200':
-            description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.
-            headers:
-              X-Correlation-ID:
-                $ref: ./components/headers/X-Correlation-ID.yaml
-            content:
-              application/json:
-                schema:
-                  $ref: ./components/schemas/CardAccountBundleDetails.yaml
-          '400':
-            $ref: ./components/responses/standard400.yaml
-          '500':
-            $ref: ./components/responses/standard500.yaml
+        '200':
+          description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/CardAccountBundleDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
