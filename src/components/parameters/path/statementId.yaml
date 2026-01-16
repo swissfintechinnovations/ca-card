@@ -1,0 +1,6 @@
+in: path
+name: statementId
+description: Identifier (technical) for a statement for which information is requested.
+required: true
+schema:
+  $ref: ../../schemas/StatementId.yaml

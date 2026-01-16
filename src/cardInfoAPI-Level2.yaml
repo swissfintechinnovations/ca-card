@@ -298,7 +298,7 @@ paths:
       tags:
         - Card-accounts
       parameters:
-        - $ref: ./components/parameters/path/cardId.yaml  # toBeUpdated
+        - $ref: ./components/parameters/path/cardAccountId.yaml
       responses:
         '200':
           description: Single payment card account was found. If the cardAccountId was not found, a 400 is returned.
@@ -355,7 +355,8 @@ paths:
       operationId: getPerson
       tags:
         - Persons
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/path/personId.yaml
       responses:
         '200':
           description: Single person was found. If the personId was not found, a 400 is returned.
@@ -412,7 +413,8 @@ paths:
       operationId: getStatement
       tags:
         - Statements
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/path/statementId.yaml
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -435,7 +437,8 @@ paths:
       operationId: getStatementDocument
       tags:
         - Statements
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/path/statementId.yaml
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -492,7 +495,8 @@ paths:
       operationId: getCardContract
       tags:
         - Card-contracts
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/path/cardContractId.yaml
       responses:
         '200':
           description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
@@ -549,7 +553,8 @@ paths:
       operationId: getCardAccountBundle
       tags:
         - Card-account-bundles
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/path/cardAccountBundleId.yaml
       responses:
         '200':
           description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.
