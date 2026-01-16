@@ -298,7 +298,7 @@ paths:
       tags:
         - Card-accounts
       parameters:
-        - $ref: '#/components/parameters/cardId'
+        - $ref: '#/components/parameters/cardAccountId'
       responses:
         '200':
           description: Single payment card account was found. If the cardAccountId was not found, a 400 is returned.
@@ -355,7 +355,8 @@ paths:
       operationId: getPerson
       tags:
         - Persons
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/personId'
       responses:
         '200':
           description: Single person was found. If the personId was not found, a 400 is returned.
@@ -412,7 +413,8 @@ paths:
       operationId: getStatement
       tags:
         - Statements
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/statementId'
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -435,7 +437,8 @@ paths:
       operationId: getStatementDocument
       tags:
         - Statements
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/statementId'
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -492,7 +495,8 @@ paths:
       operationId: getCardContract
       tags:
         - Card-contracts
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/cardContractId'
       responses:
         '200':
           description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
@@ -549,7 +553,8 @@ paths:
       operationId: getCardAccountBundle
       tags:
         - Card-account-bundles
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/cardAccountBundleId'
       responses:
         '200':
           description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.
@@ -1532,6 +1537,9 @@ components:
         Last name of the person (for individuals) or company name (for business entities).
       type: string
       maxLength: 100
+      examples:
+        - Muster AG
+        - Musterfrau
     NextStatementDate:
       title: Next statement date
       description: |
@@ -2238,6 +2246,27 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/AuthorizationReference'
+    cardAccountBundleId:
+      in: path
+      name: cardAccountBundleId
+      description: Identifier (technical) for a card account bundle for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/CardAccountBundleId'
+    cardAccountId:
+      in: path
+      name: cardAccountId
+      description: Identifier (technical) for a card account for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/CardAccountId'
+    cardContractId:
+      in: path
+      name: cardContractId
+      description: Identifier (technical) for a card contract for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/CardContractId'
     cardId:
       in: path
       name: cardId
@@ -2326,6 +2355,20 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/OriginalCurrency'
+    personId:
+      in: path
+      name: personId
+      description: Identifier (technical) for a person / cardholder for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/PersonId'
+    statementId:
+      in: path
+      name: statementId
+      description: Identifier (technical) for a statement for which information is requested.
+      required: true
+      schema:
+        $ref: '#/components/schemas/StatementId'
     to_date:
       in: query
       name: to_date
