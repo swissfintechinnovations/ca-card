@@ -1,0 +1,6 @@
+in: path
+name: personId
+description: Identifier (technical) for a person / cardholder for which information is requested.
+required: true
+schema:
+  $ref: ../../schemas/PersonId.yaml
