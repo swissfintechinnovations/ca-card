@@ -1,0 +1,7 @@
+in: query
+name: card_contract_reference
+description: |
+  Retrieves all card accounts with the specified card contract reference.
+required: false
+schema:
+  $ref: ../../schemas/ContractReference.yaml

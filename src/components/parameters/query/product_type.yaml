@@ -1,0 +1,7 @@
+in: query
+name: product_type
+description: |
+  Retrieves all card accounts with the specified product type. Only accounts where the user has a valid consent for are returned.
+required: false
+schema:
+  $ref: ../../schemas/ProductType.yaml

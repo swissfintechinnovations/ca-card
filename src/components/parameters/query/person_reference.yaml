@@ -1,0 +1,7 @@
+in: query
+name: person_reference
+description: |
+  Retrieves all card accounts with the specified person reference.
+required: false
+schema:
+  $ref: ../../schemas/PersonReference.yaml
