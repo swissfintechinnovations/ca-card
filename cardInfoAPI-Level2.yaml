@@ -274,8 +274,9 @@ paths:
         - $ref: '#/components/parameters/account_status'
         - $ref: '#/components/parameters/account_product_code'
         - $ref: '#/components/parameters/product_type'
-          description: |
-            Product type overwrite description.
+        - $ref: '#/components/parameters/from_open_bill_amount'
+        - $ref: '#/components/parameters/to_open_bill_amount'
+          name: to_open_bill_amount_override
         - $ref: '#/components/parameters/external_reference'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
@@ -623,6 +624,15 @@ components:
       maxLength: 11
       examples:
         - '12345678901'
+    Amount:
+      title: Shared amount
+      description: Amount of money for fees and services.
+      type: string
+      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
+      examples:
+        - '5.00'
+        - '2000'
+        - '34.65'
     ApprovalNumber:
       title: Approval number (also known as approval code)
       description: |
@@ -2405,6 +2415,14 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
+    from_open_bill_amount:
+      in: query
+      name: from_open_bill_amount
+      description: |
+        Retrieves all card accounts with an open bill amount greater than or equal to the specified amount. 
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     funding_card_id:
       in: query
       name: funding_card_id
@@ -2484,6 +2502,14 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
+    to_open_bill_amount:
+      in: query
+      name: to_open_bill_amount
+      description: |
+        Retrieves all card accounts with an open bill amount less than or equal to the specified amount. 
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     tokenId:
       in: path
       name: tokenId
