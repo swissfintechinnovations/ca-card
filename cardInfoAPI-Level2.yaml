@@ -276,7 +276,6 @@ paths:
         - $ref: '#/components/parameters/product_type'
         - $ref: '#/components/parameters/from_open_bill_amount'
         - $ref: '#/components/parameters/to_open_bill_amount'
-          name: to_open_bill_amount_override
         - $ref: '#/components/parameters/external_reference'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
