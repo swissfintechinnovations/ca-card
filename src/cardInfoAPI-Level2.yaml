@@ -276,7 +276,6 @@ paths:
         - $ref: ./components/parameters/query/product_type.yaml
         - $ref: ./components/parameters/query/from_open_bill_amount.yaml
         - $ref: ./components/parameters/query/to_open_bill_amount.yaml
-          name: to_open_bill_amount_override
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
