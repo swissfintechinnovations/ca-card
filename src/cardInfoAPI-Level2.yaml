@@ -274,8 +274,9 @@ paths:
         - $ref: ./components/parameters/query/account_status.yaml
         - $ref: ./components/parameters/query/account_product_code.yaml
         - $ref: ./components/parameters/query/product_type.yaml
-          description: |
-            Product type overwrite description.
+        - $ref: ./components/parameters/query/from_open_bill_amount.yaml
+        - $ref: ./components/parameters/query/to_open_bill_amount.yaml
+          name: to_open_bill_amount_override
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
