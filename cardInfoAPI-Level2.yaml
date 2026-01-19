@@ -261,7 +261,25 @@ paths:
       operationId: listCardAccounts
       tags:
         - Card-accounts
-      parameters: []
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/person_id'
+        - $ref: '#/components/parameters/person_reference'
+        - $ref: '#/components/parameters/card_account_bundle_id'
+        - $ref: '#/components/parameters/card_account_bundle_reference'
+        - $ref: '#/components/parameters/card_contract_id'
+        - $ref: '#/components/parameters/card_contract_reference'
+        - $ref: '#/components/parameters/iban'
+        - $ref: '#/components/parameters/account_status'
+        - $ref: '#/components/parameters/account_product_code'
+        - $ref: '#/components/parameters/product_type'
+          description: |
+            Product type overwrite description.
+        - $ref: '#/components/parameters/external_reference'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/correlation'
+        - $ref: '#/components/parameters/agent'
       responses:
         '200':
           description: |
@@ -2230,6 +2248,23 @@ components:
           schema:
             $ref: '#/components/schemas/CommonErrorResponse'
   parameters:
+    account_product_code:
+      in: query
+      name: account_product_code
+      description: |
+        Retrieves all card accounts with the specified account product code. Only accounts where the user has a valid consent for are 
+        returned.
+      required: false
+      schema:
+        $ref: '#/components/schemas/AccountProductCode'
+    account_status:
+      in: query
+      name: account_status
+      description: |
+        Retrieves all card accounts with the specified account status. query parameter must be combined with others.
+      required: false
+      schema:
+        $ref: '#/components/schemas/AccountStatus'
     agent:
       in: header
       name: User-Agent
@@ -2274,6 +2309,38 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/CardId'
+    card_account_bundle_id:
+      in: query
+      name: card_account_bundle_id
+      description: |
+        Retrieves all card accounts with the specified card account bundle id.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardAccountBundleId'
+    card_account_bundle_reference:
+      in: query
+      name: card_account_bundle_reference
+      description: |
+        Retrieves all card accounts with the specified card account bundle reference.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardAccountBundleReference'
+    card_contract_id:
+      in: query
+      name: card_contract_id
+      description: |
+        Retrieves all card accounts with the specified card contract id.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardContractId'
+    card_contract_reference:
+      in: query
+      name: card_contract_reference
+      description: |
+        Retrieves all card accounts with the specified card contract reference.
+      required: false
+      schema:
+        $ref: '#/components/schemas/ContractReference'
     card_id:
       in: query
       name: card_id
@@ -2322,6 +2389,14 @@ components:
         type: string
         examples:
           - cursorIDxyz
+    external_reference:
+      in: query
+      name: external_reference
+      description: |
+        Retrieves all card accounts with the specified external reference.
+      required: false
+      schema:
+        $ref: '#/components/schemas/ExternalReference'
     from_date:
       in: query
       name: from_date
@@ -2337,6 +2412,14 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/FundingCardId'
+    iban:
+      in: query
+      name: iban
+      description: |
+        Retrieves all card accounts with the specified IBAN.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Iban'
     limit:
       in: query
       name: limit
@@ -2362,6 +2445,30 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/PersonId'
+    person_id:
+      in: query
+      name: person_id
+      description: |
+        Retrieves all card accounts with the specified person id.
+      required: false
+      schema:
+        $ref: '#/components/schemas/PersonId'
+    person_reference:
+      in: query
+      name: person_reference
+      description: |
+        Retrieves all card accounts with the specified person reference.
+      required: false
+      schema:
+        $ref: '#/components/schemas/PersonReference'
+    product_type:
+      in: query
+      name: product_type
+      description: |
+        Retrieves all card accounts with the specified product type. Only accounts where the user has a valid consent for are returned.
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProductType'
     statementId:
       in: path
       name: statementId
