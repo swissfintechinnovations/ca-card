@@ -1,6 +1,6 @@
 title: Payment instructions
 description: |
-  Details for payment instructions related to statement settlement.
+  Details for payment instructions related to statement settlement or payments to an account independent of the account's cycling.
 type: object
 required:
   - bic
