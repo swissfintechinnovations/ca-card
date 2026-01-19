@@ -91,3 +91,5 @@ properties:
     $ref: ./ProductType.yaml
   statement_delivery_type:
     $ref: ./StatementDeliveryType.yaml
+  payment_instructions:
+    $ref: ./PaymentInstructions.yaml
