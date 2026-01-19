@@ -1,0 +1,8 @@
+in: query
+name: account_product_code
+description: |
+  Retrieves all card accounts with the specified account product code. Only accounts where the user has a valid consent for are 
+  returned.
+required: false
+schema:
+  $ref: ../../schemas/AccountProductCode.yaml

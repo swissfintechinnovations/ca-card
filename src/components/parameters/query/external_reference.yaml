@@ -1,0 +1,7 @@
+in: query
+name: external_reference
+description: |
+  Retrieves all card accounts with the specified external reference.
+required: false
+schema:
+  $ref: ../../schemas/ExternalReference.yaml

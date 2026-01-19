@@ -261,7 +261,25 @@ paths:
       operationId: listCardAccounts
       tags:
         - Card-accounts
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/person_id.yaml
+        - $ref: ./components/parameters/query/person_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_id.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
+        - $ref: ./components/parameters/query/card_contract_id.yaml
+        - $ref: ./components/parameters/query/card_contract_reference.yaml
+        - $ref: ./components/parameters/query/iban.yaml
+        - $ref: ./components/parameters/query/account_status.yaml
+        - $ref: ./components/parameters/query/account_product_code.yaml
+        - $ref: ./components/parameters/query/product_type.yaml
+          description: |
+            Product type overwrite description.
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |

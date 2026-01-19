@@ -1,0 +1,7 @@
+in: query
+name: card_account_bundle_id
+description: |
+  Retrieves all card accounts with the specified card account bundle id.
+required: false
+schema:
+  $ref: ../../schemas/CardAccountBundleId.yaml
