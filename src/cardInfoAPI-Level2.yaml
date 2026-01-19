@@ -317,6 +317,9 @@ paths:
         - Card-accounts
       parameters:
         - $ref: ./components/parameters/path/cardAccountId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single payment card account was found. If the cardAccountId was not found, a 400 is returned.
@@ -339,7 +342,12 @@ paths:
       operationId: listPersons
       tags:
         - Persons
-      parameters: []  # toBeUpdated
+      parameters:  # toBeUpdated
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -375,6 +383,9 @@ paths:
         - Persons
       parameters:
         - $ref: ./components/parameters/path/personId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single person was found. If the personId was not found, a 400 is returned.
@@ -397,7 +408,20 @@ paths:
       operationId: listStatements
       tags:
         - Statements
-      parameters: []  # toBeUpdated
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/card_account_id.yaml
+        - $ref: ./components/parameters/query/card_account_reference.yaml
+        - $ref: ./components/parameters/query/from_date.yaml
+          description: |
+            Start date to filter statements. Only statements with a statement date equal or after the from_date are returned.
+        - $ref: ./components/parameters/query/to_date.yaml
+          description: |
+            End date to filter statements. Only statements with a statement date equal or before the to_date are returned.
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -433,6 +457,9 @@ paths:
         - Statements
       parameters:
         - $ref: ./components/parameters/path/statementId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -457,6 +484,9 @@ paths:
         - Statements
       parameters:
         - $ref: ./components/parameters/path/statementId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single statement was found. If the statementId was not found, a 400 is returned.
@@ -479,7 +509,12 @@ paths:
       operationId: listCardContracts
       tags:
         - Card-contracts
-      parameters: []  # toBeUpdated
+      parameters:  # toBeUpdated
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -515,6 +550,9 @@ paths:
         - Card-contracts
       parameters:
         - $ref: ./components/parameters/path/cardContractId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
@@ -537,7 +575,12 @@ paths:
       operationId: listCardAccountBundles
       tags:
         - Card-account-bundles
-      parameters: []  # toBeUpdated
+      parameters:  # toBeUpdated
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: |
@@ -573,6 +616,9 @@ paths:
         - Card-account-bundles
       parameters:
         - $ref: ./components/parameters/path/cardAccountBundleId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
       responses:
         '200':
           description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.

@@ -1,0 +1,8 @@
+in: query
+name: card_account_reference
+description: |
+  Retrieves all statements related to a card account. Value has to be a functional identifier for the card account that can be 
+  retrieved with the GET /card-accounts endpoint.
+required: false
+schema:
+  $ref: ../../schemas/CardAccountReference.yaml
