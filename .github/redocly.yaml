@@ -1,0 +1,14 @@
+apis:  
+  level1:
+    root: ../src/CardInfoAPI.yaml
+    output: ../CardInfoAPI-level1.yaml
+    preprocessors:
+      filter-out:
+        property: x-api-level
+        value: 
+          - 2
+  level2:
+    root: ../src/CardInfoAPI.yaml
+
+# redocly bundle level1 --config .github/redocly.yaml --output cardInfoAPI-level1.yaml
+# redocly bundle level2 --config .github/redocly.yaml --output cardInfoAPI-level2.yaml

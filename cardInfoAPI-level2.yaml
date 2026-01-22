@@ -67,6 +67,50 @@ paths:
           $ref: '#/components/responses/standard400'
         '500':
           $ref: '#/components/responses/standard500'
+  /card-accounts:
+    x-api-level: 2
+    get:
+      summary: Provides a list of card accounts which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of card accounts. A card account represents the account to which one or more payment
+        cards are linked. In order to prevent API consumers from having to fulfill PCI DSS requirements, no full PAN or other data relevant
+        for this regulation are included. The API consumer is expected to have a non-card related identifier for the customer for whom data
+        should be returned (e.g. bank account number).
+      operationId: listCardAccounts
+      tags:
+        - Cards
+      parameters:
+        - $ref: '#/components/parameters/card_status'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/client'
+        - $ref: '#/components/parameters/correlation'
+        - $ref: '#/components/parameters/agent'
+      responses:
+        '200':
+          description: |
+            Card accounts were found which match the query parameters. If no card accounts matched the parameters or access rights are missing,
+            an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - cardAccounts
+                properties:
+                  cardAccounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CardDetails'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '500':
+          $ref: '#/components/responses/standard500'
 components:
   schemas:
     CardStatus:
@@ -177,6 +221,19 @@ components:
             $ref: ./DistributionPartnerName.yaml
           initial_issuing_date:
             $ref: ./InitialIssuingDate.yaml
+      CardDetailsLevel2:
+        x-api-level: 2
+        type: object
+        required:
+          - cardAccountId
+          - personId
+        properties:
+          cardAccountId:
+            $ref: ./CardAccountId.yaml
+          personId:
+            $ref: ./PersonId.yaml
+          contractId:
+            $ref: ./ContractId.yaml
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.

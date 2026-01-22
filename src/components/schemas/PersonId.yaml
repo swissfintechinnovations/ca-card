@@ -1,0 +1,7 @@
+title: Person Id
+description: |
+  Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
+type: string
+maxLength: 50
+examples:
+  - UUID

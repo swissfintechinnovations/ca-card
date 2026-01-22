@@ -1,0 +1,7 @@
+title: Contract Id
+description: |
+  Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+type: string
+maxLength: 50
+examples:
+  - UUID
