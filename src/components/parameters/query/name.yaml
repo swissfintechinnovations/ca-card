@@ -1,0 +1,7 @@
+in: query
+name: name
+description: |
+  Retrieves all instances of the entity with the specified name. * as wildcard is supported.
+required: false
+schema:
+  $ref: ../../schemas/Name.yaml
