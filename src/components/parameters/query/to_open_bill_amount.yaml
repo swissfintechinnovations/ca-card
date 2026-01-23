@@ -1,7 +1,0 @@
-in: query
-name: to_open_bill_amount
-description: |
-  Retrieves all card accounts with an open bill amount less than or equal to the specified amount. 
-required: false
-schema:
-  $ref: ../../schemas/generic/Amount.yaml

@@ -1,0 +1,7 @@
+in: query
+name: to_amount
+description: |
+  Retrieves all instances of the entity with an open bill amount less than or equal to the specified amount. 
+required: false
+schema:
+  $ref: ../../schemas/generic/Amount.yaml

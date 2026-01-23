@@ -191,7 +191,11 @@ paths:
         - $ref: ./components/parameters/query/card_id.yaml
         - $ref: ./components/parameters/query/token_id.yaml
         - $ref: ./components/parameters/query/from_date.yaml
+          description: |
+            Retrieves all transactions that took place after or on the provided date time. Filtering is applied on the transaction_date_time attribute.
         - $ref: ./components/parameters/query/to_date.yaml
+          description: |
+            Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
         - $ref: ./components/parameters/query/transaction_status.yaml
         - $ref: ./components/parameters/query/original_currency.yaml
         - $ref: ./components/parameters/query/cursor.yaml
@@ -274,8 +278,12 @@ paths:
         - $ref: ./components/parameters/query/account_status.yaml
         - $ref: ./components/parameters/query/account_product_code.yaml
         - $ref: ./components/parameters/query/product_type.yaml
-        - $ref: ./components/parameters/query/from_open_bill_amount.yaml
-        - $ref: ./components/parameters/query/to_open_bill_amount.yaml
+        - $ref: ./components/parameters/query/from_amount.yaml
+          description: |
+            Retrieves all card accounts with an open bill amount greater than or equal to the specified amount.
+        - $ref: ./components/parameters/query/to_amount.yaml
+          description: |
+            Retrieves all card accounts with an open bill amount less than or equal to the specified amount.
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
