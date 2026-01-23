@@ -1,7 +1,7 @@
 in: query
 name: person_id
 description: |
-  Retrieves all card accounts with the specified person id.
+  Retrieves all instances of the entity with the specified person id.
 required: false
 schema:
   $ref: ../../schemas/PersonId.yaml

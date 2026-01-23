@@ -350,9 +350,12 @@ paths:
       operationId: listPersons
       tags:
         - Persons
-      parameters:  # toBeUpdated
+      parameters:
         - $ref: ./components/parameters/query/cursor.yaml
         - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/first_name.yaml
+        - $ref: ./components/parameters/query/name.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
@@ -482,7 +485,7 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
-  /statements/documents/{statementId}:
+  /statements/{statementId}/document:
     get:
       summary: Provides a single statement which matches the id as pdf file
       description: |
@@ -517,9 +520,12 @@ paths:
       operationId: listCardContracts
       tags:
         - Card-contracts
-      parameters:  # toBeUpdated
+      parameters:
         - $ref: ./components/parameters/query/cursor.yaml
         - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/person_id.yaml
+        - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
@@ -583,9 +589,14 @@ paths:
       operationId: listCardAccountBundles
       tags:
         - Card-account-bundles
-      parameters:  # toBeUpdated
+      parameters: 
         - $ref: ./components/parameters/query/cursor.yaml
         - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_parent.yaml
+        - $ref: ./components/parameters/query/card_contract_id.yaml
+        - $ref: ./components/parameters/query/card_contract_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
