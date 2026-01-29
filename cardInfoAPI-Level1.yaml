@@ -91,92 +91,329 @@ components:
       type: string
       examples:
         - f058ebd6-02f7-4d3f-942e-904344e8cde5
+    Currency:
+      description: Currency in ISO code format.
+      type: string
+      pattern: ^[A-Z]{3}$
+      examples:
+        - CHF
+        - EUR
+    Id:
+      title: Shared id
+      description: Unique identifier to referenece resources.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    CardLimitCycle:
+      title: Card limit cycle
+      description: |
+        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided
+        that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current
+        cycle.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardLimitDaily:
+      title: Card limit daily
+      description: |
+        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers
+        limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardProductCode:
+      title: Product code
+      description: Identifier for the card product.
+      type: string
+      maxLength: 50
+      examples:
+        - '1234567'
+    CardProductName:
+      title: Product name
+      description: Name for the card product assigned by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - A1
+        - MC/VI Gold CHF
+    CardholderReference:
+      title: Cardholder reference
+      description: Reference to the cardholder who owns the card which was used for the transaction.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    ContractReference:
+      title: Contract reference
+      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
+      type: string
+      maxLength: 50
+      examples:
+        - CH3456789012345678901
+        - ABC-56789012345
+    EmbossingLine1:
+      title: Embossing line 1
+      description: First line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    EmbossingLine2:
+      title: Embossing line 2
+      description: Second line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    Date:
+      title: Shared date
+      description: General date that is used for different attributes, format is 'YYYY-MM-DD'.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    Image:
+      description: URL reference to an image for the design of the card.
+      type: string
+      format: uri
+      examples:
+        - https://issuer.ch/public/media/images/card_image.png
+    IssuerCode:
+      title: Issuer code
+      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    IssuerName:
+      title: Issuer name
+      description: Name of the legal issuer of a card.
+      type: string
+      maxLength: 100
+      examples:
+        - Viseca Card Services
+        - UBS
+        - Zürcher Kantonalbank
+    IssuingType:
+      title: Issuing type
+      description: |
+        Specifies in which form the card is issued; definition of enums:
+        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
+        - virtual: the card is being issued only virtually for digital usage
+      type: string
+      enum:
+        - physical
+        - virtual
+      examples:
+        - physical
+    Language:
+      description: Preferred language of the cardholder for any communication.
+      type: string
+      enum:
+        - de
+        - en
+        - fr
+        - it
+      examples:
+        - de
+    Pan4Digits:
+      title: Pan 4 digits
+      description: Last 4 digits of the PAN; values can change for the same Card id during the lifecycle.
+      type: string
+      maxLength: 4
+      pattern: ^\d{4}$
+      examples:
+        - '4321'
+    ProductLine:
+      title: Product line
+      description: Customer segment to which the card is offered.
+      type: string
+      enum:
+        - consumer
+        - business
+        - corporate
+      examples:
+        - consumer
+    ProductType:
+      title: Product type
+      description: Type of the card product.
+      type: string
+      enum:
+        - credit
+        - debit
+        - prepaid
+      examples:
+        - credit
+    Scheme:
+      description: Card network which is used to process payments.
+      type: string
+      enum:
+        - mastercard
+        - visa
+        - americanexpress
+        - dinersclub
+      examples:
+        - mastercard
+    BankAccountReference:
+      title: Bank account reference
+      description: |
+        Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+      type: string
+      maxLength: 34
+      examples:
+        - CH3456789012345678901
+    CardAccountReference:
+      title: Card account reference
+      description: |
+        Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are
+        settled directly to the bank account.
+      type: string
+      maxLength: 50
+      examples:
+        - AB-4567890123456
+    Category:
+      description: |
+        Identifies the nature of the card in regards to the overall account; for some issuers the Category has an influence on the effect of
+        certain lifecycle use cases.
+      type: string
+      enum:
+        - primary_card
+        - additional_card
+      examples:
+        - primary_card
+    DistributionPartnerCode:
+      title: Distribution partner code
+      description: |
+        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the
+        card; empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    DistributionPartnerName:
+      title: Distribution partner name
+      description: |
+        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
+        empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - Zürcher Kantonalbank
+    CardAccountId:
+      title: Card account Id
+      description: |
+        Technical reference to a card account, used as identifier to retrieve card account details via API endpoint.
+      type: string
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    PersonId:
+      title: Person Id
+      description: |
+        Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
+    ContractId:
+      title: Contract Id
+      description: |
+        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
     CardDetails:
-      CardDetails:
-        title: Card details
-        description: Describes a payment card with its relevant characteristics.
-        allOf:
-          - $ref: '#/CardDetailsLevel1'
-          - $ref: '#/CardDetailsLevel2'
-      CardDetailsLevel1:
-        type: object
-        required:
-          - card_account_currency
-          - card_id
-          - card_limit_cycle
-          - card_limit_daily
-          - card_product_code
-          - card_product_name
-          - card_status
-          - cardholder_reference
-          - contract_reference
-          - embossing_line_1
-          - embossing_line_2
-          - expiry_date
-          - image
-          - issuer_code
-          - issuer_name
-          - issuing_type
-          - language
-          - pan_4_digits
-          - product_line
-          - product_type
-          - scheme
-        properties:
-          card_account_currency:
-            $ref: ./CardAccountCurrency.yaml
-          card_id:
-            $ref: ./CardId.yaml
-          card_limit_cycle:
-            $ref: ./CardLimitCycle.yaml
-          card_limit_daily:
-            $ref: ./CardLimitDaily.yaml
-          card_product_code:
-            $ref: ./CardProductCode.yaml
-          card_product_name:
-            $ref: ./CardProductName.yaml
-          card_status:
-            $ref: ./CardStatus.yaml
-          cardholder_reference:
-            $ref: ./CardholderReference.yaml
-          contract_reference:
-            $ref: ./ContractReference.yaml
-          embossing_line_1:
-            $ref: ./EmbossingLine1.yaml
-          embossing_line_2:
-            $ref: ./EmbossingLine2.yaml
-          expiry_date:
-            $ref: ./ExpiryDate.yaml
-          image:
-            $ref: ./Image.yaml
-          issuer_code:
-            $ref: ./IssuerCode.yaml
-          issuer_name:
-            $ref: ./IssuerName.yaml
-          issuing_type:
-            $ref: ./IssuingType.yaml
-          language:
-            $ref: ./Language.yaml
-          pan_4_digits:
-            $ref: ./Pan4Digits.yaml
-          product_line:
-            $ref: ./ProductLine.yaml
-          product_type:
-            $ref: ./ProductType.yaml
-          scheme:
-            $ref: ./Scheme.yaml
-          bank_account_reference:
-            $ref: ./BankAccountReference.yaml
-          card_account_reference:
-            $ref: ./CardAccountReference.yaml
-          category:
-            $ref: ./Category.yaml
-          distribution_partner_code:
-            $ref: ./DistributionPartnerCode.yaml
-          distribution_partner_name:
-            $ref: ./DistributionPartnerName.yaml
-          initial_issuing_date:
-            $ref: ./InitialIssuingDate.yaml
+      title: Card details
+      description: Describes a payment card with its relevant characteristics.
+      type: object
+      required:
+        - card_account_currency
+        - card_id
+        - card_limit_cycle
+        - card_limit_daily
+        - card_product_code
+        - card_product_name
+        - card_status
+        - cardholder_reference
+        - contract_reference
+        - embossing_line_1
+        - embossing_line_2
+        - expiry_date
+        - image
+        - issuer_code
+        - issuer_name
+        - issuing_type
+        - language
+        - pan_4_digits
+        - product_line
+        - product_type
+        - scheme
+      properties:
+        card_account_currency:
+          $ref: '#/components/schemas/Currency'
+        card_id:
+          $ref: '#/components/schemas/Id'
+        card_limit_cycle:
+          $ref: '#/components/schemas/CardLimitCycle'
+        card_limit_daily:
+          $ref: '#/components/schemas/CardLimitDaily'
+        card_product_code:
+          $ref: '#/components/schemas/CardProductCode'
+        card_product_name:
+          $ref: '#/components/schemas/CardProductName'
+        card_status:
+          $ref: '#/components/schemas/CardStatus'
+        cardholder_reference:
+          $ref: '#/components/schemas/CardholderReference'
+        contract_reference:
+          $ref: '#/components/schemas/ContractReference'
+        embossing_line_1:
+          $ref: '#/components/schemas/EmbossingLine1'
+        embossing_line_2:
+          $ref: '#/components/schemas/EmbossingLine2'
+        expiry_date:
+          $ref: '#/components/schemas/Date'
+        image:
+          $ref: '#/components/schemas/Image'
+        issuer_code:
+          $ref: '#/components/schemas/IssuerCode'
+        issuer_name:
+          $ref: '#/components/schemas/IssuerName'
+        issuing_type:
+          $ref: '#/components/schemas/IssuingType'
+        language:
+          $ref: '#/components/schemas/Language'
+        pan_4_digits:
+          $ref: '#/components/schemas/Pan4Digits'
+        product_line:
+          $ref: '#/components/schemas/ProductLine'
+        product_type:
+          $ref: '#/components/schemas/ProductType'
+        scheme:
+          $ref: '#/components/schemas/Scheme'
+        bank_account_reference:
+          $ref: '#/components/schemas/BankAccountReference'
+        card_account_reference:
+          $ref: '#/components/schemas/CardAccountReference'
+        category:
+          $ref: '#/components/schemas/Category'
+        distribution_partner_code:
+          $ref: '#/components/schemas/DistributionPartnerCode'
+        distribution_partner_name:
+          $ref: '#/components/schemas/DistributionPartnerName'
+        initial_issuing_date:
+          $ref: '#/components/schemas/Date'
+        cardAccountId:
+          $ref: '#/components/schemas/CardAccountId'
+        personId:
+          $ref: '#/components/schemas/PersonId'
+        contractId:
+          $ref: '#/components/schemas/ContractId'
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.

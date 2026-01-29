@@ -1,100 +1,88 @@
-CardDetails:
-  title: Card details
-  description: Describes a payment card with its relevant characteristics.
-  allOf:
-    - $ref: '#/CardDetailsLevel1'
-    - $ref: '#/CardDetailsLevel2'
-
-CardDetailsLevel1:
-  type: object
-  required:
-    - card_account_currency
-    - card_id
-    - card_limit_cycle
-    - card_limit_daily
-    - card_product_code
-    - card_product_name
-    - card_status
-    - cardholder_reference
-    - contract_reference
-    - embossing_line_1
-    - embossing_line_2
-    - expiry_date
-    - image
-    - issuer_code
-    - issuer_name
-    - issuing_type
-    - language
-    - pan_4_digits
-    - product_line
-    - product_type
-    - scheme
-  properties:
-    card_account_currency:
-      $ref: ./CardAccountCurrency.yaml
-    card_id:
-      $ref: ./CardId.yaml
-    card_limit_cycle:
-      $ref: ./CardLimitCycle.yaml
-    card_limit_daily:
-      $ref: ./CardLimitDaily.yaml
-    card_product_code:
-      $ref: ./CardProductCode.yaml
-    card_product_name:
-      $ref: ./CardProductName.yaml
-    card_status:
-      $ref: ./CardStatus.yaml
-    cardholder_reference:
-      $ref: ./CardholderReference.yaml
-    contract_reference:
-      $ref: ./ContractReference.yaml
-    embossing_line_1:
-      $ref: ./EmbossingLine1.yaml
-    embossing_line_2:
-      $ref: ./EmbossingLine2.yaml
-    expiry_date:
-      $ref: ./ExpiryDate.yaml
-    image:
-      $ref: ./Image.yaml
-    issuer_code:
-      $ref: ./IssuerCode.yaml
-    issuer_name:
-      $ref: ./IssuerName.yaml
-    issuing_type:
-      $ref: ./IssuingType.yaml
-    language:
-      $ref: ./Language.yaml
-    pan_4_digits:
-      $ref: ./Pan4Digits.yaml
-    product_line:
-      $ref: ./ProductLine.yaml
-    product_type:
-      $ref: ./ProductType.yaml
-    scheme:
-      $ref: ./Scheme.yaml
-    bank_account_reference:
-      $ref: ./BankAccountReference.yaml
-    card_account_reference:
-      $ref: ./CardAccountReference.yaml
-    category:
-      $ref: ./Category.yaml
-    distribution_partner_code:
-      $ref: ./DistributionPartnerCode.yaml
-    distribution_partner_name:
-      $ref: ./DistributionPartnerName.yaml
-    initial_issuing_date:
-      $ref: ./InitialIssuingDate.yaml
-
-CardDetailsLevel2:
-  x-api-level: 2
-  type: object
-  required:
-        - cardAccountId
-        - personId
-  properties:
-    cardAccountId:
-      $ref: ./CardAccountId.yaml
-    personId:
-      $ref: ./PersonId.yaml
-    contractId:
-      $ref: ./ContractId.yaml
+title: Card details
+description: Describes a payment card with its relevant characteristics.
+type: object
+required:
+  - card_account_currency
+  - card_id
+  - card_limit_cycle
+  - card_limit_daily
+  - card_product_code
+  - card_product_name
+  - card_status
+  - cardholder_reference
+  - contract_reference
+  - embossing_line_1
+  - embossing_line_2
+  - expiry_date
+  - image
+  - issuer_code
+  - issuer_name
+  - issuing_type
+  - language
+  - pan_4_digits
+  - product_line
+  - product_type
+  - scheme
+properties:
+  card_account_currency:
+    $ref: ./CardAccountCurrency.yaml
+  card_id:
+    $ref: ./CardId.yaml
+  card_limit_cycle:
+    $ref: ./CardLimitCycle.yaml
+  card_limit_daily:
+    $ref: ./CardLimitDaily.yaml
+  card_product_code:
+    $ref: ./CardProductCode.yaml
+  card_product_name:
+    $ref: ./CardProductName.yaml
+  card_status:
+    $ref: ./CardStatus.yaml
+  cardholder_reference:
+    $ref: ./CardholderReference.yaml
+  contract_reference:
+    $ref: ./ContractReference.yaml
+  embossing_line_1:
+    $ref: ./EmbossingLine1.yaml
+  embossing_line_2:
+    $ref: ./EmbossingLine2.yaml
+  expiry_date:
+    $ref: ./ExpiryDate.yaml
+  image:
+    $ref: ./Image.yaml
+  issuer_code:
+    $ref: ./IssuerCode.yaml
+  issuer_name:
+    $ref: ./IssuerName.yaml
+  issuing_type:
+    $ref: ./IssuingType.yaml
+  language:
+    $ref: ./Language.yaml
+  pan_4_digits:
+    $ref: ./Pan4Digits.yaml
+  product_line:
+    $ref: ./ProductLine.yaml
+  product_type:
+    $ref: ./ProductType.yaml
+  scheme:
+    $ref: ./Scheme.yaml
+  contract_id:
+    x-required: 2
+    $ref: ./ContractId.yaml
+  person_id:
+    x-required: 2
+    $ref: ./PersonId.yaml
+  bank_account_reference:
+    $ref: ./BankAccountReference.yaml
+  card_account_reference:
+    $ref: ./CardAccountReference.yaml
+  category:
+    $ref: ./Category.yaml
+  distribution_partner_code:
+    $ref: ./DistributionPartnerCode.yaml
+  distribution_partner_name:
+    $ref: ./DistributionPartnerName.yaml
+  initial_issuing_date:
+    $ref: ./InitialIssuingDate.yaml
+  card_account_id:
+    $ref: ./CardAccountId.yaml
