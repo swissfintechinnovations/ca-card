@@ -92,9 +92,9 @@ jobs:
       - name: Bundle & Autoformat API Spec
         id: bundle
         run: |
-          redocly bundle level1 --config github/.github/redocly.yaml --output cardInfoAPI-level1.yaml
+          redocly bundle level1 --config .github/redocly.yaml --output cardInfoAPI-level1.yaml
           node github/.github/autoformat/autoformat_spec.js cardInfoAPI-level1.yaml
-          redocly bundle level2 --config github/.github/redocly.yaml --output cardInfoAPI-level2.yaml
+          redocly bundle level2 --config .github/redocly.yaml --output cardInfoAPI-level2.yaml
           node github/.github/autoformat/autoformat_spec.js cardInfoAPI-level2.yaml
 
       - name: Commit und push changes
