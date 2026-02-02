@@ -2,6 +2,7 @@ name: 'SFTI Bundle API specification'
 # caution: do not rename filename as pr workflow depends on its name
 
 on:
+  workflow_call:
   workflow_dispatch:
 
 env:
@@ -18,7 +19,8 @@ jobs:
       - name: Check protected branch
         if: ${{ github.ref_protected == true }}
         run: |
-          echo "Cannot bundle API specification on protected branch \"${{ github.head_ref || github.ref }}\"."
+          echo "::warning::Cannot bundle API specification on protected branch \"${{ github.head_ref || github.ref }}\"."
+          exit 1
 
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -31,6 +33,15 @@ jobs:
         with:
           repository: swissfintechinnovations/.github
           path: github
+      
+      - name: Context for steps
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: |
+          echo "$STEPS_CONTEXT"
+          echo git branch
+          ehco ${{ github.head_ref }}
+          ehco ${{ github.ref }}
 
       - name: Install Node js
         uses: actions/setup-node@v4
