@@ -258,6 +258,22 @@ components:
         - dinersclub
       examples:
         - mastercard
+    ContractId:
+      title: Contract Id
+      description: |
+        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
+    PersonId:
+      title: Person Id
+      description: |
+        Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
     BankAccountReference:
       title: Bank account reference
       description: |
@@ -311,22 +327,6 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
-    PersonId:
-      title: Person Id
-      description: |
-        Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
-      type: string
-      maxLength: 50
-      examples:
-        - UUID
-    ContractId:
-      title: Contract Id
-      description: |
-        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
-      type: string
-      maxLength: 50
-      examples:
-        - UUID
     CardDetails:
       title: Card details
       description: Describes a payment card with its relevant characteristics.
@@ -396,6 +396,10 @@ components:
           $ref: '#/components/schemas/ProductType'
         scheme:
           $ref: '#/components/schemas/Scheme'
+        contract_id:
+          $ref: '#/components/schemas/ContractId'
+        person_id:
+          $ref: '#/components/schemas/PersonId'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
         card_account_reference:
@@ -408,12 +412,8 @@ components:
           $ref: '#/components/schemas/DistributionPartnerName'
         initial_issuing_date:
           $ref: '#/components/schemas/Date'
-        cardAccountId:
+        card_account_id:
           $ref: '#/components/schemas/CardAccountId'
-        personId:
-          $ref: '#/components/schemas/PersonId'
-        contractId:
-          $ref: '#/components/schemas/ContractId'
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.

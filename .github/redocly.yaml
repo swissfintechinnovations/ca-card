@@ -1,9 +1,10 @@
 plugins:
-  - redocly/redocly_sfti_rules.js
+  - ../github/.github/redocly/redocly_sfti_rules.js
 
 apis:  
   level1:
     root: ../src/CardInfoAPI.yaml
+    output: ../cardInfoAPI-level1.yaml
     decorators:
       filter-out:
         property: x-api-level
@@ -12,8 +13,10 @@ apis:
       sfti/schema-required:
         level: 1
         stripMarker: true
+      
   level2:
     root: ../src/CardInfoAPI.yaml
+    output: ../cardInfoAPI-level2.yaml
     decorators:
       sfti/schema-required:
         level: 2
