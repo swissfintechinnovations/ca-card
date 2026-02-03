@@ -3,7 +3,7 @@ plugins:
 
 apis:  
   level1:
-    root: ../src/CardInfoAPI.yaml
+    root: ../src/cardInfoAPI.yaml
     output: ../cardInfoAPI-level1.yaml
     decorators:
       filter-out:
@@ -15,7 +15,7 @@ apis:
         stripMarker: true
       
   level2:
-    root: ../src/CardInfoAPI.yaml
+    root: ../src/cardInfoAPI.yaml
     output: ../cardInfoAPI-level2.yaml
     decorators:
       sfti/schema-required:
