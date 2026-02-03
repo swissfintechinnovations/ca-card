@@ -3,8 +3,8 @@ plugins:
 
 apis:  
   level1:
-    root: src/CardInfoAPI.yaml
-    output: cardInfoAPI-level1.yaml
+    root: ../src/CardInfoAPI.yaml
+    output: ../cardInfoAPI-level1.yaml
     decorators:
       filter-out:
         property: x-api-level
@@ -15,10 +15,19 @@ apis:
         stripMarker: true
       
   level2:
-    root: src/CardInfoAPI.yaml
-    output: cardInfoAPI-level2.yaml
+    root: ../src/CardInfoAPI.yaml
+    output: ../cardInfoAPI-level2.yaml
     decorators:
       sfti/schema-required:
         level: 2
         stripMarker: true
       sfti/strip-x-api-level: on
+
+  debug1:
+    root: src/CardInfoAPI.yaml
+  debug2:
+    root: ../src/CardInfoAPI.yaml
+  debug3:
+    root: ../../src/CardInfoAPI.yaml
+  debug4:
+    root: ../../../src/CardInfoAPI.yaml
