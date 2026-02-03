@@ -22,12 +22,3 @@ apis:
         level: 2
         stripMarker: true
       sfti/strip-x-api-level: on
-
-  debug1:
-    root: src/CardInfoAPI.yaml
-  debug2:
-    root: ../src/CardInfoAPI.yaml
-  debug3:
-    root: ../../src/CardInfoAPI.yaml
-  debug4:
-    root: ../../../src/CardInfoAPI.yaml
