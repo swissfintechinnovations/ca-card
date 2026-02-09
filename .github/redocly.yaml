@@ -1,7 +1,7 @@
 plugins:
   - ../github/.github/redocly/redocly_sfti_rules.js
 
-apis:  
+apis:
   level1:
     root: ../src/cardInfoAPI.yaml
     output: ../cardInfoAPI-level1.yaml
