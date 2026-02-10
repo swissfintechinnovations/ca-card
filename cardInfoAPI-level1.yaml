@@ -12,7 +12,9 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
   - url: https://card.common-api.ch
-security: []
+externalDocs:
+  description: Find out more about SFTI API specifications.
+  url: https://www.common-api.ch
 tags:
   - name: Card-tokens
     description: Operations for retrieving information about tokens associated with payment cards.
@@ -20,9 +22,7 @@ tags:
     description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
-externalDocs:
-  description: Find out more about SFTI API specifications.
-  url: https://www.common-api.ch
+security: []
 paths:
   /cards:
     get:
@@ -69,213 +69,6 @@ paths:
           $ref: '#/components/responses/standard500'
 components:
   schemas:
-    CardStatus:
-      title: Card status
-      description: |
-        Effective status of the card to indicate whether it can be used for payments; definition of enums:
-        - active: authorizations are possible
-        - suspended: authorizations are temporarily not possible
-        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
-      type: string
-      enum:
-        - active
-        - suspended
-        - blocked
-      examples:
-        - active
-    Correlation:
-      title: Shared correlation
-      description: |
-        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and used e.g. for
-        debugging.
-      type: string
-      examples:
-        - f058ebd6-02f7-4d3f-942e-904344e8cde5
-    CardAccountCurrency:
-      description: Settlement currency of the card / card account in ISO code format.
-      type: string
-      pattern: ^[A-Z]{3}$
-      examples:
-        - CHF
-        - EUR
-    CardId:
-      title: Card id
-      description: |
-        Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    CardLimitCycle:
-      title: Card limit cycle
-      description: |
-        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided
-        that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current
-        cycle.
-      type: integer
-      format: int32
-      examples:
-        - 2000
-    CardLimitDaily:
-      title: Card limit daily
-      description: |
-        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers
-        limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
-      type: integer
-      format: int32
-      examples:
-        - 2000
-    CardProductCode:
-      title: Product code
-      description: Identifier for the card product.
-      type: string
-      maxLength: 50
-      examples:
-        - '1234567'
-    CardProductName:
-      title: Product name
-      description: Name for the card product assigned by the issuer.
-      type: string
-      maxLength: 100
-      examples:
-        - A1
-        - MC/VI Gold CHF
-    CardholderReference:
-      title: Cardholder reference
-      description: Reference to the cardholder who owns the card which was used for the transaction.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    ContractReference:
-      title: Contract reference
-      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
-      type: string
-      maxLength: 50
-      examples:
-        - CH3456789012345678901
-        - ABC-56789012345
-    EmbossingLine1:
-      title: Embossing line 1
-      description: First line embossed on the card to indicate the cardholder.
-      type: string
-      maxLength: 35
-      examples:
-        - Peter Schweizer
-    EmbossingLine2:
-      title: Embossing line 2
-      description: Second line embossed on the card to indicate the cardholder.
-      type: string
-      maxLength: 35
-      examples:
-        - Peter Schweizer
-    ExpiryDate:
-      title: Expiry date
-      description: Last day when the card is valid and can be used for payments.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    Image:
-      description: URL reference to an image for the design of the card.
-      type: string
-      format: uri
-      examples:
-        - https://issuer.ch/public/media/images/card_image.png
-    IssuerCode:
-      title: Issuer code
-      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    IssuerName:
-      title: Issuer name
-      description: Name of the legal issuer of a card.
-      type: string
-      maxLength: 100
-      examples:
-        - Viseca Card Services
-        - UBS
-        - Zürcher Kantonalbank
-    IssuingType:
-      title: Issuing type
-      description: |
-        Specifies in which form the card is issued; definition of enums:
-        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
-        - virtual: the card is being issued only virtually for digital usage
-      type: string
-      enum:
-        - physical
-        - virtual
-      examples:
-        - physical
-    Language:
-      description: Preferred language of the cardholder for any communication.
-      type: string
-      enum:
-        - de
-        - en
-        - fr
-        - it
-      examples:
-        - de
-    Pan4Digits:
-      title: Pan 4 digits
-      description: Last 4 digits of the PAN; values can change for the same Card id during the lifecycle.
-      type: string
-      maxLength: 4
-      pattern: ^\d{4}$
-      examples:
-        - '4321'
-    ProductLine:
-      title: Product line
-      description: Customer segment to which the card is offered.
-      type: string
-      enum:
-        - consumer
-        - business
-        - corporate
-      examples:
-        - consumer
-    ProductType:
-      title: Product type
-      description: Type of the card product.
-      type: string
-      enum:
-        - credit
-        - debit
-        - prepaid
-      examples:
-        - credit
-    Scheme:
-      description: Card network which is used to process payments with the card.
-      type: string
-      enum:
-        - mastercard
-        - visa
-        - americanexpress
-        - dinersclub
-      examples:
-        - mastercard
-      title: Scheme
-    ContractId:
-      title: Contract Id
-      description: |
-        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
-      type: string
-      maxLength: 50
-      examples:
-        - UUID
-    PersonId:
-      title: Person Id
-      description: |
-        Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
-      type: string
-      maxLength: 50
-      examples:
-        - UUID
     BankAccountReference:
       title: Bank account reference
       description: |
@@ -284,6 +77,21 @@ components:
       maxLength: 34
       examples:
         - CH3456789012345678901
+    CardAccountCurrency:
+      description: Settlement currency of the card / card account in ISO code format.
+      type: string
+      pattern: ^[A-Z]{3}$
+      examples:
+        - CHF
+        - EUR
+    CardAccountId:
+      title: Card account Id
+      description: |
+        Technical reference to a card account, used as identifier to retrieve card account details via API endpoint.
+      type: string
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     CardAccountReference:
       title: Card account reference
       description: |
@@ -293,49 +101,6 @@ components:
       maxLength: 50
       examples:
         - AB-4567890123456
-    Category:
-      description: |
-        Identifies the nature of the card in regards to the overall account; for some issuers the Category has an influence on the effect of
-        certain lifecycle use cases.
-      type: string
-      enum:
-        - primary_card
-        - additional_card
-      examples:
-        - primary_card
-    DistributionPartnerCode:
-      title: Distribution partner code
-      description: |
-        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the
-        card; empty if the card is distributed by the issuer.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
-    DistributionPartnerName:
-      title: Distribution partner name
-      description: |
-        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
-        empty if the card is distributed by the issuer.
-      type: string
-      maxLength: 100
-      examples:
-        - Zürcher Kantonalbank
-    InitialIssuingDate:
-      title: Initial issuing date
-      description: Date when card was issued initially.
-      type: string
-      format: date
-      examples:
-        - '2018-04-13'
-    CardAccountId:
-      title: Card account Id
-      description: |
-        Technical reference to a card account, used as identifier to retrieve card account details via API endpoint.
-      type: string
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
     CardDetails:
       title: Card details
       description: Describes a payment card with its relevant characteristics.
@@ -406,10 +171,8 @@ components:
         scheme:
           $ref: '#/components/schemas/Scheme'
         contract_id:
-          x-required: 2
           $ref: '#/components/schemas/ContractId'
         person_id:
-          x-required: 2
           $ref: '#/components/schemas/PersonId'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
@@ -425,6 +188,80 @@ components:
           $ref: '#/components/schemas/InitialIssuingDate'
         card_account_id:
           $ref: '#/components/schemas/CardAccountId'
+    CardId:
+      title: Card id
+      description: |
+        Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
+    CardLimitCycle:
+      title: Card limit cycle
+      description: |
+        Total amount of authorizations possible for the card per settlement cycle / month in the currency of the card; effective limit is provided
+        that considers limits on the card and relationship; does not indicate the actually available amount for authorizations in the current
+        cycle.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardLimitDaily:
+      title: Card limit daily
+      description: |
+        Total amount of authorizations possible for the card per day in the currency of the card; effective limit is provided that considers
+        limits on the card and relationship; does not indicate the actually available amount for authorizations on the current day.
+      type: integer
+      format: int32
+      examples:
+        - 2000
+    CardProductCode:
+      title: Product code
+      description: Identifier for the card product.
+      type: string
+      maxLength: 50
+      examples:
+        - '1234567'
+    CardProductName:
+      title: Product name
+      description: Name for the card product assigned by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - A1
+        - MC/VI Gold CHF
+    CardStatus:
+      title: Card status
+      description: |
+        Effective status of the card to indicate whether it can be used for payments; definition of enums:
+        - active: authorizations are possible
+        - suspended: authorizations are temporarily not possible
+        - blocked: authorizations are permanently not possible because the card was cancelled or permanently blocked for other reasons
+      type: string
+      enum:
+        - active
+        - suspended
+        - blocked
+      examples:
+        - active
+    CardholderReference:
+      title: Cardholder reference
+      description: Reference to the cardholder who owns the card which was used for the transaction.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    Category:
+      description: |
+        Identifies the nature of the card in regards to the overall account; for some issuers the Category has an influence on the effect of
+        certain lifecycle use cases.
+      type: string
+      enum:
+        - primary_card
+        - additional_card
+      examples:
+        - primary_card
     CommonErrorResponse:
       title: Common Error Response
       description: General error response structure used in different response codes.
@@ -452,72 +289,167 @@ components:
             status phrase for that code (e.g., "Not Found" for 404, and so on).
           examples:
             - about:blank
-  parameters:
-    card_status:
-      in: query
-      name: card_status
-      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardStatus'
-    cursor:
-      in: query
-      name: cursor
-      description: Optional parameter for pagination. An opaque string value used for pagination.
-      required: false
-      schema:
-        type: string
-        examples:
-          - cursorIDxyz
-    limit:
-      in: query
-      name: limit
-      description: Optional parameter for pagination. Maximum number of entries to be returned.
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        examples:
-          - 25
-    client:
-      in: header
-      name: X-CorAPI-Client-ID
-      description: ID of the client forwarded to the provider.
-      required: false
-      schema:
-        type: string
-    correlation:
-      in: header
-      name: X-Correlation-ID
-      description: Unique ID (defined by the caller) which will be reflected back in the response.
-      required: false
-      schema:
-        $ref: '#/components/schemas/Correlation'
-    agent:
-      in: header
-      name: User-Agent
-      description: Name and version of the of the Client software.
-      required: false
-      schema:
-        type: string
-  headers:
-    X-Correlation-ID:
-      schema:
-        $ref: '#/components/schemas/Correlation'
-      description: Client defined ID from request to correlates HTTP requests between a client and server.
-    X-Next-Cursor:
-      description: An opaque string value, or an empty string if there are no more results.
-      schema:
-        type: string
-        examples:
-          - cursorIDxyz
-    Content-Language:
-      schema:
-        type: string
-        examples:
-          - en
-      description: Language of provided content.
+    ContractId:
+      title: Contract Id
+      description: |
+        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
+    ContractReference:
+      title: Contract reference
+      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
+      type: string
+      maxLength: 50
+      examples:
+        - CH3456789012345678901
+        - ABC-56789012345
+    Correlation:
+      title: Shared correlation
+      description: |
+        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and used e.g. for
+        debugging.
+      type: string
+      examples:
+        - f058ebd6-02f7-4d3f-942e-904344e8cde5
+    DistributionPartnerCode:
+      title: Distribution partner code
+      description: |
+        Identifier for the organization which is distributing / selling cards to end customers and who can define the services and branding of the
+        card; empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    DistributionPartnerName:
+      title: Distribution partner name
+      description: |
+        Name of the organization which is distributing / issuing cards to end customers and who can define the services and branding of the card;
+        empty if the card is distributed by the issuer.
+      type: string
+      maxLength: 100
+      examples:
+        - Zürcher Kantonalbank
+    EmbossingLine1:
+      title: Embossing line 1
+      description: First line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    EmbossingLine2:
+      title: Embossing line 2
+      description: Second line embossed on the card to indicate the cardholder.
+      type: string
+      maxLength: 35
+      examples:
+        - Peter Schweizer
+    ExpiryDate:
+      title: Expiry date
+      description: Last day when the card is valid and can be used for payments.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    Image:
+      description: URL reference to an image for the design of the card.
+      type: string
+      format: uri
+      examples:
+        - https://issuer.ch/public/media/images/card_image.png
+    InitialIssuingDate:
+      title: Initial issuing date
+      description: Date when card was issued initially.
+      type: string
+      format: date
+      examples:
+        - '2018-04-13'
+    IssuerCode:
+      title: Issuer code
+      description: Identifier for the legal issuer of a card; responsible towards the schemes for keeping the rules.
+      type: string
+      maxLength: 50
+      examples:
+        - '123456789'
+    IssuerName:
+      title: Issuer name
+      description: Name of the legal issuer of a card.
+      type: string
+      maxLength: 100
+      examples:
+        - Viseca Card Services
+        - UBS
+        - Zürcher Kantonalbank
+    IssuingType:
+      title: Issuing type
+      description: |
+        Specifies in which form the card is issued; definition of enums:
+        - physical: the card is being embossed on a physical material and delivered to the cardholder by mail
+        - virtual: the card is being issued only virtually for digital usage
+      type: string
+      enum:
+        - physical
+        - virtual
+      examples:
+        - physical
+    Language:
+      description: Preferred language of the cardholder for any communication.
+      type: string
+      enum:
+        - de
+        - en
+        - fr
+        - it
+      examples:
+        - de
+    Pan4Digits:
+      title: Pan 4 digits
+      description: Last 4 digits of the PAN; values can change for the same Card id during the lifecycle.
+      type: string
+      maxLength: 4
+      pattern: ^\d{4}$
+      examples:
+        - '4321'
+    PersonId:
+      title: Person Id
+      description: |
+        Technical reference to a cardholder, can be used to call the endpoint for cardholder information.
+      type: string
+      maxLength: 50
+      examples:
+        - UUID
+    ProductLine:
+      title: Product line
+      description: Customer segment to which the card is offered.
+      type: string
+      enum:
+        - consumer
+        - business
+        - corporate
+      examples:
+        - consumer
+    ProductType:
+      title: Product type
+      description: Type of the card product.
+      type: string
+      enum:
+        - credit
+        - debit
+        - prepaid
+      examples:
+        - credit
+    Scheme:
+      description: Card network which is used to process payments with the card.
+      type: string
+      enum:
+        - mastercard
+        - visa
+        - americanexpress
+        - dinersclub
+      examples:
+        - mastercard
+      title: Scheme
   responses:
     standard400:
       headers:
@@ -545,3 +477,69 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/CommonErrorResponse'
+  parameters:
+    agent:
+      in: header
+      name: User-Agent
+      description: Name and version of the of the Client software.
+      required: false
+      schema:
+        type: string
+    card_status:
+      in: query
+      name: card_status
+      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardStatus'
+    client:
+      in: header
+      name: X-CorAPI-Client-ID
+      description: ID of the client forwarded to the provider.
+      required: false
+      schema:
+        type: string
+    correlation:
+      in: header
+      name: X-Correlation-ID
+      description: Unique ID (defined by the caller) which will be reflected back in the response.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Correlation'
+    cursor:
+      in: query
+      name: cursor
+      description: Optional parameter for pagination. An opaque string value used for pagination.
+      required: false
+      schema:
+        type: string
+        examples:
+          - cursorIDxyz
+    limit:
+      in: query
+      name: limit
+      description: Optional parameter for pagination. Maximum number of entries to be returned.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        examples:
+          - 25
+  headers:
+    Content-Language:
+      schema:
+        type: string
+        examples:
+          - en
+      description: Language of provided content.
+    X-Correlation-ID:
+      schema:
+        $ref: '#/components/schemas/Correlation'
+      description: Client defined ID from request to correlates HTTP requests between a client and server.
+    X-Next-Cursor:
+      description: An opaque string value, or an empty string if there are no more results.
+      schema:
+        type: string
+        examples:
+          - cursorIDxyz
