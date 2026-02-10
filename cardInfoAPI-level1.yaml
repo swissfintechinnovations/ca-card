@@ -641,13 +641,13 @@ components:
       examples:
         - '5.00'
     FeeCurrency:
+      title: Fee currency
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Fee currency
     FeeName:
       title: Fee name
       description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
@@ -782,13 +782,13 @@ components:
       examples:
         - '5.00'
     OriginalCurrency:
+      title: Original currency
       description: Currency used by the merchant for the transaction.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Original currency
     Pan4Digits:
       title: Pan 4 digits
       description: Last 4 digits of the PAN; values can change for the same Card id during the lifecycle.
@@ -827,6 +827,7 @@ components:
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     Scheme:
+      title: Scheme
       description: Card network which is used to process payments with the card.
       type: string
       enum:
@@ -836,7 +837,6 @@ components:
         - dinersclub
       examples:
         - mastercard
-      title: Scheme
     StatementDate:
       title: Statement date
       description: |
@@ -889,6 +889,7 @@ components:
       examples:
         - Zalando
     TokenScheme:
+      title: Token scheme
       description: Scheme for which the token is issued.
       type: string
       enum:
@@ -898,7 +899,6 @@ components:
         - dinersclub
       examples:
         - mastercard
-      title: Token scheme
     TokenStatus:
       title: Token status
       description: |
@@ -945,13 +945,13 @@ components:
         - fee
         - atm
     TransactionCurrency:
+      title: Transaction currency
       description: Currency of the card account on which the transaction is charged.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Transaction currency
     TransactionDateTime:
       title: Transaction date-time
       description: Date and time when transaction was authorized, always in CH timezone.
