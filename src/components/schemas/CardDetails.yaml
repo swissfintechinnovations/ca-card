@@ -66,10 +66,18 @@ properties:
     $ref: ./ProductType.yaml
   scheme:
     $ref: ./Scheme.yaml
+  contract_id:
+    x-required: 2
+    $ref: ./ContractId.yaml
+  person_id:
+    x-required: 2
+    $ref: ./PersonId.yaml
   bank_account_reference:
     $ref: ./BankAccountReference.yaml
   card_account_reference:
     $ref: ./CardAccountReference.yaml
+  card_account_id:
+    $ref: ./CardAccountId.yaml
   category:
     $ref: ./Category.yaml
   distribution_partner_code:

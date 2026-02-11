@@ -1,0 +1,4 @@
+title: Contract Id
+description: |
+  Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+$ref: ./generic/Id.yaml
