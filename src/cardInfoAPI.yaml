@@ -22,6 +22,16 @@ tags:
     description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
+  - name: Card-accounts
+    description: Operations for retrieving information about payment card accounts.
+  - name: Persons
+    description: Operations for retrieving information about persons related to one of the other entities, mainly cardholders.
+  - name: Statements
+    description: Operations for retrieving information about statements for a card account.
+  - name: Card-contracts
+    description: Operations for retrieving information about card contracts under which card accounts exist.
+  - name: Card-account-bundles
+    description: Operations for retrieving information about card account bundles as structure element for card accounts.
 security: []
 paths:
   /cards:
@@ -238,6 +248,413 @@ paths:
             application/json:
               schema:
                 $ref: ./components/schemas/TransactionDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-accounts:
+    get:
+      summary: Provides a list of card accounts which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of payment card accounts. Payment card accounts contain a list of cards and are
+        associated to a card contract.
+      operationId: listCardAccounts
+      x-api-level: 2
+      tags:
+        - Card-accounts
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/person_id.yaml
+        - $ref: ./components/parameters/query/person_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_id.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
+        - $ref: ./components/parameters/query/card_contract_id.yaml
+        - $ref: ./components/parameters/query/card_contract_reference.yaml
+        - $ref: ./components/parameters/query/iban.yaml
+        - $ref: ./components/parameters/query/account_status.yaml
+        - $ref: ./components/parameters/query/account_product_code.yaml
+        - $ref: ./components/parameters/query/product_type.yaml
+        - $ref: ./components/parameters/query/from_amount.yaml
+          description: |
+            Retrieves all card accounts with an open bill amount greater than or equal to the specified amount.
+        - $ref: ./components/parameters/query/to_amount.yaml
+          description: |
+            Retrieves all card accounts with an open bill amount less than or equal to the specified amount.
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: |
+            Payment card accounts were found which match the query parameters. If no card accounts matched the parameters or access
+            rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-accounts
+                properties:
+                  card-accounts:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/CardAccountDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-accounts/{cardAccountId}:
+    get:
+      summary: Provides a single card account which matches the id
+      description: |
+        This operation enables the retrieval of a single payment card account when the cardAccountId is already known.
+        The cardAccountId must be retrieved with the GET /card-accounts operation (or any other operation which return this identifer)
+        before or stored locally at the API consumer.
+      operationId: getCardAccount
+      x-api-level: 2
+      tags:
+        - Card-accounts
+      parameters:
+        - $ref: ./components/parameters/path/cardAccountId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single payment card account was found. If the cardAccountId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/CardAccountDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /persons:
+    get:
+      summary: Provides a list of persons which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of persons related to cards, accounts, or contracts.
+      operationId: listPersons
+      x-api-level: 2
+      tags:
+        - Persons
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/first_name.yaml
+        - $ref: ./components/parameters/query/name.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: |
+            Persons were found which match the query parameters. If no persons matched the parameters or access rights are missing,
+            an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - persons
+                properties:
+                  persons:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/PersonDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /persons/{personId}:
+    get:
+      summary: Provides a single person which matches the id
+      description: |
+        This operation enables the retrieval of a single person when the personId is already known.
+      operationId: getPerson
+      x-api-level: 2
+      tags:
+        - Persons
+      parameters:
+        - $ref: ./components/parameters/path/personId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single person was found. If the personId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/PersonDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /statements:
+    get:
+      summary: Provides a list of statements which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of statements for a card account.
+      operationId: listStatements
+      x-api-level: 2
+      tags:
+        - Statements
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/card_account_id.yaml
+        - $ref: ./components/parameters/query/card_account_reference.yaml
+        - $ref: ./components/parameters/query/from_date.yaml
+          description: |
+            Start date to filter statements. Only statements with a statement date equal or after the from_date are returned.
+        - $ref: ./components/parameters/query/to_date.yaml
+          description: |
+            End date to filter statements. Only statements with a statement date equal or before the to_date are returned.
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: |
+            Statements were found which match the query parameters. If no statements matched the parameters or access rights are
+            missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - statements
+                properties:
+                  statements:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/StatementDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /statements/{statementId}:
+    get:
+      summary: Provides a single statement which matches the id
+      description: |
+        This operation enables the retrieval of a single statement when the statementId is already known.
+      operationId: getStatement
+      x-api-level: 2
+      tags:
+        - Statements
+      parameters:
+        - $ref: ./components/parameters/path/statementId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single statement was found. If the statementId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/StatementDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /statements/{statementId}/document:
+    get:
+      summary: Provides a single statement which matches the id as pdf file
+      description: |
+        This operation enables the retrieval of a single statement as pdf file when the statementId is already known.
+      operationId: getStatementDocument
+      x-api-level: 2
+      tags:
+        - Statements
+      parameters:
+        - $ref: ./components/parameters/path/statementId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single statement was found. If the statementId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/StatementDocument.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-contracts:
+    get:
+      summary: Provides a list of card contracts which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of card contracts under which card accounts exist.
+      operationId: listCardContracts
+      x-api-level: 2
+      tags:
+        - Card-contracts
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/person_id.yaml
+        - $ref: ./components/parameters/query/person_reference.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: |
+            Card contracts were found which match the query parameters. If no card contracts matched the parameters or access rights
+            are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-contracts
+                properties:
+                  card-contracts:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/CardContractDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-contracts/{cardContractId}:
+    get:
+      summary: Provides a single card contract which matches the id
+      description: |
+        This operation enables the retrieval of a single card contract when the cardContractId is already known.
+      operationId: getCardContract
+      x-api-level: 2
+      tags:
+        - Card-contracts
+      parameters:
+        - $ref: ./components/parameters/path/cardContractId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single card contract was found. If the cardContractId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/CardContractDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-account-bundles:
+    get:
+      summary: Provides a list of card account bundles which match the provided query parameters
+      description: |
+        This operation enables the retrieval of a list of card account bundles as structure element for card accounts.
+      operationId: listCardAccountBundles
+      x-api-level: 2
+      tags:
+        - Card-account-bundles
+      parameters: 
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/external_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_parent.yaml
+        - $ref: ./components/parameters/query/card_contract_id.yaml
+        - $ref: ./components/parameters/query/card_contract_reference.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: |
+            Card account bundles were found which match the query parameters. If no card account bundles matched the parameters or
+            access rights are missing, an empty list is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - card-account-bundles
+                properties:
+                  card-account-bundles:
+                    type: array
+                    items:
+                      $ref: ./components/schemas/CardAccountBundleDetails.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+  /card-account-bundles/{cardAccountBundleId}:
+    get:
+      summary: Provides a single card account bundle which matches the id
+      description: |
+        This operation enables the retrieval of a single card account bundle when the cardAccountBundleId is already known.
+      operationId: getCardAccountBundle
+      x-api-level: 2
+      tags:
+        - Card-account-bundles
+      parameters:
+        - $ref: ./components/parameters/path/cardAccountBundleId.yaml
+        - $ref: ./components/parameters/header/client.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+        - $ref: ./components/parameters/header/agent.yaml
+      responses:
+        '200':
+          description: Single card account bundle was found. If the cardAccountBundleId was not found, a 400 is returned.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/CardAccountBundleDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':
