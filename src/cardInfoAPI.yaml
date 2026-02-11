@@ -46,12 +46,13 @@ paths:
       tags:
         - Cards
       parameters:
+        - $ref: ./components/parameters/query/card_reference.yaml
         - $ref: ./components/parameters/query/card_status.yaml
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -115,13 +116,14 @@ paths:
       tags:
         - Card-tokens
       parameters:
+        - $ref: ./components/parameters/query/token_reference.yaml
         - $ref: ./components/parameters/query/funding_card_id.yaml
         - $ref: ./components/parameters/query/token_status.yaml
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -186,6 +188,7 @@ paths:
       tags:
         - Transactions
       parameters:
+        - $ref: ./components/parameters/query/transaction_reference.yaml
         - $ref: ./components/parameters/query/authorization_reference.yaml
         - $ref: ./components/parameters/query/clearing_reference.yaml
         - $ref: ./components/parameters/query/card_id.yaml
@@ -194,11 +197,11 @@ paths:
         - $ref: ./components/parameters/query/to_date.yaml
         - $ref: ./components/parameters/query/transaction_status.yaml
         - $ref: ./components/parameters/query/original_currency.yaml
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -263,8 +266,7 @@ paths:
       tags:
         - Card-accounts
       parameters:
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/card_account_reference.yaml
         - $ref: ./components/parameters/query/person_id.yaml
         - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_id.yaml
@@ -276,6 +278,8 @@ paths:
         - $ref: ./components/parameters/query/account_product_code.yaml
         - $ref: ./components/parameters/query/product_type.yaml
         - $ref: ./components/parameters/query/from_amount.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
           description: |
             Retrieves all card accounts with an open bill amount greater than or equal to the specified amount.
         - $ref: ./components/parameters/query/to_amount.yaml
@@ -350,14 +354,15 @@ paths:
       tags:
         - Persons
       parameters:
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/query/first_name.yaml
         - $ref: ./components/parameters/query/name.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -421,8 +426,6 @@ paths:
       tags:
         - Statements
       parameters:
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
         - $ref: ./components/parameters/query/card_account_id.yaml
         - $ref: ./components/parameters/query/card_account_reference.yaml
         - $ref: ./components/parameters/query/from_date.yaml
@@ -434,6 +437,8 @@ paths:
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -525,14 +530,15 @@ paths:
       tags:
         - Card-contracts
       parameters:
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/card_contract_reference.yaml
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/query/person_id.yaml
         - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
@@ -596,8 +602,7 @@ paths:
       tags:
         - Card-account-bundles
       parameters: 
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_parent.yaml
@@ -606,6 +611,8 @@ paths:
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |
