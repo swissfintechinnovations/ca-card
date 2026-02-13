@@ -1,7 +1,0 @@
-title: Card transaction reference
-description: |
-  Reference for card transaction.
-type: string
-maxLength: 50
-examples:
-  - 9e19df54-47cb-494b-84dc-1c126e95a05c

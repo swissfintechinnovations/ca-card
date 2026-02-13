@@ -1,7 +1,7 @@
 in: query
 name: person_reference
 description: |
-  Retrieves all instances of the entity with the specified person reference.
+  Filters resources to return only those related to the specified person reference. Value has to be a functional identifier for the person.
 required: false
 schema:
   $ref: ../../schemas/PersonReference.yaml

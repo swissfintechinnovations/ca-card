@@ -193,7 +193,6 @@ paths:
       tags:
         - Transactions
       parameters:
-        - $ref: ./components/parameters/query/transaction_reference.yaml
         - $ref: ./components/parameters/query/authorization_reference.yaml
         - $ref: ./components/parameters/query/clearing_reference.yaml
         - $ref: ./components/parameters/query/card_id.yaml
@@ -283,8 +282,6 @@ paths:
         - $ref: ./components/parameters/query/account_product_code.yaml
         - $ref: ./components/parameters/query/product_type.yaml
         - $ref: ./components/parameters/query/from_amount.yaml
-        - $ref: ./components/parameters/query/cursor.yaml
-        - $ref: ./components/parameters/query/limit.yaml
           description: |
             Retrieves all card accounts with an open bill amount greater than or equal to the specified amount.
         - $ref: ./components/parameters/query/to_amount.yaml
@@ -294,6 +291,8 @@ paths:
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
       responses:
         '200':
           description: |

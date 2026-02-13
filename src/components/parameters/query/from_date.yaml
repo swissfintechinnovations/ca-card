@@ -1,7 +1,7 @@
 in: query
 name: from_date
 description: |
-  Retrieves all instances of the entity where a date is after or on the provided date time.
+  Filters resources to return only those with a date after or on the provided date time.
 required: false
 schema:
   $ref: ../../schemas/generic/DateTime.yaml

@@ -1,8 +1,0 @@
-in: query
-name: transaction_reference
-description: |
-  Retrieves all transactions related to a card or card token. Value has to be a functional identifier for the transaction token that can be 
-  retrieved with the GET /card-transactions endpoint.
-required: false
-schema:
-  $ref: ../../schemas/TransactionReference.yaml

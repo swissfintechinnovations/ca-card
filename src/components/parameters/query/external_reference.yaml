@@ -1,7 +1,7 @@
 in: query
 name: external_reference
 description: |
-  Retrieves all instances of the entity with the specified external reference.
+  Filters resources to return only those related tothe specified external reference.
 required: false
 schema:
   $ref: ../../schemas/ExternalReference.yaml

@@ -1,4 +1,4 @@
-title: Currency
+title: Statement currency
 description: |
   Currency in ISO 4217 alpha-3 format in which the statement amounts are provided.
 $ref: ./generic/Currency.yaml

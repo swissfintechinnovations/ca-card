@@ -1,8 +1,7 @@
 in: query
 name: card_account_id
 description: |
-  Retrieves all statements related to a card account. Value has to be a technical identifier for the card account that can be 
-  retrieved with the GET /card-accounts endpoint.
+  Filters resources to return only those related to the specified card account id. Value has to be a technical identifier for the card account.
 required: false
 schema:
   $ref: ../../schemas/CardAccountId.yaml
