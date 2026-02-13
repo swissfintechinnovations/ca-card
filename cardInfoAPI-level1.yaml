@@ -22,16 +22,6 @@ tags:
     description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
-  - name: Card-accounts
-    description: Operations for retrieving information about payment card accounts.
-  - name: Persons
-    description: Operations for retrieving information about persons related to one of the other entities, mainly cardholders.
-  - name: Statements
-    description: Operations for retrieving information about statements for a card account.
-  - name: Card-contracts
-    description: Operations for retrieving information about card contracts under which card accounts exist.
-  - name: Card-account-bundles
-    description: Operations for retrieving information about card account bundles as structure element for card accounts.
 security: []
 paths:
   /cards:
