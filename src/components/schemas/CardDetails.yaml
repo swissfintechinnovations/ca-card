@@ -39,7 +39,6 @@ properties:
   card_status:
     $ref: ./CardStatus.yaml
   person_reference:
-    description: 
     $ref: ./PersonReference.yaml
   contract_reference:
     $ref: ./ContractReference.yaml
