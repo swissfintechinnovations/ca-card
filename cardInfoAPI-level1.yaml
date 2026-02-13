@@ -374,7 +374,6 @@ components:
         pan_4_digits:
           $ref: '#/components/schemas/Pan4Digits'
         person_reference:
-          description:
           $ref: '#/components/schemas/PersonReference'
         product_line:
           $ref: '#/components/schemas/ProductLine'

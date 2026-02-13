@@ -1101,7 +1101,6 @@ components:
         person_id:
           $ref: '#/components/schemas/PersonId'
         person_reference:
-          description:
           $ref: '#/components/schemas/PersonReference'
         product_line:
           $ref: '#/components/schemas/ProductLine'
