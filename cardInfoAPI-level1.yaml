@@ -334,7 +334,6 @@ components:
         - card_product_code
         - card_product_name
         - card_status
-        - cardholder_reference
         - contract_reference
         - embossing_line_1
         - embossing_line_2
@@ -345,6 +344,7 @@ components:
         - issuing_type
         - language
         - pan_4_digits
+        - person_reference
         - product_line
         - product_type
         - scheme
@@ -363,8 +363,6 @@ components:
           $ref: '#/components/schemas/CardProductName'
         card_status:
           $ref: '#/components/schemas/CardStatus'
-        cardholder_reference:
-          $ref: '#/components/schemas/CardholderReference'
         contract_reference:
           $ref: '#/components/schemas/ContractReference'
         embossing_line_1:
@@ -385,6 +383,9 @@ components:
           $ref: '#/components/schemas/Language'
         pan_4_digits:
           $ref: '#/components/schemas/Pan4Digits'
+        person_reference:
+          description:
+          $ref: '#/components/schemas/PersonReference'
         product_line:
           $ref: '#/components/schemas/ProductLine'
         product_type:
@@ -520,22 +521,6 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-    CardholderId:
-      title: Cardholder id
-      description: |
-        Technical reference to the cardholder who owns the card used for the transaction.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    CardholderReference:
-      title: Cardholder reference
-      description: Reference to the cardholder who owns the card which was used for the transaction.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
     Category:
       description: |
         Identifies the nature of the card in regards to the overall account; for some issuers the Category has an influence on the effect of
@@ -872,6 +857,14 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
+    PersonReference:
+      title: Person reference
+      description: |
+        Functional reference to a person/cardholder for display purposes.
+      type: string
+      maxLength: 50
+      examples:
+        - Muster Kunde
     ProductLine:
       title: Product line
       description: Customer segment to which the card is offered.
@@ -915,7 +908,7 @@ components:
     StatementDate:
       title: Statement date
       description: |
-        Date when the statement is created through which the issuer settles the transaction with the cardholder. Only available for 
+        Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for 
         credit cards.
       type: string
       format: date
@@ -1087,10 +1080,6 @@ components:
           $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
-        cardholder_id:
-          $ref: '#/components/schemas/CardholderId'
-        cardholder_reference:
-          $ref: '#/components/schemas/CardholderReference'
         channel:
           $ref: '#/components/schemas/Channel'
         clearing_reference:
@@ -1109,6 +1098,10 @@ components:
           $ref: '#/components/schemas/MerchantCountry'
         merchant_name:
           $ref: '#/components/schemas/MerchantName'
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+        person_reference:
+          $ref: '#/components/schemas/PersonReference'
         related_transaction_id:
           $ref: '#/components/schemas/RelatedTransactionId'
         statement_date:
