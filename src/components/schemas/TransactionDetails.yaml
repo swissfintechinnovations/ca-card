@@ -11,7 +11,6 @@ required:
   - transaction_date_time
   - transaction_id
   - transaction_status
-  - valuta_date
 properties:
   card_id:
     description: |
@@ -34,8 +33,21 @@ properties:
     $ref: ./TransactionId.yaml
   transaction_status:
     $ref: ./TransactionStatus.yaml
-  valuta_date:
-    $ref: ./ValutaDate.yaml
+  card_account_id:
+    x-required: 2
+    $ref: ./CardAccountId.yaml
+  cardholder_id:
+    x-required: 2
+    $ref: ./CardholderId.yaml
+  cardholder_reference:
+    x-required: 2
+    $ref: ./CardholderReference.yaml
+  transaction_amount:
+    x-required: 2 
+    $ref: ./TransactionAmount.yaml
+  transaction_currency:
+    x-required: 2
+    $ref: ./TransactionCurrency.yaml
   acquirer_reference:
     $ref: ./AcquirerReference.yaml
   approval_number:
@@ -46,8 +58,6 @@ properties:
     $ref: ./CardAcceptorReference.yaml
   card_account_reference:
     $ref: ./CardAccountReference.yaml
-  cardholder_reference:
-    $ref: ./CardholderReference.yaml
   channel:
     $ref: ./Channel.yaml
   clearing_reference:
@@ -77,7 +87,5 @@ properties:
     $ref: ./TokenId.yaml
   total_amount:
     $ref: ./TotalAmount.yaml
-  transaction_amount:
-    $ref: ./TransactionAmount.yaml
-  transaction_currency:
-    $ref: ./TransactionCurrency.yaml
+  valuta_date:
+    $ref: ./ValutaDate.yaml

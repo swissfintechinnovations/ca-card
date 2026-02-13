@@ -22,6 +22,16 @@ tags:
     description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
+  - name: Card-accounts
+    description: Operations for retrieving information about payment card accounts.
+  - name: Persons
+    description: Operations for retrieving information about persons related to one of the other entities, mainly cardholders.
+  - name: Statements
+    description: Operations for retrieving information about statements for a card account.
+  - name: Card-contracts
+    description: Operations for retrieving information about card contracts under which card accounts exist.
+  - name: Card-account-bundles
+    description: Operations for retrieving information about card account bundles as structure element for card accounts.
 security: []
 paths:
   /cards:
@@ -36,12 +46,13 @@ paths:
       tags:
         - Cards
       parameters:
+        - $ref: '#/components/parameters/card_reference'
         - $ref: '#/components/parameters/card_status'
-        - $ref: '#/components/parameters/cursor'
-        - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: |
@@ -105,13 +116,14 @@ paths:
       tags:
         - Card-tokens
       parameters:
+        - $ref: '#/components/parameters/token_reference'
         - $ref: '#/components/parameters/funding_card_id'
         - $ref: '#/components/parameters/token_status'
-        - $ref: '#/components/parameters/cursor'
-        - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: |
@@ -176,6 +188,7 @@ paths:
       tags:
         - Transactions
       parameters:
+        - $ref: '#/components/parameters/transaction_reference'
         - $ref: '#/components/parameters/authorization_reference'
         - $ref: '#/components/parameters/clearing_reference'
         - $ref: '#/components/parameters/card_id'
@@ -184,11 +197,11 @@ paths:
         - $ref: '#/components/parameters/to_date'
         - $ref: '#/components/parameters/transaction_status'
         - $ref: '#/components/parameters/original_currency'
-        - $ref: '#/components/parameters/cursor'
-        - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: |
@@ -291,6 +304,15 @@ components:
       examples:
         - CHF
         - EUR
+    CardAccountId:
+      title: Card account id
+      description: |
+        Technical reference to a card account used as identifier to retrieve card account details via the API.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     CardAccountReference:
       title: Card account reference
       description: |
@@ -371,16 +393,22 @@ components:
           $ref: '#/components/schemas/Scheme'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
+        card_account_id:
+          $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
         category:
           $ref: '#/components/schemas/Category'
+        contract_id:
+          $ref: '#/components/schemas/ContractId'
         distribution_partner_code:
           $ref: '#/components/schemas/DistributionPartnerCode'
         distribution_partner_name:
           $ref: '#/components/schemas/DistributionPartnerName'
         initial_issuing_date:
           $ref: '#/components/schemas/InitialIssuingDate'
+        person_id:
+          $ref: '#/components/schemas/PersonId'
     CardId:
       title: Card id
       description: |
@@ -424,6 +452,14 @@ components:
       examples:
         - A1
         - MC/VI Gold CHF
+    CardReference:
+      title: Card reference
+      description: |
+        Reference for card.
+      type: string
+      maxLength: 50
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     CardStatus:
       title: Card status
       description: |
@@ -476,6 +512,23 @@ components:
           $ref: '#/components/schemas/WalletCode'
         wallet_name:
           $ref: '#/components/schemas/WalletName'
+    CardTokenReference:
+      title: Card token reference
+      description: |
+        Reference for card token.
+      type: string
+      maxLength: 50
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
+    CardholderId:
+      title: Cardholder id
+      description: |
+        Technical reference to the cardholder who owns the card used for the transaction.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     CardholderReference:
       title: Cardholder reference
       description: Reference to the cardholder who owns the card which was used for the transaction.
@@ -537,6 +590,15 @@ components:
             status phrase for that code (e.g., "Not Found" for 404, and so on).
           examples:
             - about:blank
+    ContractId:
+      title: Contract Id
+      description: |
+        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     ContractReference:
       title: Contract reference
       description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
@@ -643,13 +705,13 @@ components:
         - '2000'
         - '34.65'
     FeeCurrency:
+      title: Fee currency
       description: Currency that is used for charging the fee, usually the same as the currency of the card account.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Fee currency
     FeeName:
       title: Fee name
       description: Name of the fee that is charged for the transaction; value is defined by the Issuer.
@@ -786,13 +848,13 @@ components:
         - '2000'
         - '34.65'
     OriginalCurrency:
+      title: Original currency
       description: Currency used by the merchant for the transaction.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Original currency
     Pan4Digits:
       title: Pan 4 digits
       description: Last 4 digits of the PAN; values can change for the same Card id during the lifecycle.
@@ -801,6 +863,15 @@ components:
       pattern: ^\d{4}$
       examples:
         - '4321'
+    PersonId:
+      title: Person id
+      description: |
+        Technical reference to a person/cardholder, used as unique identifier for API calls to retrieve person details.
+      type: string
+      format: uuid
+      maxLength: 50
+      examples:
+        - eb404f8d-656b-4e51-8872-88c42fa55536
     ProductLine:
       title: Product line
       description: Customer segment to which the card is offered.
@@ -831,6 +902,7 @@ components:
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     Scheme:
+      title: Scheme
       description: Card network which is used to process payments with the card.
       type: string
       enum:
@@ -840,7 +912,6 @@ components:
         - dinersclub
       examples:
         - mastercard
-      title: Scheme
     StatementDate:
       title: Statement date
       description: |
@@ -894,6 +965,7 @@ components:
       examples:
         - Zalando
     TokenScheme:
+      title: Token scheme
       description: Scheme for which the token is issued.
       type: string
       enum:
@@ -903,7 +975,6 @@ components:
         - dinersclub
       examples:
         - mastercard
-      title: Token scheme
     TokenStatus:
       title: Token status
       description: |
@@ -954,13 +1025,13 @@ components:
         - fee
         - atm
     TransactionCurrency:
+      title: Transaction currency
       description: Currency of the card account on which the transaction is charged.
       type: string
       pattern: ^[A-Z]{3}$
       examples:
         - CHF
         - EUR
-      title: Transaction currency
     TransactionDateTime:
       title: Transaction date-time
       description: Date and time when transaction was authorized, always in CH timezone.
@@ -982,7 +1053,6 @@ components:
         - transaction_date_time
         - transaction_id
         - transaction_status
-        - valuta_date
       properties:
         card_id:
           description: |
@@ -1005,8 +1075,6 @@ components:
           $ref: '#/components/schemas/TransactionId'
         transaction_status:
           $ref: '#/components/schemas/TransactionStatus'
-        valuta_date:
-          $ref: '#/components/schemas/ValutaDate'
         acquirer_reference:
           $ref: '#/components/schemas/AcquirerReference'
         approval_number:
@@ -1015,8 +1083,12 @@ components:
           $ref: '#/components/schemas/AuthorizationReference'
         card_acceptor_reference:
           $ref: '#/components/schemas/CardAcceptorReference'
+        card_account_id:
+          $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
+        cardholder_id:
+          $ref: '#/components/schemas/CardholderId'
         cardholder_reference:
           $ref: '#/components/schemas/CardholderReference'
         channel:
@@ -1052,6 +1124,8 @@ components:
           $ref: '#/components/schemas/TransactionAmount'
         transaction_currency:
           $ref: '#/components/schemas/TransactionCurrency'
+        valuta_date:
+          $ref: '#/components/schemas/ValutaDate'
     TransactionId:
       title: Transaction id
       description: UUID to link Authorization reference and Clearing reference.
@@ -1060,6 +1134,14 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
+    TransactionReference:
+      title: Card transaction reference
+      description: |
+        Reference for card transaction.
+      type: string
+      maxLength: 50
+      examples:
+        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     TransactionStatus:
       title: Transaction status
       description: |
@@ -1155,6 +1237,15 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardId'
+    card_reference:
+      in: query
+      name: card_reference
+      description: |
+        Retrieves all statements related to a card. Value has to be a functional identifier for the card that can be 
+        retrieved with the GET /cards endpoint.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardReference'
     card_status:
       in: query
       name: card_status
@@ -1198,7 +1289,7 @@ components:
       in: query
       name: from_date
       description: |
-        Retrieves all transactions that took place after the provided date time. Filtering is applied on the transaction_date_time attribute.
+        Retrieves all instances of the entity where a date is after or on the provided date time.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
@@ -1231,7 +1322,7 @@ components:
       in: query
       name: to_date
       description: |
-        Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+        Retrieves all instances of the entity where a date is before the provided date time.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
@@ -1251,6 +1342,15 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenId'
+    token_reference:
+      in: query
+      name: token_reference
+      description: |
+        Retrieves all statements related to a card token. Value has to be a functional identifier for the card token that can be 
+        retrieved with the GET /card-tokens endpoint.
+      required: false
+      schema:
+        $ref: '#/components/schemas/CardTokenReference'
     token_status:
       in: query
       name: token_status
@@ -1265,6 +1365,15 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TransactionId'
+    transaction_reference:
+      in: query
+      name: transaction_reference
+      description: |
+        Retrieves all transactions related to a card or card token. Value has to be a functional identifier for the transaction token that can be 
+        retrieved with the GET /card-transactions endpoint.
+      required: false
+      schema:
+        $ref: '#/components/schemas/TransactionReference'
     transaction_status:
       in: query
       name: transaction_status

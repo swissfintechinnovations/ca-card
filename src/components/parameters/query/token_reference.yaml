@@ -1,0 +1,8 @@
+in: query
+name: token_reference
+description: |
+  Retrieves all statements related to a card token. Value has to be a functional identifier for the card token that can be 
+  retrieved with the GET /card-tokens endpoint.
+required: false
+schema:
+  $ref: ../../schemas/CardTokenReference.yaml
