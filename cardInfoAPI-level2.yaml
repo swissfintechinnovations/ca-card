@@ -188,7 +188,6 @@ paths:
       tags:
         - Transactions
       parameters:
-        - $ref: '#/components/parameters/transaction_reference'
         - $ref: '#/components/parameters/authorization_reference'
         - $ref: '#/components/parameters/clearing_reference'
         - $ref: '#/components/parameters/card_id'
@@ -276,11 +275,9 @@ paths:
         - $ref: '#/components/parameters/account_status'
         - $ref: '#/components/parameters/account_product_code'
         - $ref: '#/components/parameters/product_type'
-        - $ref: '#/components/parameters/from_amount'
-        - $ref: '#/components/parameters/cursor'
         - description: |
             Retrieves all card accounts with an open bill amount greater than or equal to the specified amount.
-          $ref: '#/components/parameters/limit'
+          $ref: '#/components/parameters/from_amount'
         - description: |
             Retrieves all card accounts with an open bill amount less than or equal to the specified amount.
           $ref: '#/components/parameters/to_amount'
@@ -288,6 +285,8 @@ paths:
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           description: |
@@ -592,7 +591,6 @@ paths:
       tags:
         - Card-account-bundles
       parameters:
-        - $ref: '#/components/parameters/card_account_bundle_reference'
         - $ref: '#/components/parameters/external_reference'
         - $ref: '#/components/parameters/card_account_bundle_reference'
         - $ref: '#/components/parameters/card_account_bundle_parent'
@@ -1969,7 +1967,7 @@ components:
       examples:
         - mastercard
     StatementCurrency:
-      title: Currency
+      title: Statement currency
       description: |
         Currency in ISO 4217 alpha-3 format in which the statement amounts are provided.
       type: string
@@ -2299,14 +2297,6 @@ components:
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
-    TransactionReference:
-      title: Card transaction reference
-      description: |
-        Reference for card transaction.
-      type: string
-      maxLength: 50
-      examples:
-        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     TransactionStatus:
       title: Transaction status
       description: |
@@ -2374,8 +2364,7 @@ components:
       in: query
       name: account_product_code
       description: |
-        Retrieves all card accounts with the specified account product code. Only accounts where the user has a valid consent for are 
-        returned.
+        Filters resources to return only those related to the specified account product code.
       required: false
       schema:
         $ref: '#/components/schemas/AccountProductCode'
@@ -2383,7 +2372,8 @@ components:
       in: query
       name: account_status
       description: |
-        Retrieves all card accounts with the specified account status. query parameter must be combined with others.
+        Filters resources to return only those related to card accounts with the specified account status. query parameter must be
+        combined with others.
       required: false
       schema:
         $ref: '#/components/schemas/AccountStatus'
@@ -2398,8 +2388,8 @@ components:
       in: query
       name: authorization_reference
       description: |
-        Retrieves the transaction related to an individual authorization. Parameter can be used to also retrieve the cleared transaction based on
-        the authorization reference.
+        Filters resources to return only those related to an individual authorization reference. Parameter can be used to also retrieve the cleared
+        transaction based on the authorization reference.
       required: false
       schema:
         $ref: '#/components/schemas/AuthorizationReference'
@@ -2435,7 +2425,7 @@ components:
       in: query
       name: card_account_bundle_id
       description: |
-        Retrieves all card accounts with the specified card account bundle id.
+        Filters resources to return only those related to the specified card account bundle id.
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountBundleId'
@@ -2443,7 +2433,7 @@ components:
       in: query
       name: card_account_bundle_parent
       description: |
-        Retrieves all card accounts with the specified card account bundle parent.
+        Filters resources to return only those related to the specified card account bundle parent (must be a card_account_bundle_id).
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountBundleParent'
@@ -2451,7 +2441,7 @@ components:
       in: query
       name: card_account_bundle_reference
       description: |
-        Retrieves all card accounts with the specified card account bundle reference.
+        Filters resources to return only those related to the specified card account bundle reference. Value has to be a functional identifier for the card account bundle.
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountBundleReference'
@@ -2459,8 +2449,7 @@ components:
       in: query
       name: card_account_id
       description: |
-        Retrieves all statements related to a card account. Value has to be a technical identifier for the card account that can be 
-        retrieved with the GET /card-accounts endpoint.
+        Filters resources to return only those related to the specified card account id. Value has to be a technical identifier for the card account.
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountId'
@@ -2468,8 +2457,7 @@ components:
       in: query
       name: card_account_reference
       description: |
-        Retrieves all statements related to a card account. Value has to be a functional identifier for the card account that can be 
-        retrieved with the GET /card-accounts endpoint.
+        Filters resources to return only those related to the specified card account reference. Value has to be a functional identifier for the card account.
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountReference'
@@ -2477,7 +2465,7 @@ components:
       in: query
       name: card_contract_id
       description: |
-        Retrieves all card accounts with the specified card contract id.
+        Filters resources to return only those related to the specified card contract id. Value has to be a technical identifier for the card contract.
       required: false
       schema:
         $ref: '#/components/schemas/CardContractId'
@@ -2485,7 +2473,7 @@ components:
       in: query
       name: card_contract_reference
       description: |
-        Retrieves all card accounts with the specified card contract reference.
+        Filters resources to return only those related to the specified card contract reference. Value has to be a functional identifier for the card contract.
       required: false
       schema:
         $ref: '#/components/schemas/ContractReference'
@@ -2493,8 +2481,7 @@ components:
       in: query
       name: card_id
       description: |
-        Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards
-        endpoint.
+        Filters resources to return only those related to the specified card id. Value has to be a technical identifier for the card.
       required: false
       schema:
         $ref: '#/components/schemas/CardId'
@@ -2502,15 +2489,14 @@ components:
       in: query
       name: card_reference
       description: |
-        Retrieves all statements related to a card. Value has to be a functional identifier for the card that can be 
-        retrieved with the GET /cards endpoint.
+        Filters resources to return only those related to the specified card reference. Value has to be a functional identifier for the card.
       required: false
       schema:
         $ref: '#/components/schemas/CardReference'
     card_status:
       in: query
       name: card_status
-      description: Retrieves all cards in a certain status. Only one status can be filtered at a time.
+      description: Filters resources to return only those related to the specified card status. Only one status can be filtered at a time.
       required: false
       schema:
         $ref: '#/components/schemas/CardStatus'
@@ -2518,8 +2504,8 @@ components:
       in: query
       name: clearing_reference
       description: |
-        Retrieves the transaction related to an individual clearing. Query parameter only returns results for cleared transactions (those booked
-        on the card account for credit and prepaid or bank account for debit cards).
+        Filters resources to return only those related to an individual clearing reference. Query parameter only returns results for
+        cleared transactions (those booked on the card account for credit and prepaid or bank account for debit cards).
       required: false
       schema:
         $ref: '#/components/schemas/ClearingReference'
@@ -2550,7 +2536,7 @@ components:
       in: query
       name: external_reference
       description: |
-        Retrieves all instances of the entity with the specified external reference.
+        Filters resources to return only those related tothe specified external reference.
       required: false
       schema:
         $ref: '#/components/schemas/ExternalReference'
@@ -2558,7 +2544,7 @@ components:
       in: query
       name: first_name
       description: |
-        Retrieves all instances of the entity with the specified first name. * as wildcard is supported. 
+        Filters resources to return only those related to the specified first name. * as wildcard is supported. 
       required: false
       schema:
         $ref: '#/components/schemas/FirstName'
@@ -2566,7 +2552,7 @@ components:
       in: query
       name: from_amount
       description: |
-        Retrieves all instances of the entity with an amount greater than or equal to the specified amount. 
+        Filters resources to return only those with an amount greater than or equal to the specified amount.
       required: false
       schema:
         $ref: '#/components/schemas/Amount'
@@ -2574,14 +2560,14 @@ components:
       in: query
       name: from_date
       description: |
-        Retrieves all instances of the entity where a date is after or on the provided date time.
+        Filters resources to return only those with a date after or on the provided date time.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
     funding_card_id:
       in: query
       name: funding_card_id
-      description: Reference to the card that is used to fund the transactions of the token.
+      description: Filters resources to return only those related to the specified funding card id. Value has to be a technical identifier for the card.
       required: false
       schema:
         $ref: '#/components/schemas/FundingCardId'
@@ -2589,7 +2575,7 @@ components:
       in: query
       name: iban
       description: |
-        Retrieves all card accounts with the specified IBAN.
+        Filters resources to return only those related to the specified IBAN.
       required: false
       schema:
         $ref: '#/components/schemas/Iban'
@@ -2608,14 +2594,14 @@ components:
       in: query
       name: name
       description: |
-        Retrieves all instances of the entity with the specified name. * as wildcard is supported.
+        Filters resources to return only those related to the specified name. * as wildcard is supported.
       required: false
       schema:
         $ref: '#/components/schemas/Name'
     original_currency:
       in: query
       name: original_currency
-      description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
+      description: Filters resources to return only those related to the specified original currency (of a transaction).
       required: false
       schema:
         $ref: '#/components/schemas/OriginalCurrency'
@@ -2630,7 +2616,7 @@ components:
       in: query
       name: person_id
       description: |
-        Retrieves all instances of the entity with the specified person id.
+        Filters resources to return only those related to the specified person id. Value has to be a technical identifier for the person.
       required: false
       schema:
         $ref: '#/components/schemas/PersonId'
@@ -2638,7 +2624,7 @@ components:
       in: query
       name: person_reference
       description: |
-        Retrieves all instances of the entity with the specified person reference.
+        Filters resources to return only those related to the specified person reference. Value has to be a functional identifier for the person.
       required: false
       schema:
         $ref: '#/components/schemas/PersonReference'
@@ -2646,7 +2632,7 @@ components:
       in: query
       name: product_type
       description: |
-        Retrieves all card accounts with the specified product type. Only accounts where the user has a valid consent for are returned.
+        Filters resources to return only those related to the specified product type.
       required: false
       schema:
         $ref: '#/components/schemas/ProductType'
@@ -2661,7 +2647,7 @@ components:
       in: query
       name: to_amount
       description: |
-        Retrieves all instances of the entity with an open bill amount less than or equal to the specified amount. 
+        Filters resources to return only those with open an amount less than or equal to the specified amount.
       required: false
       schema:
         $ref: '#/components/schemas/Amount'
@@ -2669,7 +2655,7 @@ components:
       in: query
       name: to_date
       description: |
-        Retrieves all instances of the entity where a date is before the provided date time.
+        Filters resources to return only those with a date earlier than or equal to the specified date time.
       required: false
       schema:
         $ref: '#/components/schemas/DateTime'
@@ -2684,8 +2670,7 @@ components:
       in: query
       name: token_id
       description: |
-        Retrieves all transactions related to a token. Value has to be a technical identifier for the card that can be retrieved with the GET
-        /card-tokens endpoint.
+        Filters resources to return only those related to the specified token id. Value has to be a technical identifier for the token.
       required: false
       schema:
         $ref: '#/components/schemas/TokenId'
@@ -2693,15 +2678,14 @@ components:
       in: query
       name: token_reference
       description: |
-        Retrieves all statements related to a card token. Value has to be a functional identifier for the card token that can be 
-        retrieved with the GET /card-tokens endpoint.
+        Filters resources to return only those related to the specified token reference. Value has to be a functional identifier for the token.
       required: false
       schema:
         $ref: '#/components/schemas/CardTokenReference'
     token_status:
       in: query
       name: token_status
-      description: Retrieves all tokens in a certain status. Only one status can be filtered at a time.
+      description: Filters resources to return only those related to the specified token status. Only one status can be filtered at a time.
       required: false
       schema:
         $ref: '#/components/schemas/TokenStatus'
@@ -2712,19 +2696,10 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TransactionId'
-    transaction_reference:
-      in: query
-      name: transaction_reference
-      description: |
-        Retrieves all transactions related to a card or card token. Value has to be a functional identifier for the transaction token that can be 
-        retrieved with the GET /card-transactions endpoint.
-      required: false
-      schema:
-        $ref: '#/components/schemas/TransactionReference'
     transaction_status:
       in: query
       name: transaction_status
-      description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
+      description: Filters resources to return only those related to the specified transaction status. Only one status can be filtered at a time.
       required: false
       schema:
         $ref: '#/components/schemas/TransactionStatus'
