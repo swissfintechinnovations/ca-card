@@ -605,8 +605,7 @@ paths:
       x-api-level: 2
       tags:
         - Card-account-bundles
-      parameters: 
-        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
+      parameters:
         - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_parent.yaml
