@@ -1036,6 +1036,7 @@ components:
       type: object
       required:
         - card_account_currency
+        - card_account_id
         - card_id
         - card_limit_cycle
         - card_limit_daily
@@ -1061,6 +1062,8 @@ components:
       properties:
         card_account_currency:
           $ref: '#/components/schemas/CardAccountCurrency'
+        card_account_id:
+          $ref: '#/components/schemas/CardAccountId'
         card_id:
           $ref: '#/components/schemas/CardId'
         card_limit_cycle:
@@ -1107,8 +1110,6 @@ components:
           $ref: '#/components/schemas/Scheme'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
-        card_account_id:
-          $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
         category:
