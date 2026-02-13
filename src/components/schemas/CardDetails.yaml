@@ -66,6 +66,9 @@ properties:
     $ref: ./ProductType.yaml
   scheme:
     $ref: ./Scheme.yaml
+  card_account_id:
+    x-required: 2
+    $ref: ./CardAccountId.yaml
   contract_id:
     x-required: 2
     $ref: ./ContractId.yaml
@@ -76,8 +79,6 @@ properties:
     $ref: ./BankAccountReference.yaml
   card_account_reference:
     $ref: ./CardAccountReference.yaml
-  card_account_id:
-    $ref: ./CardAccountId.yaml
   category:
     $ref: ./Category.yaml
   distribution_partner_code:
