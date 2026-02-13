@@ -9,7 +9,7 @@ required:
   - card_product_code
   - card_product_name
   - card_status
-  - cardholder_reference
+  - person_reference
   - contract_reference
   - embossing_line_1
   - embossing_line_2
@@ -38,8 +38,9 @@ properties:
     $ref: ./CardProductName.yaml
   card_status:
     $ref: ./CardStatus.yaml
-  cardholder_reference:
-    $ref: ./CardholderReference.yaml
+  person_reference:
+    description: 
+    $ref: ./PersonReference.yaml
   contract_reference:
     $ref: ./ContractReference.yaml
   embossing_line_1:
@@ -66,6 +67,9 @@ properties:
     $ref: ./ProductType.yaml
   scheme:
     $ref: ./Scheme.yaml
+  card_account_id:
+    x-required: 2
+    $ref: ./CardAccountId.yaml
   contract_id:
     x-required: 2
     $ref: ./ContractId.yaml
@@ -76,8 +80,6 @@ properties:
     $ref: ./BankAccountReference.yaml
   card_account_reference:
     $ref: ./CardAccountReference.yaml
-  card_account_id:
-    $ref: ./CardAccountId.yaml
   category:
     $ref: ./Category.yaml
   distribution_partner_code:

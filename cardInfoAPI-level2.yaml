@@ -1036,13 +1036,13 @@ components:
       type: object
       required:
         - card_account_currency
+        - card_account_id
         - card_id
         - card_limit_cycle
         - card_limit_daily
         - card_product_code
         - card_product_name
         - card_status
-        - cardholder_reference
         - contract_id
         - contract_reference
         - embossing_line_1
@@ -1055,12 +1055,15 @@ components:
         - language
         - pan_4_digits
         - person_id
+        - person_reference
         - product_line
         - product_type
         - scheme
       properties:
         card_account_currency:
           $ref: '#/components/schemas/CardAccountCurrency'
+        card_account_id:
+          $ref: '#/components/schemas/CardAccountId'
         card_id:
           $ref: '#/components/schemas/CardId'
         card_limit_cycle:
@@ -1073,8 +1076,6 @@ components:
           $ref: '#/components/schemas/CardProductName'
         card_status:
           $ref: '#/components/schemas/CardStatus'
-        cardholder_reference:
-          $ref: '#/components/schemas/CardholderReference'
         contract_id:
           $ref: '#/components/schemas/ContractId'
         contract_reference:
@@ -1099,6 +1100,9 @@ components:
           $ref: '#/components/schemas/Pan4Digits'
         person_id:
           $ref: '#/components/schemas/PersonId'
+        person_reference:
+          description:
+          $ref: '#/components/schemas/PersonReference'
         product_line:
           $ref: '#/components/schemas/ProductLine'
         product_type:
@@ -1107,8 +1111,6 @@ components:
           $ref: '#/components/schemas/Scheme'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
-        card_account_id:
-          $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
         category:
@@ -1230,22 +1232,6 @@ components:
       maxLength: 50
       examples:
         - 9e19df54-47cb-494b-84dc-1c126e95a05c
-    CardholderId:
-      title: Cardholder id
-      description: |
-        Technical reference to the cardholder who owns the card used for the transaction.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    CardholderReference:
-      title: Cardholder reference
-      description: Reference to the cardholder who owns the card which was used for the transaction.
-      type: string
-      maxLength: 50
-      examples:
-        - '123456789'
     CardsList:
       title: Cards list
       description: |
@@ -1866,7 +1852,7 @@ components:
     PersonReference:
       title: Person reference
       description: |
-        Functional reference to a person (cardholder) for display purposes.
+        Functional reference to a person/cardholder for display purposes.
       type: string
       maxLength: 50
       examples:
@@ -1995,7 +1981,7 @@ components:
     StatementDate:
       title: Statement date
       description: |
-        Date when the statement is created through which the issuer settles the transaction with the cardholder. Only available for 
+        Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for 
         credit cards.
       type: string
       format: date
@@ -2221,12 +2207,12 @@ components:
       required:
         - card_account_id
         - card_id
-        - cardholder_id
-        - cardholder_reference
         - mcc
         - mcc_description
         - original_amount
         - original_currency
+        - person_id
+        - person_reference
         - transaction_amount
         - transaction_category
         - transaction_currency
@@ -2241,10 +2227,6 @@ components:
             Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of
             replacements or renewals).
           $ref: '#/components/schemas/CardId'
-        cardholder_id:
-          $ref: '#/components/schemas/CardholderId'
-        cardholder_reference:
-          $ref: '#/components/schemas/CardholderReference'
         mcc:
           $ref: '#/components/schemas/Mcc'
         mcc_description:
@@ -2253,6 +2235,10 @@ components:
           $ref: '#/components/schemas/OriginalAmount'
         original_currency:
           $ref: '#/components/schemas/OriginalCurrency'
+        person_id:
+          $ref: '#/components/schemas/PersonId'
+        person_reference:
+          $ref: '#/components/schemas/PersonReference'
         transaction_amount:
           $ref: '#/components/schemas/TransactionAmount'
         transaction_category:

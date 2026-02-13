@@ -1,4 +1,0 @@
-title: Cardholder id
-description: |
-  Technical reference to the cardholder who owns the card used for the transaction.
-$ref: ./generic/Id.yaml

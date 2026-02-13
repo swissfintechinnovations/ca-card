@@ -36,12 +36,12 @@ properties:
   card_account_id:
     x-required: 2
     $ref: ./CardAccountId.yaml
-  cardholder_id:
+  person_id:
     x-required: 2
-    $ref: ./CardholderId.yaml
-  cardholder_reference:
+    $ref: ./PersonId.yaml
+  person_reference:
     x-required: 2
-    $ref: ./CardholderReference.yaml
+    $ref: ./PersonReference.yaml
   transaction_amount:
     x-required: 2 
     $ref: ./TransactionAmount.yaml
