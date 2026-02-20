@@ -2,7 +2,6 @@ title: Transaction details
 description: Describes a transaction with its relevant characteristics.
 type: object
 required:
-  - card_id
   - mcc
   - mcc_description
   - original_amount
@@ -36,12 +35,18 @@ properties:
   card_account_id:
     x-required: 2
     $ref: ./CardAccountId.yaml
+  card_account_reference:
+    x-required: 2
+    $ref: ./CardAccountReference.yaml
   person_id:
     x-required: 2
     $ref: ./PersonId.yaml
   person_reference:
     x-required: 2
     $ref: ./PersonReference.yaml
+  total_amount:
+    x-required: 2
+    $ref: ./TotalAmount.yaml
   transaction_amount:
     x-required: 2 
     $ref: ./TransactionAmount.yaml
@@ -56,8 +61,6 @@ properties:
     $ref: ./AuthorizationReference.yaml
   card_acceptor_reference:
     $ref: ./CardAcceptorReference.yaml
-  card_account_reference:
-    $ref: ./CardAccountReference.yaml
   channel:
     $ref: ./Channel.yaml
   clearing_reference:
@@ -85,7 +88,5 @@ properties:
   token_id:
     description: Unique identifier for the card token which was used for the transaction.
     $ref: ./TokenId.yaml
-  total_amount:
-    $ref: ./TotalAmount.yaml
   valuta_date:
     $ref: ./ValutaDate.yaml
