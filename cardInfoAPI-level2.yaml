@@ -1044,7 +1044,6 @@ components:
         - contract_id
         - contract_reference
         - embossing_line_1
-        - embossing_line_2
         - expiry_date
         - image
         - issuer_code
@@ -1080,8 +1079,6 @@ components:
           $ref: '#/components/schemas/ContractReference'
         embossing_line_1:
           $ref: '#/components/schemas/EmbossingLine1'
-        embossing_line_2:
-          $ref: '#/components/schemas/EmbossingLine2'
         expiry_date:
           $ref: '#/components/schemas/ExpiryDate'
         image:
@@ -1116,6 +1113,8 @@ components:
           $ref: '#/components/schemas/DistributionPartnerCode'
         distribution_partner_name:
           $ref: '#/components/schemas/DistributionPartnerName'
+        embossing_line_2:
+          $ref: '#/components/schemas/EmbossingLine2'
         initial_issuing_date:
           $ref: '#/components/schemas/InitialIssuingDate'
     CardId:
@@ -2203,13 +2202,14 @@ components:
       type: object
       required:
         - card_account_id
-        - card_id
+        - card_account_reference
         - mcc
         - mcc_description
         - original_amount
         - original_currency
         - person_id
         - person_reference
+        - total_amount
         - transaction_amount
         - transaction_category
         - transaction_currency
@@ -2219,11 +2219,8 @@ components:
       properties:
         card_account_id:
           $ref: '#/components/schemas/CardAccountId'
-        card_id:
-          description: |
-            Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of
-            replacements or renewals).
-          $ref: '#/components/schemas/CardId'
+        card_account_reference:
+          $ref: '#/components/schemas/CardAccountReference'
         mcc:
           $ref: '#/components/schemas/Mcc'
         mcc_description:
@@ -2236,6 +2233,8 @@ components:
           $ref: '#/components/schemas/PersonId'
         person_reference:
           $ref: '#/components/schemas/PersonReference'
+        total_amount:
+          $ref: '#/components/schemas/TotalAmount'
         transaction_amount:
           $ref: '#/components/schemas/TransactionAmount'
         transaction_category:
@@ -2256,8 +2255,11 @@ components:
           $ref: '#/components/schemas/AuthorizationReference'
         card_acceptor_reference:
           $ref: '#/components/schemas/CardAcceptorReference'
-        card_account_reference:
-          $ref: '#/components/schemas/CardAccountReference'
+        card_id:
+          description: |
+            Technical reference to the card which was used for the transaction (unique, constant in the lifecycle of a card even in case of
+            replacements or renewals).
+          $ref: '#/components/schemas/CardId'
         channel:
           $ref: '#/components/schemas/Channel'
         clearing_reference:
@@ -2269,7 +2271,9 @@ components:
         exchange_rate_date:
           $ref: '#/components/schemas/ExchangeRateDate'
         fees:
-          $ref: '#/components/schemas/Fees'
+          type: array
+          items:
+            $ref: '#/components/schemas/Fees'
         merchant_city:
           $ref: '#/components/schemas/MerchantCity'
         merchant_country:
@@ -2279,14 +2283,17 @@ components:
         related_transaction_id:
           $ref: '#/components/schemas/RelatedTransactionId'
         statement_date:
+          description: |
+            Date when the statement is created through which the issuer settles the transaction with the account holder. Only available 
+            for credit cards and when the transaction is in status booked.  
           $ref: '#/components/schemas/StatementDate'
+        statement_id:
+          $ref: '#/components/schemas/StatementId'
         terminal_reference:
           $ref: '#/components/schemas/TerminalReference'
         token_id:
           description: Unique identifier for the card token which was used for the transaction.
           $ref: '#/components/schemas/TokenId'
-        total_amount:
-          $ref: '#/components/schemas/TotalAmount'
         valuta_date:
           $ref: '#/components/schemas/ValutaDate'
     TransactionId:
