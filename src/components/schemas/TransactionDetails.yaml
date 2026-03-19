@@ -72,7 +72,9 @@ properties:
   exchange_rate_date:
     $ref: ./ExchangeRateDate.yaml
   fees:
-    $ref: ./Fees.yaml
+    type: array
+    items:
+      $ref: ./Fees.yaml
   merchant_city:
     $ref: ./MerchantCity.yaml
   merchant_country:
@@ -82,7 +84,12 @@ properties:
   related_transaction_id:
     $ref: ./RelatedTransactionId.yaml
   statement_date:
+    description: |
+      Date when the statement is created through which the issuer settles the transaction with the account holder. Only available 
+      for credit cards and when the transaction is in status booked.  
     $ref: ./StatementDate.yaml
+  statement_id:
+    $ref: ./StatementId.yaml
   terminal_reference:
     $ref: ./TerminalReference.yaml
   token_id:

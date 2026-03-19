@@ -12,7 +12,6 @@ required:
   - person_reference
   - contract_reference
   - embossing_line_1
-  - embossing_line_2
   - expiry_date
   - image
   - issuer_code
