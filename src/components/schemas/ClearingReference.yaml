@@ -1,7 +1,7 @@
 title: Clearing reference
 description: |
-  Unique identifier for booked transactions; Id does not overlap with Authorization reference; at least one of Authorization reference or
-  Clearing reference is always present.
+  Unique identifier for booked transactions (Transaction status = booked); Id does not overlap with Authorization reference; at least 
+  one of Authorization reference or Clearing reference is always present.
 type: string
 maxLength: 50
 examples:

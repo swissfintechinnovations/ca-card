@@ -5,7 +5,6 @@ type: object
 required:
   - bic
   - payment_reference
-  - qr_code
   - recipient_address
   - recipient_iban
   - recipient_name

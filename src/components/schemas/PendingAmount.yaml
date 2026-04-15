@@ -1,4 +1,4 @@
 title: Pending amount
 description: |
-  Sum of pending transactions for the account. For debit cards, the sume of the current calendar month is provided.
+  Sum of pending transactions for the card account.
 $ref: ./generic/Amount.yaml

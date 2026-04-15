@@ -95,5 +95,5 @@ properties:
   token_id:
     description: Unique identifier for the card token which was used for the transaction.
     $ref: ./TokenId.yaml
-  valuta_date:
-    $ref: ./ValutaDate.yaml
+  value_date:
+    $ref: ./ValueDate.yaml

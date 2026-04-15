@@ -86,3 +86,5 @@ properties:
     $ref: ./DistributionPartnerName.yaml
   initial_issuing_date:
     $ref: ./InitialIssuingDate.yaml
+  external_reference:
+    $ref: ./ExternalReference.yaml
