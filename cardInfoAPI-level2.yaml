@@ -710,8 +710,8 @@ components:
     AuthorizationReference:
       title: Authorization reference
       description: |
-        Unique identifier for authorized transactions; Id does not overlap with Clearing reference; at least one of Authorization reference or
-        Clearing reference is always present.
+        Unique identifier for authorized transactions (Transaction status = pending); Id does not overlap with Clearing reference; at least 
+        one of Authorization reference or Clearing reference is always present.
       type: string
       maxLength: 50
       examples:
@@ -719,7 +719,7 @@ components:
     BalanceAmount:
       title: Balance amount
       description: |
-        Sum of any booked transactions for the account. For debit cards the sum of the current calendar month.
+        Current balance of the card account. It includes all transactions that have been booked.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -1115,6 +1115,8 @@ components:
           $ref: '#/components/schemas/DistributionPartnerName'
         embossing_line_2:
           $ref: '#/components/schemas/EmbossingLine2'
+        external_reference:
+          $ref: '#/components/schemas/ExternalReference'
         initial_issuing_date:
           $ref: '#/components/schemas/InitialIssuingDate'
     CardId:
@@ -1256,8 +1258,8 @@ components:
     ClearingReference:
       title: Clearing reference
       description: |
-        Unique identifier for booked transactions; Id does not overlap with Authorization reference; at least one of Authorization reference or
-        Clearing reference is always present.
+        Unique identifier for booked transactions (Transaction status = booked); Id does not overlap with Authorization reference; at least 
+        one of Authorization reference or Clearing reference is always present.
       type: string
       maxLength: 50
       examples:
@@ -1723,7 +1725,6 @@ components:
       required:
         - bic
         - payment_reference
-        - qr_code
         - recipient_address
         - recipient_iban
         - recipient_name
@@ -1732,14 +1733,14 @@ components:
           $ref: '#/components/schemas/PaymentInstructionsRecipientBic'
         payment_reference:
           $ref: '#/components/schemas/PaymentReference'
-        qr_code:
-          $ref: '#/components/schemas/PaymentInstructionsQrCode'
         recipient_address:
           $ref: '#/components/schemas/RecipientAddress'
         recipient_iban:
           $ref: '#/components/schemas/Iban'
         recipient_name:
           $ref: '#/components/schemas/PaymentInstructionsRecipientName'
+        qr_code:
+          $ref: '#/components/schemas/PaymentInstructionsQrCode'
     PaymentInstructionsQrCode:
       title: Payment instructions QR code
       description: |
@@ -1799,7 +1800,7 @@ components:
     PendingAmount:
       title: Pending amount
       description: |
-        Sum of pending transactions for the account. For debit cards, the sume of the current calendar month is provided.
+        Sum of pending transactions for the card account.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -2194,7 +2195,7 @@ components:
         - EUR
     TransactionDateTime:
       title: Transaction date-time
-      description: Date and time when transaction was authorized (or directly booked on the card-account), always in CH timezone.
+      description: Date and time when transaction was authorized (or directly booked on the card-account), always in UTC.
       type: string
       format: date-time
       examples:
@@ -2297,8 +2298,8 @@ components:
         token_id:
           description: Unique identifier for the card token which was used for the transaction.
           $ref: '#/components/schemas/TokenId'
-        valuta_date:
-          $ref: '#/components/schemas/ValutaDate'
+        value_date:
+          $ref: '#/components/schemas/ValueDate'
     TransactionId:
       title: Transaction id
       description: UUID to link Authorization reference and Clearing reference.
@@ -2311,16 +2312,16 @@ components:
       title: Transaction status
       description: |
         Status of the transaction; definition of enums:
-        - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
-        - booked: transaction was cleared/settled and charged to the card account
+        - pending: transaction was approved from the issuer to the merchant, but not yet booked; includes reservations and authorizations
+        - booked: transaction was cleared and charged to the card account, transaction amounts are final in this status
       type: string
       enum:
-        - authorized
+        - pending
         - booked
       examples:
-        - authorized
-    ValutaDate:
-      title: Valuta date
+        - pending
+    ValueDate:
+      title: Value date
       description: Date when the transaction becomes effective on the card account for calculating interest.
       type: string
       format: date
