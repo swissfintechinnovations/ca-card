@@ -719,7 +719,7 @@ components:
     BalanceAmount:
       title: Balance amount
       description: |
-        Sum of any booked transactions for the account. For debit cards the sume of the current calendar month.
+        Sum of any booked transactions for the account. For debit cards the sum of the current calendar month.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -1337,11 +1337,11 @@ components:
         - f058ebd6-02f7-4d3f-942e-904344e8cde5
     DateTime:
       title: Shared date-time
-      description: General date-time that is used for different attributes, format is 'YYYY-MM-DDThh:mm:ssZ'.
+      description: General date-time that is used for different attributes following the ISO 8601 standard.
       type: string
       format: date-time
       examples:
-        - '2018-04-13T11:11:11Z'
+        - '2018-04-13T11:11:11+02:00'
     Description:
       description: Description of the purpose of the transaction and potentially a reference to the merchant.
       type: string
@@ -1402,6 +1402,7 @@ components:
       type: string
       maxLength: 35
       examples:
+        - Firma ABC
         - Peter Schweizer
     ExchangeRate:
       title: Exchange rate
@@ -2161,7 +2162,9 @@ components:
         - '34.65'
     TransactionAmount:
       title: Transaction amount
-      description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
+      description: |
+        Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
+        For level 1, not all providers might deliver this field, especially for debit cards.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -2191,11 +2194,11 @@ components:
         - EUR
     TransactionDateTime:
       title: Transaction date-time
-      description: Date and time when transaction was authorized, always in CH timezone.
+      description: Date and time when transaction was authorized (or directly booked on the card-account), always in CH timezone.
       type: string
       format: date-time
       examples:
-        - '2018-04-13T11:11:11Z'
+        - '2018-04-13T11:11:11+02:00'
     TransactionDetails:
       title: Transaction details
       description: Describes a transaction with its relevant characteristics.
