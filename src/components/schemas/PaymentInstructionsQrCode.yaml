@@ -3,3 +3,35 @@ description: |
   Contents for the Swiss QR code standard of the payment instructions. Can be rendered into a QR code representation.
 type: string
 maxLength: 7100
+examples:
+  - 'SPC
+    0200
+    1
+    CH5204835012345671000
+    S
+    Max Muster & Söhne
+    Musterstrasse
+    123
+    8000
+    Seldwyla
+    CH
+
+
+
+
+
+
+
+    420.00
+    CHF
+    S
+    Barbara Beispiel
+    Musterstrasse
+    1
+    8000
+    Seldwyla
+    CH
+    NON
+
+
+    EPD'
