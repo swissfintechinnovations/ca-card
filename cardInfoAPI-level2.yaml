@@ -777,7 +777,6 @@ components:
       required:
         - card_account_bundle_id
         - card_account_bundle_reference
-        - card_account_bundles_list
         - card_accounts_list
         - card_contract_id
         - card_contract_reference
@@ -786,18 +785,18 @@ components:
           $ref: '#/components/schemas/CardAccountBundleId'
         card_account_bundle_reference:
           $ref: '#/components/schemas/CardAccountBundleReference'
-        card_account_bundles_list:
-          $ref: '#/components/schemas/CardAccountBundlesList'
         card_accounts_list:
           $ref: '#/components/schemas/CardAccountsList'
         card_contract_id:
           $ref: '#/components/schemas/CardContractId'
         card_contract_reference:
-          $ref: '#/components/schemas/ContractReference'
+          $ref: '#/components/schemas/CardContractReference'
         card_account_bundle_description:
           $ref: '#/components/schemas/CardAccountBundleDescription'
         card_account_bundle_parent:
           $ref: '#/components/schemas/CardAccountBundleParent'
+        card_account_bundles_list:
+          $ref: '#/components/schemas/CardAccountBundlesList'
         external_reference:
           $ref: '#/components/schemas/ExternalReference'
     CardAccountBundleId:
@@ -853,6 +852,8 @@ components:
         - card_account_currency
         - card_account_id
         - card_account_reference
+        - card_contract_id
+        - card_contract_reference
         - cards_list
         - issuer_code
         - issuer_name
@@ -860,6 +861,7 @@ components:
         - payment_type
         - pending_amount
         - person_id
+        - person_reference
         - product_line
         - product_type
         - statement_delivery_type
@@ -880,6 +882,10 @@ components:
           $ref: '#/components/schemas/CardAccountId'
         card_account_reference:
           $ref: '#/components/schemas/CardAccountReference'
+        card_contract_id:
+          $ref: '#/components/schemas/CardContractId'
+        card_contract_reference:
+          $ref: '#/components/schemas/CardContractReference'
         cards_list:
           $ref: '#/components/schemas/CardsList'
         issuer_code:
@@ -894,6 +900,8 @@ components:
           $ref: '#/components/schemas/PendingAmount'
         person_id:
           $ref: '#/components/schemas/PersonId'
+        person_reference:
+          $ref: '#/components/schemas/PersonReference'
         product_line:
           $ref: '#/components/schemas/ProductLine'
         product_type:
@@ -906,10 +914,6 @@ components:
           $ref: '#/components/schemas/CardAccountBundleId'
         card_account_bundle_reference:
           $ref: '#/components/schemas/CardAccountBundleReference'
-        card_contract_id:
-          $ref: '#/components/schemas/CardContractId'
-        card_contract_reference:
-          $ref: '#/components/schemas/ContractReference'
         distribution_partner_code:
           $ref: '#/components/schemas/DistributionPartnerCode'
         distribution_partner_name:
@@ -934,8 +938,6 @@ components:
           $ref: '#/components/schemas/OpenBillAmount'
         payment_instructions:
           $ref: '#/components/schemas/PaymentInstructions'
-        person_reference:
-          $ref: '#/components/schemas/PersonReference'
     CardAccountId:
       title: Card account id
       description: |
@@ -976,7 +978,6 @@ components:
       description: Describes a card contract with its relevant characteristics.
       type: object
       required:
-        - card_account_bundles_list
         - card_accounts_list
         - card_contract_id
         - card_contract_reference
@@ -986,14 +987,12 @@ components:
         - person_id
         - person_reference
       properties:
-        card_account_bundles_list:
-          $ref: '#/components/schemas/CardAccountBundlesList'
         card_accounts_list:
           $ref: '#/components/schemas/CardAccountsList'
         card_contract_id:
           $ref: '#/components/schemas/CardContractId'
         card_contract_reference:
-          $ref: '#/components/schemas/ContractReference'
+          $ref: '#/components/schemas/CardContractReference'
         contract_limit:
           $ref: '#/components/schemas/ContractLimit'
         issuer_code:
@@ -1004,6 +1003,8 @@ components:
           $ref: '#/components/schemas/PersonId'
         person_reference:
           $ref: '#/components/schemas/PersonReference'
+        card_account_bundles_list:
+          $ref: '#/components/schemas/CardAccountBundlesList'
         card_contract_description:
           $ref: '#/components/schemas/CardContractDescription'
         distribution_partner_code:
@@ -1015,12 +1016,21 @@ components:
     CardContractId:
       title: Card contract id
       description: |
-        Unique identifier for the contract defined by the Card Service Provider.
+        Technical reference to a card contract which represents a customer relationship, can be used to call the endpoint for contract
+        information.
       type: string
       format: uuid
       maxLength: 50
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
+    CardContractReference:
+      title: Card contract reference
+      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
+      type: string
+      maxLength: 50
+      examples:
+        - CH3456789012345678901
+        - ABC-56789012345
     CardContractsList:
       title: Card contracts list
       description: |
@@ -1035,14 +1045,13 @@ components:
       required:
         - card_account_currency
         - card_account_id
+        - card_account_reference
         - card_id
         - card_limit_cycle
         - card_limit_daily
         - card_product_code
         - card_product_name
         - card_status
-        - contract_id
-        - contract_reference
         - embossing_line_1
         - expiry_date
         - image
@@ -1061,6 +1070,8 @@ components:
           $ref: '#/components/schemas/CardAccountCurrency'
         card_account_id:
           $ref: '#/components/schemas/CardAccountId'
+        card_account_reference:
+          $ref: '#/components/schemas/CardAccountReference'
         card_id:
           $ref: '#/components/schemas/CardId'
         card_limit_cycle:
@@ -1073,10 +1084,6 @@ components:
           $ref: '#/components/schemas/CardProductName'
         card_status:
           $ref: '#/components/schemas/CardStatus'
-        contract_id:
-          $ref: '#/components/schemas/ContractId'
-        contract_reference:
-          $ref: '#/components/schemas/ContractReference'
         embossing_line_1:
           $ref: '#/components/schemas/EmbossingLine1'
         expiry_date:
@@ -1105,8 +1112,6 @@ components:
           $ref: '#/components/schemas/Scheme'
         bank_account_reference:
           $ref: '#/components/schemas/BankAccountReference'
-        card_account_reference:
-          $ref: '#/components/schemas/CardAccountReference'
         category:
           $ref: '#/components/schemas/Category'
         distribution_partner_code:
@@ -1301,15 +1306,6 @@ components:
             status phrase for that code (e.g., "Not Found" for 404, and so on).
           examples:
             - about:blank
-    ContractId:
-      title: Contract Id
-      description: |
-        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
     ContractLimit:
       title: Contract limit
       description: |
@@ -1321,14 +1317,6 @@ components:
         - '5.00'
         - '2000'
         - '34.65'
-    ContractReference:
-      title: Contract reference
-      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
-      type: string
-      maxLength: 50
-      examples:
-        - CH3456789012345678901
-        - ABC-56789012345
     Correlation:
       title: Shared correlation
       description: |
@@ -2499,7 +2487,7 @@ components:
         Filters resources to return only those related to the specified card contract reference. Value has to be a functional identifier for the card contract.
       required: false
       schema:
-        $ref: '#/components/schemas/ContractReference'
+        $ref: '#/components/schemas/CardContractReference'
     card_id:
       in: query
       name: card_id

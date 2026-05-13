@@ -323,7 +323,6 @@ components:
         - card_product_code
         - card_product_name
         - card_status
-        - contract_reference
         - embossing_line_1
         - expiry_date
         - image
@@ -351,8 +350,6 @@ components:
           $ref: '#/components/schemas/CardProductName'
         card_status:
           $ref: '#/components/schemas/CardStatus'
-        contract_reference:
-          $ref: '#/components/schemas/ContractReference'
         embossing_line_1:
           $ref: '#/components/schemas/EmbossingLine1'
         expiry_date:
@@ -385,8 +382,6 @@ components:
           $ref: '#/components/schemas/CardAccountReference'
         category:
           $ref: '#/components/schemas/Category'
-        contract_id:
-          $ref: '#/components/schemas/ContractId'
         distribution_partner_code:
           $ref: '#/components/schemas/DistributionPartnerCode'
         distribution_partner_name:
@@ -564,23 +559,6 @@ components:
             status phrase for that code (e.g., "Not Found" for 404, and so on).
           examples:
             - about:blank
-    ContractId:
-      title: Contract Id
-      description: |
-        Technical reference to a customer relationship, can be used to call the endpoint for contract information.
-      type: string
-      format: uuid
-      maxLength: 50
-      examples:
-        - eb404f8d-656b-4e51-8872-88c42fa55536
-    ContractReference:
-      title: Contract reference
-      description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
-      type: string
-      maxLength: 50
-      examples:
-        - CH3456789012345678901
-        - ABC-56789012345
     Correlation:
       title: Shared correlation
       description: |
