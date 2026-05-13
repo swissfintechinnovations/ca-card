@@ -4,7 +4,6 @@ type: object
 required:
   - card_account_bundle_id
   - card_account_bundle_reference
-  - card_account_bundles_list
   - card_accounts_list
   - card_contract_id
   - card_contract_reference
@@ -24,6 +23,6 @@ properties:
   card_contract_id:
     $ref: ./CardContractId.yaml
   card_contract_reference:
-    $ref: ./ContractReference.yaml
+    $ref: ./CardContractReference.yaml
   external_reference:
     $ref: ./ExternalReference.yaml

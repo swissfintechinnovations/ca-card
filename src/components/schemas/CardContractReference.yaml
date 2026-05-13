@@ -1,4 +1,4 @@
-title: Contract reference
+title: Card contract reference
 description: Functional reference to a customer relationship/contract that is responsible for the card, defined by the Card Service Provider.
 type: string
 maxLength: 50

@@ -4,4 +4,4 @@ description: |
   Filters resources to return only those related to the specified card contract reference. Value has to be a functional identifier for the card contract.
 required: false
 schema:
-  $ref: ../../schemas/ContractReference.yaml
+  $ref: ../../schemas/CardContractReference.yaml

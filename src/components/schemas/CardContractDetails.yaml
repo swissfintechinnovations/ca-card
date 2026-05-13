@@ -2,7 +2,6 @@ title: Card contract details
 description: Describes a card contract with its relevant characteristics.
 type: object
 required:
-  - card_account_bundles_list
   - card_accounts_list
   - card_contract_id
   - card_contract_reference
@@ -21,7 +20,7 @@ properties:
   card_contract_id:
     $ref: ./CardContractId.yaml
   card_contract_reference:
-    $ref: ./ContractReference.yaml
+    $ref: ./CardContractReference.yaml
   contract_limit:
     $ref: ./ContractLimit.yaml
   distribution_partner_code:

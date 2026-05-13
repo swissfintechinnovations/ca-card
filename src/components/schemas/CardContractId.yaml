@@ -1,4 +1,5 @@
 title: Card contract id
 description: |
-  Unique identifier for the contract defined by the Card Service Provider.
+  Technical reference to a card contract which represents a customer relationship, can be used to call the endpoint for contract
+  information.
 $ref: ./generic/Id.yaml

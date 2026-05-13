@@ -10,6 +10,8 @@ required:
   - card_account_currency
   - card_account_id
   - card_account_reference
+  - card_contract_id
+  - card_contract_reference
   - cards_list
   - issuer_code
   - issuer_name
@@ -17,6 +19,7 @@ required:
   - payment_type
   - pending_amount
   - person_id
+  - person_reference
   - product_line
   - product_type
   - statement_delivery_type
@@ -46,7 +49,7 @@ properties:
   card_contract_id:
     $ref: ./CardContractId.yaml
   card_contract_reference:
-    $ref: ./ContractReference.yaml
+    $ref: ./CardContractReference.yaml
   cards_list:
     $ref: ./CardsList.yaml
   distribution_partner_code:

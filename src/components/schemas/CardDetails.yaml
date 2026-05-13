@@ -10,7 +10,6 @@ required:
   - card_product_name
   - card_status
   - person_reference
-  - contract_reference
   - embossing_line_1
   - expiry_date
   - image
@@ -39,8 +38,6 @@ properties:
     $ref: ./CardStatus.yaml
   person_reference:
     $ref: ./PersonReference.yaml
-  contract_reference:
-    $ref: ./ContractReference.yaml
   embossing_line_1:
     $ref: ./EmbossingLine1.yaml
   embossing_line_2:
@@ -68,15 +65,13 @@ properties:
   card_account_id:
     x-required: 2
     $ref: ./CardAccountId.yaml
-  contract_id:
-    x-required: 2
-    $ref: ./ContractId.yaml
   person_id:
     x-required: 2
     $ref: ./PersonId.yaml
   bank_account_reference:
     $ref: ./BankAccountReference.yaml
   card_account_reference:
+    x-required: 2
     $ref: ./CardAccountReference.yaml
   category:
     $ref: ./Category.yaml
