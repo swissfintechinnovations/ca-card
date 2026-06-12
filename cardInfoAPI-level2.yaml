@@ -729,7 +729,8 @@ components:
     BankAccountReference:
       title: Bank account reference
       description: |
-        Functional reference to the bank account linked to a card; mainly relevant for debit cards, can be empty for credit or prepaid cards.
+        Functional reference to the bank account linked to a card; mainly relevant for debit cards, for credit or prepaid cards it 
+        might not be used.
       type: string
       maxLength: 34
       examples:
@@ -747,11 +748,11 @@ components:
     BillingCycleRhythm:
       title: Billing cycle rhythm
       description: |
-        Frequency of billing cycles for statement generation.
+        Frequency of billing cycles for statement generation. Debit and prepaid cards have no billing cycle. For those, the attribute is 
+        not used.
       type: string
       enum:
         - monthly
-        - debit
       examples:
         - monthly
     CardAcceptorReference:
@@ -848,7 +849,6 @@ components:
         - account_product_name
         - account_status
         - balance_amount
-        - billing_cycle_rhythm
         - card_account_currency
         - card_account_id
         - card_account_reference
@@ -857,14 +857,11 @@ components:
         - cards_list
         - issuer_code
         - issuer_name
-        - payment_option
-        - payment_type
         - pending_amount
         - person_id
         - person_reference
         - product_line
         - product_type
-        - statement_delivery_type
       properties:
         account_product_code:
           $ref: '#/components/schemas/AccountProductCode'
@@ -874,8 +871,6 @@ components:
           $ref: '#/components/schemas/AccountStatus'
         balance_amount:
           $ref: '#/components/schemas/BalanceAmount'
-        billing_cycle_rhythm:
-          $ref: '#/components/schemas/BillingCycleRhythm'
         card_account_currency:
           $ref: '#/components/schemas/CardAccountCurrency'
         card_account_id:
@@ -892,10 +887,6 @@ components:
           $ref: '#/components/schemas/IssuerCode'
         issuer_name:
           $ref: '#/components/schemas/IssuerName'
-        payment_option:
-          $ref: '#/components/schemas/PaymentOption'
-        payment_type:
-          $ref: '#/components/schemas/PaymentType'
         pending_amount:
           $ref: '#/components/schemas/PendingAmount'
         person_id:
@@ -906,10 +897,10 @@ components:
           $ref: '#/components/schemas/ProductLine'
         product_type:
           $ref: '#/components/schemas/ProductType'
-        statement_delivery_type:
-          $ref: '#/components/schemas/StatementDeliveryType'
         billing_cycle_day:
           $ref: '#/components/schemas/BillingCycleDay'
+        billing_cycle_rhythm:
+          $ref: '#/components/schemas/BillingCycleRhythm'
         card_account_bundle_id:
           $ref: '#/components/schemas/CardAccountBundleId'
         card_account_bundle_reference:
@@ -938,6 +929,12 @@ components:
           $ref: '#/components/schemas/OpenBillAmount'
         payment_instructions:
           $ref: '#/components/schemas/PaymentInstructions'
+        payment_option:
+          $ref: '#/components/schemas/PaymentOption'
+        payment_type:
+          $ref: '#/components/schemas/PaymentType'
+        statement_delivery_type:
+          $ref: '#/components/schemas/StatementDeliveryType'
     CardAccountId:
       title: Card account id
       description: |
@@ -950,8 +947,8 @@ components:
     CardAccountReference:
       title: Card account reference
       description: |
-        Technical reference to the card account which is used to settle the transactions of the card; can be empty for debit cards which are
-        settled directly to the bank account.
+        Technical reference to the card account which is used to settle the transactions of the card; can be empty in level 1, especially for 
+        debit cards which are settled directly to the bank account.
       type: string
       maxLength: 50
       examples:
@@ -1492,8 +1489,8 @@ components:
     Iban:
       title: IBAN
       description: |
-        International Bank Account Number linked to the card account. Mainly relevant for debit cards, optional for credit and prepaid 
-        cards.
+        International Bank Account Number linked to the card account. Mainly relevant for debit cards, for credit or prepaid cards it 
+        might not be used.
       type: string
       maxLength: 34
       examples:
@@ -1636,7 +1633,8 @@ components:
     MinimumAmount:
       title: Minimum amount
       description: |
-        Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used.
+        Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used because they are settled directly 
+        to the available balance on the bank/card account.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
       examples:
@@ -1766,7 +1764,9 @@ components:
     PaymentOption:
       title: Payment option
       description: |
-        Payment modality selected by the customer. Value 'full' is also used for prepaid and debit cards.
+        Payment modality selected by the customer. 
+        Debit and prepaid cards are settled directly to the available balance on the bank/card account. For those, the attribute is 
+        not used.
       type: string
       enum:
         - full
@@ -1788,13 +1788,12 @@ components:
         Method used for settlement of the open balance. 
         Value 'direct_debit' is used for lsv, debit_direct and other automatic debiting.
         Value 'ipi' is used for international payments and if account is in non-CHF currency.
-        Value 'debit' is used for debit cards.
+        Debit and prepaid cards are settled directly to available balance on the bank/card account. For those, the attribute is not used.
       type: string
       enum:
         - direct_debit
         - qr
         - ipi
-        - debit
       examples:
         - direct_debit
     PendingAmount:
@@ -1989,13 +1988,13 @@ components:
       title: Statement delivery type
       description: |
         Format and delivery method for account statements. Value 'paperless' is used for electronic delivery outside eBill.
+        For debit cards not always a statement is generated, so it is possible that the attribute is not used.
       type: string
       enum:
         - paper
         - paperless
         - ebill
         - twint
-        - debit
       examples:
         - paperless
     StatementDetails:
@@ -2009,8 +2008,6 @@ components:
         - interest_amount
         - minimum_amount
         - opening_balance
-        - payment_option
-        - payment_type
         - statement_currency
         - statement_date
         - statement_id
@@ -2029,10 +2026,6 @@ components:
           $ref: '#/components/schemas/MinimumAmount'
         opening_balance:
           $ref: '#/components/schemas/OpeningBalance'
-        payment_option:
-          $ref: '#/components/schemas/PaymentOption'
-        payment_type:
-          $ref: '#/components/schemas/PaymentType'
         statement_currency:
           $ref: '#/components/schemas/StatementCurrency'
         statement_date:
@@ -2047,6 +2040,10 @@ components:
           $ref: '#/components/schemas/DueDate'
         payment_instructions:
           $ref: '#/components/schemas/PaymentInstructions'
+        payment_option:
+          $ref: '#/components/schemas/PaymentOption'
+        payment_type:
+          $ref: '#/components/schemas/PaymentType'
     StatementDocument:
       title: Statement document
       description: |
@@ -2111,14 +2108,18 @@ components:
         - '4321'
     TokenRequestorCode:
       title: Token requestor code
-      description: Identifier for the token requestor / token service provider.
+      description: |
+        Identifier for the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for 
+        this attribute. A list of the most common token requestor codes and token requestor names is provided in the ca-card wiki.
       type: string
       maxLength: 11
       examples:
         - '11111111111'
     TokenRequestorName:
       title: Token requestor name
-      description: Name of the token requestor / token service provider.
+      description: |
+        Name of the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for 
+        this attribute. A list of the most common token requestor codes and token requestor names is provided in the ca-card wiki.
       type: string
       maxLength: 100
       examples:
@@ -2329,14 +2330,18 @@ components:
         - '2018-04-13'
     WalletCode:
       title: Wallet code
-      description: Identifier for the wallet in which the token is used and managed.
+      description: |
+        Identifier for the wallet in which the token is used and managed. Due to the dynamic nature of wallets, no enum is used for this 
+        attribute. A mapping between available wallet codes and wallet names is provided in the ca-card wiki.
       type: string
       maxLength: 10
       examples:
         - '123'
     WalletName:
       title: Wallet name
-      description: Name of the wallet in which the token is used and managed.
+      description: |
+        Name of the wallet in which the token is used and managed. Due to the dynamic nature of wallets, no enum is used for this 
+        attribute. A mapping between available wallet codes and wallet names is provided in the ca-card wiki.
       type: string
       examples:
         - apple_pay
