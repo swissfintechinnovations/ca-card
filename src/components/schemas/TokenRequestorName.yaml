@@ -1,5 +1,7 @@
 title: Token requestor name
-description: Name of the token requestor / token service provider.
+description: |
+  Name of the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for 
+  this attribute. A list of the most common token requestor codes and token requestor names is provided in the ca-card wiki.
 type: string
 maxLength: 100
 examples:

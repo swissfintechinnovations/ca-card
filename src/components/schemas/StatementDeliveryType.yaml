@@ -1,12 +1,12 @@
 title: Statement delivery type
 description: |
   Format and delivery method for account statements. Value 'paperless' is used for electronic delivery outside eBill.
+  For debit cards not always a statement is generated, so it is possible that the attribute is not used.
 type: string
 enum:
   - paper
   - paperless
   - ebill
   - twint
-  - debit
 examples:
   - paperless

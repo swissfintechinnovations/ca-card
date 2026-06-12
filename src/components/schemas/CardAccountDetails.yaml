@@ -6,7 +6,6 @@ required:
   - account_product_name
   - account_status
   - balance_amount
-  - billing_cycle_rhythm
   - card_account_currency
   - card_account_id
   - card_account_reference
@@ -15,14 +14,11 @@ required:
   - cards_list
   - issuer_code
   - issuer_name
-  - payment_option
-  - payment_type
   - pending_amount
   - person_id
   - person_reference
   - product_line
   - product_type
-  - statement_delivery_type
 properties:
   account_product_code:
     $ref: ./AccountProductCode.yaml

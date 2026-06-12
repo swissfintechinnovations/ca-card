@@ -8,8 +8,6 @@ required:
   - interest_amount
   - minimum_amount
   - opening_balance
-  - payment_option
-  - payment_type
   - statement_currency
   - statement_date
   - statement_id
