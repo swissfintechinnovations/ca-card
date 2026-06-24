@@ -738,7 +738,7 @@ components:
     BillingCycleDay:
       title: Billing cycle day
       description: |
-        Day of the month when the billing cycle usually closes and the statement is generated. Not used for debit and prepaid cards. 
+        Day of the month when the billing cycle usually closes and the statement is generated. Not used for debit and prepaid cards.
         Not used by all issuers.
       type: integer
       minimum: 1
@@ -748,7 +748,7 @@ components:
     BillingCycleRhythm:
       title: Billing cycle rhythm
       description: |
-        Frequency of billing cycles for statement generation. Debit and prepaid cards have no billing cycle. For those, the attribute is 
+        Frequency of billing cycles for statement generation. Debit and prepaid cards have no billing cycle. For those, the attribute is
         not used.
       type: string
       enum:
@@ -765,7 +765,7 @@ components:
     CardAccountBundleDescription:
       title: Card account bundle description
       description: |
-        Description for the card-account-bundle so that an end-user can understand the scope of the bundle. Is filled with 
+        Description for the card-account-bundle so that an end-user can understand the scope of the bundle. Is filled with
         issuer-specific information.
       type: string
       maxLength: 100
@@ -956,7 +956,7 @@ components:
     CardAccountsList:
       title: Card accounts list
       description: |
-        List of card account identifiers associated with a person / card-contract or card-account-bundle and accessible with the provided 
+        List of card account identifiers associated with a person / card-contract or card-account-bundle and accessible with the provided
         consent.
       type: array
       items:
@@ -964,7 +964,7 @@ components:
     CardContractDescription:
       title: Card contract description
       description: |
-        Description for the card-contract so that an end-user can understand the scope of the contract. Is filled with 
+        Description for the card-contract so that an end-user can understand the scope of the contract. Is filled with
         issuer-specific information.
       type: string
       maxLength: 100
@@ -1306,7 +1306,7 @@ components:
     ContractLimit:
       title: Contract limit
       description: |
-        Overall limit that all accounts and cards under the contract can spend. Value 0 for debit and prepaid cards means that there is no 
+        Overall limit that all accounts and cards under the contract can spend. Value 0 for debit and prepaid cards means that there is no
         contract limit in place.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
@@ -1489,7 +1489,7 @@ components:
     Iban:
       title: IBAN
       description: |
-        International Bank Account Number linked to the card account. Mainly relevant for debit cards, for credit or prepaid cards it 
+        International Bank Account Number linked to the card account. Mainly relevant for debit cards, for credit or prepaid cards it
         might not be used.
       type: string
       maxLength: 34
@@ -1633,7 +1633,7 @@ components:
     MinimumAmount:
       title: Minimum amount
       description: |
-        Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used because they are settled directly 
+        Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used because they are settled directly
         to the available balance on the bank/card account.
       type: string
       pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
