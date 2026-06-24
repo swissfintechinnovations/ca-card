@@ -1,7 +1,7 @@
 title: Payment option
 description: |
-  Payment modality selected by the customer. 
-  Debit and prepaid cards are settled directly to the available balance on the bank/card account. For those, the attribute is 
+  Payment modality selected by the customer.
+  Debit and prepaid cards are settled directly to the available balance on the bank/card account. For those, the attribute is
   not used.
 type: string
 enum:

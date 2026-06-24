@@ -1,7 +1,7 @@
 in: query
 name: first_name
 description: |
-  Filters resources to return only those related to the specified first name. * as wildcard is supported. 
+  Filters resources to return only those related to the specified first name. * as wildcard is supported.
 required: false
 schema:
   $ref: ../../schemas/FirstName.yaml
