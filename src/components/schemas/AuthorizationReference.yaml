@@ -1,6 +1,6 @@
 title: Authorization reference
 description: |
-  Unique identifier for authorized transactions (Transaction status = pending); Id does not overlap with Clearing reference; at least 
+  Unique identifier for authorized transactions (Transaction status = pending); Id does not overlap with Clearing reference; at least
   one of Authorization reference or Clearing reference is always present.
 type: string
 maxLength: 50

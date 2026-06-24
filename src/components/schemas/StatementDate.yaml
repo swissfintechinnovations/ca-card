@@ -1,5 +1,5 @@
 title: Statement date
 description: |
-  Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for 
+  Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for
   credit cards.
 $ref: ./generic/Date.yaml

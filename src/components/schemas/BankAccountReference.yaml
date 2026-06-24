@@ -1,6 +1,6 @@
 title: Bank account reference
 description: |
-  Functional reference to the bank account linked to a card; mainly relevant for debit cards, for credit or prepaid cards it 
+  Functional reference to the bank account linked to a card; mainly relevant for debit cards, for credit or prepaid cards it
   might not be used.
 type: string
 maxLength: 34
