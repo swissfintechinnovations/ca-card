@@ -265,7 +265,7 @@ components:
     AuthorizationReference:
       title: Authorization reference
       description: |
-        Unique identifier for authorized transactions (Transaction status = pending); Id does not overlap with Clearing reference; at least 
+        Unique identifier for authorized transactions (Transaction status = pending); Id does not overlap with Clearing reference; at least
         one of Authorization reference or Clearing reference is always present.
       type: string
       maxLength: 50
@@ -274,7 +274,7 @@ components:
     BankAccountReference:
       title: Bank account reference
       description: |
-        Functional reference to the bank account linked to a card; mainly relevant for debit cards, for credit or prepaid cards it 
+        Functional reference to the bank account linked to a card; mainly relevant for debit cards, for credit or prepaid cards it
         might not be used.
       type: string
       maxLength: 34
@@ -306,7 +306,7 @@ components:
     CardAccountReference:
       title: Card account reference
       description: |
-        Technical reference to the card account which is used to settle the transactions of the card; can be empty in level 1, especially for 
+        Technical reference to the card account which is used to settle the transactions of the card; can be empty in level 1, especially for
         debit cards which are settled directly to the bank account.
       type: string
       maxLength: 50
@@ -527,7 +527,7 @@ components:
     ClearingReference:
       title: Clearing reference
       description: |
-        Unique identifier for booked transactions (Transaction status = booked); Id does not overlap with Authorization reference; at least 
+        Unique identifier for booked transactions (Transaction status = booked); Id does not overlap with Authorization reference; at least
         one of Authorization reference or Clearing reference is always present.
       type: string
       maxLength: 50
@@ -885,7 +885,7 @@ components:
     StatementDate:
       title: Statement date
       description: |
-        Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for 
+        Date when the statement is created through which the issuer settles the transaction with the account holder. Only available for
         credit cards.
       type: string
       format: date
@@ -932,7 +932,7 @@ components:
     TokenRequestorCode:
       title: Token requestor code
       description: |
-        Identifier for the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for 
+        Identifier for the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for
         this attribute. A list of the most common token requestor codes and token requestor names is provided in the ca-card wiki.
       type: string
       maxLength: 11
@@ -941,7 +941,7 @@ components:
     TokenRequestorName:
       title: Token requestor name
       description: |
-        Name of the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for 
+        Name of the token requestor / token service provider. Due to the dynamic nature of token requestors, no enum is used for
         this attribute. A list of the most common token requestor codes and token requestor names is provided in the ca-card wiki.
       type: string
       maxLength: 100
@@ -1147,7 +1147,7 @@ components:
     WalletCode:
       title: Wallet code
       description: |
-        Identifier for the wallet in which the token is used and managed. Due to the dynamic nature of wallets, no enum is used for this 
+        Identifier for the wallet in which the token is used and managed. Due to the dynamic nature of wallets, no enum is used for this
         attribute. A mapping between available wallet codes and wallet names is provided in the ca-card wiki.
       type: string
       maxLength: 10
