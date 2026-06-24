@@ -1,5 +1,5 @@
 title: Minimum amount
 description: |
-  Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used because they are settled directly 
+  Minimum amount due for the current billing cycle. For prepaid and debit cards, 0 will be used because they are settled directly
   to the available balance on the bank/card account.
 $ref: ./generic/Amount.yaml
