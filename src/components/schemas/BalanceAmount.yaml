@@ -1,0 +1,4 @@
+title: Balance amount
+description: |
+  Current balance of the card account. It includes all transactions that have been booked.
+$ref: ./generic/Amount.yaml

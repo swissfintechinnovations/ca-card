@@ -1,0 +1,4 @@
+title: Recipient address country
+description: |
+  Country where the recipient has the official business location.
+$ref: ./generic/Country.yaml

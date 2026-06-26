@@ -1,0 +1,7 @@
+in: query
+name: account_product_code
+description: |
+  Filters resources to return only those related to the specified account product code.
+required: false
+schema:
+  $ref: ../../schemas/AccountProductCode.yaml

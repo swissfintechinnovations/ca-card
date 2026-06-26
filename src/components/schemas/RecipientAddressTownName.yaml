@@ -1,0 +1,7 @@
+title: Recipient town name
+description: |
+  Name of the city / town where the recipient has the official business location.
+type: string
+maxLength: 70
+examples:
+  - 'Zurich'

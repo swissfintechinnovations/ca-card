@@ -1,0 +1,7 @@
+in: query
+name: from_amount
+description: |
+  Filters resources to return only those with an amount greater than or equal to the specified amount.
+required: false
+schema:
+  $ref: ../../schemas/generic/Amount.yaml

@@ -1,0 +1,30 @@
+title: Person details
+description: Describes a person with its relevant characteristics.
+type: object
+required:
+  - person_id
+  - person_reference
+  - language
+  - person_type
+  - name
+properties:
+  person_id:
+    $ref: ./PersonId.yaml
+  person_reference:
+    $ref: ./PersonReference.yaml
+  language:
+    $ref: ./Language.yaml
+  person_type:
+    $ref: ./PersonType.yaml
+  name:
+    $ref: ./Name.yaml
+  external_reference:
+    $ref: ./ExternalReference.yaml
+  first_name:
+    $ref: ./FirstName.yaml
+  cards_list:
+    $ref: ./CardsList.yaml
+  card_accounts_list:
+    $ref: ./CardAccountsList.yaml
+  card_contracts_list:
+    $ref: ./CardContractsList.yaml

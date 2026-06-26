@@ -2,7 +2,6 @@ title: Transaction details
 description: Describes a transaction with its relevant characteristics.
 type: object
 required:
-  - card_id
   - mcc
   - mcc_description
   - original_amount
@@ -11,7 +10,6 @@ required:
   - transaction_date_time
   - transaction_id
   - transaction_status
-  - valuta_date
 properties:
   card_id:
     description: |
@@ -34,8 +32,27 @@ properties:
     $ref: ./TransactionId.yaml
   transaction_status:
     $ref: ./TransactionStatus.yaml
-  valuta_date:
-    $ref: ./ValutaDate.yaml
+  card_account_id:
+    x-required: 2
+    $ref: ./CardAccountId.yaml
+  card_account_reference:
+    x-required: 2
+    $ref: ./CardAccountReference.yaml
+  person_id:
+    x-required: 2
+    $ref: ./PersonId.yaml
+  person_reference:
+    x-required: 2
+    $ref: ./PersonReference.yaml
+  total_amount:
+    x-required: 2
+    $ref: ./TotalAmount.yaml
+  transaction_amount:
+    x-required: 2 
+    $ref: ./TransactionAmount.yaml
+  transaction_currency:
+    x-required: 2
+    $ref: ./TransactionCurrency.yaml
   acquirer_reference:
     $ref: ./AcquirerReference.yaml
   approval_number:
@@ -44,10 +61,6 @@ properties:
     $ref: ./AuthorizationReference.yaml
   card_acceptor_reference:
     $ref: ./CardAcceptorReference.yaml
-  card_account_reference:
-    $ref: ./CardAccountReference.yaml
-  cardholder_reference:
-    $ref: ./CardholderReference.yaml
   channel:
     $ref: ./Channel.yaml
   clearing_reference:
@@ -59,7 +72,9 @@ properties:
   exchange_rate_date:
     $ref: ./ExchangeRateDate.yaml
   fees:
-    $ref: ./Fees.yaml
+    type: array
+    items:
+      $ref: ./Fees.yaml
   merchant_city:
     $ref: ./MerchantCity.yaml
   merchant_country:
@@ -69,15 +84,16 @@ properties:
   related_transaction_id:
     $ref: ./RelatedTransactionId.yaml
   statement_date:
+    description: |
+      Date when the statement is created through which the issuer settles the transaction with the account holder. Only available
+      for credit cards and when the transaction is in status booked.
     $ref: ./StatementDate.yaml
+  statement_id:
+    $ref: ./StatementId.yaml
   terminal_reference:
     $ref: ./TerminalReference.yaml
   token_id:
     description: Unique identifier for the card token which was used for the transaction.
     $ref: ./TokenId.yaml
-  total_amount:
-    $ref: ./TotalAmount.yaml
-  transaction_amount:
-    $ref: ./TransactionAmount.yaml
-  transaction_currency:
-    $ref: ./TransactionCurrency.yaml
+  value_date:
+    $ref: ./ValueDate.yaml

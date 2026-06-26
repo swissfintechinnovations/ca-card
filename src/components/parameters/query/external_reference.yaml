@@ -1,0 +1,7 @@
+in: query
+name: external_reference
+description: |
+  Filters resources to return only those related tothe specified external reference.
+required: false
+schema:
+  $ref: ../../schemas/ExternalReference.yaml

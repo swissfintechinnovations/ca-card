@@ -1,0 +1,7 @@
+in: query
+name: iban
+description: |
+  Filters resources to return only those related to the specified IBAN.
+required: false
+schema:
+  $ref: ../../schemas/Iban.yaml

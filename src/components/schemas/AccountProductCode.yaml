@@ -1,0 +1,7 @@
+title: Account product code
+description: |
+  Identifier for the card account product as defined by the issuer.
+type: string
+maxLength: 50
+examples:
+  - '123456789'

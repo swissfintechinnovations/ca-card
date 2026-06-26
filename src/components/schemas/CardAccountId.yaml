@@ -1,0 +1,4 @@
+title: Card account id
+description: |
+  Technical reference to a card account used as identifier to retrieve card account details via the API.
+$ref: ./generic/Id.yaml

@@ -1,0 +1,10 @@
+title: Account status
+description: |
+  Current operational status of the card account.
+type: string
+enum:
+  - active
+  - suspended
+  - blocked
+examples:
+  - active

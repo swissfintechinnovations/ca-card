@@ -1,0 +1,8 @@
+title: IBAN
+description: |
+  International Bank Account Number linked to the card account. Mainly relevant for debit cards, for credit or prepaid cards it
+  might not be used.
+type: string
+maxLength: 34
+examples:
+  - 'CH9300762011623852957'

@@ -1,5 +1,7 @@
 title: Wallet name
-description: Name of the wallet in which the token is used and managed.
+description: |
+  Name of the wallet in which the token is used and managed. Due to the dynamic nature of wallets, no enum is used for this
+  attribute. A mapping between available wallet codes and wallet names is provided in the ca-card wiki.
 type: string
 examples:
   - apple_pay

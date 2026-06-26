@@ -1,0 +1,4 @@
+title: Statement id
+description: |
+  Unique identifier for the billing statement document.
+$ref: ./generic/Id.yaml

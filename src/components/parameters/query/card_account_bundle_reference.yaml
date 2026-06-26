@@ -1,0 +1,8 @@
+in: query
+name: card_account_bundle_reference
+description: |
+  Filters resources to return only those related to the specified card account bundle reference. Value has to be a functional
+  identifier for the card account bundle.
+required: false
+schema:
+  $ref: ../../schemas/CardAccountBundleReference.yaml

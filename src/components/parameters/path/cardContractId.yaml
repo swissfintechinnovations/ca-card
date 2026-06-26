@@ -1,0 +1,6 @@
+in: path
+name: cardContractId
+description: Identifier (technical) for a card contract for which information is requested.
+required: true
+schema:
+  $ref: ../../schemas/CardContractId.yaml

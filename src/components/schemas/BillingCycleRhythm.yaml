@@ -1,0 +1,9 @@
+title: Billing cycle rhythm
+description: |
+  Frequency of billing cycles for statement generation. Debit and prepaid cards have no billing cycle. For those, the attribute is
+  not used.
+type: string
+enum:
+  - monthly
+examples:
+  - monthly

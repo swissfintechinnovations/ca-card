@@ -1,0 +1,94 @@
+title: Card account details
+description: Describes a payment card account with its relevant characteristics.
+type: object
+required:
+  - account_product_code
+  - account_product_name
+  - account_status
+  - balance_amount
+  - card_account_currency
+  - card_account_id
+  - card_account_reference
+  - card_contract_id
+  - card_contract_reference
+  - cards_list
+  - issuer_code
+  - issuer_name
+  - pending_amount
+  - person_id
+  - person_reference
+  - product_line
+  - product_type
+properties:
+  account_product_code:
+    $ref: ./AccountProductCode.yaml
+  account_product_name:
+    $ref: ./AccountProductName.yaml
+  account_status:
+    $ref: ./AccountStatus.yaml
+  balance_amount:
+    $ref: ./BalanceAmount.yaml
+  billing_cycle_day:
+    $ref: ./BillingCycleDay.yaml
+  billing_cycle_rhythm:
+    $ref: ./BillingCycleRhythm.yaml
+  card_account_bundle_id:
+    $ref: ./CardAccountBundleId.yaml
+  card_account_bundle_reference:
+    $ref: ./CardAccountBundleReference.yaml
+  card_account_currency:
+    $ref: ./CardAccountCurrency.yaml
+  card_account_id:
+    $ref: ./CardAccountId.yaml
+  card_account_reference:
+    $ref: ./CardAccountReference.yaml
+  card_contract_id:
+    $ref: ./CardContractId.yaml
+  card_contract_reference:
+    $ref: ./CardContractReference.yaml
+  cards_list:
+    $ref: ./CardsList.yaml
+  distribution_partner_code:
+    $ref: ./DistributionPartnerCode.yaml
+  distribution_partner_name:
+    $ref: ./DistributionPartnerName.yaml
+  external_reference:
+    $ref: ./ExternalReference.yaml
+  iban:
+    $ref: ./Iban.yaml
+  issuer_code:
+    $ref: ./IssuerCode.yaml
+  issuer_name:
+    $ref: ./IssuerName.yaml
+  loyalty_program_cancellation_date:
+    $ref: ./LoyaltyProgramCancellationDate.yaml
+  loyalty_program_code:
+    $ref: ./LoyaltyProgramCode.yaml
+  loyalty_program_enrolment_date:
+    $ref: ./LoyaltyProgramEnrolmentDate.yaml
+  loyalty_program_name:
+    $ref: ./LoyaltyProgramName.yaml
+  loyalty_program_participation_reference:
+    $ref: ./LoyaltyProgramParticipationReference.yaml
+  next_statement_date:
+    $ref: ./NextStatementDate.yaml
+  open_bill_amount:
+    $ref: ./OpenBillAmount.yaml
+  payment_option:
+    $ref: ./PaymentOption.yaml
+  payment_type:
+    $ref: ./PaymentType.yaml
+  pending_amount:
+    $ref: ./PendingAmount.yaml
+  person_id:
+    $ref: ./PersonId.yaml
+  person_reference:
+    $ref: ./PersonReference.yaml
+  product_line:
+    $ref: ./ProductLine.yaml
+  product_type:
+    $ref: ./ProductType.yaml
+  statement_delivery_type:
+    $ref: ./StatementDeliveryType.yaml
+  payment_instructions:
+    $ref: ./PaymentInstructions.yaml

@@ -1,6 +1,7 @@
 in: query
 name: transaction_status
-description: Retrieves all transactions in a certain status. Only one status can be filtered at a time.
+description: Filters resources to return only those related to the specified transaction status. Only one status can be filtered
+  at a time.
 required: false
 schema:
   $ref: ../../schemas/TransactionStatus.yaml

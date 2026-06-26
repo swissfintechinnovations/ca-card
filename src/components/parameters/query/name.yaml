@@ -1,0 +1,7 @@
+in: query
+name: name
+description: |
+  Filters resources to return only those related to the specified name. * as wildcard is supported.
+required: false
+schema:
+  $ref: ../../schemas/Name.yaml

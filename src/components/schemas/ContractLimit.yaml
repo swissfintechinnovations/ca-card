@@ -1,0 +1,5 @@
+title: Contract limit
+description: |
+  Overall limit that all accounts and cards under the contract can spend. Value 0 for debit and prepaid cards means that there is no
+  contract limit in place.
+$ref: ./generic/Amount.yaml

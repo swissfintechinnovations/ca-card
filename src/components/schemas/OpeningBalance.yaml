@@ -1,0 +1,4 @@
+title: Opening balance
+description: |
+  Opening balance amount at the start of the billing cycle / statement period.
+$ref: ./generic/Amount.yaml

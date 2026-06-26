@@ -1,0 +1,5 @@
+title: Card contract id
+description: |
+  Technical reference to a card contract which represents a customer relationship, can be used to call the endpoint for contract
+  information.
+$ref: ./generic/Id.yaml

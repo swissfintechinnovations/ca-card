@@ -1,0 +1,4 @@
+title: Card account bundle parent
+description: |
+  The card account bundle under which the current bundle is associated.
+$ref: ./generic/Id.yaml
