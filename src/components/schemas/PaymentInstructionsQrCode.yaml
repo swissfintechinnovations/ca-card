@@ -4,7 +4,8 @@ description: |
 type: string
 maxLength: 7100
 examples:
-  - "SPC
+  - |
+    SPC
     0200
     1
     CH5204835012345671000
@@ -34,4 +35,4 @@ examples:
     NON
 
 
-    EPD"
+    EPD
