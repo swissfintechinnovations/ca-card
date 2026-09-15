@@ -2,14 +2,15 @@
 
 ## General overview and information
 - Stream/topic: `Card`  
-- Repo: `swissfintechinnovations/ca-card` · OpenAPI version: `3.1.0`  
+- Repo: `swissfintechinnovations/ca-card`
+- OpenAPI version: `3.1.0`  
 - Bundled spec at repo root: `cardInfoAPI-level1.yaml, cardInfoAPI-level2.yaml`  
-- Repo with config files, reusable workflows, and wiki: `swissfintechinnovations/.github`  
+- Read-only repo with config files, reusable workflows, and wiki: `swissfintechinnovations/.github`  
 
 ## What you are allowed to edit
 - **Edit only** the split source components under `src/components/{schemas,parameters,headers,responses,...}`.
 - **Do not touch** the bundled root file — it is generated from `src/*` by the Redocly bundle workflow on PR. Editing it directly will be overwritten.
-- **Do not touch** anything in `.github/` or the reusable workflows in `swissfintechinnovations/.github`.
+- **Do not touch** anything in the `.github/` folder or the reusable workflows in the `github.com/swissfintechinnovations/.github` repo.
 
 ## Editing rules and patterns
 - Only do small, focused changes, not large refactors.
