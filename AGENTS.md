@@ -56,7 +56,7 @@
 - `$ref` paths are correct for the file layout and remain valid after bundling (run the bundle command locally or via CI workflow to confirm).
     - bundle command: `npx @redocly/cli bundle --config .github/redocly.yaml`
     - workflow: `SFTI Bundle`
-- after bundling is successful, perform linter checks locally or via CI workflow and fix all errors and warnings
+- After bundling is successful, perform linter checks locally or via CI workflow and fix all errors and warnings
     - lint commands: `npx @redocly/cli lint --config=github/.github/redocly.yaml <<topic>>API.yaml`, `yamllint -d "{extends: github/.github/.yamllint, rules: {line-length: {max: 170}}}" -f github "<<file>>"`, `yamllint -c github/.github/.yamllint -f github "<<file>>"`
     - workflow: `SFTI Lint PRs`
 - No breaking semantic changes to tags, paths, or required fields without a clear changelog entry.
