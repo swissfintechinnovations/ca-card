@@ -5,11 +5,12 @@
 - Repo: `github.com/swissfintechinnovations/ca-card`
 - OpenAPI version: `3.1.0`  
 - Bundled spec at repo root: `cardInfoAPI-level1.yaml, cardInfoAPI-level2.yaml`  
-- Read-only repo with config files, reusable workflows, and wiki: `github.com/swissfintechinnovations/.github`  
+- Read-only repo with config files, reusable workflows, and wiki: `github.com/swissfintechinnovations/.github`
+- Repository-specific design rationale, API level definitions, use cases and naming guidance are documented in operationalGuide.md. Read it before introducing new models or changing existing ones.  
 
 ## What you are allowed to edit
 - **Edit only** the canonical source components under `src/components/{schemas,parameters,headers,responses,...}`.
-- **Do not touch** the bundled root file — it is generated from `src/*` by the Redocly bundle workflow on PR. Editing it directly will be overwritten.
+- **Do not touch** the bundled root file — it is generated from `src/*` by the Redocly bundle workflow on PR and is used for publishing. Editing it directly will be overwritten.
 - **Do not touch** anything in the `.github/` folder or the reusable workflows in the `github.com/swissfintechinnovations/.github` repo.
 
 ## Editing rules and patterns
@@ -21,7 +22,7 @@
 - Header/param conventions: client/correlation/agent headers are defined under `src/components/parameters/header` (e.g. `client.yaml`, `correlation.yaml`, `agent.yaml`) and should be referenced consistently.
 
 ## Naming convention & style guide
-The full rules are defined in the `swissfintechinnovations/.github` wiki. The following rules provide a comprehensive summary.
+- The full rules are defined in the `swissfintechinnovations/.github` wiki. The following rules provide a comprehensive summary.  
 
 ### Style guide
 - Do not refactor established structures purely for stylistic reasons.
@@ -41,6 +42,7 @@ The full rules are defined in the `swissfintechinnovations/.github` wiki. The fo
 - Use consistent terminology across endpoints, schemas, examples, and documentation.
 - Reuse existing domain vocabulary already present in the repository.
 - Add meaningful descriptions and examples for all public models and fields.
+- Follow the established *Id, *Reference, and *Code naming patterns as documented in operationalGuide.md and repository conventions.  
 
 ## Schema design guidelines
 - Preserve backward compatibility whenever possible. Do not introduce breaking API changes without explicit versioning discussion.
@@ -54,7 +56,10 @@ The full rules are defined in the `swissfintechinnovations/.github` wiki. The fo
 - `$ref` paths are correct for the file layout and remain valid after bundling (run the bundle command locally or via CI workflow to confirm).
     - bundle command: `npx @redocly/cli bundle --config .github/redocly.yaml`
     - workflow: `SFTI Bundle`
-- perform linter checks locally or via CI workflow and fix all errors and warnings
+- after bundling is successful, perform linter checks locally or via CI workflow and fix all errors and warnings
     - lint commands: `npx @redocly/cli lint --config=github/.github/redocly.yaml <<topic>>API.yaml`, `yamllint -d "{extends: github/.github/.yamllint, rules: {line-length: {max: 170}}}" -f github "<<file>>"`, `yamllint -c github/.github/.yamllint -f github "<<file>>"`
     - workflow: `SFTI Lint PRs`
 - No breaking semantic changes to tags, paths, or required fields without a clear changelog entry.
+
+### Previewing changes
+- To inspect a specification interactively, open the bundled specification in Swagger Editor using the repository's raw file URL.  
