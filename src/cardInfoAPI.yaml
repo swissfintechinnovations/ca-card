@@ -201,6 +201,10 @@ paths:
         - $ref: ./components/parameters/query/to_date.yaml
         - $ref: ./components/parameters/query/transaction_status.yaml
         - $ref: ./components/parameters/query/original_currency.yaml
+        - $ref: ./components/parameters/query/original_amount_from.yaml
+        - $ref: ./components/parameters/query/original_amount_to.yaml
+        - $ref: ./components/parameters/query/total_amount_from.yaml
+        - $ref: ./components/parameters/query/total_amount_to.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
