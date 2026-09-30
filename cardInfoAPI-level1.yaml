@@ -186,6 +186,10 @@ paths:
         - $ref: '#/components/parameters/to_date'
         - $ref: '#/components/parameters/transaction_status'
         - $ref: '#/components/parameters/original_currency'
+        - $ref: '#/components/parameters/original_amount_from'
+        - $ref: '#/components/parameters/original_amount_to'
+        - $ref: '#/components/parameters/total_amount_from'
+        - $ref: '#/components/parameters/total_amount_to'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -253,6 +257,15 @@ components:
       maxLength: 11
       examples:
         - '12345678901'
+    Amount:
+      title: Shared amount
+      description: Amount of money for fees and services.
+      type: string
+      pattern: ^[0-9]{1,12}([.][0-9]{1,5})?$
+      examples:
+        - '5.00'
+        - '2000'
+        - '34.65'
     ApprovalNumber:
       title: Approval number (also known as approval code)
       description: |
@@ -1296,6 +1309,22 @@ components:
         minimum: 1
         examples:
           - 25
+    original_amount_from:
+      in: query
+      name: original_amount_from
+      description: |
+        Filters transactions to return only those with an original amount greater than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
+    original_amount_to:
+      in: query
+      name: original_amount_to
+      description: |
+        Filters transactions to return only those with an original amount less than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     original_currency:
       in: query
       name: original_currency
@@ -1341,6 +1370,22 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenStatus'
+    total_amount_from:
+      in: query
+      name: total_amount_from
+      description: |
+        Filters transactions to return only those with a total amount greater than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
+    total_amount_to:
+      in: query
+      name: total_amount_to
+      description: |
+        Filters transactions to return only those with a total amount less than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     transactionId:
       in: path
       name: transactionId

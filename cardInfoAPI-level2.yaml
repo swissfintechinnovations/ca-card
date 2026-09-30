@@ -196,6 +196,10 @@ paths:
         - $ref: '#/components/parameters/to_date'
         - $ref: '#/components/parameters/transaction_status'
         - $ref: '#/components/parameters/original_currency'
+        - $ref: '#/components/parameters/original_amount_from'
+        - $ref: '#/components/parameters/original_amount_to'
+        - $ref: '#/components/parameters/total_amount_from'
+        - $ref: '#/components/parameters/total_amount_to'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -738,23 +742,13 @@ components:
     BillingCycleDay:
       title: Billing cycle day
       description: |
-        Day of the month when the billing cycle usually closes and the statement is generated. Not used for debit and prepaid cards.
-        Not used by all issuers.
+        Day of the month when the billing cycle usually closes and the statement is generated. Only monthly billing cycles are supported 
+        at the moment. Not used for debit and prepaid cards. Not used by all issuers.
       type: integer
       minimum: 1
       maximum: 31
       examples:
         - 15
-    BillingCycleRhythm:
-      title: Billing cycle rhythm
-      description: |
-        Frequency of billing cycles for statement generation. Debit and prepaid cards have no billing cycle. For those, the attribute is
-        not used.
-      type: string
-      enum:
-        - monthly
-      examples:
-        - monthly
     CardAcceptorReference:
       title: Card acceptor reference
       description: Identifier for the merchant who requested the transaction.
@@ -899,8 +893,6 @@ components:
           $ref: '#/components/schemas/ProductType'
         billing_cycle_day:
           $ref: '#/components/schemas/BillingCycleDay'
-        billing_cycle_rhythm:
-          $ref: '#/components/schemas/BillingCycleRhythm'
         card_account_bundle_id:
           $ref: '#/components/schemas/CardAccountBundleId'
         card_account_bundle_reference:
@@ -2574,7 +2566,7 @@ components:
       in: query
       name: external_reference
       description: |
-        Filters resources to return only those related tothe specified external reference.
+        Filters resources to return only those related to the specified external reference.
       required: false
       schema:
         $ref: '#/components/schemas/ExternalReference'
@@ -2636,6 +2628,22 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/Name'
+    original_amount_from:
+      in: query
+      name: original_amount_from
+      description: |
+        Filters transactions to return only those with an original amount greater than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
+    original_amount_to:
+      in: query
+      name: original_amount_to
+      description: |
+        Filters transactions to return only those with an original amount less than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     original_currency:
       in: query
       name: original_currency
@@ -2727,6 +2735,22 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenStatus'
+    total_amount_from:
+      in: query
+      name: total_amount_from
+      description: |
+        Filters transactions to return only those with a total amount greater than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
+    total_amount_to:
+      in: query
+      name: total_amount_to
+      description: |
+        Filters transactions to return only those with a total amount less than or equal to the specified amount.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Amount'
     transactionId:
       in: path
       name: transactionId
