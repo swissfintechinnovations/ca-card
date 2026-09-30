@@ -1,0 +1,640 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: event-notification plugin
+  description: |
+    This OAS 3.1 specification defines the SFTI Event Notification API standard for secure, and standardized event-based communication
+    between financial ecosystem participants. As a cross-stream specification, it provides a generic event notification
+    framework used across multiple SFTI repositories, while the stream-specific event types and payload definitions are defined
+    and maintained within the respective stream repositories.
+
+    This specification is semantically equivalent to the SPI specifications defined in eventNotificationAPI.yaml and
+    eventNotificationWebhookAPI.yaml, but consolidated into a single file to leverage the enhanced capabilities of the OpenAPI 3.1 standard.
+  contact:
+    email: info@common-api.ch
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://webhook-notification.common-api.ch
+externalDocs:
+  description: Find out more about SFTI API specifications.
+  url: https://www.common-api.ch
+tags:
+  - name: event subscriptions
+    description: |
+      Event subscription operations in the context of OAuth2 consent authentication. One subscription is bound to exactly
+      one consent and supports create, retrieve, update and delete operations. Multiple event types are managed within the single
+      subscription resource.
+  - name: event notifications aggregated polling
+    description: |
+      Aggregated polling operations in the context of Service User authentication, used for catch-up retrieval of event notifications.
+security: []
+paths:
+  /event-subscriptions:
+    get:
+      tags:
+        - event subscriptions
+      summary: Get event subscriptions
+      description: Get list of event subscriptions.
+      operationId: listEventSubscriptions
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/correlation_id'
+      responses:
+        '200':
+          description: List of event subscriptions.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+            Next-Cursor:
+              $ref: '#/components/headers/Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventSubscription'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+    post:
+      tags:
+        - event subscriptions
+      summary: Create event subscription
+      description: Create event subscription.
+      operationId: createEventSubscription
+      parameters:
+        - $ref: '#/components/parameters/correlation_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscription'
+      responses:
+        '201':
+          description: Event subscription created.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '409':
+          $ref: '#/components/responses/standard409'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+  /event-subscriptions/{eventSubscriptionId}:
+    get:
+      tags:
+        - event subscriptions
+      summary: Get event subscription
+      description: Get event subscription by id.
+      operationId: getEventSubscription
+      parameters:
+        - $ref: '#/components/parameters/event_subscription_id'
+        - $ref: '#/components/parameters/correlation_id'
+      responses:
+        '200':
+          description: Get event subscriptions.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+    put:
+      tags:
+        - event subscriptions
+      summary: Update event subscription
+      description: Update event subscription.
+      operationId: updateEventSubscription
+      parameters:
+        - $ref: '#/components/parameters/event_subscription_id'
+        - $ref: '#/components/parameters/correlation_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscription'
+            example:
+              eventTypes:
+                - order:created
+                - order:partiallyFilled
+              callbackUrl: /ttpAPI/notifications/order-placement/
+      responses:
+        '204':
+          description: Successfully updated (empty response).
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+    delete:
+      tags:
+        - event subscriptions
+      summary: Delete event subscription
+      description: Delete event subscription by id.
+      operationId: deleteEventSubscription
+      parameters:
+        - $ref: '#/components/parameters/event_subscription_id'
+        - $ref: '#/components/parameters/correlation_id'
+      responses:
+        '204':
+          description: Successfully deleted.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+  /event-subscriptions/{eventSubscriptionId}/event-notifications:
+    get:
+      tags:
+        - event notifications aggregated polling
+      summary: Get event notifications list
+      description: Get aggregated event notification list.
+      operationId: listEventSubscriptionEventNotifications
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/correlation_id'
+        - $ref: '#/components/parameters/event_subscription_id'
+        - $ref: '#/components/parameters/from_event_date_time'
+      responses:
+        '200':
+          description: List of event notifications.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+            Next-Cursor:
+              $ref: '#/components/headers/Next-Cursor'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventNotification'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '401':
+          $ref: '#/components/responses/standard401'
+        '403':
+          $ref: '#/components/responses/standard403'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '429':
+          $ref: '#/components/responses/standard429'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+webhooks:
+  event-notification:
+    post:
+      tags:
+        - event notifications aggregated polling
+      summary: Send notification
+      description: Send notification to consumer.
+      operationId: sendEventNotification
+      parameters:
+        - $ref: '#/components/parameters/correlation_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventNotification'
+      responses:
+        '202':
+          description: Event notification accepted.
+          headers:
+            Correlation-Id:
+              $ref: '#/components/headers/Correlation-Id'
+        '400':
+          $ref: '#/components/responses/standard400'
+        '404':
+          $ref: '#/components/responses/standard404'
+        '405':
+          $ref: '#/components/responses/standard405'
+        '429':
+          $ref: '#/components/responses/standard429'
+        '500':
+          $ref: '#/components/responses/standard500'
+        '501':
+          $ref: '#/components/responses/standard501'
+        '503':
+          $ref: '#/components/responses/standard503'
+        '504':
+          $ref: '#/components/responses/standard504'
+components:
+  schemas:
+    CommonErrorResponse:
+      title: Common Error Response
+      type: object
+      properties:
+        detail:
+          type: string
+          example: Detailed problem description with respect to the current request
+        instance:
+          type: string
+          example: path/to/corresponding/resource
+        title:
+          type: string
+          example: This is the general problem description
+        type:
+          $ref: '#/components/schemas/CommonErrorType'
+    CommonErrorType:
+      title: Common Error Type
+      description: Error Types for commonErrorResponse. See Appendix for detailed information.
+      type: string
+      enum:
+        - /problems/INVALID_PAYLOAD
+        - /problems/MALFORMED_PAYLOAD
+        - /problems/TECHNICAL_ERROR
+        - /problems/SUBSCRIPTION_NOT_FOUND
+        - /problems/INSUFFICIENT_PRIVILEGES
+        - /problems/INVALID_TOKEN
+        - /problems/SUBSCRIPTION_ALREADY_EXISTS
+        - /problems/TOO_MANY_REQUESTS
+        - /problems/METHOD_NOT_ALLOWED
+      example: /problems/TECHNICAL_ERROR
+    EventNotification:
+      description: Schema of an event notification entity.
+      type: object
+      required:
+        - eventSubscriptionId
+        - eventType
+        - id
+        - resourceLink
+      properties:
+        eventSubscriptionId:
+          type: string
+          description: Id of the subscription that caused the event to be triggered.
+          readOnly: true
+          maxLength: 36
+          example: 7c5f40fc-1b29-4263-a2dd-e127a22a947f
+        eventType:
+          type: string
+          example: order:partiallyFilled
+        id:
+          type: string
+          description: Unique and unambiguous identification (i.e. UUID) of the event subscription.
+          example: 120066c9-58a1-432b-aa60-712fae7f143e
+        resourceLink:
+          type: string
+          description: |
+            The resourceLink is an absolute or relative URL reference to the specific resource or object that triggered the webhook event.
+            This link provides immediate access to the full details of the affected item in the source system.
+          example: /orders/e6751a48-0819-4482-98a4-760453ba770d
+        creationDateTime:
+          type: string
+          format: date-time
+          description: Timestamp of the creation of the event notification.
+          example: 2022-10-26T07:58:30.996+0100
+        version:
+          type: string
+          description: Version of the notification schema.
+          example: '1.0'
+    EventSubscription:
+      description: Schema of an event subscription entity.
+      type: object
+      required:
+        - eventTypes
+      properties:
+        eventTypes:
+          type: array
+          description: List of event types subject to subscription.
+          items:
+            type: string
+            example: order:partiallyFilled
+        callbackUrl:
+          type: string
+          description: |
+            Endpoint provided by the client (subscriber) where the server (publisher)
+            can send asynchronous event notifications.
+          example: https://ttp.com/API/notifications/
+        id:
+          type: string
+          description: Unique and unambiguous identification (i.e. UUID) of the event subscription.
+          readOnly: true
+          maxLength: 36
+          example: 7c5f40fc-1b29-4263-a2dd-e127a22a947f
+  responses:
+    standard400:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: Bad Request - The format of the request was invalid.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/INVALID_PAYLOAD
+            title: the request body was invalid
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard401:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        Unauthorized - Either no token or an invalid (e.g., token expired) token
+        was received.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/INVALID_TOKEN
+            title: the token was invalid
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard403:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        Forbidden - A valid OAuth Token was received, but access was denied.
+        (Depending on the security requirements, providers can return 404 instead).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/INSUFFICIENT_PRIVILEGES
+            title: current user has insufficient privileges
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard404:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        Not Found - Either the endpoint does not exist or a requested resource is not available.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/SUBSCRIPTION_NOT_FOUND
+            title: resource not found
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard405:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        Method Not Allowed - The request method is known by the server but is
+        not supported by the target resource.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/METHOD_NOT_ALLOWED
+            title: method not allowed
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard409:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        there was a conflict when creating the subscription. e.g., it already
+        exists for the same api and version.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/SUBSCRIPTION_ALREADY_EXISTS
+            title: resource not found
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard429:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        When an SU sends too many lookup or polling requests in a given amount
+        of time the SP shall respond with HTTP 429 (Too many requests).
+        This response may contain a Retry-After header indicating how long the SU
+        must wait before making a new request.
+        (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429).
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/TOO_MANY_REQUESTS
+            title: resource not found
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard500:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: Internal Server Error.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/TECHNICAL_ERROR
+            title: unexpected error occurred
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard501:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: |
+        Not Implemented - The request method is not supported by the server and
+        cannot be handled.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/TECHNICAL_ERROR
+            title: unexpected error occurred
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard503:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: Service Unavailable.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/TECHNICAL_ERROR
+            title: server unavailable
+            detail: ..
+            instance: path/to/corresponding/resource
+    standard504:
+      headers:
+        Correlation-Id:
+          $ref: '#/components/headers/Correlation-Id'
+      description: Gateway Timeout.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/CommonErrorResponse'
+          example:
+            type: /problems/TECHNICAL_ERROR
+            title: server unavailable
+            detail: ..
+            instance: path/to/corresponding/resource
+  parameters:
+    correlation_id:
+      in: header
+      name: Correlation-Id
+      description: |
+        Unique ID (defined by the caller) which will be reflected back in the response.
+      required: true
+      schema:
+        type: string
+        maxLength: 64
+    cursor:
+      in: query
+      name: cursor
+      description: |
+        An opaque string value used for pagination.
+        If omitted, the server assumes:0
+      required: false
+      schema:
+        type: string
+    event_subscription_id:
+      in: path
+      name: eventSubscriptionId
+      description: Event subscription id parameter.
+      required: true
+      schema:
+        type: string
+      example: 7c5f40fc-1b29-4263-a2dd-e127a22a947
+    from_event_date_time:
+      in: query
+      name: from_event_date_time
+      description: Select all events from this notification date-time or later.
+      schema:
+        type: string
+        format: date-time
+        example: 2022-10-26T07:58:30.996+0100
+    limit:
+      in: query
+      name: limit
+      description: |
+        Maximum number of items to return.
+        If omitted, the server assumes: 1000
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+  headers:
+    Correlation-Id:
+      description: |
+        Client defined ID from request to correlate HTTP requests between a
+        client and a server
+      schema:
+        type: string
+        maxLength: 64
+        example: f058ebd6-02f7-4d3f-942e-904344e8cde5
+    Next-Cursor:
+      description: An opaque string value, or an empty string if there are no more results.
+      required: false
+      schema:
+        type: string
+  securitySchemes: {}
