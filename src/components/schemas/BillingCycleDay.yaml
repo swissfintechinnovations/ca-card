@@ -1,6 +1,6 @@
 title: Billing cycle day
 description: |
-  Day of the month when the billing cycle usually closes and the statement is generated. Only monthly billing cycles are supported 
+  Day of the month when the billing cycle usually closes and the statement is generated. Only monthly billing cycles are supported
   at the moment. Not used for debit and prepaid cards. Not used by all issuers.
 type: integer
 minimum: 1
