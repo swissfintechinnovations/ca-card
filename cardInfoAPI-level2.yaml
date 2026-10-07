@@ -46,7 +46,6 @@ paths:
       tags:
         - Cards
       parameters:
-        - $ref: '#/components/parameters/card_reference'
         - $ref: '#/components/parameters/card_status'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
@@ -116,7 +115,6 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - $ref: '#/components/parameters/token_reference'
         - $ref: '#/components/parameters/funding_card_id'
         - $ref: '#/components/parameters/token_status'
         - $ref: '#/components/parameters/client'
@@ -268,14 +266,9 @@ paths:
       tags:
         - Card-accounts
       parameters:
-        - $ref: '#/components/parameters/card_account_reference'
         - $ref: '#/components/parameters/person_id'
-        - $ref: '#/components/parameters/person_reference'
         - $ref: '#/components/parameters/card_account_bundle_id'
-        - $ref: '#/components/parameters/card_account_bundle_reference'
         - $ref: '#/components/parameters/card_contract_id'
-        - $ref: '#/components/parameters/card_contract_reference'
-        - $ref: '#/components/parameters/iban'
         - $ref: '#/components/parameters/account_status'
         - $ref: '#/components/parameters/account_product_code'
         - $ref: '#/components/parameters/product_type'
@@ -285,7 +278,6 @@ paths:
         - description: |
             Retrieves all card accounts with an open bill amount less than or equal to the specified amount.
           $ref: '#/components/parameters/to_amount'
-        - $ref: '#/components/parameters/external_reference'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -354,10 +346,6 @@ paths:
       tags:
         - Persons
       parameters:
-        - $ref: '#/components/parameters/person_reference'
-        - $ref: '#/components/parameters/external_reference'
-        - $ref: '#/components/parameters/first_name'
-        - $ref: '#/components/parameters/name'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -425,7 +413,6 @@ paths:
         - Statements
       parameters:
         - $ref: '#/components/parameters/card_account_id'
-        - $ref: '#/components/parameters/card_account_reference'
         - description: |
             Start date to filter statements. Only statements with a statement date equal or after the from_date are returned.
           $ref: '#/components/parameters/from_date'
@@ -525,10 +512,7 @@ paths:
       tags:
         - Card-contracts
       parameters:
-        - $ref: '#/components/parameters/card_contract_reference'
-        - $ref: '#/components/parameters/external_reference'
         - $ref: '#/components/parameters/person_id'
-        - $ref: '#/components/parameters/person_reference'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -595,11 +579,8 @@ paths:
       tags:
         - Card-account-bundles
       parameters:
-        - $ref: '#/components/parameters/external_reference'
-        - $ref: '#/components/parameters/card_account_bundle_reference'
         - $ref: '#/components/parameters/card_account_bundle_parent'
         - $ref: '#/components/parameters/card_contract_id'
-        - $ref: '#/components/parameters/card_contract_reference'
         - $ref: '#/components/parameters/client'
         - $ref: '#/components/parameters/correlation'
         - $ref: '#/components/parameters/agent'
@@ -1156,14 +1137,6 @@ components:
       examples:
         - A1
         - MC/VI Gold CHF
-    CardReference:
-      title: Card reference
-      description: |
-        Reference for card.
-      type: string
-      maxLength: 50
-      examples:
-        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     CardStatus:
       title: Card status
       description: |
@@ -1216,14 +1189,6 @@ components:
           $ref: '#/components/schemas/WalletCode'
         wallet_name:
           $ref: '#/components/schemas/WalletName'
-    CardTokenReference:
-      title: Card token reference
-      description: |
-        Reference for card token.
-      type: string
-      maxLength: 50
-      examples:
-        - 9e19df54-47cb-494b-84dc-1c126e95a05c
     CardsList:
       title: Cards list
       description: |
@@ -2225,8 +2190,6 @@ components:
         - mcc_description
         - original_amount
         - original_currency
-        - person_id
-        - person_reference
         - total_amount
         - transaction_amount
         - transaction_category
@@ -2247,10 +2210,6 @@ components:
           $ref: '#/components/schemas/OriginalAmount'
         original_currency:
           $ref: '#/components/schemas/OriginalCurrency'
-        person_id:
-          $ref: '#/components/schemas/PersonId'
-        person_reference:
-          $ref: '#/components/schemas/PersonReference'
         total_amount:
           $ref: '#/components/schemas/TotalAmount'
         transaction_amount:
@@ -2466,15 +2425,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountBundleParent'
-    card_account_bundle_reference:
-      in: query
-      name: card_account_bundle_reference
-      description: |
-        Filters resources to return only those related to the specified card account bundle reference. Value has to be a functional
-        identifier for the card account bundle.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardAccountBundleReference'
     card_account_id:
       in: query
       name: card_account_id
@@ -2483,14 +2433,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardAccountId'
-    card_account_reference:
-      in: query
-      name: card_account_reference
-      description: |
-        Filters resources to return only those related to the specified card account reference. Value has to be a functional identifier for the card account.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardAccountReference'
     card_contract_id:
       in: query
       name: card_contract_id
@@ -2499,14 +2441,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardContractId'
-    card_contract_reference:
-      in: query
-      name: card_contract_reference
-      description: |
-        Filters resources to return only those related to the specified card contract reference. Value has to be a functional identifier for the card contract.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardContractReference'
     card_id:
       in: query
       name: card_id
@@ -2515,14 +2449,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/CardId'
-    card_reference:
-      in: query
-      name: card_reference
-      description: |
-        Filters resources to return only those related to the specified card reference. Value has to be a functional identifier for the card.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardReference'
     card_status:
       in: query
       name: card_status
@@ -2562,22 +2488,6 @@ components:
         type: string
         examples:
           - cursorIDxyz
-    external_reference:
-      in: query
-      name: external_reference
-      description: |
-        Filters resources to return only those related to the specified external reference.
-      required: false
-      schema:
-        $ref: '#/components/schemas/ExternalReference'
-    first_name:
-      in: query
-      name: first_name
-      description: |
-        Filters resources to return only those related to the specified first name. * as wildcard is supported.
-      required: false
-      schema:
-        $ref: '#/components/schemas/FirstName'
     from_amount:
       in: query
       name: from_amount
@@ -2601,14 +2511,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/FundingCardId'
-    iban:
-      in: query
-      name: iban
-      description: |
-        Filters resources to return only those related to the specified IBAN.
-      required: false
-      schema:
-        $ref: '#/components/schemas/Iban'
     limit:
       in: query
       name: limit
@@ -2620,14 +2522,6 @@ components:
         minimum: 1
         examples:
           - 25
-    name:
-      in: query
-      name: name
-      description: |
-        Filters resources to return only those related to the specified name. * as wildcard is supported.
-      required: false
-      schema:
-        $ref: '#/components/schemas/Name'
     original_amount_from:
       in: query
       name: original_amount_from
@@ -2666,14 +2560,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/PersonId'
-    person_reference:
-      in: query
-      name: person_reference
-      description: |
-        Filters resources to return only those related to the specified person reference. Value has to be a functional identifier for the person.
-      required: false
-      schema:
-        $ref: '#/components/schemas/PersonReference'
     product_type:
       in: query
       name: product_type
@@ -2720,14 +2606,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/TokenId'
-    token_reference:
-      in: query
-      name: token_reference
-      description: |
-        Filters resources to return only those related to the specified token reference. Value has to be a functional identifier for the token.
-      required: false
-      schema:
-        $ref: '#/components/schemas/CardTokenReference'
     token_status:
       in: query
       name: token_status
