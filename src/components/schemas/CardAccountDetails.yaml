@@ -30,8 +30,6 @@ properties:
     $ref: ./BalanceAmount.yaml
   billing_cycle_day:
     $ref: ./BillingCycleDay.yaml
-  billing_cycle_rhythm:
-    $ref: ./BillingCycleRhythm.yaml
   card_account_bundle_id:
     $ref: ./CardAccountBundleId.yaml
   card_account_bundle_reference:
