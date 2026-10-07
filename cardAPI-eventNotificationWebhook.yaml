@@ -396,7 +396,7 @@ components:
           type: array
           description: List of event types subject to subscription.
           items:
-            - $ref: ./EventType.yaml
+            $ref: '#/components/schemas/EventType'
         callbackUrl:
           type: string
           description: |
