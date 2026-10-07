@@ -1089,8 +1089,6 @@ components:
   responses:
     standard400:
       headers:
-        Content-Language:
-          $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
@@ -1102,8 +1100,6 @@ components:
             $ref: '#/components/schemas/CommonErrorResponse'
     standard500:
       headers:
-        Content-Language:
-          $ref: '#/components/headers/Content-Language'
         X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
@@ -1264,12 +1260,6 @@ components:
       schema:
         $ref: '#/components/schemas/TransactionStatus'
   headers:
-    Content-Language:
-      schema:
-        type: string
-        examples:
-          - en
-      description: Language of provided content.
     X-Correlation-ID:
       schema:
         $ref: '#/components/schemas/Correlation'
