@@ -51,7 +51,6 @@ paths:
       tags:
         - Cards
       parameters:
-        - $ref: ./components/parameters/query/card_reference.yaml
         - $ref: ./components/parameters/query/card_status.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
@@ -121,7 +120,6 @@ paths:
       tags:
         - Card-tokens
       parameters:
-        - $ref: ./components/parameters/query/token_reference.yaml
         - $ref: ./components/parameters/query/funding_card_id.yaml
         - $ref: ./components/parameters/query/token_status.yaml
         - $ref: ./components/parameters/header/client.yaml
@@ -274,14 +272,9 @@ paths:
       tags:
         - Card-accounts
       parameters:
-        - $ref: ./components/parameters/query/card_account_reference.yaml
         - $ref: ./components/parameters/query/person_id.yaml
-        - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_id.yaml
-        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
         - $ref: ./components/parameters/query/card_contract_id.yaml
-        - $ref: ./components/parameters/query/card_contract_reference.yaml
-        - $ref: ./components/parameters/query/iban.yaml
         - $ref: ./components/parameters/query/account_status.yaml
         - $ref: ./components/parameters/query/account_product_code.yaml
         - $ref: ./components/parameters/query/product_type.yaml
@@ -291,7 +284,6 @@ paths:
         - $ref: ./components/parameters/query/to_amount.yaml
           description: |
             Retrieves all card accounts with an open bill amount less than or equal to the specified amount.
-        - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
@@ -362,10 +354,6 @@ paths:
       tags:
         - Persons
       parameters:
-        - $ref: ./components/parameters/query/person_reference.yaml
-        - $ref: ./components/parameters/query/external_reference.yaml
-        - $ref: ./components/parameters/query/first_name.yaml
-        - $ref: ./components/parameters/query/name.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
@@ -435,7 +423,6 @@ paths:
         - Statements
       parameters:
         - $ref: ./components/parameters/query/card_account_id.yaml
-        - $ref: ./components/parameters/query/card_account_reference.yaml
         - $ref: ./components/parameters/query/from_date.yaml
           description: |
             Start date to filter statements. Only statements with a statement date equal or after the from_date are returned.
@@ -538,10 +525,7 @@ paths:
       tags:
         - Card-contracts
       parameters:
-        - $ref: ./components/parameters/query/card_contract_reference.yaml
-        - $ref: ./components/parameters/query/external_reference.yaml
         - $ref: ./components/parameters/query/person_id.yaml
-        - $ref: ./components/parameters/query/person_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
@@ -610,11 +594,8 @@ paths:
       tags:
         - Card-account-bundles
       parameters:
-        - $ref: ./components/parameters/query/external_reference.yaml
-        - $ref: ./components/parameters/query/card_account_bundle_reference.yaml
         - $ref: ./components/parameters/query/card_account_bundle_parent.yaml
         - $ref: ./components/parameters/query/card_contract_id.yaml
-        - $ref: ./components/parameters/query/card_contract_reference.yaml
         - $ref: ./components/parameters/header/client.yaml
         - $ref: ./components/parameters/header/correlation.yaml
         - $ref: ./components/parameters/header/agent.yaml
