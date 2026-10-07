@@ -1,0 +1,85 @@
+get:
+  tags:
+    - event subscriptions
+  summary: Get event subscriptions
+  description: Get list of event subscriptions.
+  operationId: listEventSubscriptions
+  parameters:
+    - $ref: ../parameters/query/cursor.yaml
+    - $ref: ../parameters/query/limit.yaml
+    - $ref: ../parameters/header/correlation.yaml
+  responses:
+    '200':
+      description: List of event subscriptions.
+      headers:
+        Correlation-Id:
+          $ref: ../headers/X-Correlation-ID.yaml
+        Next-Cursor:
+          $ref: ../headers/X-Next-Cursor.yaml
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../schemas/EventSubscription.yaml
+    '400':
+      $ref: ../responses/standard400.yaml
+    '401':
+      $ref: ../responses/standard401.yaml
+    '403':
+      $ref: ../responses/standard403.yaml
+    '404':
+      $ref: ../responses/standard404.yaml
+    '405':
+      $ref: ../responses/standard405.yaml
+    '500':
+      $ref: ../responses/standard500.yaml
+    '501':
+      $ref: ../responses/standard501.yaml
+    '503':
+      $ref: ../responses/standard503.yaml
+    '504':
+      $ref: ../responses/standard504.yaml
+post:
+  tags:
+    - event subscriptions
+  summary: Create event subscription
+  description: Create event subscription.
+  operationId: createEventSubscription
+  parameters:
+    - $ref: ../parameters/header/correlation.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/EventSubscription.yaml
+  responses:
+    '201':
+      description: Event subscription created.
+      headers:
+        Correlation-Id:
+          $ref: ../headers/X-Correlation-ID.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/EventSubscription.yaml
+    '400':
+      $ref: ../responses/standard400.yaml
+    '401':
+      $ref: ../responses/standard401.yaml
+    '403':
+      $ref: ../responses/standard403.yaml
+    '404':
+      $ref: ../responses/standard404.yaml
+    '405':
+      $ref: ../responses/standard405.yaml
+    '409':
+      $ref: ../responses/standard409.yaml
+    '500':
+      $ref: ../responses/standard500.yaml
+    '501':
+      $ref: ../responses/standard501.yaml
+    '503':
+      $ref: ../responses/standard503.yaml
+    '504':
+      $ref: ../responses/standard504.yaml

@@ -1,0 +1,15 @@
+headers:
+  Correlation-Id:
+    $ref: ../headers/X-Correlation-ID.yaml
+description: |
+  Not Implemented - The request method is not supported by the server and
+  cannot be handled.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/CommonErrorResponse.yaml
+    example:
+      type: /problems/TECHNICAL_ERROR
+      title: unexpected error occurred
+      detail: ..
+      instance: path/to/corresponding/resource

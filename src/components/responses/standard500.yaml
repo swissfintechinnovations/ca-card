@@ -1,6 +1,4 @@
 headers:
-  Content-Language:
-    $ref: ../headers/Content-Language.yaml
   X-Correlation-ID:
     $ref: ../headers/X-Correlation-ID.yaml
 description: |

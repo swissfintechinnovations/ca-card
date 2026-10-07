@@ -1,0 +1,15 @@
+headers:
+  Correlation-Id:
+    $ref: ../headers/X-Correlation-ID.yaml
+description: |
+  Unauthorized - Either no token or an invalid (e.g., token expired) token
+  was received.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/CommonErrorResponse.yaml
+    example:
+      type: /problems/INVALID_TOKEN
+      title: the token was invalid
+      detail: ..
+      instance: path/to/corresponding/resource

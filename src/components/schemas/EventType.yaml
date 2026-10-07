@@ -1,0 +1,6 @@
+description: Event type the subscription should apply to AND reason why a notification is sent.
+type: string
+enum:
+  - card-transaction:authorized
+  - card-transaction:authorizationUpdated
+example: card-transaction:authorized

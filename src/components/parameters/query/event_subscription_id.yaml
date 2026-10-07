@@ -1,0 +1,7 @@
+name: eventSubscriptionId
+in: path
+required: true
+schema:
+  type: string
+description: Event subscription id parameter.
+example: 7c5f40fc-1b29-4263-a2dd-e127a22a947

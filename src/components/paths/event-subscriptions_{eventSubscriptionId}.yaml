@@ -1,0 +1,111 @@
+get:
+  tags:
+    - event subscriptions
+  summary: Get event subscription
+  description: Get event subscription by id.
+  operationId: getEventSubscription
+  parameters:
+    - $ref: ../parameters/query/event_subscription_id.yaml
+    - $ref: ../parameters/header/correlation.yaml
+  responses:
+    '200':
+      description: Get event subscriptions.
+      headers:
+        Correlation-Id:
+          $ref: ../headers/X-Correlation-ID.yaml
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/EventSubscription.yaml
+    '400':
+      $ref: ../responses/standard400.yaml
+    '401':
+      $ref: ../responses/standard401.yaml
+    '403':
+      $ref: ../responses/standard403.yaml
+    '404':
+      $ref: ../responses/standard404.yaml
+    '405':
+      $ref: ../responses/standard405.yaml
+    '500':
+      $ref: ../responses/standard500.yaml
+    '501':
+      $ref: ../responses/standard501.yaml
+    '503':
+      $ref: ../responses/standard503.yaml
+    '504':
+      $ref: ../responses/standard504.yaml
+put:
+  tags:
+    - event subscriptions
+  summary: Update event subscription
+  description: Update event subscription.
+  operationId: updateEventSubscription
+  parameters:
+    - $ref: ../parameters/query/event_subscription_id.yaml
+    - $ref: ../parameters/header/correlation.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schemas/EventSubscription.yaml
+        example:
+          eventTypes:
+            - card-transaction:authorized
+            - card-transaction:authorizationUpdated
+          callbackUrl: /ttpAPI/notifications/card-transactions/
+  responses:
+    '204':
+      description: Successfully updated (empty response).
+      headers:
+        Correlation-Id:
+          $ref: ../headers/X-Correlation-ID.yaml
+    '400':
+      $ref: ../responses/standard400.yaml
+    '401':
+      $ref: ../responses/standard401.yaml
+    '403':
+      $ref: ../responses/standard403.yaml
+    '404':
+      $ref: ../responses/standard404.yaml
+    '405':
+      $ref: ../responses/standard405.yaml
+    '500':
+      $ref: ../responses/standard500.yaml
+    '501':
+      $ref: ../responses/standard501.yaml
+    '503':
+      $ref: ../responses/standard503.yaml
+    '504':
+      $ref: ../responses/standard504.yaml
+delete:
+  tags:
+    - event subscriptions
+  summary: Delete event subscription
+  description: Delete event subscription by id.
+  operationId: deleteEventSubscription
+  parameters:
+    - $ref: ../parameters/query/event_subscription_id.yaml
+    - $ref: ../parameters/header/correlation.yaml
+  responses:
+    '204':
+      description: Successfully deleted.
+      headers:
+        Correlation-Id:
+          $ref: ../headers/X-Correlation-ID.yaml
+    '400':
+      $ref: ../responses/standard400.yaml
+    '401':
+      $ref: ../responses/standard401.yaml
+    '403':
+      $ref: ../responses/standard403.yaml
+    '404':
+      $ref: ../responses/standard404.yaml
+    '500':
+      $ref: ../responses/standard500.yaml
+    '501':
+      $ref: ../responses/standard501.yaml
+    '503':
+      $ref: ../responses/standard503.yaml
+    '504':
+      $ref: ../responses/standard504.yaml

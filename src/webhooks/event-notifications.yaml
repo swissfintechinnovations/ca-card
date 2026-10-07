@@ -1,0 +1,35 @@
+post:
+  tags:
+    - event notifications aggregated polling
+  summary: Send notification
+  description: Send notification to consumer.
+  operationId: sendEventNotification
+  parameters:
+    - $ref: ../components/parameters/header/correlation.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/EventNotification.yaml
+  responses:
+    '202':
+      description: Event notification accepted.
+      headers:
+        Correlation-Id:
+          $ref: ../components/headers/X-Correlation-ID.yaml
+    '400':
+      $ref: ../components/responses/standard400.yaml
+    '404':
+      $ref: ../components/responses/standard404.yaml
+    '405':
+      $ref: ../components/responses/standard405.yaml
+    '429':
+      $ref: ../components/responses/standard429.yaml
+    '500':
+      $ref: ../components/responses/standard500.yaml
+    '501':
+      $ref: ../components/responses/standard501.yaml
+    '503':
+      $ref: ../components/responses/standard503.yaml
+    '504':
+      $ref: ../components/responses/standard504.yaml

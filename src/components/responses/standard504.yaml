@@ -1,0 +1,13 @@
+headers:
+  Correlation-Id:
+    $ref: ../headers/X-Correlation-ID.yaml
+description: Gateway Timeout.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/CommonErrorResponse.yaml
+    example:
+      type: /problems/TECHNICAL_ERROR
+      title: server unavailable
+      detail: ..
+      instance: path/to/corresponding/resource

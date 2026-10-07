@@ -1,0 +1,15 @@
+headers:
+  Correlation-Id:
+    $ref: ../headers/X-Correlation-ID.yaml
+description: |
+  Method Not Allowed - The request method is known by the server but is
+  not supported by the target resource.
+content:
+  application/problem+json:
+    schema:
+      $ref: ../schemas/CommonErrorResponse.yaml
+    example:
+      type: /problems/METHOD_NOT_ALLOWED
+      title: method not allowed
+      detail: ..
+      instance: path/to/corresponding/resource
