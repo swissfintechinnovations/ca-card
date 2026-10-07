@@ -22,3 +22,7 @@ apis:
         level: 2
         stripMarker: true
       sfti/strip-x-api-level: on
+
+  event-notification-OAS3.1:
+    root: ../src/cardAPI-eventNotificationWebhook.yaml
+    output: ../cardAPI-eventNotificationWebhook.yaml
