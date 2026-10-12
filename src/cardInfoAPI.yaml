@@ -63,6 +63,9 @@ paths:
                     type: array
                     items:
                       $ref: ./components/schemas/CardDetails.yaml
+          links:
+            cardDetails:
+              $ref: ./components/links/cardListDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':
@@ -133,6 +136,11 @@ paths:
                     type: array
                     items:
                       $ref: ./components/schemas/CardTokenDetails.yaml
+          links:
+            cardTokenDetails:
+              $ref: ./components/links/cardTokenListDetails.yaml
+            fundingCardDetails:
+              $ref: ./components/links/cardTokenListFundingCardDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':
@@ -161,6 +169,9 @@ paths:
             application/json:
               schema:
                 $ref: ./components/schemas/CardTokenDetails.yaml
+          links:
+            fundingCardDetails:
+              $ref: ./components/links/fundingCardDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':
@@ -210,6 +221,15 @@ paths:
                     type: array
                     items:
                       $ref: ./components/schemas/TransactionDetails.yaml
+          links:
+            transactionDetails:
+              $ref: ./components/links/transactionListDetails.yaml
+            cardDetails:
+              $ref: ./components/links/transactionListCardDetails.yaml
+            cardTokenDetails:
+              $ref: ./components/links/transactionListCardTokenDetails.yaml
+            relatedTransactionDetails:
+              $ref: ./components/links/transactionListRelatedTransactionDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':
@@ -238,6 +258,13 @@ paths:
             application/json:
               schema:
                 $ref: ./components/schemas/TransactionDetails.yaml
+          links:
+            cardDetails:
+              $ref: ./components/links/cardDetails.yaml
+            cardTokenDetails:
+              $ref: ./components/links/cardTokenDetails.yaml
+            relatedTransactionDetails:
+              $ref: ./components/links/relatedTransactionDetails.yaml
         '400':
           $ref: ./components/responses/standard400.yaml
         '500':

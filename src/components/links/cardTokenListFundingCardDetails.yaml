@@ -1,0 +1,9 @@
+operationId: getCard
+description: |
+  Details of the payment card which funds the selected card token.
+  The `funding_card_id` of any entry in the `card_tokens` array can be used as the `cardId` path parameter.
+  The expression below addresses the first entry; it applies to every entry alike.
+
+  Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  cardId: $response.body#/card_tokens/0/funding_card_id

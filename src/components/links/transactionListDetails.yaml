@@ -1,0 +1,9 @@
+operationId: getCardTransaction
+description: |
+  Details of the selected transaction.
+  The `transaction_id` of any entry in the `card-transactions` array can be used as the `transactionId` path parameter.
+  The expression below addresses the first entry; it applies to every entry alike.
+
+  Example: `GET /card-transactions/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  transactionId: $response.body#/card-transactions/0/transaction_id

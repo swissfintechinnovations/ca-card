@@ -1,0 +1,9 @@
+operationId: getCardToken
+description: |
+  Details of the selected card token.
+  The `token_id` of any entry in the `card_tokens` array can be used as the `tokenId` path parameter.
+  The expression below addresses the first entry; it applies to every entry alike.
+
+  Example: `GET /card-tokens/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  tokenId: $response.body#/card_tokens/0/token_id

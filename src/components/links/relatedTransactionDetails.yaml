@@ -1,0 +1,9 @@
+operationId: getCardTransaction
+description: |
+  Details of the transaction or authorization which is linked to the transaction (e.g. separately charged fees, chargeback credits).
+  Only applicable if the response contains a `related_transaction_id`.
+  The `related_transaction_id` returned in the response can be used as the `transactionId` path parameter.
+
+  Example: `GET /card-transactions/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  transactionId: $response.body#/related_transaction_id

@@ -1,0 +1,8 @@
+operationId: getCardToken
+description: |
+  Details of the card token which was used for the transaction. Only applicable if the response contains a `token_id`.
+  The `token_id` returned in the response can be used as the `tokenId` path parameter.
+
+  Example: `GET /card-tokens/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  tokenId: $response.body#/token_id

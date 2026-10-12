@@ -1,0 +1,9 @@
+operationId: getCard
+description: |
+  Details of the selected payment card.
+  The `card_id` of any entry in the `cards` array can be used as the `cardId` path parameter.
+  The expression below addresses the first entry; it applies to every entry alike.
+
+  Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+parameters:
+  cardId: $response.body#/cards/0/card_id
