@@ -310,8 +310,8 @@ components:
       description: |
         Technical reference to a card account used as identifier to retrieve card account details via the API.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     CardAccountReference:
@@ -411,8 +411,8 @@ components:
       description: |
         Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     CardLimitCycle:
@@ -706,8 +706,8 @@ components:
       title: Funding card id
       description: Reference to the card that is used to fund the transactions of the token.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     Image:
@@ -825,8 +825,8 @@ components:
       description: |
         Technical reference to a person/cardholder, used as unique identifier for API calls to retrieve person details.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     PersonReference:
@@ -862,8 +862,8 @@ components:
       description: |
         Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     Scheme:
@@ -891,8 +891,8 @@ components:
       description: |
         Unique identifier for the billing statement document.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     TerminalReference:
@@ -906,8 +906,8 @@ components:
       title: Token id
       description: Unique identifier for the token of a card, defined by the Card Service Provider.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     TokenIssuingDate:
@@ -1112,8 +1112,8 @@ components:
       title: Transaction id
       description: UUID to link Authorization reference and Clearing reference.
       type: string
-      format: uuid
-      maxLength: 50
+      maxLength: 64
+      pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
         - eb404f8d-656b-4e51-8872-88c42fa55536
     TransactionStatus:
