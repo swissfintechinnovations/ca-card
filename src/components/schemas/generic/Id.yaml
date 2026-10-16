@@ -1,6 +1,7 @@
 title: Shared id
 description: Unique identifier to referenece resources.
 type: string
+minLength: 5
 maxLength: 64
 pattern: ^[A-Za-z0-9\-._]{5,64}$
 examples:
