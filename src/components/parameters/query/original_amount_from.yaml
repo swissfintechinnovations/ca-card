@@ -1,0 +1,7 @@
+in: query
+name: original_amount_from
+description: |
+  Filters transactions to return only those with an original amount greater than or equal to the specified amount.
+required: false
+schema:
+  $ref: ../../schemas/generic/Amount.yaml
