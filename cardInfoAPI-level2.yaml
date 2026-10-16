@@ -780,6 +780,7 @@ components:
       description: |
         Technical reference to a card account bundle used to group multiple card accounts.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -789,6 +790,7 @@ components:
       description: |
         The card account bundle under which the current bundle is associated.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -913,6 +915,7 @@ components:
       description: |
         Technical reference to a card account used as identifier to retrieve card account details via the API.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -989,6 +992,7 @@ components:
         Technical reference to a card contract which represents a customer relationship, can be used to call the endpoint for contract
         information.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -1099,6 +1103,7 @@ components:
       description: |
         Technical reference to a card (unique, constant in the lifecycle of a card even in case of replacements or renewals).
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -1439,6 +1444,7 @@ components:
       title: Funding card id
       description: Reference to the card that is used to fund the transactions of the token.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -1820,6 +1826,7 @@ components:
       description: |
         Technical reference to a person/cardholder, used as unique identifier for API calls to retrieve person details.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -1929,6 +1936,7 @@ components:
       description: |
         Reference to another transaction or authorization that is linked to the current one, e.g. for separately charged fees, chargeback credits.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -2035,6 +2043,7 @@ components:
       description: |
         Unique identifier for the billing statement document.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -2066,6 +2075,7 @@ components:
       title: Token id
       description: Unique identifier for the token of a card, defined by the Card Service Provider.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
@@ -2277,6 +2287,7 @@ components:
       title: Transaction id
       description: UUID to link Authorization reference and Clearing reference.
       type: string
+      minLength: 5
       maxLength: 64
       pattern: ^[A-Za-z0-9\-._]{5,64}$
       examples:
