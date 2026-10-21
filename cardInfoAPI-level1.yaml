@@ -63,6 +63,9 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CardDetails'
+          links:
+            cardDetails:
+              $ref: '#/components/links/cardListDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -133,6 +136,11 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CardTokenDetails'
+          links:
+            cardTokenDetails:
+              $ref: '#/components/links/cardTokenListDetails'
+            fundingCardDetails:
+              $ref: '#/components/links/cardTokenListFundingCardDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -161,6 +169,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CardTokenDetails'
+          links:
+            fundingCardDetails:
+              $ref: '#/components/links/fundingCardDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -210,6 +221,15 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TransactionDetails'
+          links:
+            transactionDetails:
+              $ref: '#/components/links/transactionListDetails'
+            cardDetails:
+              $ref: '#/components/links/transactionListCardDetails'
+            cardTokenDetails:
+              $ref: '#/components/links/transactionListCardTokenDetails'
+            relatedTransactionDetails:
+              $ref: '#/components/links/transactionListRelatedTransactionDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -238,6 +258,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionDetails'
+          links:
+            cardDetails:
+              $ref: '#/components/links/cardDetails'
+            cardTokenDetails:
+              $ref: '#/components/links/cardTokenDetails'
+            relatedTransactionDetails:
+              $ref: '#/components/links/relatedTransactionDetails'
         '400':
           $ref: '#/components/responses/standard400'
         '500':
@@ -1280,3 +1307,112 @@ components:
         type: string
         examples:
           - cursorIDxyz
+  links:
+    cardDetails:
+      operationId: getCard
+      description: |
+        Details of the payment card which was used for the transaction.
+        The `card_id` returned in the response can be used as the `cardId` path parameter.
+
+        Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        cardId: $response.body#/card_id
+    cardListDetails:
+      operationId: getCard
+      description: |
+        Details of the selected payment card.
+        The `card_id` of any entry in the `cards` array can be used as the `cardId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        cardId: $response.body#/cards/0/card_id
+    cardTokenDetails:
+      operationId: getCardToken
+      description: |
+        Details of the card token which was used for the transaction. Only applicable if the response contains a `token_id`.
+        The `token_id` returned in the response can be used as the `tokenId` path parameter.
+
+        Example: `GET /card-tokens/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        tokenId: $response.body#/token_id
+    cardTokenListDetails:
+      operationId: getCardToken
+      description: |
+        Details of the selected card token.
+        The `token_id` of any entry in the `card_tokens` array can be used as the `tokenId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /card-tokens/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        tokenId: $response.body#/card_tokens/0/token_id
+    cardTokenListFundingCardDetails:
+      operationId: getCard
+      description: |
+        Details of the payment card which funds the selected card token.
+        The `funding_card_id` of any entry in the `card_tokens` array can be used as the `cardId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        cardId: $response.body#/card_tokens/0/funding_card_id
+    fundingCardDetails:
+      operationId: getCard
+      description: |
+        Details of the payment card which funds the card token.
+        The `funding_card_id` returned in the response can be used as the `cardId` path parameter.
+
+        Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        cardId: $response.body#/funding_card_id
+    relatedTransactionDetails:
+      operationId: getCardTransaction
+      description: |
+        Details of the transaction or authorization which is linked to the transaction (e.g. separately charged fees, chargeback credits).
+        Only applicable if the response contains a `related_transaction_id`.
+        The `related_transaction_id` returned in the response can be used as the `transactionId` path parameter.
+
+        Example: `GET /card-transactions/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        transactionId: $response.body#/related_transaction_id
+    transactionListCardDetails:
+      operationId: getCard
+      description: |
+        Details of the payment card which was used for the selected transaction.
+        The `card_id` of any entry in the `card-transactions` array can be used as the `cardId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /cards/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        cardId: $response.body#/card-transactions/0/card_id
+    transactionListCardTokenDetails:
+      operationId: getCardToken
+      description: |
+        Details of the card token which was used for the selected transaction. Only applicable if the entry contains a `token_id`.
+        The `token_id` of any entry in the `card-transactions` array can be used as the `tokenId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /card-tokens/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        tokenId: $response.body#/card-transactions/0/token_id
+    transactionListDetails:
+      operationId: getCardTransaction
+      description: |
+        Details of the selected transaction.
+        The `transaction_id` of any entry in the `card-transactions` array can be used as the `transactionId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /card-transactions/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        transactionId: $response.body#/card-transactions/0/transaction_id
+    transactionListRelatedTransactionDetails:
+      operationId: getCardTransaction
+      description: |
+        Details of the transaction or authorization which is linked to the selected transaction (e.g. separately charged fees,
+        chargeback credits). Only applicable if the entry contains a `related_transaction_id`.
+        The `related_transaction_id` of any entry in the `card-transactions` array can be used as the `transactionId` path parameter.
+        The expression below addresses the first entry; it applies to every entry alike.
+
+        Example: `GET /card-transactions/eb404f8d-656b-4e51-8872-88c42fa55536`
+      parameters:
+        transactionId: $response.body#/card-transactions/0/related_transaction_id
