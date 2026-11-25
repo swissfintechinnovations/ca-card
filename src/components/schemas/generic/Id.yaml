@@ -1,5 +1,5 @@
 title: Shared id
-description: Unique identifier to referenece resources.
+description: Unique identifier to reference resources.
 type: string
 minLength: 5
 maxLength: 64

@@ -80,8 +80,8 @@ Please note that the two-tiered approach does not reflect card types, but differ
 
 The parameter names allow an easy recognition of the type of underlying identifier. The three following words are used as part of the parameter names for distinction:
 
-* *Id: technical identifier for an instance of a resource which is always in the UUID format. It is used for direct access to a resource instance in an API endpoint. The UUIDs follow a standardized pattern, are assigned by the data provider and are not guaranteed to be unique across data providers. The method by which a user obtains access to the id can vary depending on the provider (e.g., as part of the consent flow).
-* *Reference: functional identifier for an instance of a resource that can also be known by an end cus-tomer, is a generic string without a standardized format 
+* *Id: technical identifier for an instance of a resource which is in a format with a specific pattern. It is used for direct access to a resource instance in an API endpoint. The ids follow a standardized pattern, are assigned by the data provider and are not guaranteed to be unique across data providers. The method by which a user obtains access to the id can vary depending on the provider (e.g., as part of the consent flow).
+* *Reference: functional identifier for an instance of a resource that can also be known by an end customer, is a generic string without a standardized format 
 * *Code: identifier for an instance of a resource, can be mapped to a name in a finite set of values, is a generic string without a standardized format
 
 ## Supported character sets
