@@ -46,7 +46,7 @@ paths:
         '200':
           description: List of event subscriptions.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
             Next-Cursor:
               $ref: '#/components/headers/X-Next-Cursor'
@@ -91,7 +91,7 @@ paths:
         '201':
           description: Event subscription created.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
@@ -131,7 +131,7 @@ paths:
         '200':
           description: Get event subscriptions.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
           content:
             application/json:
@@ -178,7 +178,7 @@ paths:
         '204':
           description: Successfully updated (empty response).
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
         '400':
           $ref: '#/components/responses/standard400'
@@ -211,7 +211,7 @@ paths:
         '204':
           description: Successfully deleted.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
         '400':
           $ref: '#/components/responses/standard400'
@@ -246,7 +246,7 @@ paths:
         '200':
           description: List of event notifications.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
             Next-Cursor:
               $ref: '#/components/headers/X-Next-Cursor'
@@ -295,7 +295,7 @@ webhooks:
         '202':
           description: Event notification accepted.
           headers:
-            Correlation-Id:
+            X-Correlation-ID:
               $ref: '#/components/headers/X-Correlation-ID'
         '400':
           $ref: '#/components/responses/standard400'
@@ -430,7 +430,7 @@ components:
             $ref: '#/components/schemas/CommonErrorResponse'
     standard401:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         Unauthorized - Either no token or an invalid (e.g., token expired) token
@@ -446,7 +446,7 @@ components:
             instance: path/to/corresponding/resource
     standard403:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         Forbidden - A valid OAuth Token was received, but access was denied.
@@ -462,7 +462,7 @@ components:
             instance: path/to/corresponding/resource
     standard404:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         Not Found - Either the endpoint does not exist or a requested resource is not available.
@@ -477,7 +477,7 @@ components:
             instance: path/to/corresponding/resource
     standard405:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         Method Not Allowed - The request method is known by the server but is
@@ -493,7 +493,7 @@ components:
             instance: path/to/corresponding/resource
     standard409:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         there was a conflict when creating the subscription. e.g., it already
@@ -509,7 +509,7 @@ components:
             instance: path/to/corresponding/resource
     standard429:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         When an SU sends too many lookup or polling requests in a given amount
@@ -539,7 +539,7 @@ components:
             $ref: '#/components/schemas/CommonErrorResponse'
     standard501:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: |
         Not Implemented - The request method is not supported by the server and
@@ -555,7 +555,7 @@ components:
             instance: path/to/corresponding/resource
     standard503:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: Service Unavailable.
       content:
@@ -569,7 +569,7 @@ components:
             instance: path/to/corresponding/resource
     standard504:
       headers:
-        Correlation-Id:
+        X-Correlation-ID:
           $ref: '#/components/headers/X-Correlation-ID'
       description: Gateway Timeout.
       content:

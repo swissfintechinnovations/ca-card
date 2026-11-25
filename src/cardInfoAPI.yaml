@@ -22,6 +22,14 @@ tags:
     description: Operations for retrieving information about payment cards.
   - name: Transactions
     description: Operations for retrieving information about transactions and authorizations done with payment cards or tokens.
+  - name: event subscriptions
+    description: |
+      Event subscription operations in the context of OAuth2 consent authentication. One subscription is bound to exactly
+      one consent and supports create, retrieve, update and delete operations. Multiple event types are managed within the single
+      subscription resource.
+  - name: event notifications aggregated polling
+    description: |
+      Aggregated polling operations in the context of Service User authentication, used for catch-up retrieval of event notifications.
 security: []
 paths:
   /cards:
@@ -242,3 +250,285 @@ paths:
           $ref: ./components/responses/standard400.yaml
         '500':
           $ref: ./components/responses/standard500.yaml
+  /event-subscriptions:
+    get:
+      tags:
+        - event subscriptions
+      summary: Get event subscriptions
+      description: Get list of event subscriptions.
+      operationId: listEventSubscriptions
+      parameters:
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+      responses:
+        '200':
+          description: List of event subscriptions.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./components/schemas/EventSubscription.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+    post:
+      tags:
+        - event subscriptions
+      summary: Create event subscription
+      description: Create event subscription.
+      operationId: createEventSubscription
+      parameters:
+        - $ref: ./components/parameters/header/correlation.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./components/schemas/EventSubscription.yaml
+      responses:
+        '201':
+          description: Event subscription created.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/EventSubscription.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '409':
+          $ref: ./components/responses/standard409.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+  /event-subscriptions/{eventSubscriptionId}:
+    get:
+      tags:
+        - event subscriptions
+      summary: Get event subscription
+      description: Get event subscription by id.
+      operationId: getEventSubscription
+      parameters:
+        - $ref: ./components/parameters/path/eventSubscriptionId.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+      responses:
+        '200':
+          description: Get event subscriptions.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/EventSubscription.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+    put:
+      tags:
+        - event subscriptions
+      summary: Update event subscription
+      description: Update event subscription.
+      operationId: updateEventSubscription
+      parameters:
+        - $ref: ./components/parameters/path/eventSubscriptionId.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./components/schemas/EventSubscription.yaml
+            example:
+              eventTypes:
+                - order:created
+                - order:partiallyFilled
+              callbackUrl: /ttpAPI/notifications/order-placement/
+      responses:
+        '204':
+          description: Successfully updated (empty response).
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+    delete:
+      tags:
+        - event subscriptions
+      summary: Delete event subscription
+      description: Delete event subscription by id.
+      operationId: deleteEventSubscription
+      parameters:
+        - $ref: ./components/parameters/path/eventSubscriptionId.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+      responses:
+        '204':
+          description: Successfully deleted.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+  /event-subscriptions/{eventSubscriptionId}/event-notifications:
+    get:
+      tags:
+        - event notifications aggregated polling
+      summary: Get event notifications list
+      description: Get aggregated event notification list.
+      operationId: listEventSubscriptionEventNotifications
+      parameters:
+        - $ref: ./components/parameters/path/eventSubscriptionId.yaml
+        - $ref: ./components/parameters/query/cursor.yaml
+        - $ref: ./components/parameters/query/limit.yaml
+        - $ref: ./components/parameters/query/from_event_date_time.yaml
+        - $ref: ./components/parameters/header/correlation.yaml
+      responses:
+        '200':
+          description: List of event notifications.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+            X-Next-Cursor:
+              $ref: ./components/headers/X-Next-Cursor.yaml
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./components/schemas/EventNotification.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '401':
+          $ref: ./components/responses/standard401.yaml
+        '403':
+          $ref: ./components/responses/standard403.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '429':
+          $ref: ./components/responses/standard429.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml
+webhooks:
+  event-notification:
+    post:
+      tags:
+        - event notifications aggregated polling
+      summary: Send notification
+      description: Send notification to consumer.
+      operationId: sendEventNotification
+      parameters:
+        - $ref: ./components/parameters/header/correlation.yaml
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./components/schemas/EventNotification.yaml
+      responses:
+        '202':
+          description: Event notification accepted.
+          headers:
+            X-Correlation-ID:
+              $ref: ./components/headers/X-Correlation-ID.yaml
+        '400':
+          $ref: ./components/responses/standard400.yaml
+        '404':
+          $ref: ./components/responses/standard404.yaml
+        '405':
+          $ref: ./components/responses/standard405.yaml
+        '429':
+          $ref: ./components/responses/standard429.yaml
+        '500':
+          $ref: ./components/responses/standard500.yaml
+        '501':
+          $ref: ./components/responses/standard501.yaml
+        '503':
+          $ref: ./components/responses/standard503.yaml
+        '504':
+          $ref: ./components/responses/standard504.yaml

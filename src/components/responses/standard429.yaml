@@ -1,5 +1,5 @@
 headers:
-  Correlation-Id:
+  X-Correlation-ID:
     $ref: ../headers/X-Correlation-ID.yaml
 description: |
   When an SU sends too many lookup or polling requests in a given amount

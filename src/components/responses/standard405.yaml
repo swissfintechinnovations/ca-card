@@ -1,5 +1,5 @@
 headers:
-  Correlation-Id:
+  X-Correlation-ID:
     $ref: ../headers/X-Correlation-ID.yaml
 description: |
   Method Not Allowed - The request method is known by the server but is

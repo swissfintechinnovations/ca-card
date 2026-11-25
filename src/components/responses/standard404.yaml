@@ -1,5 +1,5 @@
 headers:
-  Correlation-Id:
+  X-Correlation-ID:
     $ref: ../headers/X-Correlation-ID.yaml
 description: |
   Not Found - Either the endpoint does not exist or a requested resource is not available.
