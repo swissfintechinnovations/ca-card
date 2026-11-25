@@ -560,7 +560,7 @@ components:
     Correlation:
       title: Shared correlation
       description: |
-        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and 
+        Schema for X-Correlation-ID header. The correlation value is a unique value to trace API calls across multiple systems, and
         used e.g. for debugging.
       type: string
       maxLength: 64
