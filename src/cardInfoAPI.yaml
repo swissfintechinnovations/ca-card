@@ -390,8 +390,8 @@ paths:
               $ref: ./components/schemas/EventSubscription.yaml
             example:
               eventTypes:
-                - order:created
-                - order:partiallyFilled
+                - card-transaction:authorized
+                - card-transaction:authorizationUpdated
               callbackUrl: /ttpAPI/notifications/order-placement/
       responses:
         '204':
