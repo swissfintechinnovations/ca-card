@@ -949,7 +949,7 @@ components:
           type: array
           description: List of event types subject to subscription.
           items:
-            - $ref: ./EventType.yaml
+            $ref: '#/components/schemas/EventType'
         callbackUrl:
           type: string
           description: |
@@ -963,6 +963,7 @@ components:
           maxLength: 36
           example: 7c5f40fc-1b29-4263-a2dd-e127a22a947f
     EventType:
+      title: Event type
       description: Event type the subscription should apply to AND reason why a notification is sent.
       type: string
       enum:
