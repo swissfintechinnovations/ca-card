@@ -1,0 +1,4 @@
+title: Pending amount
+description: |
+  Sum of pending transactions for the card account.
+$ref: ./generic/Amount.yaml

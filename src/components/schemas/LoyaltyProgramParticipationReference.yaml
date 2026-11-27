@@ -1,0 +1,7 @@
+title: Loyalty program participation reference
+description: |
+  Reference identifier for the customer's participation in the loyalty program.
+type: string
+maxLength: 50
+examples:
+  - 'LP-USER-00123'

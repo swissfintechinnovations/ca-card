@@ -1,0 +1,7 @@
+in: query
+name: product_type
+description: |
+  Filters resources to return only those related to the specified product type.
+required: false
+schema:
+  $ref: ../../schemas/ProductType.yaml

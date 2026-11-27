@@ -1,0 +1,8 @@
+in: query
+name: account_status
+description: |
+  Filters resources to return only those related to card accounts with the specified account status. query parameter must be
+  combined with others.
+required: false
+schema:
+  $ref: ../../schemas/AccountStatus.yaml

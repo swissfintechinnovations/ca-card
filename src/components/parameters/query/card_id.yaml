@@ -1,8 +1,7 @@
 in: query
 name: card_id
 description: |
-  Retrieves all tokens related to a card. Value has to be a technical identifier for the card that can be retrieved with the GET /cards
-  endpoint.
+  Filters resources to return only those related to the specified card id. Value has to be a technical identifier for the card.
 required: false
 schema:
   $ref: ../../schemas/CardId.yaml

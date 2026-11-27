@@ -1,6 +1,6 @@
 in: query
 name: original_currency
-description: Retrieves all transactions in a certain currency. Filtering is applied on the original_currency attribute.
+description: Filters resources to return only those related to the specified original currency (of a transaction).
 required: false
 schema:
   $ref: ../../schemas/OriginalCurrency.yaml

@@ -1,0 +1,7 @@
+title: Recipient address postal code
+description: |
+  Postal code for the town where the recipient has the official business location.
+type: string
+maxLength: 35
+examples:
+  - '8001'

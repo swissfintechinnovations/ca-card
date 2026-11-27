@@ -1,0 +1,7 @@
+in: query
+name: card_account_bundle_parent
+description: |
+  Filters resources to return only those related to the specified card account bundle parent (must be a card_account_bundle_id).
+required: false
+schema:
+  $ref: ../../schemas/CardAccountBundleParent.yaml

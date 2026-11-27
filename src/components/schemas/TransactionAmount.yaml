@@ -1,3 +1,5 @@
 title: Transaction amount
-description: Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
+description: |
+  Amount of the transaction (excluding fees) in the currency used by the issuer to settle the charge to the card account.
+  For level 1, not all providers might deliver this field, especially for debit cards.
 $ref: ./generic/Amount.yaml

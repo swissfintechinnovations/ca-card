@@ -1,3 +1,3 @@
 title: Transaction date-time
-description: Date and time when transaction was authorized, always in CH timezone.
+description: Date and time when transaction was authorized (or directly booked on the card-account), always in UTC.
 $ref: ./generic/DateTime.yaml

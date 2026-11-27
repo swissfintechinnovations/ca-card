@@ -1,7 +1,7 @@
 in: query
 name: to_date
 description: |
-  Retrieves all transactions that took place before the provided date time. Filtering is applied on the transaction_date_time attribute.
+  Filters resources to return only those with a date earlier than or equal to the specified date time.
 required: false
 schema:
   $ref: ../../schemas/generic/DateTime.yaml

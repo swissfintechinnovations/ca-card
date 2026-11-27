@@ -1,0 +1,4 @@
+title: Next statement date
+description: |
+  Date when the next billing statement will be generated and issued. Not used by all issuers.
+$ref: ./generic/Date.yaml

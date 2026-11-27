@@ -3,4 +3,5 @@ description: Second line embossed on the card to indicate the cardholder.
 type: string
 maxLength: 35
 examples:
+  - Firma ABC
   - Peter Schweizer

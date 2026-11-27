@@ -1,0 +1,7 @@
+in: query
+name: card_contract_id
+description: |
+  Filters resources to return only those related to the specified card contract id. Value has to be a technical identifier for the card contract.
+required: false
+schema:
+  $ref: ../../schemas/CardContractId.yaml

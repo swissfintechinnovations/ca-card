@@ -15,14 +15,14 @@ jobs:
   yaml-lint-src:
     needs: bundle
     if: ${{ always() && needs.bundle.result != 'failure' && github.event.pull_request.head.sha == needs.bundle.outputs.commit-sha }}
-    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@card-review
     with:
       filenames: 'src/**.yaml'
 
   yaml-lint:
     needs: bundle
     if: ${{ always() && needs.bundle.result != 'failure' && github.event.pull_request.head.sha == needs.bundle.outputs.commit-sha }}
-    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@main
+    uses: swissfintechinnovations/.github/.github/workflows/reusable-lint-yaml-workflow.yaml@card-review
     with:
       filenames: '*.yaml'
 

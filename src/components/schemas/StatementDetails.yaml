@@ -1,0 +1,46 @@
+title: Statement details
+description: Describes a statement with its relevant characteristics.
+type: object
+required:
+  - card_account_id
+  - card_account_reference
+  - closing_balance
+  - interest_amount
+  - minimum_amount
+  - opening_balance
+  - statement_currency
+  - statement_date
+  - statement_id
+  - statement_period_end
+  - statement_period_start
+properties:
+  card_account_id:
+    $ref: ./CardAccountId.yaml
+  card_account_reference:
+    $ref: ./CardAccountReference.yaml
+  closing_balance:
+    $ref: ./ClosingBalance.yaml
+  due_date:
+    $ref: ./DueDate.yaml
+  interest_amount:
+    $ref: ./InterestAmount.yaml
+  minimum_amount:
+    $ref: ./MinimumAmount.yaml
+  opening_balance:
+    $ref: ./OpeningBalance.yaml
+  payment_instructions:
+    $ref: ./PaymentInstructions.yaml
+  payment_option:
+    $ref: ./PaymentOption.yaml
+  payment_type:
+    $ref: ./PaymentType.yaml
+  statement_currency:
+    $ref: ./StatementCurrency.yaml
+  statement_date:
+    $ref: ./StatementDate.yaml
+  statement_id:
+    $ref: ./StatementId.yaml
+  statement_period_end:
+    $ref: ./StatementPeriodEnd.yaml
+  statement_period_start:
+    $ref: ./StatementPeriodStart.yaml

@@ -1,0 +1,7 @@
+title: Payment reference
+description: |
+  Reference data that has to be used for the payment of the statement.
+type: string
+maxLength: 50
+examples:
+  - "RF18539007547034"

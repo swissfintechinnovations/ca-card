@@ -1,0 +1,6 @@
+title: Cards list
+description: |
+  List of card identifiers owned by a person and accessible with the provided consent.
+type: array
+items:
+  $ref: ./CardId.yaml

@@ -1,4 +1,4 @@
-description: Preferred language of the cardholder for any communication.
+description: Preferred language of the cardholder for any communication (only selected ISO 639-1 two-letter codes are supported).
 type: string
 enum:
   - de

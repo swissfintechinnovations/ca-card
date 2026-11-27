@@ -1,0 +1,9 @@
+title: Person type
+description: |
+  Type of person entity. 'legalPerson' is used for business entities/companies.
+type: string
+enum:
+  - naturalPerson
+  - legalPerson
+examples:
+  - naturalPerson

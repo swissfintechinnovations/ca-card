@@ -1,0 +1,6 @@
+title: Card contracts list
+description: |
+  List of contract identifiers associated with a person and accessible with the provided consent.
+type: array
+items:
+  $ref: ./CardContractId.yaml

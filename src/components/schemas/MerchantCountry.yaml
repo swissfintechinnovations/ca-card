@@ -1,6 +1,3 @@
 title: Merchant country
 description: Country in which the merchant is located.
-type: string
-pattern: ^[A-Z]{3}$
-examples:
-  - CHE
+$ref: ./generic/Country.yaml

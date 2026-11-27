@@ -1,0 +1,4 @@
+title: Card account bundle id
+description: |
+  Technical reference to a card account bundle used to group multiple card accounts.
+$ref: ./generic/Id.yaml

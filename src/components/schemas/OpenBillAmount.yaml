@@ -1,0 +1,4 @@
+title: Open bill amount
+description: |
+  Sum of open bill amount from previous cycle (only for credit cards).
+$ref: ./generic/Amount.yaml

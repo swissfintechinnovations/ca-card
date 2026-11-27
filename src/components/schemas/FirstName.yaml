@@ -1,0 +1,8 @@
+title: First name
+description: |
+  First name of the person (only used for individuals).
+type: string
+maxLength: 100
+examples:
+  - 'John'
+  - 'Anna'

@@ -1,0 +1,6 @@
+in: path
+name: cardAccountBundleId
+description: Identifier (technical) for a card account bundle for which information is requested.
+required: true
+schema:
+  $ref: ../../schemas/CardAccountBundleId.yaml

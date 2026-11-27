@@ -1,11 +1,11 @@
 title: Transaction status
 description: |
   Status of the transaction; definition of enums:
-  - authorized: transaction was approved from the issuer to the merchant, but not yet cleared; includes reservations
-  - booked: transaction was cleared/settled and charged to the card account
+  - pending: transaction was approved from the issuer to the merchant, but not yet booked; includes reservations and authorizations
+  - booked: transaction was cleared and charged to the card account, transaction amounts are final in this status
 type: string
 enum:
-  - authorized
+  - pending
   - booked
 examples:
-  - authorized
+  - pending

@@ -1,0 +1,7 @@
+title: Account product name
+description: |
+  Commercial name of the card account product assigned by the issuer.
+type: string
+maxLength: 100
+examples:
+  - 'MC/VI Gold CHF'

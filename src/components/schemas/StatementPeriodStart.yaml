@@ -1,0 +1,4 @@
+title: Statement period start
+description: |
+  First calendar day for which transactions are included in the statement.
+$ref: ./generic/Date.yaml

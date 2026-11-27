@@ -1,0 +1,4 @@
+title: Closing balance
+description: |
+  Account balance at the end of the statement period.
+$ref: ./generic/Amount.yaml

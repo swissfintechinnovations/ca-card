@@ -1,0 +1,6 @@
+in: path
+name: cardAccountId
+description: Identifier (technical) for a card account for which information is requested.
+required: true
+schema:
+  $ref: ../../schemas/CardAccountId.yaml

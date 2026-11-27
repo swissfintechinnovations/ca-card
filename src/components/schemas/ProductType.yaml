@@ -1,5 +1,5 @@
 title: Product type
-description: Type of the card product.
+description: Type of the card / card account product.
 type: string
 enum:
   - credit

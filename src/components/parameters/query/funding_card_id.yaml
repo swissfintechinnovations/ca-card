@@ -1,6 +1,6 @@
 in: query
 name: funding_card_id
-description: Reference to the card that is used to fund the transactions of the token.
+description: Filters resources to return only those related to the specified funding card id. Value has to be a technical identifier for the card.
 required: false
 schema:
   $ref: ../../schemas/FundingCardId.yaml

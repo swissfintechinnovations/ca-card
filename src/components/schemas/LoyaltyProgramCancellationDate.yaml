@@ -1,0 +1,4 @@
+title: Loyalty program cancellation date
+description: |
+  Date when the loyalty program associated with this account was cancelled.
+$ref: ./generic/Date.yaml
